@@ -1,0 +1,1 @@
+Toutes les heures de fermetures (pour le passage de navires ou pour cause de maintenance maintenance) sont renseignées dans cette application ! Vous pouvez aussi créer des alertes personnalisées pour recevoir des notifications lorsque le pont est fermé à la circulation

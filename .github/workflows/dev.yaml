@@ -1,0 +1,29 @@
+name: Dev workflow
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  flutter-test-analyze:
+    uses: ./.github/workflows/flutter.analyze-test.action.yaml
+    with:
+      flutter_version: '3.0.5'
+    secrets:
+      passphrase: ${{ secrets.PASSPHRASE }}
+  flutter-build:
+    needs: [flutter-test-analyze]
+    uses: ./.github/workflows/flutter.build.action.yaml
+    with:
+      flutter_version: '3.0.5'
+      android_output: 'aab'
+    secrets:
+      passphrase: ${{ secrets.PASSPHRASE }}
+  fastlane-dry-run:
+    needs: [ flutter-build ]
+    uses: ./.github/workflows/fastlane.action.yaml
+    with:
+      lane: 'dry_run'
+    secrets:
+      passphrase: ${{ secrets.PASSPHRASE }}
