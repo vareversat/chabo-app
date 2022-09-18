@@ -192,6 +192,7 @@ GEM
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
+    unf_ext (0.0.8.2)
     unf_ext (0.0.8.2-x64-mingw32)
     unicode-display_width (1.8.0)
     webrick (1.7.0)
@@ -210,9 +211,10 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
-  fastlane
+  fastlane (= 2.210.0)
 
 BUNDLED WITH
    2.3.15
