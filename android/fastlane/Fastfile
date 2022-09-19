@@ -1,3 +1,5 @@
+default_platform(:android)
+
 def root_path
   Dir.pwd.sub(/.*\Kfastlane/, '').sub(/.*\Kandroid/, '').sub(/.*\Kios/, '').sub(/.*\K\/\//, '')
 end
@@ -6,7 +8,7 @@ platform :android do
     desc "Upload to Play Store : Dry run"
     lane :dry_run do
         upload_to_play_store(
-            track: 'beta',
+            track: 'alpha',
             aab: "#{root_path}/app-release.aab",
             validate_only: 'true'
         )
