@@ -33,6 +33,7 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.all(0),
       itemBuilder: (BuildContext context, int index) {
         return index >= widget.chabanBridgeForecasts.length
             ? const BottomLoaderWidget()
