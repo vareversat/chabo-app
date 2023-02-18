@@ -19,12 +19,8 @@ class CargAboutDialog extends StatelessWidget {
 
   CargAboutDialog({Key? key}) : super(key: key);
 
-  void _launchURL(String url, BuildContext context) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url, mode: LaunchMode.externalApplication);
-    } else {
-      throw '${AppLocalizations.of(context)!.unableToOpen}$url';
-    }
+  void _launchURL(String url) async {
+    await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 
   @override
@@ -93,7 +89,7 @@ class CargAboutDialog extends StatelessWidget {
             ),
             ElevatedButton.icon(
                 key: const ValueKey('sourceCodeButton'),
-                onPressed: () => _launchURL(Const.githubLink, context),
+                onPressed: () => _launchURL(Const.githubLink),
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
@@ -175,7 +171,7 @@ class CargAboutDialog extends StatelessWidget {
                 )),
             ElevatedButton.icon(
                 key: const ValueKey('privacyButton'),
-                onPressed: () => _launchURL(Const.privacyInfoLink, context),
+                onPressed: () => _launchURL(Const.privacyInfoLink),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.blueAccent),

@@ -4,7 +4,6 @@ import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class ChabanBridgeStatusWidget extends StatelessWidget {
   final ChabanBridgeStatus bridgeStatus;
 
@@ -86,7 +85,6 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-
               const Icon(Icons.arrow_circle_down),
             ],
           ),

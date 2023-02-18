@@ -1,4 +1,3 @@
-
 class Const {
   /// App
   static const String appName = 'Chabo';
