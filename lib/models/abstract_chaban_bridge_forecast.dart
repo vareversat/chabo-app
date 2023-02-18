@@ -24,19 +24,22 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
       required this.color,
       required this.icon}) {
     _circulationClosingDate = circulationClosingDate;
-    _circulationReOpeningDate = circulationReOpeningDate;
 
-    duration = _circulationReOpeningDate.difference(_circulationClosingDate);
-    if (duration.isNegative) {
-      _circulationReOpeningDate =
-          _circulationReOpeningDate.add(const Duration(days: 1));
-      duration = _circulationReOpeningDate.difference(_circulationClosingDate);
+    var tmpCirculationReOpeningDate = circulationReOpeningDate;
+    var tmpDuration =
+        tmpCirculationReOpeningDate.difference(_circulationClosingDate);
+
+    if (tmpDuration.isNegative) {
+      tmpCirculationReOpeningDate =
+          tmpCirculationReOpeningDate.add(const Duration(days: 1));
+      tmpDuration =
+          tmpCirculationReOpeningDate.difference(_circulationClosingDate);
     }
+    _circulationReOpeningDate = tmpCirculationReOpeningDate;
+    duration = tmpDuration;
   }
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
-
-  Widget getInformationWidget(BuildContext context);
 
   set circulationReOpeningDate(DateTime value) {
     _circulationReOpeningDate = value;
@@ -47,6 +50,8 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   set circulationClosingDate(DateTime value) {
     _circulationClosingDate = value;
   }
+
+  Widget getInformationWidget(BuildContext context);
 
   String circulationClosingDateString(BuildContext context) {
     return "${MaterialLocalizations.of(context).formatMediumDate(circulationClosingDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationClosingDate)}";
