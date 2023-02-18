@@ -24,7 +24,15 @@
     "dialogInformationContentClosing_time": "closing time",
     "dialogInformationContentTime_of_crossing": "estimated time of crossing",
     "errorScreenContentError": "Error",
-    "errorScreenContentMessage": "Unable to fetch the next Chaban bridge forecast",
+    "errorScreenContentMessage": "An error occurred while opening this page. Please find technical information below",
     "errorScreenContentTechnical_Info": "Technical information",
-    "lisOfUpcomingClosures": "List of upcoming closures"
+    "lisOfUpcomingClosures": "List of upcoming closures",
+    "unableAppInfo": "Unable to get application information",
+    "unableToOpen": "Unable to open the web page",
+    "appDescription": "The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France",
+    "sourceCode": "Source code",
+    "changelog": "Changelog",
+    "privacyPolicy": "Privacy policy",
+    "informationAboutTheApp": "Information about the app",
+    "about": "About"
 }

@@ -24,7 +24,15 @@
     "dialogInformationContentClosing_time": "durée de fermeture",
     "dialogInformationContentTime_of_crossing": "heure de passage estimée",
     "errorScreenContentError": "Erreur",
-    "errorScreenContentMessage": "Impossible de récupérer les prochaines prévisions du pont Chaban",
+    "errorScreenContentMessage": "Une erreur est survenue lors de l'ouverture de cette page. Veuillez trouver les informations techniques ci-dessous",
     "errorScreenContentTechnical_Info": "Informations techniques",
-    "lisOfUpcomingClosures": "Liste des prochaines perturbations"
+    "lisOfUpcomingClosures": "Liste des prochaines perturbations",
+    "unableAppInfo": "Impossible d'obtenir les informations de l'application",
+    "unableToOpen": "Impossible d'ouvrir la page ",
+    "appDescription": "L'application Mobile pour connaître les horaires de fermeture et d'ouverture du pont Chaban Delmas situé à Bordeaux, France",
+    "sourceCode": "Code source",
+    "changelog": "Journal des modifications",
+    "privacyPolicy": "Politique de confidentialité",
+    "informationAboutTheApp": "Informations concernant l'application",
+    "about": "À propos"
 }

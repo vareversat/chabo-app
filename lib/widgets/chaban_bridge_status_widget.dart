@@ -1,3 +1,4 @@
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
               color: bridgeStatus.getBackgroundColor(),
               borderRadius: const BorderRadius.all(
                 Radius.circular(
-                  10,
+                  CustomProperties.borderRadius,
                 ),
               ),
             ),
