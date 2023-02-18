@@ -13,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.settingsTitle),
       ),
       body: const Center(
-        child: Text('test'),
+        child: Text('Work in progress...'),
       ),
     );
   }
