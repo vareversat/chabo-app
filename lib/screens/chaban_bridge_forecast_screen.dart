@@ -39,28 +39,34 @@ class ChabanBridgeForecastScreen extends StatelessWidget {
                   return const ErrorScreen(errorMessage: 'Empty return');
                 }
                 var bridgeStatus = ChabanBridgeStatus(
-                    lastChabanBridgeForecast:
+                    nextChabanBridgeForecast:
                         state.chabanBridgeForecasts.getNext(),
                     context: context);
                 return Container(
-                  color: bridgeStatus.getBackgroundColor(),
+                  color: Colors.black12,
                   child: Column(
                     children: [
                       Flexible(
-                          flex: 2,
-                          child: ChabanBridgeStatusWidget(
-                              bridgeStatus: bridgeStatus)),
+                        flex: 7,
+                        child: ChabanBridgeStatusWidget(
+                          bridgeStatus: bridgeStatus,
+                        ),
+                      ),
                       Flexible(
-                          flex: 3,
-                          child: ChabanBridgeForecastList(
-                              chabanBridgeForecasts:
-                                  state.chabanBridgeForecasts,
-                              hasReachedMax: state.hasReachedMax)),
+                        flex: 7,
+                        child: ChabanBridgeForecastList(
+                          chabanBridgeForecasts:
+                              state.chabanBridgeForecasts.getFollowings(),
+                          hasReachedMax: state.hasReachedMax,
+                        ),
+                      ),
                     ],
                   ),
                 );
               default:
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
             }
           },
         ),

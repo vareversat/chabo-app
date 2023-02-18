@@ -3,18 +3,18 @@ part of 'chaban_bridge_forecast_bloc.dart';
 enum ChabanBridgeForecastStatus { initial, success, failure }
 
 class ChabanBridgeForecastState extends Equatable {
+  final ChabanBridgeForecastStatus status;
+  final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
+  final bool hasReachedMax;
+  final int offset;
+  final String message;
+
   const ChabanBridgeForecastState(
       {this.status = ChabanBridgeForecastStatus.initial,
       this.chabanBridgeForecasts = const <AbstractChabanBridgeForecast>[],
       this.hasReachedMax = false,
       this.offset = 0,
       this.message = 'OK'});
-
-  final ChabanBridgeForecastStatus status;
-  final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
-  final bool hasReachedMax;
-  final int offset;
-  final String message;
 
   ChabanBridgeForecastState copyWith(
       {ChabanBridgeForecastStatus? status,

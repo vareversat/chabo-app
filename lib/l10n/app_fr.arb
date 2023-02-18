@@ -25,5 +25,6 @@
     "dialogInformationContentTime_of_crossing": "heure de passage estimée",
     "errorScreenContentError": "Erreur",
     "errorScreenContentMessage": "Impossible de récupérer les prochaines prévisions du pont Chaban",
-    "errorScreenContentTechnical_Info": "Informations techniques"
+    "errorScreenContentTechnical_Info": "Informations techniques",
+    "lisOfUpcomingClosures": "Liste des prochaines perturbations"
 }

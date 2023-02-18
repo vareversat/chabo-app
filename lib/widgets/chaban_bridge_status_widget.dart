@@ -1,5 +1,8 @@
 import 'package:chabo/models/chaban_bridge_status.dart';
+import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class ChabanBridgeStatusWidget extends StatelessWidget {
   final ChabanBridgeStatus bridgeStatus;
@@ -14,53 +17,76 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Wrap(
-            runSpacing: 3,
-            alignment: WrapAlignment.start,
-            children: [
-              Text(bridgeStatus.currentStatus,
-                  style: const TextStyle(fontSize: 30)),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    bridgeStatus.currentStatusShort,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: bridgeStatus.getBackgroundColor(),
-                    ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: bridgeStatus.getBackgroundColor(),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(
+                  10,
+                ),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  bridgeStatus.currentStatus,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
                   ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  bridgeStatus.currentStatusShort.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                bridgeStatus.nextStatusMessagePrefix,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                bridgeStatus.remainingTime,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
               ),
             ],
           ),
+          Flexible(
+            child: ChabanBridgeForecastListItem(
+              chabanBridgeForecast: bridgeStatus.nextChabanBridgeForecast,
+              index: -1,
+            ),
+          ),
           const SizedBox(height: 20),
-          Wrap(
-            runSpacing: 3,
-            alignment: WrapAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(bridgeStatus.nextStatusMessagePrefix,
-                  style: const TextStyle(fontSize: 30)),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    bridgeStatus.remainingTime,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: bridgeStatus.getBackgroundColor(),
-                    ),
-                  ),
+              Text(
+                AppLocalizations.of(context)!.lisOfUpcomingClosures,
+                style: const TextStyle(
+                  fontSize: 20,
                 ),
               ),
+
+              const Icon(Icons.arrow_circle_down),
             ],
           ),
         ],

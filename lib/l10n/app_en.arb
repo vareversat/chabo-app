@@ -25,5 +25,6 @@
     "dialogInformationContentTime_of_crossing": "estimated time of crossing",
     "errorScreenContentError": "Error",
     "errorScreenContentMessage": "Unable to fetch the next Chaban bridge forecast",
-    "errorScreenContentTechnical_Info": "Technical information"
+    "errorScreenContentTechnical_Info": "Technical information",
+    "lisOfUpcomingClosures": "List of upcoming closures"
 }

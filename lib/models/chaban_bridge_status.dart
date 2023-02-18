@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ChabanBridgeStatus {
-  final AbstractChabanBridgeForecast lastChabanBridgeForecast;
+  final AbstractChabanBridgeForecast nextChabanBridgeForecast;
   final DateTime now = DateTime.now();
   late String currentStatus;
   late String currentStatusShort;
@@ -15,10 +15,10 @@ class ChabanBridgeStatus {
   late bool isOpen;
 
   ChabanBridgeStatus(
-      {required this.lastChabanBridgeForecast, required BuildContext context}) {
-    if (lastChabanBridgeForecast.isCurrentlyClosed()) {
+      {required this.nextChabanBridgeForecast, required BuildContext context}) {
+    if (nextChabanBridgeForecast.isCurrentlyClosed()) {
       differenceStartingPoint =
-          lastChabanBridgeForecast.circulationReOpeningDate.difference(now);
+          nextChabanBridgeForecast.circulationReOpeningDate.difference(now);
       nextStatusMessagePrefix =
           AppLocalizations.of(context)!.scheduledToOpen.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.closed;
@@ -26,20 +26,20 @@ class ChabanBridgeStatus {
           "${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}";
     } else {
       differenceStartingPoint =
-          lastChabanBridgeForecast.circulationClosingDate.difference(now);
+          nextChabanBridgeForecast.circulationClosingDate.difference(now);
       nextStatusMessagePrefix =
           AppLocalizations.of(context)!.nextClosingScheduled.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.open;
     }
-    nextStatusMessagePrefix += ' :';
+    nextStatusMessagePrefix += ' : ';
     remainingTime = _formatRemainingTime(
         differenceStartingPoint.inDays,
         differenceStartingPoint.inHours.remainder(24),
         differenceStartingPoint.inMinutes.remainder(60),
         context);
     currentStatus =
-        "${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently}";
-    isOpen = !lastChabanBridgeForecast.isCurrentlyClosed();
+        "${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} : ";
+    isOpen = !nextChabanBridgeForecast.isCurrentlyClosed();
   }
 
   String _formatRemainingTime(
