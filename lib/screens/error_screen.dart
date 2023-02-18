@@ -23,13 +23,13 @@ class ErrorScreen extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
-                        ?.copyWith(color: Theme.of(context).errorColor),
+                        ?.copyWith(color: Theme.of(context).colorScheme.error),
                   ),
                   const SizedBox(height: 15),
                   Text(
                     AppLocalizations.of(context)!.errorScreenContentMessage,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],
               ),
