@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.17.0
   font_awesome_flutter: ^10.1.0
   google_fonts: ^4.0.0
+  file: ^6.1.4 # Prevent build errors (https://stackoverflow.com/questions/73561012/flutter-the-method-file-create-has-fewer-named-arguments-than-those-of-overrid)
   flutter:
     sdk: flutter
   flutter_localizations:
