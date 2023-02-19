@@ -25,8 +25,7 @@ class SettingsScreen extends StatelessWidget {
                   key: const ValueKey('themeDialog'),
                   title: Text(
                     AppLocalizations.of(context)!.themeSetting,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 25),
+                    style: const TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
                       AppLocalizations.of(context)!.themeSettingSubtitle,
@@ -51,8 +50,7 @@ class SettingsScreen extends StatelessWidget {
               key: const ValueKey('aboutButton'),
               title: Text(
                 AppLocalizations.of(context)!.about,
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor, fontSize: 25),
+                style: const TextStyle(fontSize: 25),
               ),
               subtitle: Text(
                 AppLocalizations.of(context)!.informationAboutTheApp,
