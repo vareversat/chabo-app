@@ -19,7 +19,6 @@ class App extends StatelessWidget {
     } else {
       return EnumToString.fromString(ThemeStateStatus.values, savedStatus)!;
     }
-
   }
 
   @override
@@ -40,7 +39,8 @@ class App extends StatelessWidget {
             create: (_) => ThemeBloc()
               ..add(
                 ThemeChanged(
-                  status: _getThemeInitialStatus(snapshot.data?.getString(Const.storageThemeKey)),
+                  status: _getThemeInitialStatus(
+                      snapshot.data?.getString(Const.storageThemeKey)),
                 ),
               ),
             child:
