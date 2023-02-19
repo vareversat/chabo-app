@@ -13,7 +13,7 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10,),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -49,13 +49,13 @@ class ChabanBridgeForecastScreen extends StatelessWidget {
                 return Column(
                   children: [
                     Flexible(
-                      flex: 7,
+                      flex: 9,
                       child: ChabanBridgeStatusWidget(
                         bridgeStatus: bridgeStatus,
                       ),
                     ),
                     Flexible(
-                      flex: 5,
+                      flex: 7,
                       child: ChabanBridgeForecastList(
                         chabanBridgeForecasts:
                             state.chabanBridgeForecasts.getFollowings(),

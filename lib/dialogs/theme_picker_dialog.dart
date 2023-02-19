@@ -26,7 +26,7 @@ class ThemePickerDialog extends StatelessWidget {
                       width: 10,
                     ),
                     AnimatedRotation(
-                      duration: const Duration(seconds: 1),
+                      duration: const Duration(milliseconds: 700),
                       curve: Curves.easeOut,
                       turns: state.status == ThemeStateStatus.bright ? 1 : 0,
                       child: Icon(
@@ -58,7 +58,7 @@ class ThemePickerDialog extends StatelessWidget {
                       width: 10,
                     ),
                     AnimatedRotation(
-                      duration: const Duration(seconds: 1),
+                      duration: const Duration(milliseconds: 700),
                       curve: Curves.easeOut,
                       turns: state.status == ThemeStateStatus.bright ? 0 : 1,
                       child: Icon(
