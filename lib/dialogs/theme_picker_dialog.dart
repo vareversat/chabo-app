@@ -25,9 +25,14 @@ class ThemePickerDialog extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Icon(
-                      Icons.brightness_low,
-                      color: Colors.orange,
+                    AnimatedRotation(
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeOut,
+                      turns: state.status == ThemeStateStatus.bright ? 1 : 0,
+                      child: Icon(
+                        Icons.brightness_low,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -52,8 +57,15 @@ class ThemePickerDialog extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Icon(Icons.dark_mode_outlined,
-                        color: Colors.deepPurple),
+                    AnimatedRotation(
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeOut,
+                      turns: state.status == ThemeStateStatus.bright ? 0 : 1,
+                      child: Icon(
+                        Icons.dark_mode_outlined,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ],
                 ),
                 value: ThemeStateStatus.dark,
@@ -77,7 +89,9 @@ class ThemePickerDialog extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Icon(Icons.settings),
+                    const Icon(
+                      Icons.settings,
+                    ),
                   ],
                 ),
                 value: ThemeStateStatus.system,
@@ -85,7 +99,9 @@ class ThemePickerDialog extends StatelessWidget {
                 onChanged: (ThemeStateStatus? value) {
                   if (value != null) {
                     BlocProvider.of<ThemeBloc>(context).add(
-                      ThemeChanged(status: value),
+                      ThemeChanged(
+                        status: value,
+                      ),
                     );
                   }
                 },

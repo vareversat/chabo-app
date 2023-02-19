@@ -28,12 +28,19 @@ class SettingsScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                      AppLocalizations.of(context)!.themeSettingSubtitle,
-                      style: const TextStyle(fontSize: 15)),
+                    AppLocalizations.of(context)!.themeSettingSubtitle,
+                    style: const TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
                   selected: true,
-                  leading: Icon(
-                    state.getIconData(),
-                    size: 30,
+                  leading: AnimatedRotation(
+                    duration: const Duration(seconds: 1),
+                    turns: state.status == ThemeStateStatus.bright ? 0 : 1,
+                    child: Icon(
+                      state.getIconData(),
+                      size: 30,
+                    ),
                   ),
                   onTap: () async => await showDialog(
                     context: context,

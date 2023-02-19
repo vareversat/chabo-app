@@ -5,6 +5,7 @@ class AppThemes {
   static final brightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primarySwatch: Colors.blue,
+    useMaterial3: true,
     textTheme: GoogleFonts.josefinSansTextTheme(),
     colorScheme: const ColorScheme(
         brightness: Brightness.light,
@@ -23,6 +24,7 @@ class AppThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black45,
     primarySwatch: Colors.teal,
+    useMaterial3: true,
     textTheme: GoogleFonts.josefinSansTextTheme(),
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,

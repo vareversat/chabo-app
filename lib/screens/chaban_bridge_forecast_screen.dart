@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/const.dart';
 import 'package:chabo/extensions/extensions.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/screens/error_screen.dart';
@@ -15,6 +16,9 @@ class ChabanBridgeForecastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(Const.appName),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -42,26 +46,23 @@ class ChabanBridgeForecastScreen extends StatelessWidget {
                     nextChabanBridgeForecast:
                         state.chabanBridgeForecasts.getNext(),
                     context: context);
-                return Container(
-                  color: Colors.black12,
-                  child: Column(
-                    children: [
-                      Flexible(
-                        flex: 7,
-                        child: ChabanBridgeStatusWidget(
-                          bridgeStatus: bridgeStatus,
-                        ),
+                return Column(
+                  children: [
+                    Flexible(
+                      flex: 7,
+                      child: ChabanBridgeStatusWidget(
+                        bridgeStatus: bridgeStatus,
                       ),
-                      Flexible(
-                        flex: 7,
-                        child: ChabanBridgeForecastList(
-                          chabanBridgeForecasts:
-                              state.chabanBridgeForecasts.getFollowings(),
-                          hasReachedMax: state.hasReachedMax,
-                        ),
+                    ),
+                    Flexible(
+                      flex: 5,
+                      child: ChabanBridgeForecastList(
+                        chabanBridgeForecasts:
+                            state.chabanBridgeForecasts.getFollowings(),
+                        hasReachedMax: state.hasReachedMax,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               default:
                 return const Center(
