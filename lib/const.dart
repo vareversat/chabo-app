@@ -7,7 +7,7 @@ class Const {
   static const String appLogoPath = 'assets/images/chabo_icon.png';
 
   /// Link
-  static const String githubLink = 'https://github.com/vareversat/carg';
+  static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
   static const List<String> usefulLinks = [
     'https://www.instagram.com/_yuhliet_/',
