@@ -25,7 +25,7 @@ class ChangeLogScreen extends StatelessWidget {
             return Markdown(data: snapshot.data!);
           } else if (!snapshot.hasData) {
             return ErrorScreen(
-              errorMessage: snapshot.error!.toString(),
+              errorMessage: snapshot.error.toString(),
             );
           }
           return const Center(
