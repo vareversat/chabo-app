@@ -40,9 +40,11 @@ flutter:
     - assets/images/chabo_icon.png
 
 flutter_icons:
-  ios: true
   android: true
-  remove_alpha_ios: true
-  image_path_ios: assets/images/chabo_icon.png
-  image_path_android: assets/images/chabo_icon.png
+  ios: false
+  remove_alpha_ios: false
+  image_path: assets/images/chabo_icon.png
+  adaptive_icon_foreground: assets/images/chabo_icon.png
+  adaptive_icon_background: "#FFFFFF"
+
 

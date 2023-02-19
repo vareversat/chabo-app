@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:chabo/bloc/theme_bloc.dart';
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/dialogs/theme_picker_dialog.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +38,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   selected: true,
                   leading: AnimatedRotation(
-                    duration: const Duration(milliseconds: 700),
+                    duration: const Duration(
+                        milliseconds: CustomProperties.animationDurationMs),
                     turns: state.status == ThemeStateStatus.light ? 0 : 1,
                     child: Icon(
                       state.getIconData(),
@@ -47,7 +51,12 @@ class SettingsScreen extends StatelessWidget {
                     builder: (
                       BuildContext context,
                     ) {
-                      return const ThemePickerDialog();
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(
+                            sigmaX: CustomProperties.blurSigmaX,
+                            sigmaY: CustomProperties.blurSigmaY),
+                        child: const ThemePickerDialog(),
+                      );
                     },
                   ),
                 );
@@ -71,11 +80,17 @@ class SettingsScreen extends StatelessWidget {
                 size: 30,
               ),
               onTap: () async => await showGeneralDialog(
-                transitionDuration: const Duration(milliseconds: 300),
+                transitionDuration: const Duration(
+                    milliseconds: CustomProperties.animationDurationMs),
                 context: context,
                 pageBuilder: (BuildContext context, Animation<double> animation,
                     Animation<double> secondaryAnimation) {
-                  return ChaboAboutDialog();
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(
+                        sigmaX: CustomProperties.blurSigmaX,
+                        sigmaY: CustomProperties.blurSigmaY),
+                    child: ChaboAboutDialog(),
+                  );
                 },
               ),
             ),

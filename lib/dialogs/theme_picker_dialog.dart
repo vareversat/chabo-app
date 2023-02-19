@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/theme_bloc.dart';
+import 'package:chabo/custom_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,7 +27,8 @@ class ThemePickerDialog extends StatelessWidget {
                       width: 10,
                     ),
                     AnimatedRotation(
-                      duration: const Duration(milliseconds: 700),
+                      duration: const Duration(
+                          milliseconds: CustomProperties.animationDurationMs),
                       curve: Curves.easeOut,
                       turns: state.status == ThemeStateStatus.light ? 1 : 0,
                       child: Icon(
@@ -58,7 +60,8 @@ class ThemePickerDialog extends StatelessWidget {
                       width: 10,
                     ),
                     AnimatedRotation(
-                      duration: const Duration(milliseconds: 700),
+                      duration: const Duration(
+                          milliseconds: CustomProperties.animationDurationMs),
                       curve: Curves.easeOut,
                       turns: state.status == ThemeStateStatus.light ? 0 : 1,
                       child: Icon(

@@ -13,7 +13,6 @@ class AppThemes {
   static final darkTheme = ThemeData.dark(
     useMaterial3: true,
   ).copyWith(
-    scaffoldBackgroundColor: Colors.black45,
     textTheme: GoogleFonts.josefinSansTextTheme(
       ThemeData.dark().textTheme,
     ),

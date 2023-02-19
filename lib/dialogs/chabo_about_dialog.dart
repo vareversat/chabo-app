@@ -11,12 +11,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 class ChaboAboutDialog extends StatelessWidget {
   final String _legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
   final Widget _iconWidget = Padding(
-      padding: const EdgeInsets.all(5),
-      child: SizedBox(
-        height: 60,
-        width: 60,
-        child: Image.asset(Const.appLogoPath),
-      ));
+    padding: const EdgeInsets.all(5),
+    child: SizedBox(
+      height: 60,
+      width: 60,
+      child: Image.asset(Const.appLogoPath),
+    ),
+  );
 
   ChaboAboutDialog({Key? key}) : super(key: key);
 
@@ -43,7 +44,20 @@ class ChaboAboutDialog extends StatelessWidget {
           title: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              IconTheme(data: Theme.of(context).iconTheme, child: _iconWidget),
+              IconTheme(
+                data: Theme.of(context).iconTheme,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        CustomProperties.borderRadius,
+                      ),
+                    ),
+                  ),
+                  child: _iconWidget,
+                ),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -127,14 +141,14 @@ class ChaboAboutDialog extends StatelessWidget {
                 key: const ValueKey('sourceCodeButton'),
                 onPressed: () => _launchURL(Const.githubLink),
                 style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).cardColor),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                CustomProperties.borderRadius)))),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        CustomProperties.borderRadius,
+                      ),
+                    ),
+                  ),
+                ),
                 label: Text(AppLocalizations.of(context)!.sourceCode,
                     style: const TextStyle(fontSize: 18)),
                 icon: const Icon(
@@ -171,10 +185,6 @@ class ChaboAboutDialog extends StatelessWidget {
               ),
               ElevatedButton.icon(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).primaryColor),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).cardColor),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
