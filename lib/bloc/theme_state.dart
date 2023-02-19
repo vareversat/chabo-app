@@ -1,12 +1,12 @@
 part of 'theme_bloc.dart';
 
-enum ThemeStateStatus { bright, dark, system }
+enum ThemeStateStatus { light, dark, system }
 
 class ThemeState {
   final ThemeStateStatus status;
   final ThemeData themeData;
 
-  ThemeState({required this.themeData, this.status = ThemeStateStatus.bright});
+  ThemeState({required this.themeData, this.status = ThemeStateStatus.light});
 
   ThemeState copyWith({ThemeStateStatus? status, ThemeData? themeData}) {
     return ThemeState(
@@ -14,7 +14,7 @@ class ThemeState {
   }
 
   IconData getIconData() {
-    if (themeData == AppThemes.brightTheme) {
+    if (themeData == AppThemes.lightTheme) {
       return Icons.brightness_low;
     } else {
       return Icons.dark_mode_outlined;

@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                   selected: true,
                   leading: AnimatedRotation(
                     duration: const Duration(milliseconds: 700),
-                    turns: state.status == ThemeStateStatus.bright ? 0 : 1,
+                    turns: state.status == ThemeStateStatus.light ? 0 : 1,
                     child: Icon(
                       state.getIconData(),
                       size: 30,

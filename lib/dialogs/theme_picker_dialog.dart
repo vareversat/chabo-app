@@ -19,7 +19,7 @@ class ThemePickerDialog extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.brightTheme,
+                      AppLocalizations.of(context)!.lightTheme,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -28,7 +28,7 @@ class ThemePickerDialog extends StatelessWidget {
                     AnimatedRotation(
                       duration: const Duration(milliseconds: 700),
                       curve: Curves.easeOut,
-                      turns: state.status == ThemeStateStatus.bright ? 1 : 0,
+                      turns: state.status == ThemeStateStatus.light ? 1 : 0,
                       child: Icon(
                         Icons.brightness_low,
                         color: Theme.of(context).colorScheme.primary,
@@ -36,7 +36,7 @@ class ThemePickerDialog extends StatelessWidget {
                     ),
                   ],
                 ),
-                value: ThemeStateStatus.bright,
+                value: ThemeStateStatus.light,
                 groupValue: state.status,
                 onChanged: (ThemeStateStatus? value) {
                   if (value != null) {
@@ -60,7 +60,7 @@ class ThemePickerDialog extends StatelessWidget {
                     AnimatedRotation(
                       duration: const Duration(milliseconds: 700),
                       curve: Curves.easeOut,
-                      turns: state.status == ThemeStateStatus.bright ? 0 : 1,
+                      turns: state.status == ThemeStateStatus.light ? 0 : 1,
                       child: Icon(
                         Icons.dark_mode_outlined,
                         color: Theme.of(context).colorScheme.secondary,

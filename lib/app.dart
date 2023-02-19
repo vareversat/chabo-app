@@ -21,7 +21,7 @@ class App extends StatelessWidget {
         create: (_) => ThemeBloc()
           ..add(
             ThemeChanged(
-              status: ThemeStateStatus.bright,
+              status: ThemeStateStatus.light,
             ),
           ),
         child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {

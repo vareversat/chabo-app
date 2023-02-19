@@ -9,7 +9,7 @@ part 'theme_state.dart';
 part 'theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(ThemeState(themeData: AppThemes.brightTheme)) {
+  ThemeBloc() : super(ThemeState(themeData: AppThemes.lightTheme)) {
     on<ThemeChanged>(
       _onThemeChanged,
     );
@@ -17,11 +17,11 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   Future<void> _onThemeChanged(
       ThemeChanged event, Emitter<ThemeState> emit) async {
-    if (event.status == ThemeStateStatus.bright) {
+    if (event.status == ThemeStateStatus.light) {
       emit(
         state.copyWith(
-          status: ThemeStateStatus.bright,
-          themeData: AppThemes.brightTheme,
+          status: ThemeStateStatus.light,
+          themeData: AppThemes.lightTheme,
         ),
       );
     } else if (event.status == ThemeStateStatus.dark) {
@@ -38,7 +38,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       emit(
         state.copyWith(
           status: ThemeStateStatus.system,
-          themeData: isDarkMode ? AppThemes.darkTheme : AppThemes.brightTheme,
+          themeData: isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme,
         ),
       );
     }
