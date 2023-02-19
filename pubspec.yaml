@@ -19,6 +19,8 @@ dependencies:
   package_info_plus: ^3.0.3
   flutter_markdown: ^0.6.14
   google_fonts: ^4.0.0
+  shared_preferences: ^2.0.17
+  enum_to_string: ^2.0.1
   file: ^6.1.4 # Prevent build errors (https://stackoverflow.com/questions/73561012/flutter-the-method-file-create-has-fewer-named-arguments-than-those-of-overrid)
   flutter:
     sdk: flutter

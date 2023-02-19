@@ -14,4 +14,7 @@ class Const {
     'https://sedeplacer.bordeaux-metropole.fr/',
     'https://opendata.bordeaux-metropole.fr/'
   ];
+
+  /// Local storage
+  static const String storageThemeKey = 'THEME';
 }

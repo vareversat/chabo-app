@@ -54,7 +54,7 @@ class ThemePickerDialog extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.darkTheme,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold,),
                     ),
                     const SizedBox(
                       width: 10,
