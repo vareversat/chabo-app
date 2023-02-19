@@ -63,7 +63,7 @@ class ChabanBridgeForecastBloc
       if (state.status == ChabanBridgeForecastStatus.initial) {
         final chabanBridgeForecasts =
             await _fetchChabanBridgeForecasts(state.offset);
-        return emit(state.copyWith(
+        emit(state.copyWith(
             status: ChabanBridgeForecastStatus.success,
             chabanBridgeForecasts: chabanBridgeForecasts,
             hasReachedMax: false,

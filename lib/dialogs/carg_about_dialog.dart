@@ -83,44 +83,47 @@ class CargAboutDialog extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.circular(CustomProperties.borderRadius)),
-          content: ListBody(children: <Widget>[
-            Text(
-              '${AppLocalizations.of(context)!.appDescription}\n',
-              style: const TextStyle(fontSize: 18),
-            ),
-            Text(
-              AppLocalizations.of(context)!.disclaimer,
-              style: const TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Divider(
-                thickness: 2,
+          content: ListBody(
+            children: <Widget>[
+              Text(
+                '${AppLocalizations.of(context)!.appDescription}\n',
+                style: const TextStyle(fontSize: 18),
               ),
-            ),
-            Text(
-              "${AppLocalizations.of(context)!.usefulLinks}\n",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            RichText(
-              text: TextSpan(
-                children: Const.usefulLinks
-                    .map(
-                      (link) => TextSpan(
-                          text: " - $link\n",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.blue,
-                                  ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              _launchURL(link);
-                            }),
-                    )
-                    .toList(),
+              Text(
+                AppLocalizations.of(context)!.disclaimer,
+                style:
+                    const TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
               ),
-            ),
-            ElevatedButton.icon(
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Divider(
+                  thickness: 2,
+                ),
+              ),
+              Text(
+                "${AppLocalizations.of(context)!.usefulLinks}\n",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: Const.usefulLinks
+                      .map(
+                        (link) => TextSpan(
+                            text: " - $link\n",
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: Colors.blue,
+                                    ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                _launchURL(link);
+                              }),
+                      )
+                      .toList(),
+                ),
+              ),
+              ElevatedButton.icon(
                 key: const ValueKey('sourceCodeButton'),
                 onPressed: () => _launchURL(Const.githubLink),
                 style: ButtonStyle(
@@ -137,8 +140,9 @@ class CargAboutDialog extends StatelessWidget {
                 icon: const Icon(
                   FontAwesomeIcons.github,
                   size: 20,
-                )),
-            ElevatedButton.icon(
+                ),
+              ),
+              ElevatedButton.icon(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Theme.of(context).colorScheme.secondary),
@@ -153,18 +157,19 @@ class CargAboutDialog extends StatelessWidget {
                   ),
                 ),
                 onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChangeLogScreen(),
-                      ),
-                    ),
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChangeLogScreen(),
+                  ),
+                ),
                 label: Text(AppLocalizations.of(context)!.changelog,
                     style: const TextStyle(fontSize: 18)),
                 icon: const Icon(
                   FontAwesomeIcons.fileCode,
                   size: 20,
-                )),
-            ElevatedButton.icon(
+                ),
+              ),
+              ElevatedButton.icon(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Theme.of(context).primaryColor),
@@ -201,8 +206,9 @@ class CargAboutDialog extends StatelessWidget {
                 icon: const Icon(
                   FontAwesomeIcons.fileLines,
                   size: 20,
-                )),
-            ElevatedButton.icon(
+                ),
+              ),
+              ElevatedButton.icon(
                 key: const ValueKey('privacyButton'),
                 onPressed: () => _launchURL(Const.privacyInfoLink),
                 style: ButtonStyle(
@@ -218,13 +224,19 @@ class CargAboutDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                label: Text(AppLocalizations.of(context)!.privacyPolicy,
-                    style: const TextStyle(fontSize: 18)),
+                label: Text(
+                  AppLocalizations.of(context)!.privacyPolicy,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
                 icon: const Icon(
                   FontAwesomeIcons.userShield,
                   size: 20,
-                ))
-          ]),
+                ),
+              ),
+            ],
+          ),
           actions: <Widget>[
             ElevatedButton.icon(
               style: ButtonStyle(

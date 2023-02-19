@@ -35,5 +35,10 @@
     "informationAboutTheApp": "Informations concernant l'application",
     "about": "À propos",
     "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
-    "usefulLinks": "Liens utiles :"
+    "usefulLinks": "Liens utiles :",
+    "themeSetting": "Thème",
+    "themeSettingSubtitle": "Choisir le thème de l'application",
+    "brightTheme": "Thème clair",
+    "darkTheme": "Thème sombre",
+    "systemTheme": "Thème système"
 }
