@@ -1,6 +1,7 @@
 import 'package:chabo/const.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/screens/changelog_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -86,6 +87,38 @@ class CargAboutDialog extends StatelessWidget {
             Text(
               '${AppLocalizations.of(context)!.appDescription}\n',
               style: const TextStyle(fontSize: 18),
+            ),
+            Text(
+              AppLocalizations.of(context)!.disclaimer,
+              style: const TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Divider(
+                thickness: 2,
+              ),
+            ),
+            Text(
+              "${AppLocalizations.of(context)!.usefulLinks}\n",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            RichText(
+              text: TextSpan(
+                children: Const.usefulLinks
+                    .map(
+                      (link) => TextSpan(
+                          text: " - $link\n",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.blue,
+                                  ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launchURL(link);
+                            }),
+                    )
+                    .toList(),
+              ),
             ),
             ElevatedButton.icon(
                 key: const ValueKey('sourceCodeButton'),

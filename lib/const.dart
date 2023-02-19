@@ -9,4 +9,9 @@ class Const {
   /// Link
   static const String githubLink = 'https://github.com/vareversat/carg';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
+  static const List<String> usefulLinks = [
+    'https://www.instagram.com/_yuhliet_/',
+    'https://sedeplacer.bordeaux-metropole.fr/',
+    'https://opendata.bordeaux-metropole.fr/'
+  ];
 }
