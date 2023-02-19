@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class CargAboutDialog extends StatelessWidget {
+class ChaboAboutDialog extends StatelessWidget {
   final String _legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
   final Widget _iconWidget = Padding(
       padding: const EdgeInsets.all(5),
@@ -18,7 +18,7 @@ class CargAboutDialog extends StatelessWidget {
         child: Image.asset(Const.appLogoPath),
       ));
 
-  CargAboutDialog({Key? key}) : super(key: key);
+  ChaboAboutDialog({Key? key}) : super(key: key);
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);

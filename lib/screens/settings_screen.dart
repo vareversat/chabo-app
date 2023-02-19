@@ -1,5 +1,5 @@
 import 'package:chabo/bloc/theme_bloc.dart';
-import 'package:chabo/dialogs/carg_about_dialog.dart';
+import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/dialogs/theme_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                 context: context,
                 pageBuilder: (BuildContext context, Animation<double> animation,
                     Animation<double> secondaryAnimation) {
-                  return CargAboutDialog();
+                  return ChaboAboutDialog();
                 },
               ),
             ),
