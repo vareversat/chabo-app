@@ -2,15 +2,23 @@ import 'dart:ui';
 
 import 'package:chabo/bloc/theme_bloc.dart';
 import 'package:chabo/custom_properties.dart';
+import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/dialogs/theme_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() {
+    return _SettingsScreenState();
+  }
+}
+
+class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

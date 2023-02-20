@@ -1,8 +1,6 @@
 import 'package:chabo/bloc/theme_bloc.dart';
-import 'package:chabo/const.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
 import 'package:chabo/screens/error_screen.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,14 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
-
-  ThemeStateStatus _getThemeInitialStatus(String? savedStatus) {
-    if (savedStatus == null) {
-      return ThemeStateStatus.system;
-    } else {
-      return EnumToString.fromString(ThemeStateStatus.values, savedStatus)!;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +26,9 @@ class App extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
         if (snapshot.hasData) {
           return BlocProvider(
-            create: (_) => ThemeBloc()
+            create: (_) => ThemeBloc(localStorage: snapshot.requireData)
               ..add(
-                ThemeChanged(
-                  status: _getThemeInitialStatus(
-                      snapshot.data?.getString(Const.storageThemeKey)),
-                ),
+                AppStateChanged(),
               ),
             child:
                 BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {

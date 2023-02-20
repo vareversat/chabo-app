@@ -10,3 +10,7 @@ class ThemeChanged extends ThemeEvent {
 
   ThemeChanged({required this.status}) : super();
 }
+
+class AppStateChanged extends ThemeEvent {
+  AppStateChanged() : super();
+}

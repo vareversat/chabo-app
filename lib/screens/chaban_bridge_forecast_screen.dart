@@ -1,5 +1,6 @@
 import 'package:chabo/bloc/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/const.dart';
+import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/extensions/extensions.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/screens/error_screen.dart';
@@ -10,9 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-class ChabanBridgeForecastScreen extends StatelessWidget {
+class ChabanBridgeForecastScreen extends StatefulWidget {
   const ChabanBridgeForecastScreen({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() {
+    return _ChabanBridgeForecastScreenState();
+  }
+}
+
+class _ChabanBridgeForecastScreenState
+    extends CustomWidgetState<ChabanBridgeForecastScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

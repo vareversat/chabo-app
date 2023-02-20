@@ -12,15 +12,65 @@ part 'theme_state.dart';
 part 'theme_event.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(ThemeState(themeData: AppThemes.lightTheme)) {
+  final SharedPreferences localStorage;
+
+  ThemeBloc({required this.localStorage})
+      : super(ThemeState(themeData: AppThemes.lightTheme)) {
     on<ThemeChanged>(
       _onThemeChanged,
     );
+    on<AppStateChanged>(
+      _onAppStateChanged,
+    );
+  }
+
+  ThemeData _getCorrectThemeForSystem() {
+    var brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+    return isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme;
+  }
+
+  Future<void> _onAppStateChanged(
+      AppStateChanged event, Emitter<ThemeState> emit) async {
+    var savedStatus = localStorage.getString(Const.storageThemeKey);
+    if (savedStatus == null) {
+      emit(
+        state.copyWith(
+          status: ThemeStateStatus.system,
+          themeData: _getCorrectThemeForSystem(),
+        ),
+      );
+    } else {
+      var status =
+          EnumToString.fromString(ThemeStateStatus.values, savedStatus);
+      if (status == ThemeStateStatus.light) {
+        emit(
+          state.copyWith(
+            status: ThemeStateStatus.light,
+            themeData: AppThemes.lightTheme,
+          ),
+        );
+      } else if (status == ThemeStateStatus.dark) {
+        emit(
+          state.copyWith(
+            status: ThemeStateStatus.dark,
+            themeData: AppThemes.darkTheme,
+          ),
+        );
+      } else if (status == ThemeStateStatus.system) {
+        emit(
+          state.copyWith(
+            status: ThemeStateStatus.system,
+            themeData: _getCorrectThemeForSystem(),
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _onThemeChanged(
       ThemeChanged event, Emitter<ThemeState> emit) async {
-    var localStorage = await SharedPreferences.getInstance();
     localStorage.setString(
       Const.storageThemeKey,
       EnumToString.convertToString(event.status),
@@ -40,13 +90,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         ),
       );
     } else if (event.status == ThemeStateStatus.system) {
-      var brightness =
-          SchedulerBinding.instance.platformDispatcher.platformBrightness;
-      bool isDarkMode = brightness == Brightness.dark;
       emit(
         state.copyWith(
           status: ThemeStateStatus.system,
-          themeData: isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme,
+          themeData: _getCorrectThemeForSystem(),
         ),
       );
     }
