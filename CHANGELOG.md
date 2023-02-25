@@ -1,3 +1,14 @@
+# **v0.6.0** :
+
+- *Fix* :
+  - Theme was not updated when the application us resumed
+  - Fix the wrong Github URL
+- *UI* :
+  - Add dialog for notifications (WIP)
+  - Minors adjustments
+- *Playstore* :
+  - Add en-US Playstore page
+***
 # **v0.5.0** :
 
 - *Features* :
