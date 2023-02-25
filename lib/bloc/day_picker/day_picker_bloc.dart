@@ -1,5 +1,6 @@
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -37,6 +38,7 @@ class DayPickerBloc extends Bloc<DayPickerEvent, DayPickerState> {
 
   Future<void> _onSettingsChanged(
       DayPickerSettingChanged event, Emitter<DayPickerState> emit) async {
+    HapticFeedback.lightImpact();
     emit(
       state.copyWith(icon: event.isOpen ? Icons.close : Icons.edit),
     );

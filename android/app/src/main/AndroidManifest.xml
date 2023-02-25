@@ -2,6 +2,8 @@
     package="fr.vareversat.chabo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 
     <queries>
         <!-- If your app opens https URLs -->

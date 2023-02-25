@@ -1,5 +1,6 @@
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'duration_picker_event.dart';
@@ -27,6 +28,7 @@ class DurationPickerBloc
 
   Future<void> _onStateChanged(DurationPickerStateChanged event,
       Emitter<DurationPickerState> emit) async {
+    HapticFeedback.lightImpact();
     emit(
       state.copyWith(enabled: event.enabled),
     );

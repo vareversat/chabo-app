@@ -1,8 +1,10 @@
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'time_picker_event.dart';
+
 part 'time_picker_state.dart';
 
 class TimePickerBloc extends Bloc<TimePickerEvent, TimePickerState> {
@@ -25,6 +27,7 @@ class TimePickerBloc extends Bloc<TimePickerEvent, TimePickerState> {
 
   Future<void> _onStateChanged(
       TimePickerStateChanged event, Emitter<TimePickerState> emit) async {
+    HapticFeedback.lightImpact();
     emit(
       state.copyWith(enabled: event.enabled),
     );
