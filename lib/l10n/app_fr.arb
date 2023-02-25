@@ -1,44 +1,89 @@
 {
-    "at": "à",
-    "circulationClosing": "fermeture",
-    "circulationReOpening": "réouverture",
-    "closed": "fermé",
-    "daySmall": "j",
-    "goodAfternoon": "bonne après-midi",
-    "goodEvening": "bonsoir",
-    "goodMorning": "bonjour",
-    "nextClosingScheduled": "prochaine fermeture prévue dans",
-    "open": "ouvert",
-    "scheduledToOpen": "ouverture prévue dans",
-    "theBridgeIsCurrently": "le pont Chaban est actuellement",
-    "settingsTitle": "Paramètres",
-    "information": "Information",
-    "dialogInformationContentThe": "le ",
-    "dialogInformationContentThe2": "du ",
-    "dialogInformationContentFromStart": "de",
-    "dialogInformationContentFromEnd": "à",
-    "dialogInformationContentFromEnd2": "au",
-    "dialogInformationContentBridge_closed": "le pont Chaban sera fermé pour",
-    "dialogInformationContentBridge_closed_boat": "le passage du",
-    "dialogInformationContentBridge_closed_maintenance": "maintenance",
-    "dialogInformationContentClosing_time": "durée de fermeture",
-    "dialogInformationContentTime_of_crossing": "heure de passage estimée",
-    "errorScreenContentError": "Erreur",
-    "errorScreenContentMessage": "Une erreur est survenue lors de l'ouverture de cette page. Veuillez trouver les informations techniques ci-dessous",
-    "errorScreenContentTechnical_Info": "Informations techniques",
-    "lisOfUpcomingClosures": "Liste des prochaines perturbations",
-    "unableAppInfo": "Impossible d'obtenir les informations de l'application",
-    "appDescription": "L'application Mobile pour connaître les horaires de fermeture et d'ouverture du pont Chaban Delmas situé à Bordeaux, France",
-    "sourceCode": "Code source",
-    "changelog": "Journal des modifications",
-    "privacyPolicy": "Politique de confidentialité",
-    "informationAboutTheApp": "Informations concernant l'application",
-    "about": "À propos",
-    "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
-    "usefulLinks": "Liens utiles :",
-    "themeSetting": "Thème",
-    "themeSettingSubtitle": "Choisir le thème de l'application",
-    "lightTheme": "Thème clair",
-    "darkTheme": "Thème sombre",
-    "systemTheme": "Thème système"
+  "at": "à",
+  "circulationClosing": "fermeture",
+  "circulationReOpening": "réouverture",
+  "closed": "fermé",
+  "daySmall": "j",
+  "goodAfternoon": "bonne après-midi",
+  "goodEvening": "bonsoir",
+  "goodMorning": "bonjour",
+  "nextClosingScheduled": "prochaine fermeture prévue dans",
+  "open": "ouvert",
+  "scheduledToOpen": "ouverture prévue dans",
+  "theBridgeIsCurrently": "le pont Chaban est actuellement",
+  "settingsTitle": "Paramètres",
+  "information": "Information",
+  "dialogInformationContentThe": "le ",
+  "dialogInformationContentThe2": "du ",
+  "dialogInformationContentFromStart": "de",
+  "dialogInformationContentFromEnd": "à",
+  "dialogInformationContentFromEnd2": "au",
+  "dialogInformationContentBridge_closed": "le pont Chaban sera fermé pour",
+  "dialogInformationContentBridge_closed_boat": "le passage du",
+  "dialogInformationContentBridge_closed_maintenance": "maintenance",
+  "dialogInformationContentClosing_time": "durée de fermeture",
+  "dialogInformationContentTime_of_crossing": "heure de passage estimée",
+  "errorScreenContentError": "Erreur",
+  "errorScreenContentMessage": "Une erreur est survenue lors de l'ouverture de cette page. Veuillez trouver les informations techniques ci-dessous",
+  "errorScreenContentTechnical_Info": "Informations techniques",
+  "lisOfUpcomingClosures": "Liste des prochaines perturbations",
+  "unableAppInfo": "Impossible d'obtenir les informations de l'application",
+  "appDescription": "L'application Mobile pour connaître les horaires de fermeture et d'ouverture du pont Chaban Delmas situé à Bordeaux, France",
+  "sourceCode": "Code source",
+  "changelog": "Journal des modifications",
+  "privacyPolicy": "Politique de confidentialité",
+  "informationAboutTheApp": "Informations concernant l'application",
+  "about": "À propos",
+  "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
+  "usefulLinks": "Liens utiles :",
+  "themeSetting": "Thème",
+  "themeSettingSubtitle": "Choisir le thème de l'application",
+  "lightTheme": "Thème clair",
+  "darkTheme": "Thème sombre",
+  "systemTheme": "Thème système",
+  "notifications": "Notifications",
+  "notificationsSubtitle": "Gérer les notifications de l'application",
+  "durationNotificationTitle": "{duration} avant",
+  "@durationNotificationTitle": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "durationNotificationExplanation": "Recevoir une notification {duration} avant la prochaine fermeture",
+  "@durationNotificationExplanation": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timeNotificationTitle": "La veille à {time}",
+  "@timeNotificationTitle": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "timeNotificationExplanation": "Recevoir une notification la veille à {time} si une fermeture est prévue le lendemain",
+  "@timeNotificationExplanation": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "dayNotificationTitle": "Récap hebdo le {day}",
+  "@dayNotificationTitle": {
+    "placeholders": {
+      "day": {}
+    }
+  },
+  "dayNotificationExplanation": "Recevoir une notification le {day} listant toutes les fermetures prévues pour la semaine qui arrive",
+  "@dayNotificationExplanation": {
+    "placeholders": {
+      "day": {}
+    }
+  },
+  "monday": "Lundi",
+  "tuesday": "Mardi",
+  "wednesday": "Mercredi",
+  "thursday": "Jeudi",
+  "friday": "Vendredi",
+  "saturday": "Samedi",
+  "sunday": "Dimanche"
 }

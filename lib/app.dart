@@ -2,7 +2,6 @@ import 'package:chabo/bloc/theme_bloc.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,13 +12,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarColor: Colors.transparent,
-      ),
-    );
-
     return FutureBuilder<SharedPreferences>(
       future: SharedPreferences.getInstance(),
       builder:

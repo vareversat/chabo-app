@@ -17,4 +17,8 @@ class Const {
 
   /// Local storage
   static const String storageThemeKey = 'THEME';
+  static const String notificationPermissionKey = 'NOTIFICATION_PERMISSION';
+
+  /// Notifications
+  static const String androidAppLogoPath = '@drawable/ic_launcher_foreground';
 }

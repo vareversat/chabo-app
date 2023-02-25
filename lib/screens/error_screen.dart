@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ErrorScreen extends StatefulWidget {
   final String errorMessage;
+
   const ErrorScreen({Key? key, required this.errorMessage}) : super(key: key);
 
   @override

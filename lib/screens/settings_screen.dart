@@ -5,6 +5,7 @@ import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/dialogs/theme_picker_dialog.dart';
+import 'package:chabo/widgets/notification_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -70,6 +71,7 @@ class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
                 );
               },
             ),
+            NotificationTileWidget(),
             ListTile(
               key: const ValueKey('aboutButton'),
               title: Text(
@@ -87,16 +89,14 @@ class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
                 Icons.info_outline,
                 size: 30,
               ),
-              onTap: () async => await showGeneralDialog(
-                transitionDuration: const Duration(
-                    milliseconds: CustomProperties.animationDurationMs),
+              onTap: () async => await showDialog(
                 context: context,
-                pageBuilder: (BuildContext context, Animation<double> animation,
-                    Animation<double> secondaryAnimation) {
+                builder: (BuildContext context) {
                   return BackdropFilter(
                     filter: ImageFilter.blur(
-                        sigmaX: CustomProperties.blurSigmaX,
-                        sigmaY: CustomProperties.blurSigmaY),
+                      sigmaX: CustomProperties.blurSigmaX,
+                      sigmaY: CustomProperties.blurSigmaY,
+                    ),
                     child: ChaboAboutDialog(),
                   );
                 },

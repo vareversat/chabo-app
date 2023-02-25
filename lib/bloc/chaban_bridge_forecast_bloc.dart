@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/chaban_bridge_boat_forecast.dart';
 import 'package:chabo/models/chaban_bridge_maintenance_forecast.dart';
@@ -8,7 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 part 'chaban_bridge_forecast_event.dart';
 part 'chaban_bridge_forecast_state.dart';
@@ -24,7 +22,6 @@ class ChabanBridgeForecastBloc
       : super(const ChabanBridgeForecastState()) {
     on<ChabanBridgeForecastFetched>(
       _onChabanBridgeForecastFetched,
-      transformer: throttleDroppable(throttleDuration),
     );
   }
 
@@ -83,11 +80,5 @@ class ChabanBridgeForecastBloc
       emit(state.copyWith(
           status: ChabanBridgeForecastStatus.failure, message: _.toString()));
     }
-  }
-
-  EventTransformer<E> throttleDroppable<E>(Duration duration) {
-    return (events, mapper) {
-      return droppable<E>().call(events.throttle(duration), mapper);
-    };
   }
 }

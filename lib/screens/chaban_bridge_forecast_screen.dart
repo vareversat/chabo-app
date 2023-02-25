@@ -31,10 +31,11 @@ class _ChabanBridgeForecastScreenState
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SettingsScreen(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SettingsScreen(),
+            ),
+          );
         },
         heroTag: 'settingsButtonIcon',
         child: const Icon(Icons.settings),

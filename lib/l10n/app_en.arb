@@ -1,44 +1,89 @@
 {
-    "at": "at",
-    "circulationClosing": "closing",
-    "circulationReOpening": "re opening",
-    "closed": "closed",
-    "daySmall": "d",
-    "goodAfternoon": "good afternoon",
-    "goodEvening": "good evening",
-    "goodMorning": "good morning",
-    "nextClosingScheduled": "next closing scheduled in",
-    "open": "open",
-    "scheduledToOpen": "scheduled to open in",
-    "theBridgeIsCurrently": "the Chaban bridge is currently",
-    "settingsTitle": "Settings",
-    "information": "Information",
-    "dialogInformationContentThe": "",
-    "dialogInformationContentThe2": "from ",
-    "dialogInformationContentFromStart": "from",
-    "dialogInformationContentFromEnd": "to",
-    "dialogInformationContentFromEnd2": "to",
-    "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
-    "dialogInformationContentBridge_closed_boat": "the crossing of",
-    "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
-    "dialogInformationContentClosing_time": "closing time",
-    "dialogInformationContentTime_of_crossing": "estimated time of crossing",
-    "errorScreenContentError": "Error",
-    "errorScreenContentMessage": "An error occurred while opening this page. Please find technical information below",
-    "errorScreenContentTechnical_Info": "Technical information",
-    "lisOfUpcomingClosures": "List of upcoming closures",
-    "unableAppInfo": "Unable to get application information",
-    "appDescription": "The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France",
-    "sourceCode": "Source code",
-    "changelog": "Changelog",
-    "privacyPolicy": "Privacy policy",
-    "informationAboutTheApp": "Information about the app",
-    "about": "About",
-    "disclaimer": "Disclaimer: provisional closures. Subject to confirmation from the Harbor Master's Office.",
-    "usefulLinks": "Useful links:",
-    "themeSetting": "Theme",
-    "themeSettingSubtitle": "Set the theme of the app",
-    "lightTheme": "Light theme",
-    "darkTheme": "Dark theme",
-    "systemTheme": "System theme"
+  "at": "at",
+  "circulationClosing": "closing",
+  "circulationReOpening": "re opening",
+  "closed": "closed",
+  "daySmall": "d",
+  "goodAfternoon": "good afternoon",
+  "goodEvening": "good evening",
+  "goodMorning": "good morning",
+  "nextClosingScheduled": "next closing scheduled in",
+  "open": "open",
+  "scheduledToOpen": "scheduled to open in",
+  "theBridgeIsCurrently": "the Chaban bridge is currently",
+  "settingsTitle": "Settings",
+  "information": "Information",
+  "dialogInformationContentThe": "",
+  "dialogInformationContentThe2": "from ",
+  "dialogInformationContentFromStart": "from",
+  "dialogInformationContentFromEnd": "to",
+  "dialogInformationContentFromEnd2": "to",
+  "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
+  "dialogInformationContentBridge_closed_boat": "the crossing of",
+  "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
+  "dialogInformationContentClosing_time": "closing time",
+  "dialogInformationContentTime_of_crossing": "estimated time of crossing",
+  "errorScreenContentError": "Error",
+  "errorScreenContentMessage": "An error occurred while opening this page. Please find technical information below",
+  "errorScreenContentTechnical_Info": "Technical information",
+  "lisOfUpcomingClosures": "List of upcoming closures",
+  "unableAppInfo": "Unable to get application information",
+  "appDescription": "The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France",
+  "sourceCode": "Source code",
+  "changelog": "Changelog",
+  "privacyPolicy": "Privacy policy",
+  "informationAboutTheApp": "Information about the app",
+  "about": "About",
+  "disclaimer": "Disclaimer: provisional closures. Subject to confirmation from the Harbor Master's Office.",
+  "usefulLinks": "Useful links:",
+  "themeSetting": "Theme",
+  "themeSettingSubtitle": "Set the theme of the app",
+  "lightTheme": "Light theme",
+  "darkTheme": "Dark theme",
+  "systemTheme": "System theme",
+  "notifications": "Notifications",
+  "notificationsSubtitle": "Manage the notifications of the app",
+  "durationNotificationTitle": "{duration} before",
+  "@durationNotificationTitle": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "durationNotificationExplanation": "Receive a notification {duration} before the next closing",
+  "@durationNotificationExplanation": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "timeNotificationTitle": "The day before at {time}",
+  "@timeNotificationTitle": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "timeNotificationExplanation": "Receive a notification the day before at {time} if a closure is scheduled for the next day",
+  "@timeNotificationExplanation": {
+    "placeholders": {
+      "time": {}
+    }
+  },
+  "dayNotificationTitle": "Weekly recap on {day}",
+  "@dayNotificationTitle": {
+    "placeholders": {
+      "day": {}
+    }
+  },
+  "dayNotificationExplanation": "Receive a notification on {day} listing all planned closures for the coming week",
+  "@dayNotificationExplanation": {
+    "placeholders": {
+      "day": {}
+    }
+  },
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }
