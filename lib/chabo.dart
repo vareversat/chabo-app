@@ -60,7 +60,8 @@ class Chabo extends StatelessWidget {
         BlocProvider(
           create: (_) => ChabanBridgeForecastBloc(
             httpClient: http.Client(),
-            notificationService: NotificationService(storageService: storageService),
+            notificationService:
+                NotificationService(storageService: storageService),
           )..add(
               ChabanBridgeForecastFetched(),
             ),

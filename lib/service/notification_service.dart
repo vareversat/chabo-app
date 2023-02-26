@@ -1,10 +1,16 @@
 import 'dart:io';
 
 import 'package:chabo/const.dart';
+import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/service/storage_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  NotificationService();
+  final StorageService storageService;
+
+  NotificationService({required this.storageService});
 
   final FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
@@ -45,24 +51,34 @@ class NotificationService {
     return false;
   }
 
-  Future<void> showScheduledNotification() async {
-    // WIP
+  bool _areDurationNotificationsEnabled() {
+    return storageService.readBool(Const.notificationDurationEnabledKey) ??
+        Const.notificationDurationEnabledDefaultValue;
   }
 
-  Future<void> showNotification() async {
+  void computeScheduledNotifications(
+      AbstractChabanBridgeForecast chabanBridgeForecast) {
+    if (_areDurationNotificationsEnabled()) {}
+  }
+
+  Future<void> showScheduledNotification() async {
     if (await _requestPermissions()) {
+      tz.initializeTimeZones();
       const AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
               'next_closing_scheduled', 'Prochaine fermeture',
               ticker: 'ticker');
       const NotificationDetails notificationDetails =
           NotificationDetails(android: androidNotificationDetails);
-      await localNotifications.show(
+      await localNotifications.zonedSchedule(
           0,
-          'Pont Chaban Delmas',
-          'Nouvelle fermeture du pont prévue dsqfbgkhjqsddfghsqdgfhksdlfgjhsqdfgjhsqdfg',
+          'scheduled title',
+          'scheduled body',
+          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           notificationDetails,
-          payload: 'item x');
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime);
     }
   }
 }

@@ -72,7 +72,7 @@ class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
                 );
               },
             ),
-            NotificationTileWidget(),
+            const NotificationTileWidget(),
             ListTile(
               key: const ValueKey('aboutButton'),
               title: Text(

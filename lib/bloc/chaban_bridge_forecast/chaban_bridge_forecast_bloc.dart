@@ -1,14 +1,17 @@
 import 'dart:convert';
 
+import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/chaban_bridge_boat_forecast.dart';
 import 'package:chabo/models/chaban_bridge_maintenance_forecast.dart';
+import 'package:chabo/service/notification_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 part 'chaban_bridge_forecast_event.dart';
+
 part 'chaban_bridge_forecast_state.dart';
 
 const _chabanBridgeForecastLimit = 10;
@@ -17,8 +20,10 @@ const throttleDuration = Duration(milliseconds: 1000);
 class ChabanBridgeForecastBloc
     extends Bloc<ChabanBridgeForecastEvent, ChabanBridgeForecastState> {
   final http.Client httpClient;
+  final NotificationService notificationService;
 
-  ChabanBridgeForecastBloc({required this.httpClient})
+  ChabanBridgeForecastBloc(
+      {required this.notificationService, required this.httpClient})
       : super(const ChabanBridgeForecastState()) {
     on<ChabanBridgeForecastFetched>(
       _onChabanBridgeForecastFetched,
@@ -45,9 +50,12 @@ class ChabanBridgeForecastBloc
       return (body['records'] as List).map((dynamic json) {
         if (json['fields']['bateau'].toString().toLowerCase() ==
             "maintenance") {
-          return ChabanBridgeMaintenanceForecast.fromJSON(json);
+          final maintenanceForecast =
+              ChabanBridgeMaintenanceForecast.fromJSON(json);
+          return maintenanceForecast;
         }
-        return ChabanBridgeBoatForecast.fromJSON(json);
+        final boatForecast = ChabanBridgeBoatForecast.fromJSON(json);
+        return boatForecast;
       }).toList();
     }
     return [];
