@@ -1,7 +1,14 @@
+# **v0.6.5** :
+
+- *Fix* :
+  - Fix the vibration which were triggered by the bad event
+- *Features* :
+  - Notification settings are now persistent against app restart
+***
 # **v0.6.0** :
 
 - *Fix* :
-  - Theme was not updated when the application us resumed
+  - Theme was not updated when the application resumed
   - Fix the wrong Github URL
 - *UI* :
   - Add dialog for notifications (WIP)
