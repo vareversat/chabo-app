@@ -54,18 +54,18 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   Widget getInformationWidget(BuildContext context);
 
   String circulationClosingDateString(BuildContext context) {
-    return "${MaterialLocalizations.of(context).formatMediumDate(circulationClosingDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationClosingDate)}";
+    return '${MaterialLocalizations.of(context).formatMediumDate(circulationClosingDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationClosingDate)}';
   }
 
   String circulationReOpeningDateString(BuildContext context) {
-    return "${MaterialLocalizations.of(context).formatMediumDate(circulationReOpeningDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}";
+    return '${MaterialLocalizations.of(context).formatMediumDate(circulationReOpeningDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
   }
 
   String durationString() {
     if (duration.inMinutes.remainder(60) == 0) {
-      return "${duration.inHours}h";
+      return '${duration.inHours}h';
     } else {
-      return "${duration.inHours}h ${duration.inMinutes.remainder(60)}mins";
+      return '${duration.inHours}h ${duration.inMinutes.remainder(60)}mins';
     }
   }
 
@@ -76,7 +76,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {
-    if (stringValue == "oui") {
+    if (stringValue == 'oui') {
       return true;
     } else {
       return false;

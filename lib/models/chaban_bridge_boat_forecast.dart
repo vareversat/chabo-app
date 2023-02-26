@@ -30,12 +30,12 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     var apiTimezone =
         AbstractChabanBridgeForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, "fermeture_a_la_circulation", apiTimezone);
+        json, 'fermeture_a_la_circulation', apiTimezone);
     var reopeningDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, "re_ouverture_a_la_circulation", apiTimezone);
+        json, 're_ouverture_a_la_circulation', apiTimezone);
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
-                "totale"
+                'totale'
             ? ChabanBridgeForecastClosingType.complete
             : ChabanBridgeForecastClosingType.partial;
     var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
@@ -74,24 +74,24 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     var infoFromString =
         AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
     var infoToString =
-        " ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ";
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
     var infoToString2 =
-        " ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ";
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
     var circulationReOpeningDateString =
         DateFormat.jm(Localizations.localeOf(context).languageCode)
             .format(circulationReOpeningDate);
-    if (DateFormat("dd").format(circulationClosingDate) !=
-        DateFormat("dd").format(circulationReOpeningDate)) {
+    if (DateFormat('dd').format(circulationClosingDate) !=
+        DateFormat('dd').format(circulationReOpeningDate)) {
       scheduleString =
-          "${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(schedule)}";
+          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(schedule)}';
       infoFromString = AppLocalizations.of(context)!
           .dialogInformationContentThe2
           .capitalize();
       infoToString =
-          " ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ";
-      infoToString2 = ", ";
+          ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ';
+      infoToString2 = ', ';
       circulationReOpeningDateString =
-          "${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}";
+          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
     }
 
     return Text.rich(
@@ -116,15 +116,15 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
           ),
           TextSpan(
               text:
-                  ", ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} "),
+                  ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} '),
           TextSpan(
               text:
-                  "${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_boat} "),
+                  '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_boat} '),
           TextSpan(
             recognizer: TapGestureRecognizer()
               ..onTap = () => _launchURL(
-                  "https://www.vesselfinder.com/fr/vessels?name=$boatName&type=301"),
-            text: "$boatName\n\n",
+                  'https://www.vesselfinder.com/fr/vessels?name=$boatName&type=301'),
+            text: '$boatName\n\n',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: color,
@@ -132,15 +132,15 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
           ),
           TextSpan(
               text:
-                  "${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : "),
+                  '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
           TextSpan(
-            text: "${durationString()}\n\n",
+            text: '${durationString()}\n\n',
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.orange),
           ),
           TextSpan(
               text:
-                  "${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : "),
+                  '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : '),
           TextSpan(
             text: scheduleString,
             style: const TextStyle(

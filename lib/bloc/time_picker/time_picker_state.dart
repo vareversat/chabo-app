@@ -17,11 +17,11 @@ class TimePickerState {
 
   String getTof() {
     if (tod.hour > 0 && tod.minute == 0) {
-      return "${tod.hour.toString()}h";
+      return '${tod.hour.toString()}h';
     } else if (tod.hour == 0 && tod.minute > 0) {
-      return "${tod.minute.toString()}mins";
+      return '${tod.minute.toString()}mins';
     } else {
-      return "${tod.hour.toString()}h ${tod.minute.toString()}mins";
+      return '${tod.hour.toString()}h ${tod.minute.toString()}mins';
     }
   }
 }

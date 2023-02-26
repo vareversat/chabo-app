@@ -38,7 +38,7 @@ class ChabanBridgeForecastBloc
       <String, String>{
         'dataset': 'previsions_pont_chaban',
         'rows': '$_chabanBridgeForecastLimit',
-        'sort': "-date_passage",
+        'sort': '-date_passage',
         'start': '$offset',
         'timezone': 'Europe/Paris',
         'q': 'date_passage>=${DateFormat('yyyy-MM-dd').format(DateTime.now())}'
@@ -49,7 +49,7 @@ class ChabanBridgeForecastBloc
       final body = json.decode(response.body);
       return (body['records'] as List).map((dynamic json) {
         if (json['fields']['bateau'].toString().toLowerCase() ==
-            "maintenance") {
+            'maintenance') {
           final maintenanceForecast =
               ChabanBridgeMaintenanceForecast.fromJSON(json);
           return maintenanceForecast;

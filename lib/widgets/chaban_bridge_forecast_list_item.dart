@@ -38,7 +38,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                       sigmaY: CustomProperties.blurSigmaY),
                   child: InformationDialog(
                     chabanBridgeForecast: chabanBridgeForecast,
-                    heroTag: "forcast-$index",
+                    heroTag: 'forcast-$index',
                   ),
                 );
               },
@@ -47,7 +47,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
         },
         child: ListTile(
           leading: Hero(
-              tag: "forcast-$index",
+              tag: 'forcast-$index',
               child: Icon(chabanBridgeForecast.icon,
                   color: chabanBridgeForecast.color)),
           title: Row(
@@ -58,7 +58,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                     Icon(FontAwesomeIcons.bridgeCircleXmark, color: Colors.red),
               ),
               Text(chabanBridgeForecast.circulationClosingDateString(context)),
-              const Text("\n"),
+              const Text('\n'),
             ],
           ),
           subtitle: Row(

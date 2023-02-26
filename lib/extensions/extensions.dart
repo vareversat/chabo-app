@@ -5,7 +5,7 @@ extension StringExtension on String {
     if (isEmpty) {
       return this;
     } else {
-      return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+      return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
     }
   }
 }

@@ -23,7 +23,7 @@ class ChabanBridgeStatus {
           AppLocalizations.of(context)!.scheduledToOpen.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.closed;
       currentStatus =
-          "${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}";
+          '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}';
     } else {
       differenceStartingPoint =
           nextChabanBridgeForecast.circulationClosingDate.difference(now);
@@ -38,21 +38,21 @@ class ChabanBridgeStatus {
         differenceStartingPoint.inMinutes.remainder(60),
         context);
     currentStatus =
-        "${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} : ";
+        '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} : ';
     isOpen = !nextChabanBridgeForecast.isCurrentlyClosed();
   }
 
   String _formatRemainingTime(
       int days, int hours, int mins, BuildContext context) {
-    String minSuffix = mins > 1 ? "mins" : "min";
+    String minSuffix = mins > 1 ? 'mins' : 'min';
     if (days == 0) {
-      return "${hours}h $mins$minSuffix";
+      return '${hours}h $mins$minSuffix';
     } else if (hours == 0) {
-      return "$days${AppLocalizations.of(context)!.daySmall} $mins$minSuffix";
+      return '$days${AppLocalizations.of(context)!.daySmall} $mins$minSuffix';
     } else if (mins == 0) {
-      return "$days${AppLocalizations.of(context)!.daySmall} ${hours}h";
+      return '$days${AppLocalizations.of(context)!.daySmall} ${hours}h';
     } else {
-      return "$days${AppLocalizations.of(context)!.daySmall} ${hours}h $mins$minSuffix";
+      return '$days${AppLocalizations.of(context)!.daySmall} ${hours}h $mins$minSuffix';
     }
   }
 

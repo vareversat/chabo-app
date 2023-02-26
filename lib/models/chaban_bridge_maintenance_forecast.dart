@@ -26,12 +26,12 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     var apiTimezone =
         AbstractChabanBridgeForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, "fermeture_a_la_circulation", apiTimezone);
+        json, 'fermeture_a_la_circulation', apiTimezone);
     var reopeningDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, "re_ouverture_a_la_circulation", apiTimezone);
+        json, 're_ouverture_a_la_circulation', apiTimezone);
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
-                "totale"
+                'totale'
             ? ChabanBridgeForecastClosingType.complete
             : ChabanBridgeForecastClosingType.partial;
     var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
@@ -59,22 +59,22 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     var infoFromString =
         AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
     var infoToString =
-        " ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ";
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
     var infoToString2 =
-        " ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ";
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
     var circulationReOpeningDateString =
         DateFormat.jm(Localizations.localeOf(context).languageCode)
             .format(circulationReOpeningDate);
-    if (DateFormat("dd").format(circulationClosingDate) !=
-        DateFormat("dd").format(circulationReOpeningDate)) {
+    if (DateFormat('dd').format(circulationClosingDate) !=
+        DateFormat('dd').format(circulationReOpeningDate)) {
       infoFromString = AppLocalizations.of(context)!
           .dialogInformationContentThe2
           .capitalize();
       infoToString =
-          " ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ";
-      infoToString2 = ", ";
+          ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ';
+      infoToString2 = ', ';
       circulationReOpeningDateString =
-          "${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}";
+          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
     }
     return Text.rich(
       TextSpan(
@@ -98,15 +98,15 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
           ),
           TextSpan(
             text:
-                ", ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ",
+                ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
           ),
           TextSpan(
               text:
-                  "${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n",
+                  '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
               style: TextStyle(color: color, fontWeight: FontWeight.bold)),
           TextSpan(
             text:
-                "${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ",
+                '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
             text: durationString(),

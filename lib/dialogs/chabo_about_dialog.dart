@@ -115,7 +115,7 @@ class ChaboAboutDialog extends StatelessWidget {
                 ),
               ),
               Text(
-                "${AppLocalizations.of(context)!.usefulLinks}\n",
+                '${AppLocalizations.of(context)!.usefulLinks}\n',
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -124,7 +124,7 @@ class ChaboAboutDialog extends StatelessWidget {
                   children: Const.usefulLinks
                       .map(
                         (link) => TextSpan(
-                            text: " - $link\n",
+                            text: ' - $link\n',
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: Colors.blue,

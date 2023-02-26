@@ -17,10 +17,10 @@ class DurationPickerState {
 
   String getDuration() {
     if (duration.inMinutes % 60 == 0) {
-      return "${duration.inHours.toString()}h";
+      return '${duration.inHours.toString()}h';
     } else if (duration.inHours == 0) {
-      return "${duration.inMinutes.toString()}mins";
+      return '${duration.inMinutes.toString()}mins';
     }
-    return "${duration.inHours.toString()}h ${(duration.inMinutes % 60).toString()}mins";
+    return '${duration.inHours.toString()}h ${(duration.inMinutes % 60).toString()}mins';
   }
 }
