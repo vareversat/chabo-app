@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'day_picker_event.dart';
+
 part 'day_picker_state.dart';
 
 class DayPickerBloc extends Bloc<DayPickerEvent, DayPickerState> {
@@ -31,6 +32,7 @@ class DayPickerBloc extends Bloc<DayPickerEvent, DayPickerState> {
 
   Future<void> _onStateChanged(
       DayPickerStateChanged event, Emitter<DayPickerState> emit) async {
+    HapticFeedback.lightImpact();
     emit(
       state.copyWith(enabled: event.enabled),
     );
@@ -38,7 +40,6 @@ class DayPickerBloc extends Bloc<DayPickerEvent, DayPickerState> {
 
   Future<void> _onSettingsChanged(
       DayPickerSettingChanged event, Emitter<DayPickerState> emit) async {
-    HapticFeedback.lightImpact();
     emit(
       state.copyWith(icon: event.isOpen ? Icons.close : Icons.edit),
     );
