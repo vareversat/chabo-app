@@ -13,3 +13,7 @@ class DurationPickerStateChanged extends DurationPickerEvent {
 
   DurationPickerStateChanged({required this.enabled}) : super();
 }
+
+class DurationAppStateChanged extends DurationPickerEvent {
+  DurationAppStateChanged() : super();
+}

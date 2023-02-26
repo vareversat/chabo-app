@@ -1,19 +1,20 @@
 import 'package:chabo/app_theme.dart';
 import 'package:chabo/const.dart';
-import 'package:enum_to_string/enum_to_string.dart';
+import 'package:chabo/models/enums/theme_state_status.dart';
+import 'package:chabo/service/storage_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'theme_event.dart';
+
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  final SharedPreferences localStorage;
+  final StorageService storageService;
 
-  ThemeBloc({required this.localStorage})
+  ThemeBloc({required this.storageService})
       : super(ThemeState(themeData: AppThemes.lightTheme)) {
     on<ThemeChanged>(
       _onThemeChanged,
@@ -32,7 +33,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   Future<void> _onAppStateChanged(
       AppStateChanged event, Emitter<ThemeState> emit) async {
-    var savedStatus = localStorage.getString(Const.storageThemeKey);
+    var savedStatus = storageService.readTheme(Const.storageThemeKey);
     if (savedStatus == null) {
       emit(
         state.copyWith(
@@ -41,23 +42,21 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         ),
       );
     } else {
-      var status =
-          EnumToString.fromString(ThemeStateStatus.values, savedStatus);
-      if (status == ThemeStateStatus.light) {
+      if (savedStatus == ThemeStateStatus.light) {
         emit(
           state.copyWith(
             status: ThemeStateStatus.light,
             themeData: AppThemes.lightTheme,
           ),
         );
-      } else if (status == ThemeStateStatus.dark) {
+      } else if (savedStatus == ThemeStateStatus.dark) {
         emit(
           state.copyWith(
             status: ThemeStateStatus.dark,
             themeData: AppThemes.darkTheme,
           ),
         );
-      } else if (status == ThemeStateStatus.system) {
+      } else if (savedStatus == ThemeStateStatus.system) {
         emit(
           state.copyWith(
             status: ThemeStateStatus.system,
@@ -70,9 +69,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   Future<void> _onThemeChanged(
       ThemeChanged event, Emitter<ThemeState> emit) async {
-    localStorage.setString(
+    await storageService.saveTheme(
       Const.storageThemeKey,
-      EnumToString.convertToString(event.status),
+      event.status,
     );
     if (event.status == ThemeStateStatus.light) {
       emit(

@@ -1,5 +1,6 @@
 import 'package:chabo/bloc/day_picker/day_picker_bloc.dart';
 import 'package:chabo/custom_properties.dart';
+import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,7 +69,7 @@ class _DayNotificationSettingsWidgetState
       padding: const EdgeInsets.symmetric(horizontal: 5),
       showCheckmark: false,
       label: Text(
-        day.name(context),
+        day.localizedName(context),
         style: TextStyle(
             fontWeight: FontWeight.bold,
             color: isSelected
@@ -148,15 +149,9 @@ class _DayNotificationSettingsWidgetState
             sizeFactor: _settingsWidgetAnimation,
             child: Wrap(
               spacing: 5,
-              children: [
-                _buildChip(Day.monday, widget.state.day),
-                _buildChip(Day.tuesday, widget.state.day),
-                _buildChip(Day.wednesday, widget.state.day),
-                _buildChip(Day.thursday, widget.state.day),
-                _buildChip(Day.friday, widget.state.day),
-                _buildChip(Day.saturday, widget.state.day),
-                _buildChip(Day.sunday, widget.state.day),
-              ],
+              children: Day.values
+                  .map((day) => _buildChip(day, widget.state.day))
+                  .toList(),
             ),
           ),
         ),

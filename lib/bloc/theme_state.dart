@@ -1,7 +1,5 @@
 part of 'theme_bloc.dart';
 
-enum ThemeStateStatus { light, dark, system }
-
 class ThemeState {
   final ThemeStateStatus status;
   final ThemeData themeData;

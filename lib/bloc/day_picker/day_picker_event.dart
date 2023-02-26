@@ -19,3 +19,7 @@ class DayPickerStateChanged extends DayPickerEvent {
 
   DayPickerStateChanged({required this.enabled}) : super();
 }
+
+class DayAppStateChanged extends DayPickerEvent {
+  DayAppStateChanged() : super();
+}

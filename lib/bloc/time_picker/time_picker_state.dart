@@ -2,26 +2,26 @@ part of 'time_picker_bloc.dart';
 
 class TimePickerState {
   final bool enabled;
-  final TimeOfDay tof;
+  final TimeOfDay tod;
 
-  TimePickerState({required this.enabled, required this.tof});
+  TimePickerState({required this.enabled, required this.tod});
 
-  TimePickerState copyWith({TimeOfDay? tof, bool? enabled}) {
+  TimePickerState copyWith({TimeOfDay? tod, bool? enabled}) {
     return TimePickerState(
-        tof: tof ?? this.tof, enabled: enabled ?? this.enabled);
+        tod: tod ?? this.tod, enabled: enabled ?? this.enabled);
   }
 
   String getFormattedTof(BuildContext context) {
-    return tof.format(context);
+    return tod.format(context);
   }
 
   String getTof() {
-    if (tof.hour > 0 && tof.minute == 0) {
-      return "${tof.hour.toString()}h";
-    } else if (tof.hour == 0 && tof.minute > 0) {
-      return "${tof.minute.toString()}mins";
+    if (tod.hour > 0 && tod.minute == 0) {
+      return "${tod.hour.toString()}h";
+    } else if (tod.hour == 0 && tod.minute > 0) {
+      return "${tod.minute.toString()}mins";
     } else {
-      return "${tof.hour.toString()}h ${tof.minute.toString()}mins";
+      return "${tod.hour.toString()}h ${tod.minute.toString()}mins";
     }
   }
 }
