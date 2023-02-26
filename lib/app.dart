@@ -1,6 +1,6 @@
 import 'package:chabo/bloc/day_picker/day_picker_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
-import 'package:chabo/bloc/theme_bloc.dart';
+import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
 import 'package:chabo/service/storage_service.dart';

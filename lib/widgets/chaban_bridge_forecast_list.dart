@@ -1,4 +1,4 @@
-import 'package:chabo/bloc/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/bottom_loader_widget.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';

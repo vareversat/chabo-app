@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:chabo/bloc/theme_bloc.dart';
+import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';

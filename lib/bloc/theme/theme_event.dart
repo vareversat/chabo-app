@@ -1,9 +1,6 @@
 part of 'theme_bloc.dart';
 
-class ThemeEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+class ThemeEvent extends ChaboEvent {}
 
 class ThemeChanged extends ThemeEvent {
   final ThemeStateStatus status;

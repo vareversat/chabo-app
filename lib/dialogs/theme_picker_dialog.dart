@@ -1,4 +1,4 @@
-import 'package:chabo/bloc/theme_bloc.dart';
+import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
 import 'package:flutter/material.dart';

@@ -1,14 +1,13 @@
 import 'package:chabo/app_theme.dart';
+import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
 import 'package:chabo/service/storage_service.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'theme_event.dart';
-
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
