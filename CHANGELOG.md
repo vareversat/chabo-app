@@ -1,3 +1,8 @@
+# **v0.7.0** :
+
+- *Features* :
+  - Duration notification are now working. Still WIP
+***
 # **v0.6.5** :
 
 - *Fix* :
