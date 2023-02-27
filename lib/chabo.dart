@@ -71,7 +71,10 @@ class Chabo extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             theme: state.themeData,
-            home: const ChabanBridgeForecastScreen(),
+            home: ChabanBridgeForecastScreen(
+              notificationService:
+                  NotificationService(storageService: storageService),
+            ),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/service/storage_service.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -30,14 +33,14 @@ class NotificationService {
             _onDidReceiveBackgroundNotificationResponse);
   }
 
-  void _onDidReceiveBackgroundNotificationResponse(
+  static _onDidReceiveBackgroundNotificationResponse(
       NotificationResponse notificationResponse) {
-    //WIP
+    // WIP
   }
 
   void _onDidReceiveLocalNotification(
       NotificationResponse notificationResponse) {
-    //WIP
+    // WIP
   }
 
   Future<bool> _requestPermissions() async {
@@ -51,19 +54,51 @@ class NotificationService {
     return false;
   }
 
-  bool _areDurationNotificationsEnabled() {
-    return storageService.readBool(Const.notificationDurationEnabledKey) ??
-        Const.notificationDurationEnabledDefaultValue;
-  }
+  void computeDurationScheduledNotifications(
+      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
+      DurationPickerState durationPickerState,
+      BuildContext context) async {
+    await initializeNotifications();
+    tz.initializeTimeZones();
+    final AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(Const.notificationDurationChannelId,
+            AppLocalizations.of(context)!.notificationDurationChannelName,
+            importance: Importance.high,
+            priority: Priority.max,
+            fullScreenIntent: true,
+            ticker: Const.androidTicket);
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    if (durationPickerState.enabled && await _requestPermissions()) {
+      int index = 0;
+      for (final chabanBridgeForecast in chabanBridgeForecasts) {
+        final notificationScheduleTime = chabanBridgeForecast
+            .circulationClosingDate
+            .subtract(durationPickerState.duration);
 
-  void computeScheduledNotifications(
-      AbstractChabanBridgeForecast chabanBridgeForecast) {
-    if (_areDurationNotificationsEnabled()) {}
+        /// Prevent from creating notification in the past
+        if (notificationScheduleTime.isAfter(DateTime.now())) {
+          await localNotifications.zonedSchedule(
+              index,
+              AppLocalizations.of(context)!.notificationDurationTitle,
+              chabanBridgeForecast.getNotificationDurationMessage(
+                  context, durationPickerState),
+              tz.TZDateTime.from(
+                notificationScheduleTime,
+                tz.local,
+              ),
+              notificationDetails,
+              androidAllowWhileIdle: true,
+              uiLocalNotificationDateInterpretation:
+                  UILocalNotificationDateInterpretation.absoluteTime);
+          index += 1;
+        }
+      }
+    }
   }
 
   Future<void> showScheduledNotification() async {
     if (await _requestPermissions()) {
-      tz.initializeTimeZones();
       const AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
               'next_closing_scheduled', 'Prochaine fermeture',

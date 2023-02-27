@@ -1,3 +1,4 @@
+import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/extensions/extensions.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
@@ -148,6 +149,16 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  String getNotificationDurationMessage(
+      BuildContext context, DurationPickerState durationPickerState) {
+    return AppLocalizations.of(context)!.notificationDurationBoatMessage(
+      boatName,
+      durationPickerState.getDuration(),
+      durationString(),
     );
   }
 }

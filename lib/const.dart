@@ -43,4 +43,8 @@ class Const {
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
   static const bool notificationDayEnabledDefaultValue = false;
+
+  /// Android Notifications
+  static const String androidTicket = 'ticker';
+  static const String notificationDurationChannelId = 'imminent_closures';
 }
