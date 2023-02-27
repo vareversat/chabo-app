@@ -67,7 +67,8 @@ class _ChabanBridgeForecastScreenState
                             BlocProvider.of<ChabanBridgeForecastBloc>(context)
                                 .state
                                 .chabanBridgeForecasts,
-                            state, context);
+                            state,
+                            context);
                   })
                 ],
                 child: Column(
