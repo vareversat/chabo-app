@@ -1,6 +1,8 @@
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
+import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/service/storage_service.dart';
@@ -60,56 +62,93 @@ class NotificationService {
       BuildContext context) async {
     await initializeNotifications();
     tz.initializeTimeZones();
-    final AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(Const.notificationDurationChannelId,
-            AppLocalizations.of(context)!.notificationDurationChannelName,
-            importance: Importance.high,
-            priority: Priority.max,
-            fullScreenIntent: true,
-            ticker: Const.androidTicket);
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    if (durationPickerState.enabled && await _requestPermissions()) {
-      int index = 0;
+    NotificationDetails notificationDetails = _notificationDetails(
+        Const.notificationDurationChannelId,
+        AppLocalizations.of(context)!.notificationDurationChannelName);
+    if (durationPickerState.enabled) {
+      int index = Const.durationNotificationStartId;
       for (final chabanBridgeForecast in chabanBridgeForecasts) {
         final notificationScheduleTime = chabanBridgeForecast
             .circulationClosingDate
             .subtract(durationPickerState.duration);
-
-        /// Prevent from creating notification in the past
-        if (notificationScheduleTime.isAfter(DateTime.now())) {
-          await localNotifications.zonedSchedule(
-              index,
-              AppLocalizations.of(context)!.notificationDurationTitle,
-              chabanBridgeForecast.getNotificationDurationMessage(
-                  context, durationPickerState),
-              tz.TZDateTime.from(
-                notificationScheduleTime,
-                tz.local,
-              ),
-              notificationDetails,
-              androidAllowWhileIdle: true,
-              uiLocalNotificationDateInterpretation:
-                  UILocalNotificationDateInterpretation.absoluteTime);
-          index += 1;
-        }
+        await _scheduleNotification(
+            index,
+            AppLocalizations.of(context)!.notificationDurationTitle,
+            chabanBridgeForecast.getNotificationDurationMessage(
+                context, durationPickerState),
+            notificationScheduleTime,
+            notificationDetails);
+        index += 1;
       }
     }
   }
 
-  Future<void> showScheduledNotification() async {
-    if (await _requestPermissions()) {
-      const AndroidNotificationDetails androidNotificationDetails =
-          AndroidNotificationDetails(
-              'next_closing_scheduled', 'Prochaine fermeture',
-              ticker: 'ticker');
-      const NotificationDetails notificationDetails =
-          NotificationDetails(android: androidNotificationDetails);
-      await localNotifications.zonedSchedule(
-          0,
-          'scheduled title',
-          'scheduled body',
-          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+  void computeTimeScheduledNotifications(
+      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
+      TimePickerState timePickerState,
+      BuildContext context) async {
+    await initializeNotifications();
+    tz.initializeTimeZones();
+    NotificationDetails notificationDetails = _notificationDetails(
+        Const.notificationTimeChannelId,
+        AppLocalizations.of(context)!.notificationTimeChannelName);
+    if (timePickerState.enabled && await _requestPermissions()) {
+      int index = Const.timeNotificationStartId;
+      for (final chabanBridgeForecast in chabanBridgeForecasts) {
+        final notificationScheduleTime = chabanBridgeForecast
+            .circulationClosingDate
+            .subtract(
+              const Duration(
+                days: 1,
+              ),
+            )
+            .copyWith(
+                hour: timePickerState.time.inHours,
+                minute: timePickerState.time.inMinutes % 60);
+        await _scheduleNotification(
+            index,
+            AppLocalizations.of(context)!.notificationTimeTitle,
+            chabanBridgeForecast.getNotificationTimeMessage(
+                context, timePickerState),
+            notificationScheduleTime,
+            notificationDetails);
+        index += 1;
+      }
+    }
+  }
+
+  NotificationDetails _notificationDetails(
+      String notificationChannelId, String notificationChannelName) {
+    final AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(
+            notificationChannelId, notificationChannelName,
+            importance: Importance.high,
+            priority: Priority.max,
+            fullScreenIntent: true,
+            ticker: Const.androidTicket);
+    return NotificationDetails(android: androidNotificationDetails);
+  }
+
+  Future<void> _scheduleNotification(
+      int notificationId,
+      String notificationTitle,
+      String notificationMessage,
+      DateTime notificationScheduleTime,
+      NotificationDetails notificationDetails) async {
+    /// Prevent from creating notification in the past
+    if (notificationScheduleTime.isAfter(DateTime.now()) &&
+        await _requestPermissions()) {
+      developer.log(
+          'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',
+          name: 'notification-service.on.scheduleNotification');
+      return await localNotifications.zonedSchedule(
+          notificationId,
+          notificationTitle,
+          notificationMessage,
+          tz.TZDateTime.from(
+            notificationScheduleTime,
+            tz.local,
+          ),
           notificationDetails,
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:

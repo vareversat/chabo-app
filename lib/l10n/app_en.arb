@@ -102,5 +102,22 @@
       "duration": {}
     }
   },
-  "notificationDurationChannelName": "Imminent closures"
+  "notificationDurationChannelName": "Imminent closures",
+  "notificationTimeTitle": "Closing(s) scheduled for tomorrow",
+  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for the crossing of the {boat}. It will remains closed for {duration}",
+  "@notificationTimeBoatMessage": {
+    "placeholders": {
+      "boat": {},
+      "time": {},
+      "duration": {}
+    }
+  },
+  "notificationTimeMaintenanceMessage": "The Chaban Bridge will close tomorrow at {time} for maintenance. It will remains closed for {duration}",
+  "@notificationTimeMaintenanceMessage": {
+    "placeholders": {
+      "time": {},
+      "duration": {}
+    }
+  },
+  "notificationTimeChannelName": "Next day closings"
 }

@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
+import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
 import 'package:equatable/equatable.dart';
@@ -59,6 +60,9 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
 
   String getNotificationDurationMessage(
       BuildContext context, DurationPickerState durationPickerState);
+
+  String getNotificationTimeMessage(
+      BuildContext context, TimePickerState timePickerState);
 
   String circulationClosingDateString(BuildContext context) {
     return '${MaterialLocalizations.of(context).formatMediumDate(circulationClosingDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationClosingDate)}';

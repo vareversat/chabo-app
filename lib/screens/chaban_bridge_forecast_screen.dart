@@ -1,5 +1,6 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
+import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/extensions/extensions.dart';
@@ -64,6 +65,16 @@ class _ChabanBridgeForecastScreenState
                       listener: (context, state) {
                     widget.notificationService
                         .computeDurationScheduledNotifications(
+                            BlocProvider.of<ChabanBridgeForecastBloc>(context)
+                                .state
+                                .chabanBridgeForecasts,
+                            state,
+                            context);
+                  }),
+                  BlocListener<TimePickerBloc, TimePickerState>(
+                      listener: (context, state) {
+                    widget.notificationService
+                        .computeTimeScheduledNotifications(
                             BlocProvider.of<ChabanBridgeForecastBloc>(context)
                                 .state
                                 .chabanBridgeForecasts,

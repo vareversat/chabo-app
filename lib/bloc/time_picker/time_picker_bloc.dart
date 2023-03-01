@@ -12,7 +12,8 @@ class TimePickerBloc extends Bloc<TimePickerEvent, TimePickerState> {
   final StorageService storageService;
 
   TimePickerBloc({required this.storageService})
-      : super(TimePickerState(tod: TimeOfDay.now(), enabled: false)) {
+      : super(
+            TimePickerState(time: const Duration(hours: 20), enabled: false)) {
     on<TimePickerChanged>(
       _onTimePickerChanged,
     );
@@ -26,10 +27,10 @@ class TimePickerBloc extends Bloc<TimePickerEvent, TimePickerState> {
 
   Future<void> _onTimePickerChanged(
       TimePickerChanged event, Emitter<TimePickerState> emit) async {
-    await storageService.saveTimeOfDay(
-        Const.notificationTimeValueKey, event.tod);
+    await storageService.saveDuration(
+        Const.notificationTimeValueKey, event.time);
     emit(
-      state.copyWith(tod: event.tod),
+      state.copyWith(time: event.time),
     );
   }
 
@@ -45,14 +46,13 @@ class TimePickerBloc extends Bloc<TimePickerEvent, TimePickerState> {
 
   Future<void> _onAppStateChanged(
       TimeAppStateChanged event, Emitter<TimePickerState> emit) async {
-    final todValue =
-        storageService.readTimeOfDay(Const.notificationTimeValueKey) ??
-            Const.notificationTimeValueDefaultValue;
+    final time = storageService.readDuration(Const.notificationTimeValueKey) ??
+        Const.notificationTimeValueDefaultValue;
     final enabledValue =
         storageService.readBool(Const.notificationTimeEnabledKey) ??
             Const.notificationTimeEnabledDefaultValue;
     emit(
-      state.copyWith(enabled: enabledValue, tod: todValue),
+      state.copyWith(enabled: enabledValue, time: time),
     );
   }
 }

@@ -2,26 +2,25 @@ part of 'time_picker_bloc.dart';
 
 class TimePickerState {
   final bool enabled;
-  final TimeOfDay tod;
+  final Duration time;
 
-  TimePickerState({required this.enabled, required this.tod});
+  TimePickerState({required this.enabled, required this.time});
 
-  TimePickerState copyWith({TimeOfDay? tod, bool? enabled}) {
+  TimePickerState copyWith({Duration? time, bool? enabled}) {
     return TimePickerState(
-        tod: tod ?? this.tod, enabled: enabled ?? this.enabled);
+        time: time ?? this.time, enabled: enabled ?? this.enabled);
   }
 
-  String getFormattedTof(BuildContext context) {
-    return tod.format(context);
+  TimeOfDay toTimeOfDay() {
+    return TimeOfDay(hour: time.inHours, minute: time.inMinutes % 60);
   }
 
-  String getTof() {
-    if (tod.hour > 0 && tod.minute == 0) {
-      return '${tod.hour.toString()}h';
-    } else if (tod.hour == 0 && tod.minute > 0) {
-      return '${tod.minute.toString()}mins';
-    } else {
-      return '${tod.hour.toString()}h ${tod.minute.toString()}mins';
+  String getDuration() {
+    if (time.inMinutes % 60 == 0) {
+      return '${time.inHours.toString()}h';
+    } else if (time.inHours == 0) {
+      return '${time.inMinutes.toString()}mins';
     }
+    return '${time.inHours.toString()}h ${(time.inMinutes % 60).toString()}mins';
   }
 }

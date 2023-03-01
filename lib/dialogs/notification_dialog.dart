@@ -43,13 +43,10 @@ class NotificationDialog extends StatelessWidget {
                 return TimeNotificationSettingsWidget(
                   state: state,
                   enabled: state.enabled,
-                  title: AppLocalizations.of(context)!.timeNotificationTitle(
-                    state.getFormattedTof(context),
-                  ),
-                  subtitle:
-                      AppLocalizations.of(context)!.timeNotificationExplanation(
-                    state.getFormattedTof(context),
-                  ),
+                  title: AppLocalizations.of(context)!
+                      .timeNotificationTitle(state.getDuration()),
+                  subtitle: AppLocalizations.of(context)!
+                      .timeNotificationExplanation(state.getDuration()),
                 );
               },
             ),

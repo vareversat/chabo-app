@@ -1,5 +1,4 @@
 import 'package:chabo/models/enums/day.dart';
-import 'package:flutter/material.dart';
 
 class Const {
   /// App
@@ -38,8 +37,8 @@ class Const {
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
   static const bool notificationDurationEnabledDefaultValue = true;
-  static const TimeOfDay notificationTimeValueDefaultValue =
-      TimeOfDay(hour: 20, minute: 00);
+  static const Duration notificationTimeValueDefaultValue =
+      Duration(hours: 20, minutes: 00);
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
   static const bool notificationDayEnabledDefaultValue = false;
@@ -47,4 +46,10 @@ class Const {
   /// Android Notifications
   static const String androidTicket = 'ticker';
   static const String notificationDurationChannelId = 'imminent_closures';
+  static const String notificationTimeChannelId = 'tomorrow_closures';
+
+  /// Notification misc
+  static const int durationNotificationStartId = 0;
+  static const int timeNotificationStartId = 1000;
+  static const int dayNotificationStartId = 2000;
 }

@@ -3,9 +3,9 @@ part of 'time_picker_bloc.dart';
 class TimePickerEvent extends ChaboEvent {}
 
 class TimePickerChanged extends TimePickerEvent {
-  final TimeOfDay tod;
+  final Duration time;
 
-  TimePickerChanged({required this.tod}) : super();
+  TimePickerChanged({required this.time}) : super();
 }
 
 class TimePickerStateChanged extends TimePickerEvent {

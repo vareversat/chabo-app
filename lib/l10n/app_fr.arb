@@ -102,5 +102,22 @@
       "duration": {}
     }
   },
-  "notificationDurationChannelName": "Fermetures imminentes"
+  "notificationDurationChannelName": "Fermetures imminentes",
+  "notificationTimeTitle": "Fermeture(s) prévue(s) demain",
+  "notificationTimeBoatMessage": "Le pont Chaban fermera demain à {time} pour le passage du {boat}. Il restera fermé pendant {duration}",
+  "@notificationTimeBoatMessage": {
+    "placeholders": {
+      "boat": {},
+      "time": {},
+      "duration": {}
+    }
+  },
+  "notificationTimeMaintenanceMessage": "Le pont Chaban fermera demain à {time} pour maintenance. Il restera fermé pendant {duration}",
+  "@notificationTimeMaintenanceMessage": {
+    "placeholders": {
+      "time": {},
+      "duration": {}
+    }
+  },
+  "notificationTimeChannelName": "Fermetures du lendemain"
 }

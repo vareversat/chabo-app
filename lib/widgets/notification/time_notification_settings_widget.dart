@@ -24,7 +24,7 @@ class TimeNotificationSettingsWidget extends NotificationSettingsWidget {
     var time = await showTimePicker(
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
-      initialTime: state.tod,
+      initialTime: state.toTimeOfDay(),
       builder: (BuildContext context, Widget? child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
@@ -38,7 +38,10 @@ class TimeNotificationSettingsWidget extends NotificationSettingsWidget {
       // ignore: use_build_context_synchronously
       BlocProvider.of<TimePickerBloc>(context).add(
         TimePickerChanged(
-          tod: time,
+          time: Duration(
+            hours: time.hour,
+            minutes: time.minute,
+          ),
         ),
       );
     }
