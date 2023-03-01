@@ -1,3 +1,8 @@
+# **v0.8.0** :
+
+- *Features* :
+  - Time notification are now working. Still WIP
+***
 # **v0.7.0** :
 
 - *Features* :
