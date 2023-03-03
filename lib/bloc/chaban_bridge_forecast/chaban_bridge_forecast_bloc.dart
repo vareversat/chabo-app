@@ -4,7 +4,6 @@ import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/chaban_bridge_boat_forecast.dart';
 import 'package:chabo/models/chaban_bridge_maintenance_forecast.dart';
-import 'package:chabo/service/notification_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -20,10 +19,8 @@ const throttleDuration = Duration(milliseconds: 1000);
 class ChabanBridgeForecastBloc
     extends Bloc<ChabanBridgeForecastEvent, ChabanBridgeForecastState> {
   final http.Client httpClient;
-  final NotificationService notificationService;
 
-  ChabanBridgeForecastBloc(
-      {required this.notificationService, required this.httpClient})
+  ChabanBridgeForecastBloc({required this.httpClient})
       : super(const ChabanBridgeForecastState()) {
     on<ChabanBridgeForecastFetched>(
       _onChabanBridgeForecastFetched,

@@ -128,9 +128,10 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
                   'https://www.vesselfinder.com/fr/vessels?name=$boatName&type=301'),
             text: '$boatName\n\n',
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: color,
-                decoration: TextDecoration.underline),
+              fontWeight: FontWeight.bold,
+              color: color,
+              decoration: TextDecoration.underline,
+            ),
           ),
           TextSpan(
               text:

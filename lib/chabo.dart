@@ -1,6 +1,7 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/day_picker/day_picker_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
+import 'package:chabo/bloc/notification_service_cubit.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
@@ -14,10 +15,12 @@ import 'package:http/http.dart' as http;
 
 class Chabo extends StatelessWidget {
   final StorageService storageService;
+  final NotificationService notificationService;
 
   const Chabo({
     Key? key,
     required this.storageService,
+    required this.notificationService,
   }) : super(key: key);
 
   @override
@@ -56,12 +59,14 @@ class Chabo extends StatelessWidget {
             ),
         ),
 
+        /// Bloc intended to manage the Notifications service
+        BlocProvider(
+            create: (_) => NotificationServiceCubit(notificationService)),
+
         /// Bloc intended to manage the forecast displayed
         BlocProvider(
           create: (_) => ChabanBridgeForecastBloc(
             httpClient: http.Client(),
-            notificationService:
-                NotificationService(storageService: storageService),
           )..add(
               ChabanBridgeForecastFetched(),
             ),
@@ -71,10 +76,7 @@ class Chabo extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             theme: state.themeData,
-            home: ChabanBridgeForecastScreen(
-              notificationService:
-                  NotificationService(storageService: storageService),
-            ),
+            home: const ChabanBridgeForecastScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

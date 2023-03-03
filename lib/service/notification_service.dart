@@ -15,12 +15,16 @@ import 'package:timezone/timezone.dart' as tz;
 class NotificationService {
   final StorageService storageService;
 
-  NotificationService({required this.storageService});
-
-  final FlutterLocalNotificationsPlugin localNotifications =
+  static FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
 
-  Future<void> initializeNotifications() async {
+  NotificationService._({required this.storageService});
+
+  static Future<NotificationService> create(
+      {required StorageService storageService}) async {
+    var notificationService =
+        NotificationService._(storageService: storageService);
+
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings(Const.androidAppLogoPath);
 
@@ -29,10 +33,19 @@ class NotificationService {
       android: initializationSettingsAndroid,
     );
 
+    /// Initialize the notification plugin
     await localNotifications.initialize(initializationSettings,
         onDidReceiveNotificationResponse: _onDidReceiveLocalNotification,
         onDidReceiveBackgroundNotificationResponse:
             _onDidReceiveBackgroundNotificationResponse);
+    developer.log('Notification plugin initialized',
+        name: 'notification-service.on.ctor');
+
+    /// Wip out all existing notifications
+    await localNotifications.cancelAll();
+    developer.log('Previous existing notifications cleaned',
+        name: 'notification-service.on.ctor');
+    return notificationService;
   }
 
   static _onDidReceiveBackgroundNotificationResponse(
@@ -40,7 +53,7 @@ class NotificationService {
     // WIP
   }
 
-  void _onDidReceiveLocalNotification(
+  static _onDidReceiveLocalNotification(
       NotificationResponse notificationResponse) {
     // WIP
   }
@@ -60,7 +73,6 @@ class NotificationService {
       List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
       DurationPickerState durationPickerState,
       BuildContext context) async {
-    await initializeNotifications();
     tz.initializeTimeZones();
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationDurationChannelId,
@@ -87,7 +99,6 @@ class NotificationService {
       List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
       TimePickerState timePickerState,
       BuildContext context) async {
-    await initializeNotifications();
     tz.initializeTimeZones();
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationTimeChannelId,

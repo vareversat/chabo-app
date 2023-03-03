@@ -124,10 +124,11 @@ class ChaboAboutDialog extends StatelessWidget {
                   children: Const.usefulLinks
                       .map(
                         (link) => TextSpan(
-                            text: ' - $link\n',
+                            text: '$link\n',
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       color: Colors.blue,
+                                      decoration: TextDecoration.underline,
                                     ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
