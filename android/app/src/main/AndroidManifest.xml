@@ -17,6 +17,12 @@
         android:label="Chabo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+
+       <!-- Google Ads -->
+       <meta-data
+           android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-4365376442391282~1258247323"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -52,4 +52,8 @@ class Const {
   static const int durationNotificationStartId = 0;
   static const int timeNotificationStartId = 1000;
   static const int dayNotificationStartId = 2000;
+
+  /// AdMod
+  static const String androidInlineBanner =
+      'ca-app-pub-4365376442391282/2675286687';
 }
