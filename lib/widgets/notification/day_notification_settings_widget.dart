@@ -115,13 +115,7 @@ class _DayNotificationSettingsWidgetState
               children: [
                 Switch(
                   value: widget.state.enabled,
-                  onChanged: (bool value) {
-                    BlocProvider.of<DayPickerBloc>(context).add(
-                      DayPickerStateChanged(
-                        enabled: value,
-                      ),
-                    );
-                  },
+                  onChanged: null,
                 ),
                 IconButton(
                   onPressed: () => {_toggleSettingsContainer()},
