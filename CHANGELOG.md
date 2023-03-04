@@ -1,3 +1,13 @@
+# **v0.9.0** :
+
+- *UI* :
+  - Redesign of the main tiles
+  - Add emoji into the notifications
+- *Dev* :
+  - Use Cubit to manage the NotificationService
+- *Playstore* :
+  - Add en-GB Playstore page
+***
 # **v0.8.0** :
 
 - *Features* :
