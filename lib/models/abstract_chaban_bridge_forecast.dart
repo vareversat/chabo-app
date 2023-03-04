@@ -4,7 +4,6 @@ import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 abstract class AbstractChabanBridgeForecast extends Equatable {
@@ -42,6 +41,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   }
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
+
   DateTime get circulationReOpeningDateUTC => circulationClosingDate;
 
   set circulationReOpeningDate(DateTime value) {
@@ -65,11 +65,13 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
       BuildContext context, TimePickerState timePickerState);
 
   String circulationClosingDateString(BuildContext context) {
-    return '${MaterialLocalizations.of(context).formatMediumDate(circulationClosingDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationClosingDate)}';
+    return DateFormat.jm(Localizations.localeOf(context).languageCode)
+        .format(circulationClosingDate);
   }
 
   String circulationReOpeningDateString(BuildContext context) {
-    return '${MaterialLocalizations.of(context).formatMediumDate(circulationReOpeningDate)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
+    return DateFormat.jm(Localizations.localeOf(context).languageCode)
+        .format(circulationReOpeningDate);
   }
 
   String durationString() {

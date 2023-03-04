@@ -6,7 +6,6 @@ import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
@@ -21,7 +20,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
             closingReason: ChabanBridgeForecastClosingReason.maintenance,
             closingType: closingType,
             totalClosing: totalClosing,
-            icon: FontAwesomeIcons.wrench,
+            icon: Icons.construction_rounded,
             color: Colors.brown);
 
   factory ChabanBridgeMaintenanceForecast.fromJSON(Map<String, dynamic> json) {

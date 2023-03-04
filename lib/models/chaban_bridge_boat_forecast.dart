@@ -25,7 +25,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             closingReason: ChabanBridgeForecastClosingReason.boat,
             closingType: closingType,
             totalClosing: totalClosing,
-            icon: Icons.directions_boat_sharp,
+            icon: Icons.directions_boat_rounded,
             color: Colors.blue);
 
   factory ChabanBridgeBoatForecast.fromJSON(Map<String, dynamic> json) {

@@ -46,36 +46,88 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
           ),
         },
         child: ListTile(
+          horizontalTitleGap: 0,
           leading: Hero(
-              tag: 'forcast-$index',
-              child: Icon(chabanBridgeForecast.icon,
-                  color: chabanBridgeForecast.color)),
+            tag: 'forcast-$index',
+            child: Icon(
+              chabanBridgeForecast.icon,
+              color: chabanBridgeForecast.color,
+              size: 30,
+            ),
+          ),
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 10),
-                child:
-                    Icon(FontAwesomeIcons.bridgeCircleXmark, color: Colors.red),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(Icons.block_rounded,
+                            size: 20, color: Colors.red),
+                      ),
+                      Text(
+                        chabanBridgeForecast.circulationClosingDateString(
+                          context,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    MaterialLocalizations.of(context).formatMediumDate(
+                      chabanBridgeForecast.circulationClosingDate,
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )
+                ],
               ),
-              Text(chabanBridgeForecast.circulationClosingDateString(context)),
-              const Text('\n'),
-            ],
-          ),
-          subtitle: Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: Icon(FontAwesomeIcons.bridgeCircleCheck,
-                    color: Colors.green),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    chabanBridgeForecast.durationString(),
+                    style: const TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const Icon(
+                    FontAwesomeIcons.arrowRightLong,
+                    size: 20,
+                  ),
+                ],
               ),
-              Text(
-                  chabanBridgeForecast.circulationReOpeningDateString(context)),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(Icons.check_circle,
+                            size: 20, color: Colors.green),
+                      ),
+                      Text(
+                        chabanBridgeForecast.circulationReOpeningDateString(
+                          context,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    MaterialLocalizations.of(context).formatMediumDate(
+                      chabanBridgeForecast.circulationReOpeningDate,
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )
+                ],
+              ),
             ],
-          ),
-          trailing: Text(
-            chabanBridgeForecast.durationString(),
-            style: const TextStyle(
-                color: Colors.orange, fontWeight: FontWeight.bold),
           ),
         ),
       ),
