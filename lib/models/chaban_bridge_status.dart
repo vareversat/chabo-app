@@ -38,7 +38,7 @@ class ChabanBridgeStatus {
         differenceStartingPoint.inMinutes.remainder(60),
         context);
     currentStatus =
-        '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} : ';
+        '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently}';
     isOpen = !nextChabanBridgeForecast.isCurrentlyClosed();
   }
 
@@ -56,13 +56,23 @@ class ChabanBridgeStatus {
     }
   }
 
-  Color getBackgroundColor() {
+  Color getBackgroundColor(BuildContext context) {
     if (isOpen && differenceStartingPoint.inMinutes <= 120) {
-      return Colors.orange;
+      return Theme.of(context).colorScheme.tertiaryContainer;
     } else if (isOpen) {
-      return Colors.green;
+      return Theme.of(context).colorScheme.primaryContainer;
     } else {
-      return Colors.red;
+      return Theme.of(context).colorScheme.errorContainer;
+    }
+  }
+
+  Color getForegroundColor(BuildContext context) {
+    if (isOpen && differenceStartingPoint.inMinutes <= 120) {
+      return Theme.of(context).colorScheme.onTertiaryContainer;
+    } else if (isOpen) {
+      return Theme.of(context).colorScheme.onPrimaryContainer;
+    } else {
+      return Theme.of(context).colorScheme.onErrorContainer;
     }
   }
 

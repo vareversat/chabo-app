@@ -21,7 +21,7 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: bridgeStatus.getBackgroundColor(),
+              color: bridgeStatus.getBackgroundColor(context),
               borderRadius: const BorderRadius.all(
                 Radius.circular(
                   CustomProperties.borderRadius,
@@ -32,19 +32,11 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  bridgeStatus.currentStatus,
+                  '${bridgeStatus.currentStatus} ${bridgeStatus.currentStatusShort}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  bridgeStatus.currentStatusShort.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: bridgeStatus.getForegroundColor(context),
                   ),
                 ),
               ],

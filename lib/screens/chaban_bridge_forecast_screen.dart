@@ -91,7 +91,7 @@ class _ChabanBridgeForecastScreenState
                       ),
                     ),
                     Flexible(
-                      flex: 7,
+                      flex: 11,
                       child: ChabanBridgeForecastList(
                         chabanBridgeForecasts:
                             state.chabanBridgeForecasts.getFollowings(),
