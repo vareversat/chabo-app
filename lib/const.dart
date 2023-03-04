@@ -33,7 +33,8 @@ class Const {
       'NOTIFICATION_DAY_SETTINGS_VALUE';
 
   /// Notifications
-  static const String androidAppLogoPath = '@mipmap/ic_slice_launcher_adaptive_fore';
+  static const String androidAppLogoPath =
+      '@mipmap/ic_slice_launcher_adaptive_fore';
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
   static const bool notificationDurationEnabledDefaultValue = true;

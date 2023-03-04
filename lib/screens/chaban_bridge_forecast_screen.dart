@@ -98,7 +98,6 @@ class _ChabanBridgeForecastScreenState
                         hasReachedMax: state.hasReachedMax,
                       ),
                     ),
-
                   ],
                 ),
               );
