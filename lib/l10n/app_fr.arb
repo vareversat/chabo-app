@@ -86,8 +86,8 @@
   "friday": "Vendredi",
   "saturday": "Samedi",
   "sunday": "Dimanche",
-  "notificationDurationTitle": "Fermeture imminante !",
-  "notificationDurationBoatMessage": "Le pont Chaban fermera dans {timeLeft} pour le passage du {boat}. Il restera fermé pendant {duration}",
+  "notificationDurationTitle": "Fermeture imminante ⚠️",
+  "notificationDurationBoatMessage": "Le pont Chaban fermera dans {timeLeft} pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -95,7 +95,7 @@
       "duration": {}
     }
   },
-  "notificationDurationMaintenanceMessage": "Le pont Chaban fermera dans {timeLeft} pour maintenance. Il restera fermé pendant {duration}",
+  "notificationDurationMaintenanceMessage": "Le pont Chaban fermera dans {timeLeft} pour maintenance \uD83D\uDEE0. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationDurationMaintenanceMessage": {
     "placeholders": {
       "timeLeft": {},
@@ -103,8 +103,8 @@
     }
   },
   "notificationDurationChannelName": "Fermetures imminentes",
-  "notificationTimeTitle": "Fermeture(s) prévue(s) demain",
-  "notificationTimeBoatMessage": "Le pont Chaban fermera demain à {time} pour le passage du {boat}. Il restera fermé pendant {duration}",
+  "notificationTimeTitle": "\uD83D\uDDD3 Fermeture prévue pour demain",
+  "notificationTimeBoatMessage": "Le pont Chaban fermera demain à {time} pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -112,7 +112,7 @@
       "duration": {}
     }
   },
-  "notificationTimeMaintenanceMessage": "Le pont Chaban fermera demain à {time} pour maintenance. Il restera fermé pendant {duration}",
+  "notificationTimeMaintenanceMessage": "Le pont Chaban fermera demain à {time} pour maintenance \uD83D\uDEE0. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationTimeMaintenanceMessage": {
     "placeholders": {
       "time": {},

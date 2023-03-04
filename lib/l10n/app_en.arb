@@ -86,8 +86,8 @@
   "friday": "Friday",
   "saturday": "Saturday",
   "sunday": "Sunday",
-  "notificationDurationTitle": "Imminent closure !",
-  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for the crossing of the {boat}. It will remains closed for {duration}",
+  "notificationDurationTitle": "Imminent closure ⚠️",
+  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -95,7 +95,7 @@
       "duration": {}
     }
   },
-  "notificationDurationMaintenanceMessage": "The Chaban Bridge will close in {timeLeft} for maintenance. It will remains closed for {duration}",
+  "notificationDurationMaintenanceMessage": "The Chaban Bridge will close in {timeLeft} for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationDurationMaintenanceMessage": {
     "placeholders": {
       "timeLeft": {},
@@ -103,8 +103,8 @@
     }
   },
   "notificationDurationChannelName": "Imminent closures",
-  "notificationTimeTitle": "Closing(s) scheduled for tomorrow",
-  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for the crossing of the {boat}. It will remains closed for {duration}",
+  "notificationTimeTitle": "\uD83D\uDDD3 Closing scheduled for tomorrow",
+  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -112,7 +112,7 @@
       "duration": {}
     }
   },
-  "notificationTimeMaintenanceMessage": "The Chaban Bridge will close tomorrow at {time} for maintenance. It will remains closed for {duration}",
+  "notificationTimeMaintenanceMessage": "The Chaban Bridge will close tomorrow at {time} for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationTimeMaintenanceMessage": {
     "placeholders": {
       "time": {},
