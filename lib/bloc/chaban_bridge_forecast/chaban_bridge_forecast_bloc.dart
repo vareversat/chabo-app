@@ -7,13 +7,12 @@ import 'package:chabo/models/chaban_bridge_maintenance_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 part 'chaban_bridge_forecast_event.dart';
 
 part 'chaban_bridge_forecast_state.dart';
 
-const _chabanBridgeForecastLimit = 10;
+const _chabanBridgeForecastLimit = 10000;
 const throttleDuration = Duration(milliseconds: 1000);
 
 class ChabanBridgeForecastBloc
@@ -37,8 +36,7 @@ class ChabanBridgeForecastBloc
         'rows': '$_chabanBridgeForecastLimit',
         'sort': '-date_passage',
         'start': '$offset',
-        'timezone': 'Europe/Paris',
-        'q': 'date_passage>=${DateFormat('yyyy-MM-dd').format(DateTime.now())}'
+        'timezone': 'Europe/Paris'
       },
     );
     final response = await httpClient.get(uri);
@@ -58,6 +56,32 @@ class ChabanBridgeForecastBloc
     return [];
   }
 
+  AbstractChabanBridgeForecast _setCurrentStatus(
+      List<AbstractChabanBridgeForecast> chabanBridgeForecast) {
+    int middle = chabanBridgeForecast.length ~/ 2;
+    if ((chabanBridgeForecast[middle]
+            .circulationClosingDate
+            .isBefore(DateTime.now()) &&
+        chabanBridgeForecast[middle]
+            .circulationReOpeningDate
+            .isAfter(DateTime.now()))) {
+      return chabanBridgeForecast[middle];
+    }
+    if (chabanBridgeForecast.length == 2) {
+      return chabanBridgeForecast[0]
+              .circulationClosingDate
+              .isAfter(DateTime.now())
+          ? chabanBridgeForecast[0]
+          : chabanBridgeForecast[1];
+    } else if (chabanBridgeForecast[middle]
+        .circulationClosingDate
+        .isAfter(DateTime.now())) {
+      return _setCurrentStatus(chabanBridgeForecast.sublist(0, middle + 1));
+    } else {
+      return _setCurrentStatus(chabanBridgeForecast.sublist(middle));
+    }
+  }
+
   Future<void> _onChabanBridgeForecastFetched(ChabanBridgeForecastFetched event,
       Emitter<ChabanBridgeForecastState> emit) async {
     if (state.hasReachedMax) return;
@@ -68,6 +92,8 @@ class ChabanBridgeForecastBloc
         emit(state.copyWith(
             status: ChabanBridgeForecastStatus.success,
             chabanBridgeForecasts: chabanBridgeForecasts,
+            currentChabanBridgeForecast:
+                _setCurrentStatus(chabanBridgeForecasts),
             hasReachedMax: false,
             offset: state.offset + _chabanBridgeForecastLimit));
       }
@@ -76,6 +102,8 @@ class ChabanBridgeForecastBloc
       emit(chabanBridgeForecasts.isEmpty
           ? state.copyWith(hasReachedMax: true)
           : state.copyWith(
+              currentChabanBridgeForecast: state.currentChabanBridgeForecast ??
+                  _setCurrentStatus(chabanBridgeForecasts),
               status: ChabanBridgeForecastStatus.success,
               chabanBridgeForecasts: List.of(state.chabanBridgeForecasts)
                 ..addAll(chabanBridgeForecasts),

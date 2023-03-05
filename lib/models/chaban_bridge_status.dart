@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ChabanBridgeStatus {
-  final AbstractChabanBridgeForecast nextChabanBridgeForecast;
+  final AbstractChabanBridgeForecast currentChabanBridgeForecast;
   final DateTime now = DateTime.now();
   late String currentStatus;
   late String currentStatusShort;
@@ -15,10 +15,11 @@ class ChabanBridgeStatus {
   late bool isOpen;
 
   ChabanBridgeStatus(
-      {required this.nextChabanBridgeForecast, required BuildContext context}) {
-    if (nextChabanBridgeForecast.isCurrentlyClosed()) {
+      {required this.currentChabanBridgeForecast,
+      required BuildContext context}) {
+    if (currentChabanBridgeForecast.isCurrentlyClosed()) {
       differenceStartingPoint =
-          nextChabanBridgeForecast.circulationReOpeningDate.difference(now);
+          currentChabanBridgeForecast.circulationReOpeningDate.difference(now);
       nextStatusMessagePrefix =
           AppLocalizations.of(context)!.scheduledToOpen.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.closed;
@@ -26,7 +27,7 @@ class ChabanBridgeStatus {
           '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}';
     } else {
       differenceStartingPoint =
-          nextChabanBridgeForecast.circulationClosingDate.difference(now);
+          currentChabanBridgeForecast.circulationClosingDate.difference(now);
       nextStatusMessagePrefix =
           AppLocalizations.of(context)!.nextClosingScheduled.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.open;
@@ -39,7 +40,7 @@ class ChabanBridgeStatus {
         context);
     currentStatus =
         '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently}';
-    isOpen = !nextChabanBridgeForecast.isCurrentlyClosed();
+    isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
   }
 
   String _formatRemainingTime(

@@ -5,6 +5,7 @@ enum ChabanBridgeForecastStatus { initial, success, failure }
 class ChabanBridgeForecastState extends Equatable {
   final ChabanBridgeForecastStatus status;
   final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
+  final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final bool hasReachedMax;
   final int offset;
   final String message;
@@ -12,6 +13,7 @@ class ChabanBridgeForecastState extends Equatable {
   const ChabanBridgeForecastState(
       {this.status = ChabanBridgeForecastStatus.initial,
       this.chabanBridgeForecasts = const <AbstractChabanBridgeForecast>[],
+      this.currentChabanBridgeForecast,
       this.hasReachedMax = false,
       this.offset = 0,
       this.message = 'OK'});
@@ -19,6 +21,7 @@ class ChabanBridgeForecastState extends Equatable {
   ChabanBridgeForecastState copyWith(
       {ChabanBridgeForecastStatus? status,
       List<AbstractChabanBridgeForecast>? chabanBridgeForecasts,
+      AbstractChabanBridgeForecast? currentChabanBridgeForecast,
       bool? hasReachedMax,
       int? offset,
       String? message}) {
@@ -26,6 +29,8 @@ class ChabanBridgeForecastState extends Equatable {
         status: status ?? this.status,
         chabanBridgeForecasts:
             chabanBridgeForecasts ?? this.chabanBridgeForecasts,
+        currentChabanBridgeForecast:
+            currentChabanBridgeForecast ?? this.currentChabanBridgeForecast,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
         offset: offset ?? this.offset,
         message: message ?? this.message);
@@ -33,9 +38,10 @@ class ChabanBridgeForecastState extends Equatable {
 
   @override
   String toString() {
-    return '''ChabanBridgeForecastState { status: $status, offset: $offset, hasReachedMax: $hasReachedMax, chabanBridgeForecasts: ${chabanBridgeForecasts.length} }''';
+    return 'ChabanBridgeForecastState{status: $status, chabanBridgeForecasts: $chabanBridgeForecasts, currentChabanBridgeForecast: $currentChabanBridgeForecast, hasReachedMax: $hasReachedMax, offset: $offset, message: $message}';
   }
 
   @override
-  List<Object> get props => [status, chabanBridgeForecasts, hasReachedMax];
+  List<Object> get props =>
+      [status, chabanBridgeForecasts, hasReachedMax, offset, message];
 }

@@ -4,133 +4,179 @@ import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/information_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChabanBridgeForecastListItem extends StatelessWidget {
-  const ChabanBridgeForecastListItem(
-      {Key? key, required this.chabanBridgeForecast, required this.index})
-      : super(key: key);
-
   final AbstractChabanBridgeForecast chabanBridgeForecast;
+  final bool hasPassed;
+  final bool isCurrent;
   final int index;
+
+  const ChabanBridgeForecastListItem(
+      {Key? key,
+      required this.chabanBridgeForecast,
+      required this.index,
+      required this.hasPassed,
+      required this.isCurrent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).cardColor,
-      child: InkWell(
-        onTap: () => {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              opaque: false,
-              barrierDismissible: true,
-              pageBuilder: (BuildContext context, _, __) {
-                return BackdropFilter(
-                  filter: ImageFilter.blur(
-                      sigmaX: CustomProperties.blurSigmaX,
-                      sigmaY: CustomProperties.blurSigmaY),
-                  child: InformationDialog(
-                    chabanBridgeForecast: chabanBridgeForecast,
-                    heroTag: 'forcast-$index',
+    return Stack(
+      children: [
+        Card(
+          shape: isCurrent
+              ? RoundedRectangleBorder(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(
+                      12,
+                    ),
                   ),
-                );
-              },
+                  side: BorderSide(
+                    // border color
+                    color: Theme.of(context).colorScheme.tertiary,
+                    // border thickness
+                    width: 2,
+                  ),
+                )
+              : null,
+          child: InkWell(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                12,
+              ),
             ),
-          ),
-        },
-        child: ListTile(
-          horizontalTitleGap: 0,
-          leading: Hero(
-            tag: 'forcast-$index',
-            child: Icon(
-              chabanBridgeForecast.icon,
-              color: chabanBridgeForecast.color,
-              size: 30,
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
+            onTap: () => {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                  opaque: false,
+                  barrierDismissible: true,
+                  pageBuilder: (BuildContext context, _, __) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: CustomProperties.blurSigmaX,
+                          sigmaY: CustomProperties.blurSigmaY),
+                      child: InformationDialog(
+                        chabanBridgeForecast: chabanBridgeForecast,
+                        heroTag: 'forcast-$index',
+                      ),
+                    );
+                  },
+                ),
+              ),
+            },
+            child: ListTile(
+              horizontalTitleGap: 0,
+              leading: Hero(
+                tag: 'forcast-$index',
+                child: Icon(
+                  chabanBridgeForecast.icon,
+                  color: chabanBridgeForecast.color,
+                  size: 30,
+                ),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(Icons.block_rounded,
-                            size: 20, color: Colors.red),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(Icons.block_rounded,
+                                size: 20, color: Colors.red),
+                          ),
+                          Text(
+                            chabanBridgeForecast.circulationClosingDateString(
+                              context,
+                            ),
+                          ),
+                        ],
                       ),
                       Text(
-                        chabanBridgeForecast.circulationClosingDateString(
-                          context,
+                        MaterialLocalizations.of(context).formatMediumDate(
+                          chabanBridgeForecast.circulationClosingDate,
                         ),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        chabanBridgeForecast.durationString(),
+                        style: const TextStyle(
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const Icon(
+                        FontAwesomeIcons.arrowRightLong,
+                        size: 20,
                       ),
                     ],
                   ),
-                  Text(
-                    MaterialLocalizations.of(context).formatMediumDate(
-                      chabanBridgeForecast.circulationClosingDate,
-                    ),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  )
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    chabanBridgeForecast.durationString(),
-                    style: const TextStyle(
-                      color: Colors.orange,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  const Icon(
-                    FontAwesomeIcons.arrowRightLong,
-                    size: 20,
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(Icons.check_circle,
-                            size: 20, color: Colors.green),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(Icons.check_circle,
+                                size: 20, color: Colors.green),
+                          ),
+                          Text(
+                            chabanBridgeForecast.circulationReOpeningDateString(
+                              context,
+                            ),
+                          ),
+                        ],
                       ),
                       Text(
-                        chabanBridgeForecast.circulationReOpeningDateString(
-                          context,
+                        MaterialLocalizations.of(context).formatMediumDate(
+                          chabanBridgeForecast.circulationReOpeningDate,
                         ),
-                      ),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      )
                     ],
                   ),
-                  Text(
-                    MaterialLocalizations.of(context).formatMediumDate(
-                      chabanBridgeForecast.circulationReOpeningDate,
-                    ),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  )
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+        if (hasPassed)
+          Positioned.fill(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: CustomProperties.blurSigmaX,
+                    sigmaY: CustomProperties.blurSigmaY),
+                child: Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.passedClosure,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

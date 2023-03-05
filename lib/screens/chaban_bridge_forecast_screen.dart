@@ -4,7 +4,6 @@ import 'package:chabo/bloc/notification_service_cubit.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/custom_widgets_state.dart';
-import 'package:chabo/extensions/extensions.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:chabo/screens/settings_screen.dart';
@@ -52,8 +51,8 @@ class _ChabanBridgeForecastScreenState
                 return const ErrorScreen(errorMessage: 'Empty return');
               }
               var bridgeStatus = ChabanBridgeStatus(
-                  nextChabanBridgeForecast:
-                      state.chabanBridgeForecasts.getNext(),
+                  currentChabanBridgeForecast:
+                      state.currentChabanBridgeForecast!,
                   context: context);
               return MultiBlocListener(
                 listeners: [
@@ -93,8 +92,9 @@ class _ChabanBridgeForecastScreenState
                     Flexible(
                       flex: 11,
                       child: ChabanBridgeForecastList(
-                        chabanBridgeForecasts:
-                            state.chabanBridgeForecasts.getFollowings(),
+                        currentChabanBridgeForecast:
+                            state.currentChabanBridgeForecast,
+                        chabanBridgeForecasts: state.chabanBridgeForecasts,
                         hasReachedMax: state.hasReachedMax,
                       ),
                     ),

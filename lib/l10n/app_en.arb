@@ -119,5 +119,6 @@
       "duration": {}
     }
   },
-  "notificationTimeChannelName": "Next day closings"
+  "notificationTimeChannelName": "Next day closings",
+  "passedClosure": "Past closure"
 }

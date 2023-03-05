@@ -119,5 +119,6 @@
       "duration": {}
     }
   },
-  "notificationTimeChannelName": "Fermetures du lendemain"
+  "notificationTimeChannelName": "Fermetures du lendemain",
+  "passedClosure": "Fermeture passée"
 }

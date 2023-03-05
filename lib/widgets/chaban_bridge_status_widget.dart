@@ -42,7 +42,9 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(
+            height: 20,
+          ),
           Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -64,7 +66,9 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
           ),
           Flexible(
             child: ChabanBridgeForecastListItem(
-              chabanBridgeForecast: bridgeStatus.nextChabanBridgeForecast,
+              hasPassed: false,
+              isCurrent: true,
+              chabanBridgeForecast: bridgeStatus.currentChabanBridgeForecast,
               index: -1,
             ),
           ),

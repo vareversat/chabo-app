@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChabanBridgeForecastList extends StatefulWidget {
+  final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
   final bool hasReachedMax;
 
   const ChabanBridgeForecastList(
       {Key? key,
       required this.chabanBridgeForecasts,
-      required this.hasReachedMax})
+      required this.hasReachedMax,
+      required this.currentChabanBridgeForecast})
       : super(key: key);
 
   @override
@@ -38,6 +40,11 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
         return index >= widget.chabanBridgeForecasts.length
             ? const BottomLoaderWidget()
             : ChabanBridgeForecastListItem(
+                isCurrent: widget.chabanBridgeForecasts[index] ==
+                    widget.currentChabanBridgeForecast,
+                hasPassed: widget
+                    .chabanBridgeForecasts[index].circulationReOpeningDate
+                    .isBefore(DateTime.now()),
                 chabanBridgeForecast: widget.chabanBridgeForecasts[index],
                 index: index);
       },
