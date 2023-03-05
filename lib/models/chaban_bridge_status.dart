@@ -61,7 +61,7 @@ class ChabanBridgeStatus {
     if (isOpen && differenceStartingPoint.inMinutes <= 120) {
       return Theme.of(context).colorScheme.tertiaryContainer;
     } else if (isOpen) {
-      return Theme.of(context).colorScheme.primaryContainer;
+      return Colors.green;
     } else {
       return Theme.of(context).colorScheme.errorContainer;
     }
@@ -71,7 +71,7 @@ class ChabanBridgeStatus {
     if (isOpen && differenceStartingPoint.inMinutes <= 120) {
       return Theme.of(context).colorScheme.onTertiaryContainer;
     } else if (isOpen) {
-      return Theme.of(context).colorScheme.onPrimaryContainer;
+      return Theme.of(context).colorScheme.background;
     } else {
       return Theme.of(context).colorScheme.onErrorContainer;
     }
