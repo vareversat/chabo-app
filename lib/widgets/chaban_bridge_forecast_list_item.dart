@@ -86,74 +86,75 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(Icons.block_rounded,
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(Icons.block_rounded,
                                 size: 20, color: Colors.red),
-                          ),
-                          Text(
-                            chabanBridgeForecast.circulationClosingDateString(
-                              context,
+                            Text(
+                              chabanBridgeForecast.circulationClosingDateString(
+                                context,
+                              ),
                             ),
+                          ],
+                        ),
+                        Text(
+                          MaterialLocalizations.of(context).formatMediumDate(
+                            chabanBridgeForecast.circulationClosingDate,
                           ),
-                        ],
-                      ),
-                      Text(
-                        MaterialLocalizations.of(context).formatMediumDate(
-                          chabanBridgeForecast.circulationClosingDate,
-                        ),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )
-                    ],
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        )
+                      ],
+                    ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        chabanBridgeForecast.durationString(),
-                        style: const TextStyle(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          chabanBridgeForecast.durationString(),
+                          style: const TextStyle(
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
                         ),
-                      ),
-                      const Icon(
-                        FontAwesomeIcons.arrowRightLong,
-                        size: 20,
-                      ),
-                    ],
+                        const Icon(
+                          FontAwesomeIcons.arrowRightLong,
+                          size: 20,
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(Icons.check_circle,
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(Icons.check_circle,
                                 size: 20, color: Colors.green),
-                          ),
-                          Text(
-                            chabanBridgeForecast.circulationReOpeningDateString(
-                              context,
+                            Text(
+                              chabanBridgeForecast.circulationReOpeningDateString(
+                                context,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        MaterialLocalizations.of(context).formatMediumDate(
-                          chabanBridgeForecast.circulationReOpeningDate,
+                          ],
                         ),
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )
-                    ],
+                        Text(
+                          MaterialLocalizations.of(context).formatMediumDate(
+                            chabanBridgeForecast.circulationReOpeningDate,
+                          ),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
