@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChabanBridgeForecastListItem extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
+  final Function()? onTap;
   final bool hasPassed;
   final bool isCurrent;
   final int index;
@@ -18,7 +19,8 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
       required this.chabanBridgeForecast,
       required this.index,
       required this.hasPassed,
-      required this.isCurrent})
+      required this.isCurrent,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                   ),
                   side: BorderSide(
                     // border color
-                    color: Theme.of(context).colorScheme.tertiary,
+                    color: chabanBridgeForecast.color,
                     // border thickness
                     width: 2,
                   ),
@@ -47,32 +49,33 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                 12,
               ),
             ),
-            onTap: () => {
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                  opaque: false,
-                  barrierDismissible: true,
-                  pageBuilder: (BuildContext context, _, __) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(
-                          sigmaX: CustomProperties.blurSigmaX,
-                          sigmaY: CustomProperties.blurSigmaY),
-                      child: InformationDialog(
-                        chabanBridgeForecast: chabanBridgeForecast,
-                        heroTag: 'forcast-$index',
+            onTap: onTap ??
+                () => {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                          opaque: false,
+                          barrierDismissible: true,
+                          pageBuilder: (BuildContext context, _, __) {
+                            return BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: CustomProperties.blurSigmaX,
+                                  sigmaY: CustomProperties.blurSigmaY),
+                              child: InformationDialog(
+                                chabanBridgeForecast: chabanBridgeForecast,
+                                heroTag: 'forcast-$index',
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    );
-                  },
-                ),
-              ),
-            },
+                    },
             child: ListTile(
               horizontalTitleGap: 0,
               leading: Hero(
@@ -141,7 +144,8 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                             const Icon(Icons.check_circle,
                                 size: 20, color: Colors.green),
                             Text(
-                              chabanBridgeForecast.circulationReOpeningDateString(
+                              chabanBridgeForecast
+                                  .circulationReOpeningDateString(
                                 context,
                               ),
                             ),

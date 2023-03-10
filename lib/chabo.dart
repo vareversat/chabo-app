@@ -2,6 +2,7 @@ import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.da
 import 'package:chabo/bloc/day_picker/day_picker_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
+import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
@@ -70,6 +71,11 @@ class Chabo extends StatelessWidget {
           )..add(
               ChabanBridgeForecastFetched(),
             ),
+        ),
+
+        /// Bloc intended to manage scroll to status to display (or not) the current status
+        BlocProvider(
+          create: (_) => ScrollStatusBloc(),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(

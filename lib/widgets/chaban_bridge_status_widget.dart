@@ -1,19 +1,37 @@
 import 'package:chabo/custom_properties.dart';
+import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ChabanBridgeStatusWidget extends StatelessWidget {
+class ChabanBridgeStatusWidget extends StatefulWidget {
   final ChabanBridgeStatus bridgeStatus;
+  final bool showCurrentStatus;
+  final Function()? onTap;
 
-  const ChabanBridgeStatusWidget({Key? key, required this.bridgeStatus})
+  const ChabanBridgeStatusWidget(
+      {Key? key,
+      required this.bridgeStatus,
+      this.onTap,
+      required this.showCurrentStatus})
       : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return ChabanBridgeStatusWidgetState();
+  }
+}
+
+class ChabanBridgeStatusWidgetState
+    extends CustomWidgetState<ChabanBridgeStatusWidget> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 30,
+        vertical: 10,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +39,7 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: bridgeStatus.getBackgroundColor(context),
+              color: widget.bridgeStatus.getBackgroundColor(context),
               borderRadius: const BorderRadius.all(
                 Radius.circular(
                   CustomProperties.borderRadius,
@@ -32,11 +50,11 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${bridgeStatus.currentStatus} ${bridgeStatus.currentStatusShort}',
+                  '${widget.bridgeStatus.currentStatus} ${widget.bridgeStatus.currentStatusShort}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
-                    color: bridgeStatus.getForegroundColor(context),
+                    color: widget.bridgeStatus.getForegroundColor(context),
                   ),
                 ),
               ],
@@ -50,13 +68,13 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                bridgeStatus.nextStatusMessagePrefix,
+                widget.bridgeStatus.nextStatusMessagePrefix,
                 style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
               Text(
-                bridgeStatus.remainingTime,
+                widget.bridgeStatus.remainingTime,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
@@ -65,11 +83,29 @@ class ChabanBridgeStatusWidget extends StatelessWidget {
             ],
           ),
           Flexible(
-            child: ChabanBridgeForecastListItem(
-              hasPassed: false,
-              isCurrent: true,
-              chabanBridgeForecast: bridgeStatus.currentChabanBridgeForecast,
-              index: -1,
+            child: AnimatedSize(
+              curve: Curves.ease,
+              duration: const Duration(seconds: 1),
+              child: AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                reverseDuration: const Duration(milliseconds: 200),
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                child: widget.showCurrentStatus
+                    ? ChabanBridgeForecastListItem(
+                        onTap: widget.onTap,
+                        hasPassed: false,
+                        isCurrent: true,
+                        chabanBridgeForecast:
+                            widget.bridgeStatus.currentChabanBridgeForecast,
+                        index: -1,
+                      )
+                    : const SizedBox(),
+              ),
             ),
           ),
           const SizedBox(height: 20),
