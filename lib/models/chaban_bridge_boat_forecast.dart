@@ -2,30 +2,31 @@ import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/extensions/extensions.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/boat.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
-  final String boatName;
+  final List<Boat> boats;
+
+  static final List<String> allBoatNames = [];
 
   ChabanBridgeBoatForecast(
       {required bool totalClosing,
       required DateTime circulationClosingDate,
       required DateTime circulationReOpeningDate,
-      required this.boatName,
+      required this.boats,
       required ChabanBridgeForecastClosingType closingType})
-      : super(
+      : assert(boats.isNotEmpty),
+        super(
             circulationClosingDate: circulationClosingDate,
             circulationReOpeningDate: circulationReOpeningDate,
             closingReason: ChabanBridgeForecastClosingReason.boat,
             closingType: closingType,
             totalClosing: totalClosing,
-            icon: Icons.directions_boat_rounded,
             color: Colors.blue);
 
   factory ChabanBridgeBoatForecast.fromJSON(Map<String, dynamic> json) {
@@ -43,9 +44,23 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
         json['fields']['fermeture_totale']);
 
+    List<Boat> boats = [];
+    bool isLeaving = false;
+    final rawBoatName = json['fields']['bateau'] as String;
+    final boatNames = rawBoatName.split(' / ');
+    for (final boatName in boatNames) {
+      isLeaving = allBoatNames.contains(boatName);
+      boats.add(Boat(name: boatName, isLeaving: isLeaving));
+      if (isLeaving) {
+        allBoatNames.remove(boatName);
+      } else {
+        allBoatNames.add(boatName);
+      }
+    }
+
     return ChabanBridgeBoatForecast(
+        boats: boats,
         totalClosing: totalClosing,
-        boatName: json['fields']['bateau'] as String,
         circulationReOpeningDate: reopeningDate,
         circulationClosingDate: closingDate,
         closingType: closingType);
@@ -56,15 +71,11 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
         totalClosing,
         closingReason,
         duration,
-        boatName,
+        boats,
         circulationClosingDate,
         circulationReOpeningDate,
         closingType
       ];
-
-  void _launchURL(String url) async {
-    await launchUrlString(url, mode: LaunchMode.externalApplication);
-  }
 
   @override
   Widget getInformationWidget(BuildContext context) {
@@ -119,25 +130,12 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
           TextSpan(
               text:
                   ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} '),
+          boats.toLocalizedTextSpan(context),
           TextSpan(
               text:
-                  '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_boat} '),
+                  '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
           TextSpan(
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => _launchURL(
-                  'https://www.vesselfinder.com/fr/vessels?name=$boatName&type=301'),
-            text: '$boatName\n\n',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: color,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          TextSpan(
-              text:
-                  '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
-          TextSpan(
-            text: '${durationString()}\n\n',
+            text: '${durationString()}\n',
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.orange),
           ),
@@ -158,7 +156,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   String getNotificationDurationMessage(
       BuildContext context, DurationPickerState durationPickerState) {
     return AppLocalizations.of(context)!.notificationDurationBoatMessage(
-      boatName,
+      boats.toLocalizedString(context),
       durationPickerState.getDuration(),
       durationString(),
     );
@@ -168,9 +166,51 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   String getNotificationTimeMessage(
       BuildContext context, TimePickerState timePickerState) {
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
-      boatName,
+      boats.toLocalizedString(context),
       DateFormat.Hm().format(circulationClosingDate),
       durationString(),
+    );
+  }
+
+  @override
+  Widget getIconWidget(Color? color) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: Icon(
+            Icons.directions_boat_rounded,
+            color: color ?? this.color,
+            size: 30,
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: 0,
+          child: RotatedBox(
+            quarterTurns: boats[0].isLeaving ? 0 : 2,
+            child: Icon(
+              Icons.double_arrow_rounded,
+              color: color ?? this.color,
+              size: 18,
+            ),
+          ),
+        ),
+        boats.length == 2
+            ? Positioned(
+                right: 0,
+                top: 14,
+                child: RotatedBox(
+                  quarterTurns: boats[1].isLeaving ? 0 : 2,
+                  child: Icon(
+                    Icons.double_arrow_rounded,
+                    color: color ?? this.color,
+                    size: 18,
+                  ),
+                ),
+              )
+            : const SizedBox(),
+      ],
     );
   }
 }

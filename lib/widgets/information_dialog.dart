@@ -27,10 +27,8 @@ class InformationDialog extends StatelessWidget {
             children: [
               Hero(
                 tag: heroTag,
-                child: Icon(
-                  chabanBridgeForecast.icon,
-                  color: Theme.of(context).cardColor,
-                ),
+                child: chabanBridgeForecast
+                    .getIconWidget(Theme.of(context).cardColor),
               ),
               const SizedBox(width: 20),
               Text(

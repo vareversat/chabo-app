@@ -1,5 +1,6 @@
 {
   "at": "at",
+  "and": "and",
   "circulationClosing": "closing",
   "circulationReOpening": "re opening",
   "closed": "closed",
@@ -19,7 +20,8 @@
   "dialogInformationContentFromEnd": "to",
   "dialogInformationContentFromEnd2": "to",
   "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
-  "dialogInformationContentBridge_closed_boat": "the crossing of",
+  "dialogInformationContentBridgeDeparture": "the departure of the",
+  "dialogInformationContentBridgeArrival": "the arrival of the",
   "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
   "dialogInformationContentClosing_time": "closing time",
   "dialogInformationContentTime_of_crossing": "estimated time of crossing",

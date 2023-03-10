@@ -20,7 +20,6 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
             closingReason: ChabanBridgeForecastClosingReason.maintenance,
             closingType: closingType,
             totalClosing: totalClosing,
-            icon: Icons.construction_rounded,
             color: Colors.brown);
 
   factory ChabanBridgeMaintenanceForecast.fromJSON(Map<String, dynamic> json) {
@@ -134,6 +133,15 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
       DateFormat.Hm().format(circulationClosingDate),
       durationString(),
+    );
+  }
+
+  @override
+  Widget getIconWidget(Color? color) {
+    return Icon(
+      Icons.construction_rounded,
+      color: color ?? Colors.brown,
+      size: 30,
     );
   }
 }

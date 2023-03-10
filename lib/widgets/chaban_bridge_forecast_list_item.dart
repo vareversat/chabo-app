@@ -80,11 +80,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
               horizontalTitleGap: 0,
               leading: Hero(
                 tag: 'forcast-$index',
-                child: Icon(
-                  chabanBridgeForecast.icon,
-                  color: chabanBridgeForecast.color,
-                  size: 30,
-                ),
+                child: chabanBridgeForecast.getIconWidget(null),
               ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
