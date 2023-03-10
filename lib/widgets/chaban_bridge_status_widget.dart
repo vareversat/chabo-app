@@ -53,7 +53,7 @@ class ChabanBridgeStatusWidgetState
                   '${widget.bridgeStatus.currentStatus} ${widget.bridgeStatus.currentStatusShort}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 40,
                     color: widget.bridgeStatus.getForegroundColor(context),
                   ),
                 ),
