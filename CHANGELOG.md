@@ -1,3 +1,9 @@
+# **v0.10.0** :
+
+- *UI* :
+  - Main screen is now more responsive
+  - Display last closures with a blurry card
+  - Boat forecasts handle now multi boat events
 # **v0.9.0** :
 
 - *UI* :
