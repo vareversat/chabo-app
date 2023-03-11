@@ -7,6 +7,7 @@ import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -42,9 +43,11 @@ class NotificationService {
         name: 'notification-service.on.ctor');
 
     /// Wip out all existing notifications
-    await localNotifications.cancelAll();
-    developer.log('Previous existing notifications cleaned',
-        name: 'notification-service.on.ctor');
+    if (!kIsWeb) {
+      await localNotifications.cancelAll();
+      developer.log('Previous existing notifications cleaned',
+          name: 'notification-service.on.ctor');
+    }
     return notificationService;
   }
 
