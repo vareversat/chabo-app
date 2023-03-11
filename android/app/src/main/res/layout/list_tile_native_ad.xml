@@ -13,7 +13,7 @@
             android:id="@+id/tv_list_tile_native_ad_attribution_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F19938"
+            android:background="@drawable/rounded_corner"
             android:text="Ad"
             android:textColor="#FFFFFF"
             android:textSize="12sp" />
@@ -58,7 +58,8 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:maxLines="1"
-                android:textColor="#000000"
+                android:textColor="#828282"
+                android:textStyle="bold"
                 android:textSize="16sp"
                 tools:text="Headline" />
 
