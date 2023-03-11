@@ -59,7 +59,21 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
       width: _bannerAd.size.width.toDouble(),
       height: _bannerAd.size.height.toDouble(),
       alignment: Alignment.center,
-      child: _ad != null ? AdWidget(ad: _bannerAd) : Container(),
+      child: AnimatedSize(
+        curve: Curves.ease,
+        duration: const Duration(seconds: 1),
+        child: AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          reverseDuration: const Duration(milliseconds: 500),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: _ad != null ? AdWidget(ad: _bannerAd) : Container(),
+        ),
+      ),
     );
   }
 }
