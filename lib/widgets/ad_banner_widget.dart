@@ -14,15 +14,15 @@ class AdBannerWidget extends StatefulWidget {
 }
 
 class _AdBannerWidgetState extends State<AdBannerWidget> {
-  late BannerAd _bannerAd;
+  late NativeAd _bannerAd;
   Ad? _ad;
 
   void _createBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId(),
-      size: AdSize.banner,
+    _bannerAd = NativeAd(
+      adUnitId: AdHelper.nativeAdUnitId(),
+      factoryId: 'listTile',
       request: const AdRequest(),
-      listener: BannerAdListener(
+      listener: NativeAdListener(
         onAdLoaded: (ad) {
           setState(
             () {
@@ -56,8 +56,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   Widget build(BuildContext context) {
     return Container(
       key: const ValueKey('adContent'),
-      width: _bannerAd.size.width.toDouble(),
-      height: _bannerAd.size.height.toDouble(),
+      height: 55,
       alignment: Alignment.center,
       child: AnimatedSize(
         curve: Curves.ease,

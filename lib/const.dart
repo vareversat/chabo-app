@@ -57,4 +57,6 @@ class Const {
   /// AdMod
   static const String androidInlineBanner =
       'ca-app-pub-4365376442391282/2675286687';
+  static const String androidNativeBanner =
+      'ca-app-pub-4365376442391282/5786413607';
 }
