@@ -40,7 +40,7 @@ abstract class NotificationSettingsWidget extends StatelessWidget {
                           subtitle!,
                           style: const TextStyle(fontSize: 15),
                         )
-                      : const SizedBox(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -68,7 +68,7 @@ abstract class NotificationSettingsWidget extends StatelessWidget {
                           ),
                         ),
                       )
-                    : const SizedBox(),
+                    : const SizedBox.shrink(),
               ],
             ),
           ],

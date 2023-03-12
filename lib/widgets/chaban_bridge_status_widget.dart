@@ -121,7 +121,7 @@ class ChabanBridgeStatusWidgetState
                                 widget.bridgeStatus.currentChabanBridgeForecast,
                             index: -1,
                           )
-                        : const SizedBox(),
+                        : const SizedBox.shrink(),
                   ),
                 );
               },

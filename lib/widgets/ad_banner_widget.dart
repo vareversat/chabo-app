@@ -77,6 +77,6 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
               ),
             ),
           )
-        : const SizedBox();
+        : const SizedBox.shrink();
   }
 }

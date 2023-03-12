@@ -217,7 +217,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
                   ),
                 ),
               )
-            : const SizedBox(),
+            : const SizedBox.shrink(),
       ],
     );
   }
