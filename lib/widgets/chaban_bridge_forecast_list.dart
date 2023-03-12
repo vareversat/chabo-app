@@ -90,11 +90,6 @@ class _MonthWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Flexible(
-            child: Icon(
-              Icons.arrow_circle_down,
-            ),
-          ),
           Flexible(
             flex: 5,
             child: Center(

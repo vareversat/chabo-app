@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 abstract class NotificationSettingsWidget extends StatelessWidget {
   final String title;
-  final String subtitle;
-  final IconData iconData;
+  final String? subtitle;
+  final IconData? iconData;
   final bool enabled;
 
   const NotificationSettingsWidget(
       {Key? key,
+      this.iconData,
+      this.subtitle,
       required this.title,
-      required this.subtitle,
-      required this.enabled,
-      required this.iconData})
+      required this.enabled})
       : super(key: key);
 
   void onEnablePressed(bool value, BuildContext context);
@@ -35,10 +35,12 @@ abstract class NotificationSettingsWidget extends StatelessWidget {
                     title,
                     style: const TextStyle(fontSize: 28),
                   ),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(fontSize: 15),
-                  ),
+                  subtitle != null
+                      ? Text(
+                          subtitle!,
+                          style: const TextStyle(fontSize: 15),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),
@@ -48,22 +50,25 @@ abstract class NotificationSettingsWidget extends StatelessWidget {
                   value: enabled,
                   onChanged: (bool value) => onEnablePressed(value, context),
                 ),
-                IconButton(
-                  onPressed: () => onEditPressed(context),
-                  icon: AnimatedSwitcher(
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return ScaleTransition(scale: animation, child: child);
-                    },
-                    duration: const Duration(
-                      milliseconds: CustomProperties.animationDurationMs,
-                    ),
-                    child: Icon(
-                      iconData,
-                      size: 25,
-                    ),
-                  ),
-                ),
+                iconData != null
+                    ? IconButton(
+                        onPressed: () => onEditPressed(context),
+                        icon: AnimatedSwitcher(
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                                scale: animation, child: child);
+                          },
+                          duration: const Duration(
+                            milliseconds: CustomProperties.animationDurationMs,
+                          ),
+                          child: Icon(
+                            iconData,
+                            size: 25,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ],

@@ -64,6 +64,8 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   String getNotificationTimeMessage(
       BuildContext context, TimePickerState timePickerState);
 
+  String getNotificationClosingMessage(BuildContext context);
+
   String circulationClosingDateString(BuildContext context) {
     return DateFormat.jm(Localizations.localeOf(context).languageCode)
         .format(circulationClosingDate);

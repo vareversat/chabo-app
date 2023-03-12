@@ -81,6 +81,28 @@
       "day": {}
     }
   },
+  "closingNotificationTitle": "At closing",
+  "closingNotificationExplanation": "Receive a notification when the bridge closes",
+  "notificationClosingChannelName": "Closing",
+  "notificationClosingTitle": "The Chaban bridge has closed ⛔",
+  "notificationClosingBoatMessage": "The Chaban bridge has just closed for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "@notificationClosingBoatMessage": {
+    "placeholders": {
+      "boat": {},
+      "duration": {}
+    }
+  },
+  "notificationClosingMaintenanceMessage": "The Chaban bridge has just closed for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
+  "@notificationClosingMaintenanceMessage": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "openingNotificationTitle": "At the opening",
+  "openingNotificationExplanation": "Receive a notification when the bridge open",
+  "notificationOpeningChannelName": "Opening",
+  "notificationOpeningTitle": "The Chaban bridge is open ✅",
+  "notificationOpeningMessage": "The Chaban bridge has just opened to traffic \uD83D\uDEB2",
   "monday": "Monday",
   "tuesday": "Tuesday",
   "wednesday": "Wednesday",

@@ -81,6 +81,28 @@
       "day": {}
     }
   },
+  "closingNotificationTitle": "À la fermeture",
+  "closingNotificationExplanation": "Recevoir une notification quand le pont ferme à la circulation",
+  "notificationClosingChannelName": "Fermeture",
+  "notificationClosingTitle": "Le pont Chaban est fermé ⛔",
+  "notificationClosingBoatMessage": "Le pont Chaban vient de fermer pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "@notificationClosingBoatMessage": {
+    "placeholders": {
+      "boat": {},
+      "duration": {}
+    }
+  },
+  "notificationClosingMaintenanceMessage": "Le pont Chaban vient de fermer pour maintenance \uD83D\uDEE0. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "@notificationClosingMaintenanceMessage": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "openingNotificationTitle": "À l'ouverture",
+  "openingNotificationExplanation": "Recevoir une notification quand le pont ouvre à la circulation",
+  "notificationOpeningChannelName": "Ouverture",
+  "notificationOpeningTitle": "Le pont Chaban est ouvert ✅",
+  "notificationOpeningMessage": "Le pont Chaban vient de rouvir à la circulation \uD83D\uDEB2",
   "monday": "Lundi",
   "tuesday": "Mardi",
   "wednesday": "Mercredi",

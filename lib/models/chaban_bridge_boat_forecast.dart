@@ -173,6 +173,14 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   }
 
   @override
+  String getNotificationClosingMessage(BuildContext context) {
+    return AppLocalizations.of(context)!.notificationClosingBoatMessage(
+      boats.toLocalizedString(context),
+      durationString(),
+    );
+  }
+
+  @override
   Widget getIconWidget(Color? color) {
     return Stack(
       children: [

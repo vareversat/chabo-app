@@ -55,6 +55,30 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
       ];
 
   @override
+  String getNotificationDurationMessage(
+      BuildContext context, DurationPickerState durationPickerState) {
+    return AppLocalizations.of(context)!.notificationDurationMaintenanceMessage(
+      durationPickerState.getDuration(),
+      durationString(),
+    );
+  }
+
+  @override
+  String getNotificationTimeMessage(
+      BuildContext context, TimePickerState timePickerState) {
+    return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
+      DateFormat.Hm().format(circulationClosingDate),
+      durationString(),
+    );
+  }
+
+  @override
+  String getNotificationClosingMessage(BuildContext context) {
+    return AppLocalizations.of(context)!
+        .notificationClosingMaintenanceMessage(durationString());
+  }
+
+  @override
   Widget getInformationWidget(BuildContext context) {
     var infoFromString =
         AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
@@ -115,24 +139,6 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  String getNotificationDurationMessage(
-      BuildContext context, DurationPickerState durationPickerState) {
-    return AppLocalizations.of(context)!.notificationDurationMaintenanceMessage(
-      durationPickerState.getDuration(),
-      durationString(),
-    );
-  }
-
-  @override
-  String getNotificationTimeMessage(
-      BuildContext context, TimePickerState timePickerState) {
-    return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
-      DateFormat.Hm().format(circulationClosingDate),
-      durationString(),
     );
   }
 

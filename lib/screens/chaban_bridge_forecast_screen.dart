@@ -1,6 +1,8 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/closing_notification/closing_notification_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
+import 'package:chabo/bloc/opening_notification/opening_notification_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
@@ -74,6 +76,36 @@ class _ChabanBridgeForecastScreenState
                             .read<NotificationServiceCubit>()
                             .state
                             .computeTimeScheduledNotifications(
+                                BlocProvider.of<ChabanBridgeForecastBloc>(
+                                        context)
+                                    .state
+                                    .chabanBridgeForecasts,
+                                state,
+                                context);
+                      },
+                    ),
+                    BlocListener<OpeningNotificationBloc,
+                        OpeningNotificationState>(
+                      listener: (context, state) {
+                        context
+                            .read<NotificationServiceCubit>()
+                            .state
+                            .computeOpeningScheduledNotifications(
+                                BlocProvider.of<ChabanBridgeForecastBloc>(
+                                        context)
+                                    .state
+                                    .chabanBridgeForecasts,
+                                state,
+                                context);
+                      },
+                    ),
+                    BlocListener<ClosingNotificationBloc,
+                        ClosingNotificationState>(
+                      listener: (context, state) {
+                        context
+                            .read<NotificationServiceCubit>()
+                            .state
+                            .computeClosingScheduledNotifications(
                                 BlocProvider.of<ChabanBridgeForecastBloc>(
                                         context)
                                     .state

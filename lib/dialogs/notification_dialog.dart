@@ -1,9 +1,13 @@
+import 'package:chabo/bloc/closing_notification/closing_notification_bloc.dart';
 import 'package:chabo/bloc/day_picker/day_picker_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
+import 'package:chabo/bloc/opening_notification/opening_notification_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/widgets/notification/closing_notification_settings_widget.dart';
 import 'package:chabo/widgets/notification/day_notification_settings_widget.dart';
 import 'package:chabo/widgets/notification/duration_notification_settings_widget.dart';
+import 'package:chabo/widgets/notification/opening_notification_settings_widget.dart';
 import 'package:chabo/widgets/notification/time_notification_settings_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +23,30 @@ class NotificationDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            BlocBuilder<OpeningNotificationBloc, OpeningNotificationState>(
+              builder: (context, state) {
+                return OpeningNotificationSettingsWidget(
+                  enabled: state.enabled,
+                  title: AppLocalizations.of(context)!.openingNotificationTitle,
+                  subtitle: AppLocalizations.of(context)!
+                      .openingNotificationExplanation,
+                );
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            BlocBuilder<ClosingNotificationBloc, ClosingNotificationState>(
+              builder: (context, state) {
+                return ClosingNotificationSettingsWidget(
+                  enabled: state.enabled,
+                  title: AppLocalizations.of(context)!.closingNotificationTitle,
+                  subtitle: AppLocalizations.of(context)!
+                      .closingNotificationExplanation,
+                );
+              },
+            ),
+            const Divider(),
             BlocBuilder<DurationPickerBloc, DurationPickerState>(
               builder: (context, state) {
                 return DurationNotificationSettingsWidget(

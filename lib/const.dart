@@ -31,6 +31,10 @@ class Const {
       'NOTIFICATION_DAY_SETTINGS_ENABLED';
   static const String notificationDayValueKey =
       'NOTIFICATION_DAY_SETTINGS_VALUE';
+  static const String notificationOpeningEnabledKey =
+      'NOTIFICATION_OPENING_SETTINGS_ENABLED';
+  static const String notificationClosingEnabledKey =
+      'NOTIFICATION_CLOSING_SETTINGS_ENABLED';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -43,16 +47,22 @@ class Const {
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
   static const bool notificationDayEnabledDefaultValue = false;
+  static const bool notificationOpeningEnabledDefaultValue = false;
+  static const bool notificationClosingEnabledDefaultValue = false;
 
   /// Android Notifications
   static const String androidTicket = 'ticker';
   static const String notificationDurationChannelId = 'imminent_closures';
   static const String notificationTimeChannelId = 'tomorrow_closures';
+  static const String notificationOpeningChannelId = 'opening';
+  static const String notificationClosingChannelId = 'closing';
 
   /// Notification misc
   static const int durationNotificationStartId = 0;
   static const int timeNotificationStartId = 1000;
   static const int dayNotificationStartId = 2000;
+  static const int openingNotificationStartId = 3000;
+  static const int closingNotificationStartId = 4000;
 
   /// AdMod
   static const String androidInlineBanner =
