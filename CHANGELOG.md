@@ -1,3 +1,8 @@
+# **v0.11.0** :
+
+- *Feature* :
+  - Implement Ads
+  - Add closing and opening notifications
 # **v0.10.0** :
 
 - *UI* :
