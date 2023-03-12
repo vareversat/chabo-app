@@ -1,11 +1,13 @@
 part of 'scroll_status_bloc.dart';
 
-enum ScrollStatusStateType { automatic, manual }
-
 class ScrollStatusEvent extends ChaboEvent {}
 
 class ScrollStatusChanged extends ScrollStatusEvent {
-  final ScrollStatusStateType type;
+  ScrollStatusChanged() : super();
+}
 
-  ScrollStatusChanged({required this.type}) : super();
+class GoTo extends ScrollStatusEvent {
+  final AbstractChabanBridgeForecast? goTo;
+
+  GoTo({this.goTo}) : super();
 }

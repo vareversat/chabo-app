@@ -1,20 +1,17 @@
+import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChabanBridgeStatusWidget extends StatefulWidget {
   final ChabanBridgeStatus bridgeStatus;
-  final bool showCurrentStatus;
-  final Function()? onTap;
 
-  const ChabanBridgeStatusWidget(
-      {Key? key,
-      required this.bridgeStatus,
-      this.onTap,
-      required this.showCurrentStatus})
+  const ChabanBridgeStatusWidget({Key? key, required this.bridgeStatus})
       : super(key: key);
 
   @override
@@ -25,6 +22,18 @@ class ChabanBridgeStatusWidget extends StatefulWidget {
 
 class ChabanBridgeStatusWidgetState
     extends CustomWidgetState<ChabanBridgeStatusWidget> {
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback(
+      (_) {
+        BlocProvider.of<ScrollStatusBloc>(context).add(
+          GoTo(goTo: widget.bridgeStatus.currentChabanBridgeForecast),
+        );
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,29 +92,39 @@ class ChabanBridgeStatusWidgetState
             ],
           ),
           Flexible(
-            child: AnimatedSize(
-              curve: Curves.ease,
-              duration: const Duration(seconds: 1),
-              child: AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                reverseDuration: const Duration(milliseconds: 200),
-                transitionBuilder: (child, animation) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-                child: widget.showCurrentStatus
-                    ? ChabanBridgeForecastListItem(
-                        onTap: widget.onTap,
-                        hasPassed: false,
-                        isCurrent: true,
-                        chabanBridgeForecast:
-                            widget.bridgeStatus.currentChabanBridgeForecast,
-                        index: -1,
-                      )
-                    : const SizedBox(),
-              ),
+            child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
+              builder: (context, state) {
+                return AnimatedSize(
+                  curve: Curves.ease,
+                  duration: const Duration(seconds: 1),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(seconds: 1),
+                    reverseDuration: const Duration(milliseconds: 200),
+                    transitionBuilder: (child, animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    child: state.showCurrentStatus
+                        ? ChabanBridgeForecastListItem(
+                            onTap: () =>
+                                BlocProvider.of<ScrollStatusBloc>(context).add(
+                              GoTo(
+                                goTo: widget
+                                    .bridgeStatus.currentChabanBridgeForecast,
+                              ),
+                            ),
+                            hasPassed: false,
+                            isCurrent: true,
+                            chabanBridgeForecast:
+                                widget.bridgeStatus.currentChabanBridgeForecast,
+                            index: -1,
+                          )
+                        : const SizedBox(),
+                  ),
+                );
+              },
             ),
           ),
           const SizedBox(height: 20),

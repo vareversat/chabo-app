@@ -1,23 +1,23 @@
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
-import 'package:chabo/widgets/bottom_loader_widget.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+import 'ad_banner_widget.dart';
 
 class ChabanBridgeForecastList extends StatefulWidget {
   final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
-  final ScrollController scrollController;
   final bool hasReachedMax;
 
-  const ChabanBridgeForecastList(
-      {Key? key,
-      required this.chabanBridgeForecasts,
-      required this.hasReachedMax,
-      required this.currentChabanBridgeForecast,
-      required this.scrollController})
-      : super(key: key);
+  const ChabanBridgeForecastList({
+    Key? key,
+    required this.chabanBridgeForecasts,
+    required this.hasReachedMax,
+    required this.currentChabanBridgeForecast,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,31 +30,84 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollNotification) {
-        if (scrollNotification is ScrollStartNotification) {
+        if (scrollNotification is UserScrollNotification) {
           BlocProvider.of<ScrollStatusBloc>(context).add(
-            ScrollStatusChanged(type: ScrollStatusStateType.manual),
+            ScrollStatusChanged(),
           );
         }
         return true;
       },
-      child: ListView.builder(
+      child: ListView.separated(
+        cacheExtent: 5000,
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
-          return index >= widget.chabanBridgeForecasts.length
-              ? const BottomLoaderWidget()
-              : ChabanBridgeForecastListItem(
-                  isCurrent: widget.chabanBridgeForecasts[index] ==
-                      widget.currentChabanBridgeForecast,
-                  hasPassed: widget
-                      .chabanBridgeForecasts[index].circulationReOpeningDate
-                      .isBefore(DateTime.now()),
-                  chabanBridgeForecast: widget.chabanBridgeForecasts[index],
-                  index: index);
+          if (index == 0) {
+            return _MonthWidget(
+                chabanBridgeForecast: widget.chabanBridgeForecasts[0]);
+          }
+          return ChabanBridgeForecastListItem(
+              key:
+                  GlobalObjectKey(widget.chabanBridgeForecasts[index].hashCode),
+              isCurrent: widget.chabanBridgeForecasts[index] ==
+                  widget.currentChabanBridgeForecast,
+              hasPassed: widget
+                  .chabanBridgeForecasts[index].circulationReOpeningDate
+                  .isBefore(DateTime.now()),
+              chabanBridgeForecast: widget.chabanBridgeForecasts[index],
+              index: index);
         },
-        itemCount: widget.hasReachedMax
-            ? widget.chabanBridgeForecasts.length
-            : widget.chabanBridgeForecasts.length + 1,
-        controller: widget.scrollController,
+        itemCount: widget.chabanBridgeForecasts.length,
+        controller: BlocProvider.of<ScrollStatusBloc>(context).scrollController,
+        separatorBuilder: (BuildContext context, int index) {
+          if ((index + 1 <= widget.chabanBridgeForecasts.length &&
+              widget.chabanBridgeForecasts[index].circulationClosingDate
+                      .month !=
+                  widget.chabanBridgeForecasts[index + 1].circulationClosingDate
+                      .month)) {
+            return _MonthWidget(
+                chabanBridgeForecast: widget.chabanBridgeForecasts[index + 1]);
+          }
+          if (index % 10 == 0 && index != 0) {
+            return const AdBannerWidget();
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
+}
+
+class _MonthWidget extends StatelessWidget {
+  final AbstractChabanBridgeForecast chabanBridgeForecast;
+
+  const _MonthWidget({Key? key, required this.chabanBridgeForecast})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Flexible(
+            child: Icon(
+              Icons.arrow_circle_down,
+            ),
+          ),
+          Flexible(
+            flex: 5,
+            child: Center(
+              child: Text(
+                DateFormat.MMMM(Localizations.localeOf(context).languageCode)
+                    .format(
+                  chabanBridgeForecast.circulationClosingDate,
+                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

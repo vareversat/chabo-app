@@ -1,13 +1,16 @@
 part of 'scroll_status_bloc.dart';
 
+enum ScrollStatus { ok, error }
+
 class ScrollStatusState {
-  bool isOnCurrentScheduleLevel;
+  final bool showCurrentStatus;
+  final ScrollStatus status;
 
-  ScrollStatusState({required this.isOnCurrentScheduleLevel});
+  ScrollStatusState({required this.status, required this.showCurrentStatus});
 
-  ScrollStatusState copyWith({bool? isOnCurrentScheduleLevel}) {
+  ScrollStatusState copyWith({bool? showCurrentStatus, ScrollStatus? status}) {
     return ScrollStatusState(
-        isOnCurrentScheduleLevel:
-            isOnCurrentScheduleLevel ?? this.isOnCurrentScheduleLevel);
+        status: status ?? this.status,
+        showCurrentStatus: showCurrentStatus ?? this.showCurrentStatus);
   }
 }

@@ -75,7 +75,7 @@ class Chabo extends StatelessWidget {
 
         /// Bloc intended to manage scroll to status to display (or not) the current status
         BlocProvider(
-          create: (_) => ScrollStatusBloc(),
+          create: (_) => ScrollStatusBloc(scrollController: ScrollController()),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(

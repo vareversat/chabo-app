@@ -41,9 +41,9 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   }
 
   @override
-  void didChangeDependencies() {
+  void initState() {
     _createBannerAd();
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -54,25 +54,29 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const ValueKey('adContent'),
-      height: 55,
-      alignment: Alignment.center,
-      child: AnimatedSize(
-        curve: Curves.ease,
-        duration: const Duration(seconds: 1),
-        child: AnimatedSwitcher(
-          duration: const Duration(seconds: 1),
-          reverseDuration: const Duration(milliseconds: 500),
-          transitionBuilder: (child, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          child: _ad != null ? AdWidget(ad: _bannerAd) : Container(),
-        ),
-      ),
-    );
+    return _ad != null
+        ? Card(
+            child: Container(
+              key: const ValueKey('adContent'),
+              height: 55,
+              alignment: Alignment.center,
+              child: AnimatedSize(
+                curve: Curves.ease,
+                duration: const Duration(seconds: 1),
+                child: AnimatedSwitcher(
+                  duration: const Duration(seconds: 1),
+                  reverseDuration: const Duration(milliseconds: 500),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                  child: AdWidget(ad: _bannerAd),
+                ),
+              ),
+            ),
+          )
+        : const SizedBox();
   }
 }

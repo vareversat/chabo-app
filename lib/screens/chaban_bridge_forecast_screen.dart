@@ -1,7 +1,6 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
-import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
@@ -10,7 +9,6 @@ import 'package:chabo/screens/settings_screen.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list.dart';
 import 'package:chabo/widgets/chaban_bridge_status_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChabanBridgeForecastScreen extends StatefulWidget {
@@ -24,8 +22,6 @@ class ChabanBridgeForecastScreen extends StatefulWidget {
 
 class _ChabanBridgeForecastScreenState
     extends CustomWidgetState<ChabanBridgeForecastScreen> {
-  final _scrollController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,32 +52,6 @@ class _ChabanBridgeForecastScreenState
                         state.currentChabanBridgeForecast!,
                     context: context);
 
-                void scrollToSchedule() async {
-                  if (_scrollController.hasClients) {
-                    final itemCount = state.chabanBridgeForecasts.length;
-                    final indexGoTo = state.chabanBridgeForecasts
-                        .indexOf(state.currentChabanBridgeForecast!);
-                    final contentSize =
-                        _scrollController.position.viewportDimension +
-                            _scrollController.position.maxScrollExtent;
-                    final target = contentSize * indexGoTo / itemCount;
-                    _scrollController.position.animateTo(
-                      target,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.ease,
-                    );
-                    BlocProvider.of<ScrollStatusBloc>(context).add(
-                      ScrollStatusChanged(
-                          type: ScrollStatusStateType.automatic),
-                    );
-                  }
-                }
-
-                SchedulerBinding.instance.addPostFrameCallback(
-                  (_) {
-                    scrollToSchedule();
-                  },
-                );
                 return MultiBlocListener(
                   listeners: [
                     BlocListener<DurationPickerBloc, DurationPickerState>(
@@ -115,19 +85,12 @@ class _ChabanBridgeForecastScreenState
                   ],
                   child: Column(
                     children: [
-                      BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
-                        builder: (context, state) {
-                          return ChabanBridgeStatusWidget(
-                            showCurrentStatus: state.isOnCurrentScheduleLevel,
-                            onTap: scrollToSchedule,
-                            bridgeStatus: bridgeStatus,
-                          );
-                        },
+                      ChabanBridgeStatusWidget(
+                        bridgeStatus: bridgeStatus,
                       ),
                       Expanded(
                         flex: 11,
                         child: ChabanBridgeForecastList(
-                          scrollController: _scrollController,
                           currentChabanBridgeForecast:
                               state.currentChabanBridgeForecast,
                           chabanBridgeForecasts: state.chabanBridgeForecasts,
