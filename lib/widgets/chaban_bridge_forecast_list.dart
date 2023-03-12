@@ -67,7 +67,11 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
             return _MonthWidget(
                 chabanBridgeForecast: widget.chabanBridgeForecasts[index + 1]);
           }
-          if (index % 10 == 0 && index != 0) {
+          if ((index % 10 == 0 ||
+                  index ==
+                      widget.chabanBridgeForecasts
+                          .indexOf(widget.currentChabanBridgeForecast!)) &&
+              index != 0) {
             return const AdBannerWidget();
           }
           return const SizedBox.shrink();
