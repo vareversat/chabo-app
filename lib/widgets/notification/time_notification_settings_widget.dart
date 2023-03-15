@@ -22,7 +22,7 @@ class TimeNotificationSettingsWidget extends NotificationSettingsWidget {
   @override
   void onEditPressed(BuildContext context) async {
     var time = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.dialOnly,
       context: context,
       initialTime: state.toTimeOfDay(),
       builder: (BuildContext context, Widget? child) {
