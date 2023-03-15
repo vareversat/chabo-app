@@ -18,12 +18,11 @@ void main() async {
   );
   MobileAds.instance.initialize();
 
-  BlocOverrides.runZoned(
-    () => runApp(
-      Chabo(
-          storageService: storageService,
-          notificationService: notificationService),
-    ),
-    blocObserver: SimpleBlocObserver(),
+  Bloc.observer = SimpleBlocObserver();
+
+  runApp(
+    Chabo(
+        storageService: storageService,
+        notificationService: notificationService),
   );
 }
