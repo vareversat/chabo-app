@@ -96,7 +96,7 @@ class ChabanBridgeStatusWidgetState
               builder: (context, state) {
                 return AnimatedSize(
                   curve: Curves.ease,
-                  duration: const Duration(seconds: 1),
+                  duration: const Duration(milliseconds: 800),
                   child: AnimatedSwitcher(
                     duration: const Duration(seconds: 1),
                     reverseDuration: const Duration(milliseconds: 200),
