@@ -3,7 +3,7 @@ description: Mobile app to get the closing and opening schedules of the Chaban D
 
 publish_to: 'none'
 
-version: 0.11.0
+version: 0.11.5
 
 environment:
   sdk: ">=2.17.6 <3.0.0"

@@ -1,14 +1,22 @@
+# **v0.11.5** :
+
+- *Feature* :
+  - Some improvements for the UI
+  - Add support for themed icon on Android
+***
 # **v0.11.0** :
 
 - *Feature* :
   - Implement Ads
   - Add closing and opening notifications
+***
 # **v0.10.0** :
 
 - *UI* :
   - Main screen is now more responsive
   - Display last closures with a blurry card
   - Boat forecasts handle now multi boat events
+***
 # **v0.9.0** :
 
 - *UI* :
