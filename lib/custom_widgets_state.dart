@@ -6,8 +6,8 @@ class CustomWidgetState<T extends StatefulWidget> extends State<T>
     with WidgetsBindingObserver {
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addObserver(this);
+    super.initState();
   }
 
   @override
