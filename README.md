@@ -2,8 +2,7 @@
 
 <p align="center">
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/flutter-blue?logo=flutter&style=for-the-badge"></a> 
-  <a href="https://github.com/vareversat/chabo/actions"><img src="https://img.shields.io/github/workflow/status/vareversat/chabo/Main%20workflow/main?logo=github&style=for-the-badge"></a>
-  <a href="https://codecov.io/gh/vareversat/chabo/"><img src="https://img.shields.io/codecov/c/github/vareversat/chabo?logo=codecov&style=for-the-badge&token=VJCS172J1T"></a>
+  <a href="https://github.com/vareversat/chabo/actions"><img src="https://img.shields.io/github/actions/workflow/status/vareversat/chabo/flutter.build.action.yaml?branch=dev?logo=github&style=for-the-badge"></a>
   <a href="https://github.com/vareversat/chabo/releases"><img src="https://img.shields.io/github/v/tag/vareversat/chabo?label=version&logo=git&logoColor=white&style=for-the-badge"></a>
 </p>
 
