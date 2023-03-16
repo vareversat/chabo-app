@@ -16,9 +16,9 @@ class ChangeLogScreen extends StatefulWidget {
 }
 
 class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
-
   String _getChangelogPath(BuildContext context) {
-    return Const.changelogPath.replaceAll(Const.changelogPlaceholder, Localizations.localeOf(context).languageCode);
+    return Const.changelogPath.replaceAll(Const.changelogPlaceholder,
+        Localizations.localeOf(context).languageCode);
   }
 
   @override
