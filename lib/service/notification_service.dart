@@ -188,7 +188,9 @@ class NotificationService {
             notificationChannelId, notificationChannelName,
             importance: Importance.high,
             priority: Priority.max,
+            ongoing: true,
             fullScreenIntent: true,
+            styleInformation: const BigTextStyleInformation(''),
             ticker: Const.androidTicket);
     return NotificationDetails(android: androidNotificationDetails);
   }

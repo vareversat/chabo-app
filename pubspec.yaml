@@ -46,6 +46,7 @@ flutter:
     - assets/images/chabo_icon.png
     - CHANGELOG_en.md
     - CHANGELOG_fr.md
+    - CHANGELOG_es.md
 
 flutter_icons:
   android: true

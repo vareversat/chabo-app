@@ -119,6 +119,7 @@ class Chabo extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: state.themeData,
             home: const ChabanBridgeForecastScreen(),
             localizationsDelegates: const [
@@ -130,6 +131,7 @@ class Chabo extends StatelessWidget {
             supportedLocales: const [
               Locale('en', ''),
               Locale('fr', ''),
+              Locale('es', ''),
             ],
             localeResolutionCallback: (deviceLocale, supportedLocales) {
               for (var locale in supportedLocales) {

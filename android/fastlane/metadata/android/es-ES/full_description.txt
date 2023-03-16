@@ -1,0 +1,1 @@
+¡Todos los horarios de cierre (para el paso de barcos o para mantenimiento) se ingresan en esta aplicación! También puede crear alertas personalizadas para recibir notificaciones cuando el puente esté cerrado al tráfico
