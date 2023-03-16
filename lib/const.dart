@@ -5,7 +5,8 @@ class Const {
   static const String appName = 'Chabo';
 
   /// Paths
-  static const String changelogPath = 'CHANGELOG.md';
+  static const String changelogPlaceholder = ':lang:';
+  static const String changelogPath = 'CHANGELOG_$changelogPlaceholder.md';
   static const String appLogoPath = 'assets/images/chabo_icon.png';
 
   /// Link

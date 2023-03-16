@@ -16,6 +16,11 @@ class ChangeLogScreen extends StatefulWidget {
 }
 
 class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
+
+  String _getChangelogPath(BuildContext context) {
+    return Const.changelogPath.replaceAll(Const.changelogPlaceholder, Localizations.localeOf(context).languageCode);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +31,7 @@ class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
       ),
       body: FutureBuilder(
         future: rootBundle.loadString(
-          Const.changelogPath,
+          _getChangelogPath(context),
         ),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {

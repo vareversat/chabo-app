@@ -32,63 +32,73 @@ class Chabo extends StatelessWidget {
       providers: [
         /// Bloc intended to manage the theme of the App
         BlocProvider(
-          create: (_) => ThemeBloc(storageService: storageService)
-            ..add(
+          create: (_) => ThemeBloc(
+            storageService: storageService,
+          )..add(
               AppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the duration type Notification
         BlocProvider(
-          create: (_) => DurationPickerBloc(storageService: storageService)
-            ..add(
+          create: (_) => DurationPickerBloc(
+            storageService: storageService,
+          )..add(
               DurationAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the time type Notification
         BlocProvider(
-          create: (_) => TimePickerBloc(storageService: storageService)
-            ..add(
+          create: (_) => TimePickerBloc(
+            storageService: storageService,
+          )..add(
               TimeAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the day type Notification
         BlocProvider(
-          create: (_) => DayPickerBloc(storageService: storageService)
-            ..add(
+          create: (_) => DayPickerBloc(
+            storageService: storageService,
+          )..add(
               DayAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the opening type Notification
         BlocProvider(
-          create: (_) => OpeningNotificationBloc(storageService: storageService)
-            ..add(
+          create: (_) => OpeningNotificationBloc(
+            storageService: storageService,
+          )..add(
               OpeningAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the closing type Notification
         BlocProvider(
-          create: (_) => ClosingNotificationBloc(storageService: storageService)
-            ..add(
+          create: (_) => ClosingNotificationBloc(
+            storageService: storageService,
+          )..add(
               ClosingAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the day type Notification
         BlocProvider(
-          create: (_) => DayPickerBloc(storageService: storageService)
-            ..add(
+          create: (_) => DayPickerBloc(
+            storageService: storageService,
+          )..add(
               DayAppStateChanged(),
             ),
         ),
 
         /// Bloc intended to manage the Notifications service
         BlocProvider(
-            create: (_) => NotificationServiceCubit(notificationService)),
+          create: (_) => NotificationServiceCubit(
+            notificationService,
+          ),
+        ),
 
         /// Bloc intended to manage the forecast displayed
         BlocProvider(
@@ -101,7 +111,9 @@ class Chabo extends StatelessWidget {
 
         /// Bloc intended to manage scroll to status to display (or not) the current status
         BlocProvider(
-          create: (_) => ScrollStatusBloc(scrollController: ScrollController()),
+          create: (_) => ScrollStatusBloc(
+            scrollController: ScrollController(),
+          ),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
@@ -119,6 +131,14 @@ class Chabo extends StatelessWidget {
               Locale('en', ''),
               Locale('fr', ''),
             ],
+            localeResolutionCallback: (deviceLocale, supportedLocales) {
+              for (var locale in supportedLocales) {
+                if (locale.languageCode == deviceLocale!.languageCode) {
+                  return deviceLocale;
+                }
+              }
+              return const Locale('en', '');
+            },
           );
         },
       ),
