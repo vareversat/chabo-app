@@ -16,12 +16,32 @@ echo "$CHANGELOG_FR" > "$CHANGELOG_PATH_FR"
 echo "$CHANGELOG_EN" > "$CHANGELOG_PATH_EN_US"
 echo "$CHANGELOG_EN" > "$CHANGELOG_PATH_EN_GB"
 
-if [ -s "$CHANGELOG_PATH" ]; then
+if [ -s "$CHANGELOG_PATH_FR" ]; then
   echo "Changelog generated ✅"
-  echo "New changelog (path : $CHANGELOG_PATH)"
-  cat "$CHANGELOG_PATH"
+  echo "New FR changelog (path : $CHANGELOG_PATH_FR)"
+  cat "$CHANGELOG_PATH_FR"
   exit 0
 else
-  echo "Changelog is missing ❌"
+  echo "FR Changelog is missing ❌"
+  exit 1
+fi
+
+if [ -s "$CHANGELOG_PATH_EN_US" ]; then
+  echo "Changelog generated ✅"
+  echo "New EN_US changelog (path : $CHANGELOG_PATH_EN_US)"
+  cat "$CHANGELOG_PATH_EN_US"
+  exit 0
+else
+  echo "EN_US Changelog is missing ❌"
+  exit 1
+fi
+
+if [ -s "$CHANGELOG_PATH_EN_GB" ]; then
+  echo "Changelog generated ✅"
+  echo "New EN_GB changelog (path : $CHANGELOG_PATH_EN_GB)"
+  cat "$CHANGELOG_PATH_EN_GB"
+  exit 0
+else
+  echo "EN_GB Changelog is missing ❌"
   exit 1
 fi
