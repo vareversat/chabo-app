@@ -1,3 +1,8 @@
+# **v0.12.0**:
+
+- *Características*:
+  - Se agregó soporte para el idioma español
+***
 # **v0.11.5**:
 
 - *Características*:

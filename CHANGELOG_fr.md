@@ -1,3 +1,8 @@
+# **v0.12.0** :
+
+- *Fonctionnalités*:
+  - Ajout du support de la langue espagnole
+***
 # **v0.11.5** :
 
 - *Fonctionnalités*:
