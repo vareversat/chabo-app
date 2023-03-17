@@ -16,7 +16,8 @@
    <application
         android:label="Chabo"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:localeConfig="@xml/locales_config">
 
 
        <!-- Google Ads -->
