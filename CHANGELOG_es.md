@@ -1,7 +1,7 @@
 # **v1.0.0** :
-First stable release
-- *Features*:
-  - Added support for changing language
+Primera versión estable
+- *Características*:
+  - Se agregó soporte para cambiar el idioma.
 ***
 # **v0.12.0**:
 
