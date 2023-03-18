@@ -1,3 +1,8 @@
+# **v1.0.0** :
+Première version stable
+- *Fonctionnalités*:
+  - Ajout du support de la modification de la langue
+***
 # **v0.12.0** :
 
 - *Fonctionnalités*:
