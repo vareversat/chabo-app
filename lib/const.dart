@@ -10,6 +10,9 @@ class Const {
   static const String appLogoPath = 'assets/images/chabo_icon.png';
 
   /// Link
+  static const String vesselFinderLinkPlaceholder = ':boatName:';
+  static const String vesselFinderLink =
+      'https://www.vesselfinder.com/fr/vessels?name=$vesselFinderLinkPlaceholder&type=301';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
   static const List<String> usefulLinks = [

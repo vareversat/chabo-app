@@ -13,15 +13,13 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
   final ChabanBridgeForecastClosingType closingType;
-  final Color color;
 
   AbstractChabanBridgeForecast(
       {required this.totalClosing,
       required this.closingReason,
       required DateTime circulationClosingDate,
       required DateTime circulationReOpeningDate,
-      required this.closingType,
-      required this.color}) {
+      required this.closingType}) {
     _circulationClosingDate = circulationClosingDate;
 
     var tmpCirculationReOpeningDate = circulationReOpeningDate;
@@ -56,7 +54,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
 
   Widget getInformationWidget(BuildContext context);
 
-  Widget getIconWidget(Color? color);
+  Widget getIconWidget(BuildContext context, bool reversed);
 
   String getNotificationDurationMessage(
       BuildContext context, DurationPickerState durationPickerState);
@@ -65,6 +63,8 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
       BuildContext context, TimePickerState timePickerState);
 
   String getNotificationClosingMessage(BuildContext context);
+
+  Color getColor(BuildContext context, bool reversed);
 
   String circulationClosingDateString(BuildContext context) {
     return DateFormat.jm(Localizations.localeOf(context).languageCode)

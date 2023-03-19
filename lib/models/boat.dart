@@ -1,3 +1,5 @@
+import 'package:chabo/const.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,11 +19,15 @@ class Boat {
     final textSpanLink = TextSpan(
       recognizer: TapGestureRecognizer()
         ..onTap = () => _launchURL(
-            'https://www.vesselfinder.com/fr/vessels?name=$name&type=301'),
+              Const.vesselFinderLink.replaceAll(
+                Const.vesselFinderLinkPlaceholder,
+                name,
+              ),
+            ),
       text: name,
-      style: const TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
-        color: Colors.blue,
+        color: Theme.of(context).colorScheme.boatColor,
         decoration: TextDecoration.underline,
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/information_dialog.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                   ),
                   side: BorderSide(
                     // border color
-                    color: chabanBridgeForecast.color,
+                    color: chabanBridgeForecast.getColor(context, false),
                     // border thickness
                     width: 2,
                   ),
@@ -50,38 +51,41 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
               ),
             ),
             onTap: onTap ??
-                () => {
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            );
-                          },
-                          opaque: false,
-                          barrierDismissible: true,
-                          pageBuilder: (BuildContext context, _, __) {
-                            return BackdropFilter(
-                              filter: ImageFilter.blur(
-                                  sigmaX: CustomProperties.blurSigmaX,
-                                  sigmaY: CustomProperties.blurSigmaY),
-                              child: InformationDialog(
-                                chabanBridgeForecast: chabanBridgeForecast,
-                                heroTag: 'forcast-$index',
+                () async => {
+                      await showGeneralDialog(
+                        context: context,
+                        pageBuilder: (BuildContext context, _, __) {
+                          return const SizedBox.shrink();
+                        },
+                        barrierDismissible: true,
+                        transitionBuilder: (context, a1, a2, widget) {
+                          return ScaleTransition(
+                            scale:
+                                Tween<double>(begin: 0.0, end: 1.0).animate(a1),
+                            child: FadeTransition(
+                              opacity: Tween<double>(begin: 0.0, end: 1.0)
+                                  .animate(a1),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(
+                                    sigmaX: CustomProperties.blurSigmaX,
+                                    sigmaY: CustomProperties.blurSigmaY),
+                                child: InformationDialog(
+                                  chabanBridgeForecast: chabanBridgeForecast,
+                                ),
                               ),
-                            );
-                          },
+                            ),
+                          );
+                        },
+                        barrierLabel: MaterialLocalizations.of(context)
+                            .modalBarrierDismissLabel,
+                        transitionDuration: const Duration(
+                          milliseconds: 300,
                         ),
-                      ),
+                      )
                     },
             child: ListTile(
               horizontalTitleGap: 0,
-              leading: Hero(
-                tag: 'forcast-$index',
-                child: chabanBridgeForecast.getIconWidget(null),
-              ),
+              leading: chabanBridgeForecast.getIconWidget(context, false),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -117,8 +121,8 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                       children: [
                         Text(
                           chabanBridgeForecast.durationString(),
-                          style: const TextStyle(
-                            color: Colors.orange,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.timeColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),

@@ -1,6 +1,7 @@
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
-import 'package:chabo/extensions/extensions.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
@@ -19,8 +20,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
             circulationReOpeningDate: circulationReOpeningDate,
             closingReason: ChabanBridgeForecastClosingReason.maintenance,
             closingType: closingType,
-            totalClosing: totalClosing,
-            color: Colors.brown);
+            totalClosing: totalClosing);
 
   factory ChabanBridgeMaintenanceForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone =
@@ -98,44 +98,59 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
           ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ';
       infoToString2 = ', ';
       circulationReOpeningDateString =
-          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
+          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, '
+          '${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
     }
     return Text.rich(
       TextSpan(
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
         children: [
           TextSpan(text: infoFromString),
           TextSpan(
-            text: MaterialLocalizations.of(context)
-                .formatFullDate(circulationClosingDate),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            text: MaterialLocalizations.of(context).formatFullDate(
+              circulationClosingDate,
+            ),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(text: infoToString2),
           TextSpan(
             text: DateFormat.jm(Localizations.localeOf(context).languageCode)
                 .format(circulationClosingDate),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(text: infoToString),
           TextSpan(
             text: circulationReOpeningDateString,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(
             text:
                 ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
           ),
           TextSpan(
-              text:
-                  '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
-              style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+            text:
+                '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.maintenanceColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           TextSpan(
             text:
                 '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
             text: durationString(),
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.orange),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.timeColor,
+            ),
           ),
         ],
       ),
@@ -143,11 +158,18 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
   }
 
   @override
-  Widget getIconWidget(Color? color) {
+  Widget getIconWidget(BuildContext context, bool reversed) {
     return Icon(
       Icons.construction_rounded,
-      color: color ?? Colors.brown,
+      color: getColor(context, reversed),
       size: 30,
     );
+  }
+
+  @override
+  Color getColor(BuildContext context, bool reversed) {
+    return reversed
+        ? Theme.of(context).dialogBackgroundColor
+        : Theme.of(context).colorScheme.maintenanceColor;
   }
 }

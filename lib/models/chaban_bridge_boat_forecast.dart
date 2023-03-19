@@ -1,6 +1,8 @@
 import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
 import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
-import 'package:chabo/extensions/extensions.dart';
+import 'package:chabo/extensions/boats_extensions.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/boat.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
@@ -26,8 +28,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             circulationReOpeningDate: circulationReOpeningDate,
             closingReason: ChabanBridgeForecastClosingReason.boat,
             closingType: closingType,
-            totalClosing: totalClosing,
-            color: Colors.blue);
+            totalClosing: totalClosing);
 
   factory ChabanBridgeBoatForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone =
@@ -109,23 +110,30 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
 
     return Text.rich(
       TextSpan(
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
         children: [
           TextSpan(text: infoFromString),
           TextSpan(
             text: MaterialLocalizations.of(context)
                 .formatFullDate(circulationClosingDate),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(text: infoToString),
           TextSpan(
             text: DateFormat.jm(Localizations.localeOf(context).languageCode)
                 .format(circulationClosingDate),
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(text: infoToString2),
           TextSpan(
             text: circulationReOpeningDateString,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(
               text:
@@ -136,16 +144,20 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
                   '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
           TextSpan(
             text: '${durationString()}\n',
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.orange),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.timeColor,
+            ),
           ),
           TextSpan(
               text:
                   '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : '),
           TextSpan(
             text: scheduleString,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.orange),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.timeColor,
+            ),
           ),
         ],
       ),
@@ -181,14 +193,14 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   }
 
   @override
-  Widget getIconWidget(Color? color) {
+  Widget getIconWidget(BuildContext context, bool reversed) {
     return Stack(
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 15),
           child: Icon(
             Icons.directions_boat_rounded,
-            color: color ?? this.color,
+            color: getColor(context, reversed),
             size: 30,
           ),
         ),
@@ -199,7 +211,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             quarterTurns: boats[0].isLeaving ? 0 : 2,
             child: Icon(
               Icons.double_arrow_rounded,
-              color: color ?? this.color,
+              color: getColor(context, reversed),
               size: 18,
             ),
           ),
@@ -212,7 +224,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
                   quarterTurns: boats[1].isLeaving ? 0 : 2,
                   child: Icon(
                     Icons.double_arrow_rounded,
-                    color: color ?? this.color,
+                    color: getColor(context, reversed),
                     size: 18,
                   ),
                 ),
@@ -220,5 +232,12 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             : const SizedBox.shrink(),
       ],
     );
+  }
+
+  @override
+  Color getColor(BuildContext context, bool reversed) {
+    return reversed
+        ? Theme.of(context).dialogBackgroundColor
+        : Theme.of(context).colorScheme.boatColor;
   }
 }

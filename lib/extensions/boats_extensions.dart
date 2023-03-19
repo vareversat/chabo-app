@@ -2,16 +2,6 @@ import 'package:chabo/models/boat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-extension StringExtension on String {
-  String capitalize() {
-    if (isEmpty) {
-      return this;
-    } else {
-      return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
-    }
-  }
-}
-
 extension BoatsExtension on List<Boat> {
   TextSpan toLocalizedTextSpan(BuildContext context) {
     if (length == 1) {
