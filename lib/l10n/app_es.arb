@@ -30,14 +30,11 @@
   "errorScreenContentTechnical_Info": "Información técnica",
   "lisOfUpcomingClosures": "Lista de próximos cierres",
   "unableAppInfo": "No se puede obtener información de la aplicación",
-  "appDescription": "La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Burdeos, Francia",
-  "sourceCode": "Código fuente",
+  "appDescription": "La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Bordeaux, Francia",
   "changelog": "Registro de cambios",
-  "privacyPolicy": "Política de privacidad",
   "informationAboutTheApp": "Información sobre la aplicación",
   "about": "Acerca de",
   "disclaimer": "Descargo de responsabilidad: cierres provisionales. Sujeto a confirmación de la Capitanía de Puerto.",
-  "usefulLinks": "Enlaces útiles:",
   "themeSetting": "Tema",
   "themeSettingSubtitle": "Establezca el tema de la aplicación",
   "lightTheme": "Tema claro",
@@ -144,5 +141,11 @@
     }
   },
   "notificationTimeChannelName": "Cierres del próximo día",
-  "passedClosure": "Cierre pasado"
+  "passedClosure": "Cierre pasado",
+  "selectExample": "{choice, select, source_code {Código\nuente} privacy_policy {Política de\nprivacidad} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ciudad de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
+  "@selectExample": {
+    "placeholders": {
+      "choice": {}
+    }
+  }
 }

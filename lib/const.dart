@@ -1,8 +1,12 @@
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/link_icon.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Const {
   /// App
   static const String appName = 'Chabo';
+  static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';
@@ -15,10 +19,18 @@ class Const {
       'https://www.vesselfinder.com/fr/vessels?name=$vesselFinderLinkPlaceholder&type=301';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
-  static const List<String> usefulLinks = [
-    'https://www.instagram.com/_yuhliet_/',
-    'https://sedeplacer.bordeaux-metropole.fr/',
-    'https://opendata.bordeaux-metropole.fr/'
+
+  static List<WebLinkIcon> usefulLinks = [
+    WebLinkIcon('https://www.instagram.com/_yuhliet_/',
+        FontAwesomeIcons.instagram, 'yuhliet_instagram'),
+    WebLinkIcon('https://bordeaux-metropole.fr/', Icons.location_city_rounded,
+        'city_of_bordeaux'),
+    WebLinkIcon('https://opendata.bordeaux-metropole.fr/',
+        Icons.data_thresholding_rounded, 'bordeaux_open_data'),
+    WebLinkIcon('https://github.com/vareversat/chabo', FontAwesomeIcons.github,
+        'source_code'),
+    WebLinkIcon('https://chabo.vareversat.fr/privacy',
+        Icons.privacy_tip_rounded, 'privacy_policy'),
   ];
 
   /// Local storage

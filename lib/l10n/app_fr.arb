@@ -31,13 +31,10 @@
   "lisOfUpcomingClosures": "Liste des prochaines perturbations",
   "unableAppInfo": "Impossible d'obtenir les informations de l'application",
   "appDescription": "L'application Mobile pour connaître les horaires de fermeture et d'ouverture du pont Chaban Delmas situé à Bordeaux, France",
-  "sourceCode": "Code source",
   "changelog": "Journal des modifications",
-  "privacyPolicy": "Politique de confidentialité",
   "informationAboutTheApp": "Informations concernant l'application",
   "about": "À propos",
   "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
-  "usefulLinks": "Liens utiles :",
   "themeSetting": "Thème",
   "themeSettingSubtitle": "Choisir le thème de l'application",
   "lightTheme": "Thème clair",
@@ -144,5 +141,11 @@
     }
   },
   "notificationTimeChannelName": "Fermetures du lendemain",
-  "passedClosure": "Fermeture passée"
+  "passedClosure": "Fermeture passée",
+  "selectExample": "{choice, select, source_code {Code\nsource} privacy_policy {Politique de\nconfidentialité} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ville de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} changelog {Journal des\nmodifications} licenses {Licences} other {Undefined}}",
+  "@selectExample": {
+    "placeholders": {
+      "choice": {}
+    }
+  }
 }

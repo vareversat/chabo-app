@@ -31,13 +31,10 @@
   "lisOfUpcomingClosures": "List of upcoming closures",
   "unableAppInfo": "Unable to get application information",
   "appDescription": "The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France",
-  "sourceCode": "Source code",
   "changelog": "Changelog",
-  "privacyPolicy": "Privacy policy",
   "informationAboutTheApp": "Information about the app",
   "about": "About",
   "disclaimer": "Disclaimer: provisional closures. Subject to confirmation from the Harbor Master's Office.",
-  "usefulLinks": "Useful links:",
   "themeSetting": "Theme",
   "themeSettingSubtitle": "Set the theme of the app",
   "lightTheme": "Light theme",
@@ -144,5 +141,11 @@
     }
   },
   "notificationTimeChannelName": "Next day closings",
-  "passedClosure": "Past closure"
+  "passedClosure": "Past closure",
+  "selectExample": "{choice, select, source_code {Source\ncode} privacy_policy {Privacy\npolicy} yuhliet_instagram {Yuhliet's\nInstagram} city_of_bordeaux {City of\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licenses} changelog {Changelog} other {Undefined}}",
+  "@selectExample": {
+    "placeholders": {
+      "choice": {}
+    }
+  }
 }
