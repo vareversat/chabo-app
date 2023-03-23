@@ -158,47 +158,44 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                   ),
                   leadingIcon: Icons.plus_one_outlined,
                 ),
-                BlocBuilder<NotificationBloc, NotificationSate>(
-                  builder: (context, state) {
-                    return _CustomListTile(
-                      onTap: () async {
-                        final day = await showDialog(
-                          context: context,
-                          builder: (
-                            BuildContext context,
-                          ) {
-                            return BackdropFilter(
-                              filter: ImageFilter.blur(
-                                  sigmaX: CustomProperties.blurSigmaX,
-                                  sigmaY: CustomProperties.blurSigmaY),
-                              child: const DaysOfTheWeekDialog(),
-                            );
-                          },
+                _CustomListTile(
+                  onTap: () async {
+                    final day = await showDialog(
+                      context: context,
+                      builder: (
+                        BuildContext context,
+                      ) {
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(
+                              sigmaX: CustomProperties.blurSigmaX,
+                              sigmaY: CustomProperties.blurSigmaY),
+                          child: DaysOfTheWeekDialog(
+                              selectedDay: state.dayNotificationValue),
                         );
-                        if (day != null) {
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            DayNotificationValueEvent(day: day),
-                          );
-                        }
                       },
-                      enabled: state.dayNotificationEnabled,
-                      title: AppLocalizations.of(context)!.dayNotificationTitle(
-                        state.dayNotificationValue.localizedName(context),
-                      ),
-                      subtitle: AppLocalizations.of(context)!
-                          .dayNotificationExplanation(
-                        state.dayNotificationValue.localizedName(context),
-                      ),
-                      leadingIcon: Icons.calendar_month_outlined,
-                      onChanged: (bool value) =>
-                          BlocProvider.of<NotificationBloc>(context).add(
-                        DayNotificationStateEvent(
-                          enabled: value,
-                        ),
-                      ),
                     );
+                    if (day != null) {
+                      BlocProvider.of<NotificationBloc>(context).add(
+                        DayNotificationValueEvent(day: day),
+                      );
+                    }
                   },
-                ),
+                  enabled: state.dayNotificationEnabled,
+                  title: AppLocalizations.of(context)!.dayNotificationTitle(
+                    state.dayNotificationValue.localizedName(context),
+                  ),
+                  subtitle:
+                      AppLocalizations.of(context)!.dayNotificationExplanation(
+                    state.dayNotificationValue.localizedName(context),
+                  ),
+                  leadingIcon: Icons.calendar_month_outlined,
+                  onChanged: (bool value) =>
+                      BlocProvider.of<NotificationBloc>(context).add(
+                    DayNotificationStateEvent(
+                      enabled: value,
+                    ),
+                  ),
+                )
               ],
             );
           },

@@ -1,12 +1,13 @@
-import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
-  const DaysOfTheWeekDialog({Key? key}) : super(key: key);
+  final Day selectedDay;
+
+  const DaysOfTheWeekDialog({Key? key, required this.selectedDay})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,34 +61,31 @@ class DaysOfTheWeekDialog extends StatelessWidget {
           15,
         ),
       ),
-      content: BlocBuilder<NotificationBloc, NotificationSate>(
-          builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: Day.values
-              .map(
-                (day) => RadioListTile<Day>(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      CustomProperties.borderRadius,
-                    ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: Day.values
+            .map(
+              (day) => RadioListTile<Day>(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    CustomProperties.borderRadius,
                   ),
-                  title: Text(
-                    day.localizedName(context),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  value: day,
-                  groupValue: state.dayNotificationValue,
-                  onChanged: (Day? value) {
-                    Navigator.pop(context, value);
-                  },
                 ),
-              )
-              .toList(),
-        );
-      }),
+                title: Text(
+                  day.localizedName(context),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                value: day,
+                groupValue: selectedDay,
+                onChanged: (Day? value) {
+                  Navigator.pop(context, value);
+                },
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
