@@ -1,15 +1,12 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:chabo/bloc/closing_notification/closing_notification_bloc.dart';
-import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
-import 'package:chabo/bloc/opening_notification/opening_notification_bloc.dart';
-import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
+import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/service/storage_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -74,111 +71,119 @@ class NotificationService {
     return false;
   }
 
-  void computeOpeningScheduledNotifications(
+  Future<void> computeNotifications(
       List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
-      OpeningNotificationState openingNotificationState,
+      NotificationSate notificationSate,
       BuildContext context) async {
     tz.initializeTimeZones();
+    int index = 0;
+    await localNotifications.cancelAll();
+    for (final chabanBridgeForecast in chabanBridgeForecasts) {
+      if (notificationSate.openingNotificationEnabled) {
+        index += 1;
+        await _createOpeningScheduledNotifications(
+            index, chabanBridgeForecast, context);
+      }
+      if (notificationSate.closingNotificationEnabled) {
+        index += 1;
+        await _createClosingScheduledNotifications(
+            index, chabanBridgeForecast, context);
+      }
+      if (notificationSate.timeNotificationEnabled) {
+        index += 1;
+        await _createTimeScheduledNotifications(index, chabanBridgeForecast,
+            context, notificationSate.timeNotificationValue);
+      }
+      if (notificationSate.durationNotificationEnabled) {
+        index += 1;
+        await _createDurationScheduledNotifications(
+          index,
+          chabanBridgeForecast,
+          context,
+          notificationSate.durationNotificationValue,
+          notificationSate.durationToString(
+            notificationSate.durationNotificationValue,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _createOpeningScheduledNotifications(
+      int index,
+      AbstractChabanBridgeForecast chabanBridgeForecast,
+      BuildContext context) async {
+    final notificationScheduleTime =
+        chabanBridgeForecast.circulationReOpeningDate;
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationOpeningChannelId,
         AppLocalizations.of(context)!.notificationOpeningChannelName);
-    if (openingNotificationState.enabled) {
-      int index = Const.openingNotificationStartId;
-      for (final chabanBridgeForecast in chabanBridgeForecasts) {
-        final notificationScheduleTime =
-            chabanBridgeForecast.circulationReOpeningDate;
-        await _scheduleNotification(
-            index,
-            AppLocalizations.of(context)!.notificationOpeningTitle,
-            AppLocalizations.of(context)!.notificationOpeningMessage,
-            notificationScheduleTime,
-            notificationDetails);
-        index += 1;
-      }
-    }
+    await _scheduleNotification(
+        index,
+        AppLocalizations.of(context)!.notificationOpeningTitle,
+        AppLocalizations.of(context)!.notificationOpeningMessage,
+        notificationScheduleTime,
+        notificationDetails);
   }
 
-  void computeClosingScheduledNotifications(
-      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
-      ClosingNotificationState closingNotificationState,
+  Future<void> _createClosingScheduledNotifications(
+      int index,
+      AbstractChabanBridgeForecast chabanBridgeForecast,
       BuildContext context) async {
-    tz.initializeTimeZones();
+    final notificationScheduleTime =
+        chabanBridgeForecast.circulationClosingDate;
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationClosingChannelId,
         AppLocalizations.of(context)!.notificationClosingChannelName);
-    if (closingNotificationState.enabled) {
-      int index = Const.closingNotificationStartId;
-      for (final chabanBridgeForecast in chabanBridgeForecasts) {
-        final notificationScheduleTime =
-            chabanBridgeForecast.circulationClosingDate;
-        await _scheduleNotification(
-            index,
-            AppLocalizations.of(context)!.notificationClosingTitle,
-            chabanBridgeForecast.getNotificationClosingMessage(context),
-            notificationScheduleTime,
-            notificationDetails);
-        index += 1;
-      }
-    }
+    await _scheduleNotification(
+        index,
+        AppLocalizations.of(context)!.notificationClosingTitle,
+        chabanBridgeForecast.getNotificationClosingMessage(context),
+        notificationScheduleTime,
+        notificationDetails);
   }
 
-  void computeDurationScheduledNotifications(
-      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
-      DurationPickerState durationPickerState,
-      BuildContext context) async {
-    tz.initializeTimeZones();
-    NotificationDetails notificationDetails = _notificationDetails(
-        Const.notificationDurationChannelId,
-        AppLocalizations.of(context)!.notificationDurationChannelName);
-    if (durationPickerState.enabled) {
-      int index = Const.durationNotificationStartId;
-      for (final chabanBridgeForecast in chabanBridgeForecasts) {
-        final notificationScheduleTime = chabanBridgeForecast
-            .circulationClosingDate
-            .subtract(durationPickerState.duration);
-        await _scheduleNotification(
-            index,
-            AppLocalizations.of(context)!.notificationDurationTitle,
-            chabanBridgeForecast.getNotificationDurationMessage(
-                context, durationPickerState),
-            notificationScheduleTime,
-            notificationDetails);
-        index += 1;
-      }
-    }
-  }
-
-  void computeTimeScheduledNotifications(
-      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
-      TimePickerState timePickerState,
-      BuildContext context) async {
-    tz.initializeTimeZones();
+  Future<void> _createTimeScheduledNotifications(
+      int index,
+      AbstractChabanBridgeForecast chabanBridgeForecast,
+      BuildContext context,
+      Duration value) async {
+    final notificationScheduleTime = chabanBridgeForecast.circulationClosingDate
+        .subtract(
+          const Duration(
+            days: 1,
+          ),
+        )
+        .copyWith(hour: value.inHours, minute: value.inMinutes % 60);
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationTimeChannelId,
         AppLocalizations.of(context)!.notificationTimeChannelName);
-    if (timePickerState.enabled) {
-      int index = Const.timeNotificationStartId;
-      for (final chabanBridgeForecast in chabanBridgeForecasts) {
-        final notificationScheduleTime = chabanBridgeForecast
-            .circulationClosingDate
-            .subtract(
-              const Duration(
-                days: 1,
-              ),
-            )
-            .copyWith(
-                hour: timePickerState.time.inHours,
-                minute: timePickerState.time.inMinutes % 60);
-        await _scheduleNotification(
-            index,
-            AppLocalizations.of(context)!.notificationTimeTitle,
-            chabanBridgeForecast.getNotificationTimeMessage(
-                context, timePickerState),
-            notificationScheduleTime,
-            notificationDetails);
-        index += 1;
-      }
-    }
+    await _scheduleNotification(
+        index,
+        AppLocalizations.of(context)!.notificationTimeTitle,
+        chabanBridgeForecast.getNotificationTimeMessage(context),
+        notificationScheduleTime,
+        notificationDetails);
+  }
+
+  Future<void> _createDurationScheduledNotifications(
+      int index,
+      AbstractChabanBridgeForecast chabanBridgeForecast,
+      BuildContext context,
+      Duration durationValue,
+      String durationString) async {
+    final notificationScheduleTime =
+        chabanBridgeForecast.circulationClosingDate.subtract(durationValue);
+    NotificationDetails notificationDetails = _notificationDetails(
+        Const.notificationDurationChannelId,
+        AppLocalizations.of(context)!.notificationDurationChannelName);
+    await _scheduleNotification(
+        index,
+        AppLocalizations.of(context)!.notificationDurationTitle,
+        chabanBridgeForecast.getNotificationDurationMessage(
+            context, durationString),
+        notificationScheduleTime,
+        notificationDetails);
   }
 
   NotificationDetails _notificationDetails(
@@ -207,7 +212,7 @@ class NotificationService {
       developer.log(
           'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',
           name: 'notification-service.on.scheduleNotification');
-      return await localNotifications.zonedSchedule(
+      await localNotifications.zonedSchedule(
           notificationId,
           notificationTitle,
           notificationMessage,

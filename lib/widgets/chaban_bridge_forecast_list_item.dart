@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
+import 'package:chabo/dialogs/chaban_bridge_forecast_information_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
-import 'package:chabo/widgets/information_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,19 +59,15 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                         },
                         barrierDismissible: true,
                         transitionBuilder: (context, a1, a2, widget) {
-                          return ScaleTransition(
-                            scale:
+                          return FadeTransition(
+                            opacity:
                                 Tween<double>(begin: 0.0, end: 1.0).animate(a1),
-                            child: FadeTransition(
-                              opacity: Tween<double>(begin: 0.0, end: 1.0)
-                                  .animate(a1),
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                    sigmaX: CustomProperties.blurSigmaX,
-                                    sigmaY: CustomProperties.blurSigmaY),
-                                child: InformationDialog(
-                                  chabanBridgeForecast: chabanBridgeForecast,
-                                ),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: CustomProperties.blurSigmaX,
+                                  sigmaY: CustomProperties.blurSigmaY),
+                              child: ChabanBridgeForecastInformationDialog(
+                                chabanBridgeForecast: chabanBridgeForecast,
                               ),
                             ),
                           );

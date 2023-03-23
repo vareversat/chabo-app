@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'opening_notification_event.dart';
-
 part 'opening_notification_state.dart';
 
 class OpeningNotificationBloc

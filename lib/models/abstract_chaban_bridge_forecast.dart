@@ -1,5 +1,3 @@
-import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
-import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
 import 'package:equatable/equatable.dart';
@@ -57,10 +55,9 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   Widget getIconWidget(BuildContext context, bool reversed);
 
   String getNotificationDurationMessage(
-      BuildContext context, DurationPickerState durationPickerState);
+      BuildContext context, String pickedDuration);
 
-  String getNotificationTimeMessage(
-      BuildContext context, TimePickerState timePickerState);
+  String getNotificationTimeMessage(BuildContext context);
 
   String getNotificationClosingMessage(BuildContext context);
 

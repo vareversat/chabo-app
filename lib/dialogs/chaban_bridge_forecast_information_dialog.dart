@@ -2,10 +2,11 @@ import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class InformationDialog extends StatelessWidget {
+class ChabanBridgeForecastInformationDialog extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
 
-  const InformationDialog({super.key, required this.chabanBridgeForecast});
+  const ChabanBridgeForecastInformationDialog(
+      {super.key, required this.chabanBridgeForecast});
 
   @override
   Widget build(BuildContext context) {

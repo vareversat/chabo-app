@@ -1,7 +1,4 @@
-import 'dart:ui';
-
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/notification_dialog.dart';
+import 'package:chabo/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -27,18 +24,10 @@ class NotificationTileWidget extends StatelessWidget {
         Icons.notifications_active_outlined,
         size: 30,
       ),
-      onTap: () async => await showDialog(
-        context: context,
-        builder: (
-          BuildContext context,
-        ) {
-          return BackdropFilter(
-            filter: ImageFilter.blur(
-                sigmaX: CustomProperties.blurSigmaX,
-                sigmaY: CustomProperties.blurSigmaY),
-            child: const NotificationDialog(),
-          );
-        },
+      onTap: () async => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const NotificationScreen(),
+        ),
       ),
     );
   }

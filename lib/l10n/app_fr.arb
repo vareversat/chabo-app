@@ -13,6 +13,7 @@
   "scheduledToOpen": "ouverture prévue dans",
   "theBridgeIsCurrently": "le pont Chaban est",
   "settingsTitle": "Paramètres",
+  "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "le ",
   "dialogInformationContentThe2": "du ",
@@ -147,5 +148,8 @@
     "placeholders": {
       "choice": {}
     }
-  }
+  },
+  "day": "Jour",
+  "refreshingNotifications": "Actualisation de vos notifications",
+  "refreshingNotificationsDone": "Terminé !"
 }

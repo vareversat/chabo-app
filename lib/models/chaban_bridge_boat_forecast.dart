@@ -1,5 +1,3 @@
-import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
-import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/extensions/boats_extensions.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
@@ -166,17 +164,16 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
 
   @override
   String getNotificationDurationMessage(
-      BuildContext context, DurationPickerState durationPickerState) {
+      BuildContext context, String pickedDuration) {
     return AppLocalizations.of(context)!.notificationDurationBoatMessage(
       boats.toLocalizedString(context),
-      durationPickerState.getDuration(),
+      pickedDuration,
       durationString(),
     );
   }
 
   @override
-  String getNotificationTimeMessage(
-      BuildContext context, TimePickerState timePickerState) {
+  String getNotificationTimeMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
       boats.toLocalizedString(context),
       DateFormat.Hm().format(circulationClosingDate),

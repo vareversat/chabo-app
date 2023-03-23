@@ -13,6 +13,7 @@
   "scheduledToOpen": "scheduled to open in",
   "theBridgeIsCurrently": "the Chaban bridge is",
   "settingsTitle": "Settings",
+  "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "",
   "dialogInformationContentThe2": "from ",
@@ -147,5 +148,8 @@
     "placeholders": {
       "choice": {}
     }
-  }
+  },
+  "day": "Day",
+  "refreshingNotifications": "Refreshing your notifications",
+  "refreshingNotificationsDone": "Done !"
 }
