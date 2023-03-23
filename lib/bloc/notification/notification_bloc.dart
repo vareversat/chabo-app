@@ -156,6 +156,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
         storageService.readBool(Const.notificationDayEnabledKey) ??
             Const.notificationDayEnabledDefaultValue;
 
+    final dayNotificationValue =
+        storageService.readDay(Const.notificationDayValueKey) ??
+            Const.notificationDayValueDefaultValue;
+
     final openingNotificationEnabled =
         storageService.readBool(Const.notificationOpeningEnabledKey) ??
             Const.notificationOpeningEnabledDefaultValue;
@@ -171,6 +175,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
           timeNotificationEnabled: timeNotificationEnabled,
           timeNotificationValue: timeNotificationValue,
           dayNotificationEnabled: dayNotificationEnabled,
+          dayNotificationValue: dayNotificationValue,
           openingNotificationEnabled: openingNotificationEnabled,
           closingNotificationEnabled: closingNotificationEnabled),
     );
