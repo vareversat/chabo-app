@@ -1,10 +1,10 @@
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
-import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';

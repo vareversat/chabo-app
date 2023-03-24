@@ -1,9 +1,9 @@
 import 'dart:developer' as developer;
 
-import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,7 +35,7 @@ class StorageService {
 
   Future<bool> saveDay(String key, Day value) async {
     developer.log('{$key: $value}', name: 'storage-service.on.saveDay');
-    return await sharedPreferences.setString(key, value.name);
+    return await sharedPreferences.setInt(key, value.value);
   }
 
   Future<bool> saveTheme(String key, ThemeStateStatus value) async {
@@ -80,13 +80,12 @@ class StorageService {
   }
 
   Day? readDay(String key) {
-    final stringValue = sharedPreferences.getString(key);
-    if (stringValue == null) {
+    final value = sharedPreferences.getInt(key);
+    if (value == null) {
       return null;
     } else {
-      final value = EnumToString.fromString(Day.values, stringValue);
       developer.log('{$key: $value}', name: 'storage-service.on.readDay');
-      return value;
+      return Day(value);
     }
   }
 

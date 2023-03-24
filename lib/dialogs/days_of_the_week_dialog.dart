@@ -1,7 +1,7 @@
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
   final Day selectedDay;
@@ -22,39 +22,6 @@ class DaysOfTheWeekDialog extends StatelessWidget {
         0,
         20,
         10,
-      ),
-      title: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(
-              15.0,
-            ),
-            topRight: Radius.circular(
-              15.0,
-            ),
-          ),
-        ),
-        padding: const EdgeInsets.fromLTRB(
-          20,
-          20,
-          0,
-          15,
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.calendar_month_outlined,
-                color: Theme.of(context).colorScheme.onPrimaryContainer),
-            const SizedBox(width: 20),
-            Text(
-              AppLocalizations.of(context)!.day,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-          ],
-        ),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(

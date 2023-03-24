@@ -50,7 +50,9 @@ class ChabanBridgeForecastBloc
         }
         final boatForecast = ChabanBridgeBoatForecast.fromJSON(json);
         return boatForecast;
-      }).toList();
+      }).toList()
+        ..sort((a, b) =>
+            a.circulationClosingDate.compareTo(b.circulationClosingDate));
     }
     return [];
   }

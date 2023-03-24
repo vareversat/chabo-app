@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-enum Day { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 extension DayExtension on Day? {
   String localizedName(BuildContext context) {
@@ -20,8 +19,8 @@ extension DayExtension on Day? {
         return AppLocalizations.of(context)!.saturday;
       case Day.sunday:
         return AppLocalizations.of(context)!.sunday;
-      case null:
-        throw Exception('Day not defined for null');
+      default:
+        return '';
     }
   }
 }

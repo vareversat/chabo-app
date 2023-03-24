@@ -73,10 +73,11 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Recevoir une notification le {day} listant toutes les fermetures prévues pour la semaine qui arrive",
+  "dayNotificationExplanation": "Recevoir une notification le {day} à {time} listant toutes les fermetures prévues pour la semaine qui arrive",
   "@dayNotificationExplanation": {
     "placeholders": {
-      "day": {}
+      "day": {},
+      "time": {}
     }
   },
   "closingNotificationTitle": "À la fermeture",
@@ -151,5 +152,13 @@
   },
   "day": "Jour",
   "refreshingNotifications": "Actualisation de vos notifications",
-  "refreshingNotificationsDone": "Terminé !"
+  "refreshingNotificationsDone": "Terminé !",
+  "notificationDayTitle": "\uD83D\uDD2E Fermetures prévues",
+  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{1 fermeture prévue pour la semaine prochaine} other{{count} fermetures prévues pour la semaine prochaine}}",
+  "@notificationDayMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "notificationDayChannelName": "Fermetures prévues"
 }

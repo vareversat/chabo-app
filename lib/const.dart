@@ -1,6 +1,6 @@
-import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/link_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Const {
@@ -72,13 +72,7 @@ class Const {
   static const String notificationTimeChannelId = 'tomorrow_closures';
   static const String notificationOpeningChannelId = 'opening';
   static const String notificationClosingChannelId = 'closing';
-
-  /// Notification misc
-  static const int durationNotificationStartId = 0;
-  static const int timeNotificationStartId = 1000;
-  static const int dayNotificationStartId = 2000;
-  static const int openingNotificationStartId = 3000;
-  static const int closingNotificationStartId = 4000;
+  static const String notificationDayChannelId = 'next_week_closures';
 
   /// AdMod
   static const String androidInlineBanner =

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/const.dart';
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
@@ -78,6 +79,7 @@ class NotificationService {
     tz.initializeTimeZones();
     int index = 0;
     await localNotifications.cancelAll();
+    List<AbstractChabanBridgeForecast> weekSeparatedChabanBridgeForecast = [];
     for (final chabanBridgeForecast in chabanBridgeForecasts) {
       if (notificationSate.openingNotificationEnabled) {
         index += 1;
@@ -93,6 +95,27 @@ class NotificationService {
         index += 1;
         await _createTimeScheduledNotifications(index, chabanBridgeForecast,
             context, notificationSate.timeNotificationValue);
+      }
+      if (notificationSate.dayNotificationEnabled) {
+        var last = chabanBridgeForecast.circulationClosingDate
+            .previous(notificationSate.dayNotificationValue.value);
+        if (weekSeparatedChabanBridgeForecast.isEmpty ||
+            weekSeparatedChabanBridgeForecast.last.circulationClosingDate
+                    .previous(notificationSate.dayNotificationValue.value)
+                    .day ==
+                last.day) {
+          weekSeparatedChabanBridgeForecast.add(chabanBridgeForecast);
+        } else {
+          index += 1;
+          await _createDayScheduledNotifications(
+            index,
+            weekSeparatedChabanBridgeForecast.length,
+            last,
+            notificationSate.dayNotificationTimeValue,
+            context,
+          );
+          weekSeparatedChabanBridgeForecast = [];
+        }
       }
       if (notificationSate.durationNotificationEnabled) {
         index += 1;
@@ -182,6 +205,21 @@ class NotificationService {
         AppLocalizations.of(context)!.notificationDurationTitle,
         chabanBridgeForecast.getNotificationDurationMessage(
             context, durationString),
+        notificationScheduleTime,
+        notificationDetails);
+  }
+
+  Future<void> _createDayScheduledNotifications(int index, int closingCount,
+      DateTime day, TimeOfDay timeOfDay, BuildContext context) async {
+    final notificationScheduleTime =
+        day.copyWith(hour: timeOfDay.hour, minute: timeOfDay.minute, second: 0);
+    NotificationDetails notificationDetails = _notificationDetails(
+        Const.notificationDayChannelId,
+        AppLocalizations.of(context)!.notificationDayChannelName);
+    await _scheduleNotification(
+        index,
+        AppLocalizations.of(context)!.notificationDayTitle,
+        AppLocalizations.of(context)!.notificationDayMessage(closingCount),
         notificationScheduleTime,
         notificationDetails);
   }

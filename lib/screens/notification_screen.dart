@@ -184,10 +184,10 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                   title: AppLocalizations.of(context)!.dayNotificationTitle(
                     state.dayNotificationValue.localizedName(context),
                   ),
-                  subtitle:
-                      AppLocalizations.of(context)!.dayNotificationExplanation(
-                    state.dayNotificationValue.localizedName(context),
-                  ),
+                  subtitle: AppLocalizations.of(context)!
+                      .dayNotificationExplanation(
+                          state.dayNotificationValue.localizedName(context),
+                          state.dayNotificationTimeValue.format(context)),
                   leadingIcon: Icons.calendar_month_outlined,
                   onChanged: (bool value) =>
                       BlocProvider.of<NotificationBloc>(context).add(

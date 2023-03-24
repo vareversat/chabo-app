@@ -7,6 +7,8 @@ class NotificationSate {
   final Duration timeNotificationValue;
   final bool dayNotificationEnabled;
   final Day dayNotificationValue;
+  final TimeOfDay dayNotificationTimeValue =
+      const TimeOfDay(hour: 20, minute: 00);
   final bool openingNotificationEnabled;
   final bool closingNotificationEnabled;
 

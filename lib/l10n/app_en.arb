@@ -73,10 +73,11 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Receive a notification on {day} listing all planned closures for the coming week",
+  "dayNotificationExplanation": "Receive a notification on {day} at {time} listing all planned closures for the coming week",
   "@dayNotificationExplanation": {
     "placeholders": {
-      "day": {}
+      "day": {},
+      "time": {}
     }
   },
   "closingNotificationTitle": "At closing",
@@ -151,5 +152,13 @@
   },
   "day": "Day",
   "refreshingNotifications": "Refreshing your notifications",
-  "refreshingNotificationsDone": "Done !"
+  "refreshingNotificationsDone": "Done !",
+  "notificationDayTitle": "\uD83D\uDD2E Closing scheduled",
+  "notificationDayMessage": "{count, plural, =0{No closures scheduled for next week} =1{1 closure scheduled for next week} other{{count} closures scheduled for next week}}",
+  "@notificationDayMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "notificationDayChannelName": "Planned closures"
 }
