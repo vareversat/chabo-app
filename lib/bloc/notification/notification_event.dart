@@ -45,7 +45,7 @@ class DurationNotificationValueEvent extends NotificationEvent {
 }
 
 class TimeNotificationValueEvent extends NotificationEvent {
-  final Duration time;
+  final TimeOfDay time;
 
   TimeNotificationValueEvent({required this.time}) : super();
 }

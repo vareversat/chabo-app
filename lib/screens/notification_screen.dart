@@ -119,8 +119,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     var time = await showTimePicker(
                       initialEntryMode: TimePickerEntryMode.dialOnly,
                       context: context,
-                      initialTime: state
-                          .durationToTimeOfDay(state.timeNotificationValue),
+                      initialTime: state.timeNotificationValue,
                       builder: (BuildContext context, Widget? child) {
                         return MediaQuery(
                           data: MediaQuery.of(context).copyWith(
@@ -134,9 +133,9 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       // ignore: use_build_context_synchronously
                       BlocProvider.of<NotificationBloc>(context).add(
                         TimeNotificationValueEvent(
-                          time: Duration(
-                            hours: time.hour,
-                            minutes: time.minute,
+                          time: TimeOfDay(
+                            hour: time.hour,
+                            minute: time.minute,
                           ),
                         ),
                       );
@@ -150,11 +149,11 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                   ),
                   enabled: state.timeNotificationEnabled,
                   title: AppLocalizations.of(context)!.timeNotificationTitle(
-                    state.durationToString(state.timeNotificationValue),
+                    state.timeNotificationValue.format(context),
                   ),
                   subtitle:
                       AppLocalizations.of(context)!.timeNotificationExplanation(
-                    state.durationToString(state.timeNotificationValue),
+                    state.timeNotificationValue.format(context),
                   ),
                   leadingIcon: Icons.plus_one_outlined,
                 ),

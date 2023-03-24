@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 part 'notification_event.dart';
+
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
@@ -18,7 +19,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
               durationNotificationEnabled: true,
               durationNotificationValue: const Duration(hours: 6),
               timeNotificationEnabled: true,
-              timeNotificationValue: const Duration(hours: 6),
+              timeNotificationValue: const TimeOfDay(hour: 6, minute: 0),
               dayNotificationEnabled: true,
               dayNotificationValue: Day.saturday,
               openingNotificationEnabled: true,
@@ -106,7 +107,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
 
   Future<void> _onTimeNotificationValueEvent(
       TimeNotificationValueEvent event, Emitter<NotificationSate> emit) async {
-    await storageService.saveDuration(
+    await storageService.saveTimeOfDay(
         Const.notificationTimeValueKey, event.time);
     emit(
       state.copyWith(timeNotificationValue: event.time),
@@ -149,7 +150,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
             Const.notificationTimeEnabledDefaultValue;
 
     final timeNotificationValue =
-        storageService.readDuration(Const.notificationTimeValueKey) ??
+        storageService.readTimeOfDay(Const.notificationTimeValueKey) ??
             Const.notificationTimeValueDefaultValue;
 
     final dayNotificationEnabled =

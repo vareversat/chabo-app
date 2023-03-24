@@ -58,8 +58,8 @@ class Const {
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
   static const bool notificationDurationEnabledDefaultValue = true;
-  static const Duration notificationTimeValueDefaultValue =
-      Duration(hours: 20, minutes: 00);
+  static TimeOfDay notificationTimeValueDefaultValue =
+      const TimeOfDay(hour: 6, minute: 0);
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
   static const bool notificationDayEnabledDefaultValue = false;

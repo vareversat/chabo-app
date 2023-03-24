@@ -4,7 +4,7 @@ class NotificationSate {
   final bool durationNotificationEnabled;
   final Duration durationNotificationValue;
   final bool timeNotificationEnabled;
-  final Duration timeNotificationValue;
+  final TimeOfDay timeNotificationValue;
   final bool dayNotificationEnabled;
   final Day dayNotificationValue;
   final TimeOfDay dayNotificationTimeValue =
@@ -26,7 +26,7 @@ class NotificationSate {
       {bool? durationNotificationEnabled,
       Duration? durationNotificationValue,
       bool? timeNotificationEnabled,
-      Duration? timeNotificationValue,
+      TimeOfDay? timeNotificationValue,
       bool? dayNotificationEnabled,
       Day? dayNotificationValue,
       bool? openingNotificationEnabled,

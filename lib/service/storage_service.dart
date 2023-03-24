@@ -27,6 +27,11 @@ class StorageService {
     return await sharedPreferences.setString(key, value.inMinutes.toString());
   }
 
+  Future<bool> saveDateTime(String key, DateTime value) async {
+    developer.log('{$key: $value}', name: 'storage-service.on.saveDuration');
+    return await sharedPreferences.setString(key, value.toString());
+  }
+
   Future<bool> saveTimeOfDay(String key, TimeOfDay value) async {
     developer.log('{$key: $value}', name: 'storage-service.on.saveTimeOfDay');
     return await sharedPreferences.setString(
@@ -53,6 +58,17 @@ class StorageService {
     final value = sharedPreferences.getBool(key);
     developer.log('{$key: $value}', name: 'storage-service.on.readBool');
     return value;
+  }
+
+  DateTime? reaDateTime(String key) {
+    final stringValue = sharedPreferences.getString(key);
+    if (stringValue == null) {
+      return null;
+    } else {
+      final value = DateTime.parse(sharedPreferences.getString(key)!);
+      developer.log('{$key: $value}', name: 'storage-service.on.readDuration');
+      return value;
+    }
   }
 
   Duration? readDuration(String key) {

@@ -170,14 +170,14 @@ class NotificationService {
       int index,
       AbstractChabanBridgeForecast chabanBridgeForecast,
       BuildContext context,
-      Duration value) async {
+      TimeOfDay value) async {
     final notificationScheduleTime = chabanBridgeForecast.circulationClosingDate
         .subtract(
           const Duration(
             days: 1,
           ),
         )
-        .copyWith(hour: value.inHours, minute: value.inMinutes % 60);
+        .copyWith(hour: value.hour, minute: value.minute);
     NotificationDetails notificationDetails = _notificationDetails(
         Const.notificationTimeChannelId,
         AppLocalizations.of(context)!.notificationTimeChannelName);
