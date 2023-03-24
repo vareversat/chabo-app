@@ -41,10 +41,6 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
         cacheExtent: 5000,
         padding: const EdgeInsets.all(0),
         itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return _MonthWidget(
-                chabanBridgeForecast: widget.chabanBridgeForecasts[0]);
-          }
           return ChabanBridgeForecastListItem(
               key:
                   GlobalObjectKey(widget.chabanBridgeForecasts[index].hashCode),
