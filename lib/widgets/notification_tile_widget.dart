@@ -25,8 +25,25 @@ class NotificationTileWidget extends StatelessWidget {
         size: 30,
       ),
       onTap: () async => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const NotificationScreen(),
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) =>
+              const NotificationScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            const curve = Curves.ease;
+
+            var tween = Tween(begin: begin, end: end).chain(
+              CurveTween(
+                curve: curve,
+              ),
+            );
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
         ),
       ),
     );

@@ -26,11 +26,8 @@ class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        leading: const Hero(
-          tag: 'settingsButtonIcon',
-          child: Icon(
-            Icons.settings,
-          ),
+        leading: const Icon(
+          Icons.settings,
         ),
         title: Text(
           AppLocalizations.of(context)!.settingsTitle,
