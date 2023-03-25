@@ -1,5 +1,6 @@
 import 'package:chabo/extensions/boats_extensions.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/boat.dart';
@@ -141,7 +142,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
               text:
                   '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
           TextSpan(
-            text: '${durationString()}\n',
+            text: '${duration.durationToString()}\n',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.timeColor,
@@ -168,7 +169,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     return AppLocalizations.of(context)!.notificationDurationBoatMessage(
       boats.toLocalizedString(context),
       pickedDuration,
-      durationString(),
+      duration.durationToString(),
     );
   }
 
@@ -177,7 +178,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
       boats.toLocalizedString(context),
       DateFormat.Hm().format(circulationClosingDate),
-      durationString(),
+      duration.durationToString(),
     );
   }
 
@@ -185,7 +186,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   String getNotificationClosingMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationClosingBoatMessage(
       boats.toLocalizedString(context),
-      durationString(),
+      duration.durationToString(),
     );
   }
 

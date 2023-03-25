@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/chaban_bridge_forecast_information_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -116,7 +117,7 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          chabanBridgeForecast.durationString(),
+                          chabanBridgeForecast.duration.durationToString(),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.timeColor,
                             fontWeight: FontWeight.bold,

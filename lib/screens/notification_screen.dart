@@ -4,6 +4,7 @@ import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/dialogs/days_of_the_week_dialog.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,8 +75,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     var time = await showTimePicker(
                       initialEntryMode: TimePickerEntryMode.dialOnly,
                       context: context,
-                      initialTime: state
-                          .durationToTimeOfDay(state.durationNotificationValue),
+                      initialTime:
+                          state.durationNotificationValue.durationToTimeOfDay(),
                       builder: (BuildContext context, Widget? child) {
                         return MediaQuery(
                           data: MediaQuery.of(context).copyWith(
@@ -106,11 +107,11 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                   enabled: state.durationNotificationEnabled,
                   title:
                       AppLocalizations.of(context)!.durationNotificationTitle(
-                    state.durationToString(state.durationNotificationValue),
+                    state.durationNotificationValue.durationToString(),
                   ),
                   subtitle: AppLocalizations.of(context)!
                       .durationNotificationExplanation(
-                    state.durationToString(state.durationNotificationValue),
+                    state.durationNotificationValue.durationToString(),
                   ),
                   leadingIcon: Icons.timer_outlined,
                 ),

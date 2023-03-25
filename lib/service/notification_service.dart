@@ -124,9 +124,7 @@ class NotificationService {
           chabanBridgeForecast,
           context,
           notificationSate.durationNotificationValue,
-          notificationSate.durationToString(
-            notificationSate.durationNotificationValue,
-          ),
+          notificationSate.durationNotificationValue.durationToString(),
         );
       }
     }

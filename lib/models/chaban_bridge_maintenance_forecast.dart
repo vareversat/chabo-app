@@ -1,4 +1,5 @@
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
@@ -57,7 +58,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
       BuildContext context, String pickedDuration) {
     return AppLocalizations.of(context)!.notificationDurationMaintenanceMessage(
       pickedDuration,
-      durationString(),
+      duration.durationToString(),
     );
   }
 
@@ -65,14 +66,14 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
   String getNotificationTimeMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
       DateFormat.Hm().format(circulationClosingDate),
-      durationString(),
+      duration.durationToString(),
     );
   }
 
   @override
   String getNotificationClosingMessage(BuildContext context) {
     return AppLocalizations.of(context)!
-        .notificationClosingMaintenanceMessage(durationString());
+        .notificationClosingMaintenanceMessage(duration.durationToString());
   }
 
   @override
@@ -143,7 +144,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
                 '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
-            text: durationString(),
+            text: duration.durationToString(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.timeColor,

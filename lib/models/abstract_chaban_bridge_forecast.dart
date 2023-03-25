@@ -73,14 +73,6 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
         .format(circulationReOpeningDate);
   }
 
-  String durationString() {
-    if (duration.inMinutes.remainder(60) == 0) {
-      return '${duration.inHours}h';
-    } else {
-      return '${duration.inHours}h ${duration.inMinutes.remainder(60)}mins';
-    }
-  }
-
   bool isCurrentlyClosed() {
     var now = DateTime.now();
     return now.isAfter(circulationClosingDate) &&
