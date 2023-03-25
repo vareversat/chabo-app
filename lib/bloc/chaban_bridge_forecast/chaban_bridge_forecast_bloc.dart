@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 part 'chaban_bridge_forecast_event.dart';
 part 'chaban_bridge_forecast_state.dart';
 
-const _chabanBridgeForecastLimit = 10000;
+const _chabanBridgeForecastLimit = 1000;
 const throttleDuration = Duration(milliseconds: 1000);
 
 class ChabanBridgeForecastBloc
