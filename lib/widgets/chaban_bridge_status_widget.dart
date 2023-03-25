@@ -36,16 +36,16 @@ class ChabanBridgeStatusWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 30,
-        vertical: 10,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 10,
+          ),
+          child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: widget.bridgeStatus.getBackgroundColor(context),
@@ -69,79 +69,96 @@ class ChabanBridgeStatusWidgetState
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Text(
-                widget.bridgeStatus.nextStatusMessagePrefix,
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              Text(
-                widget.bridgeStatus.remainingTime,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-            ],
-          ),
-          Flexible(
-            child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
-              builder: (context, state) {
-                return AnimatedSize(
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 800),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(seconds: 1),
-                    reverseDuration: const Duration(milliseconds: 200),
-                    transitionBuilder: (child, animation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
-                    child: state.showCurrentStatus
-                        ? ChabanBridgeForecastListItem(
-                            onTap: () =>
-                                BlocProvider.of<ScrollStatusBloc>(context).add(
-                              GoTo(
-                                goTo: widget
-                                    .bridgeStatus.currentChabanBridgeForecast,
-                              ),
-                            ),
-                            hasPassed: false,
-                            isCurrent: true,
-                            chabanBridgeForecast:
-                                widget.bridgeStatus.currentChabanBridgeForecast,
-                            index: -1,
-                          )
-                        : const SizedBox.shrink(),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          color: Theme.of(context).colorScheme.inversePrimary,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(
+                  widget.bridgeStatus.nextStatusMessagePrefix,
+                  style: const TextStyle(
+                    fontSize: 20,
                   ),
-                );
-              },
+                ),
+                Text(
+                  widget.bridgeStatus.remainingTime,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.lisOfUpcomingClosures,
-                style: const TextStyle(
-                  fontSize: 20,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Flexible(
+          child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
+            builder: (context, state) {
+              return AnimatedSize(
+                curve: Curves.ease,
+                duration: const Duration(milliseconds: 800),
+                child: AnimatedSwitcher(
+                  duration: const Duration(seconds: 1),
+                  reverseDuration: const Duration(milliseconds: 200),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                  child: state.showCurrentStatus
+                      ? Column(
+                          children: [
+                            ChabanBridgeForecastListItem(
+                              onTap: () =>
+                                  BlocProvider.of<ScrollStatusBloc>(context)
+                                      .add(
+                                GoTo(
+                                  goTo: widget
+                                      .bridgeStatus.currentChabanBridgeForecast,
+                                ),
+                              ),
+                              hasPassed: false,
+                              isCurrent: true,
+                              chabanBridgeForecast: widget
+                                  .bridgeStatus.currentChabanBridgeForecast,
+                              index: -1,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        )
+                      : const SizedBox.shrink(),
                 ),
-              ),
-              const Icon(Icons.arrow_circle_down),
-            ],
+              );
+            },
           ),
-        ],
-      ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.lisOfUpcomingClosures,
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            const Icon(Icons.arrow_circle_down),
+          ],
+        ),
+      ],
     );
   }
 }

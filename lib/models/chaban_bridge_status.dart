@@ -32,7 +32,7 @@ class ChabanBridgeStatus {
           AppLocalizations.of(context)!.nextClosingScheduled.capitalize();
       currentStatusShort = AppLocalizations.of(context)!.open;
     }
-    nextStatusMessagePrefix += ' : ';
+    nextStatusMessagePrefix += ' ';
     remainingTime = _formatRemainingTime(
         differenceStartingPoint.inDays,
         differenceStartingPoint.inHours.remainder(24),
