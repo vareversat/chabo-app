@@ -96,6 +96,9 @@ class ChaboAboutDialog extends StatelessWidget {
                 AppLocalizations.of(context)!.appDescription,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
+              const SizedBox(
+                height: 15,
+              ),
               Text(
                 AppLocalizations.of(context)!.disclaimer,
                 style: Theme.of(context)
