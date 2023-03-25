@@ -1,6 +1,6 @@
+import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/link_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Const {
@@ -62,6 +62,8 @@ class Const {
       const TimeOfDay(hour: 6, minute: 0);
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
+  static TimeOfDay notificationDayValueDefaultTimeValue =
+      const TimeOfDay(hour: 20, minute: 00);
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;

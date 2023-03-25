@@ -7,8 +7,7 @@ class NotificationSate {
   final TimeOfDay timeNotificationValue;
   final bool dayNotificationEnabled;
   final Day dayNotificationValue;
-  final TimeOfDay dayNotificationTimeValue =
-      const TimeOfDay(hour: 20, minute: 00);
+  final TimeOfDay dayNotificationTimeValue;
   final bool openingNotificationEnabled;
   final bool closingNotificationEnabled;
 
@@ -19,6 +18,7 @@ class NotificationSate {
       required this.timeNotificationValue,
       required this.dayNotificationEnabled,
       required this.dayNotificationValue,
+      required this.dayNotificationTimeValue,
       required this.openingNotificationEnabled,
       required this.closingNotificationEnabled});
 
@@ -29,6 +29,7 @@ class NotificationSate {
       TimeOfDay? timeNotificationValue,
       bool? dayNotificationEnabled,
       Day? dayNotificationValue,
+      TimeOfDay? dayNotificationTimeValue,
       bool? openingNotificationEnabled,
       bool? closingNotificationEnabled}) {
     return NotificationSate(
@@ -43,6 +44,8 @@ class NotificationSate {
         dayNotificationEnabled:
             dayNotificationEnabled ?? this.dayNotificationEnabled,
         dayNotificationValue: dayNotificationValue ?? this.dayNotificationValue,
+        dayNotificationTimeValue:
+            dayNotificationTimeValue ?? this.dayNotificationTimeValue,
         openingNotificationEnabled:
             openingNotificationEnabled ?? this.openingNotificationEnabled,
         closingNotificationEnabled:
