@@ -1,7 +1,6 @@
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
   final Day selectedDay;

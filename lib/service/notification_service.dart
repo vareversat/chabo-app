@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -98,10 +100,11 @@ class NotificationService {
       }
       if (notificationSate.dayNotificationEnabled) {
         var last = chabanBridgeForecast.circulationClosingDate
-            .previous(notificationSate.dayNotificationValue.value);
+            .previous(notificationSate.dayNotificationValue.weekPosition);
         if (weekSeparatedChabanBridgeForecast.isEmpty ||
             weekSeparatedChabanBridgeForecast.last.circulationClosingDate
-                    .previous(notificationSate.dayNotificationValue.value)
+                    .previous(
+                        notificationSate.dayNotificationValue.weekPosition)
                     .day ==
                 last.day) {
           weekSeparatedChabanBridgeForecast.add(chabanBridgeForecast);
