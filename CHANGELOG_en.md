@@ -1,3 +1,15 @@
+# **v1.1.0** :
+
+- *Fixed*:
+  - The first closing is now displayed correctly
+- *Interface*:
+  - Rework of the "About" window
+  - Complete rework of the notification management window
+  - Some improvements for readability
+- *Features*:
+  - Recap notifications are now functional
+***
+
 # **v1.0.0** :
 First stable release
 - *Features*:

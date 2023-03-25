@@ -1,3 +1,14 @@
+# **v1.1.0** :
+
+- *Fix*:
+  - La première fermeture s'affiche maintenant correctement 
+- *Interface*:
+  - Retravail de la fenêtre "A propos"
+  - Retravail complet de la fenêtre de gestion des notifications
+  - Quelques améliorations pour la lisibilité
+- *Fonctionnalités*:
+  - Les notifications de recap sont maintenant fonctionnelles
+***
 # **v1.0.0** :
 Première version stable
 - *Fonctionnalités*:

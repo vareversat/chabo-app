@@ -1,3 +1,15 @@
+# **v1.1.0** :
+
+- *Fijado*:
+  - El primer cierre ahora se muestra correctamente
+- *Interfaz*:
+  - Reelaboración de la ventana "Acerca de"
+  - Reelaboración completa de la ventana de gestión de notificaciones.
+  - Algunas mejoras para la legibilidad.
+- *Características*:
+  - Las notificaciones de resumen ahora son funcionales
+***
+
 # **v1.0.0** :
 Primera versión estable
 - *Características*:
