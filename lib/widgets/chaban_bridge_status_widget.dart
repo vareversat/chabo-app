@@ -118,27 +118,26 @@ class ChabanBridgeStatusWidgetState
                     );
                   },
                   child: state.showCurrentStatus
-                      ? Column(
-                          children: [
-                            ChabanBridgeForecastListItem(
-                              onTap: () =>
-                                  BlocProvider.of<ScrollStatusBloc>(context)
-                                      .add(
-                                GoTo(
-                                  goTo: widget
-                                      .bridgeStatus.currentChabanBridgeForecast,
-                                ),
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10.0,
+                            right: 10.0,
+                            bottom: 15.0,
+                          ),
+                          child: ChabanBridgeForecastListItem(
+                            onTap: () =>
+                                BlocProvider.of<ScrollStatusBloc>(context).add(
+                              GoTo(
+                                goTo: widget
+                                    .bridgeStatus.currentChabanBridgeForecast,
                               ),
-                              hasPassed: false,
-                              isCurrent: true,
-                              chabanBridgeForecast: widget
-                                  .bridgeStatus.currentChabanBridgeForecast,
-                              index: -1,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
+                            hasPassed: false,
+                            isCurrent: true,
+                            chabanBridgeForecast:
+                                widget.bridgeStatus.currentChabanBridgeForecast,
+                            index: -1,
+                          ),
                         )
                       : const SizedBox.shrink(),
                 ),
@@ -146,17 +145,20 @@ class ChabanBridgeStatusWidgetState
             },
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.lisOfUpcomingClosures,
-              style: const TextStyle(
-                fontSize: 20,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.lisOfUpcomingClosures,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
               ),
-            ),
-            const Icon(Icons.arrow_circle_down),
-          ],
+              const Icon(Icons.arrow_circle_down),
+            ],
+          ),
         ),
       ],
     );
