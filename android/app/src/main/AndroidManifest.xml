@@ -24,6 +24,9 @@
        <meta-data
            android:name="com.google.android.gms.ads.APPLICATION_ID"
            android:value="ca-app-pub-4365376442391282~1258247323"/>
+       <meta-data
+           android:name="com.google.firebase.messaging.default_notification_icon"
+           android:resource="@mipmap/ic_slice_launcher_adaptive_fore" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
