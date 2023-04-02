@@ -144,8 +144,8 @@
   },
   "notificationTimeChannelName": "Cierres del próximo día",
   "passedClosure": "Cierre pasado",
-  "selectExample": "{choice, select, source_code {Código\nuente} privacy_policy {Política de\nprivacidad} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ciudad de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
-  "@selectExample": {
+  "selectAboutDialog": "{choice, select, source_code {Código\nfuente} privacy_policy {Política de\nprivacidad} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ciudad de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
+  "@selectAboutDialog": {
     "placeholders": {
       "choice": {}
     }

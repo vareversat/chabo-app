@@ -131,7 +131,7 @@ class ChaboAboutDialog extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: Text(
-                                AppLocalizations.of(context)!.selectExample(
+                                AppLocalizations.of(context)!.selectAboutDialog(
                                   link.translationKey,
                                 ),
                               ),
@@ -179,7 +179,7 @@ class ChaboAboutDialog extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
-                            AppLocalizations.of(context)!.selectExample(
+                            AppLocalizations.of(context)!.selectAboutDialog(
                               'changelog',
                             ),
                           ),
@@ -218,7 +218,7 @@ class ChaboAboutDialog extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
                             AppLocalizations.of(context)!
-                                .selectExample('licenses'),
+                                .selectAboutDialog('licenses'),
                           ),
                         ),
                       ],
