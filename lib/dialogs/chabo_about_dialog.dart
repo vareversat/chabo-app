@@ -200,7 +200,23 @@ class ChaboAboutDialog extends StatelessWidget {
                         applicationName: snapshot.data!.appName,
                         applicationVersion:
                             'v${snapshot.data!.version}+${snapshot.data!.buildNumber}',
-                        applicationIcon: _iconWidget,
+                        applicationIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconTheme(
+                            data: Theme.of(context).iconTheme,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    CustomProperties.borderRadius,
+                                  ),
+                                ),
+                              ),
+                              child: _iconWidget,
+                            ),
+                          ),
+                        ),
                         applicationLegalese: Const.legalLease,
                       );
                     },
