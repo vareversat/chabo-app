@@ -21,6 +21,21 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: null,
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        label: Wrap(
+          spacing: 10,
+          children: [
+            Text(
+              MaterialLocalizations.of(context).closeButtonLabel,
+            ),
+            const Icon(Icons.close),
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         leading: const Icon(Icons.notifications_active_outlined),

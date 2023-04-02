@@ -4,9 +4,9 @@ import 'package:chabo/bloc/notification_service_cubit.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/screens/error_screen.dart';
-import 'package:chabo/screens/settings_screen.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list.dart';
 import 'package:chabo/widgets/chaban_bridge_status_widget.dart';
+import 'package:chabo/widgets/floating_actions_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,34 +25,7 @@ class _ChabanBridgeForecastScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) =>
-                  const SettingsScreen(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                const begin = Offset(0.0, 1.0);
-                const end = Offset.zero;
-                const curve = Curves.ease;
-
-                var tween = Tween(begin: begin, end: end).chain(
-                  CurveTween(
-                    curve: curve,
-                  ),
-                );
-
-                return SlideTransition(
-                  position: animation.drive(tween),
-                  child: child,
-                );
-              },
-            ),
-          );
-        },
-        child: const Icon(Icons.settings),
-      ),
+      floatingActionButton: const FloatingActions(),
       body: SafeArea(
         child: BlocBuilder<ChabanBridgeForecastBloc, ChabanBridgeForecastState>(
           builder: (context, state) {

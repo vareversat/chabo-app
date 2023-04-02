@@ -10,6 +10,7 @@ environment:
   flutter: '3.7.7'
 
 dependencies:
+  animated_toggle_switch: ^0.6.2
   bloc_concurrency: ^0.2.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3

@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/floating_actions_cubit.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
@@ -39,6 +40,13 @@ class Chabo extends StatelessWidget {
         BlocProvider(
           create: (_) => NotificationServiceCubit(
             notificationService,
+          ),
+        ),
+
+        /// Bloc intended to manage the FloatingActions
+        BlocProvider(
+          create: (_) => FloatingActionsCubit(
+            false,
           ),
         ),
 
