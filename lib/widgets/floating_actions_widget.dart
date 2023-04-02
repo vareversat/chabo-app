@@ -140,7 +140,13 @@ class _FloatingActionsState extends State<FloatingActions>
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return ChaboAboutDialog();
+                                  return BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: CustomProperties.blurSigmaX,
+                                      sigmaY: CustomProperties.blurSigmaY,
+                                    ),
+                                    child: ChaboAboutDialog(),
+                                  );
                                 },
                               );
                               context
