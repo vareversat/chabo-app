@@ -70,7 +70,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   List<Object?> get props => [
         totalClosing,
         closingReason,
-        duration,
+        closedDuration,
         boats,
         circulationClosingDate,
         circulationReOpeningDate,
@@ -80,7 +80,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   @override
   Widget getInformationWidget(BuildContext context) {
     var schedule = circulationClosingDate
-        .add(Duration(microseconds: duration.inMicroseconds ~/ 2));
+        .add(Duration(microseconds: closedDuration.inMicroseconds ~/ 2));
     var scheduleString =
         DateFormat.jm(Localizations.localeOf(context).languageCode)
             .format(schedule);
@@ -142,7 +142,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
               text:
                   '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
           TextSpan(
-            text: '${duration.durationToString()}\n',
+            text: '${closedDuration.durationToString(context)}\n',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.timeColor,
@@ -169,7 +169,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     return AppLocalizations.of(context)!.notificationDurationBoatMessage(
       boats.toLocalizedString(context),
       pickedDuration,
-      duration.durationToString(),
+      closedDuration.durationToString(context),
     );
   }
 
@@ -178,7 +178,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
       boats.toLocalizedString(context),
       DateFormat.Hm().format(circulationClosingDate),
-      duration.durationToString(),
+      closedDuration.durationToString(context),
     );
   }
 
@@ -186,7 +186,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
   String getNotificationClosingMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationClosingBoatMessage(
       boats.toLocalizedString(context),
-      duration.durationToString(),
+      closedDuration.durationToString(context),
     );
   }
 

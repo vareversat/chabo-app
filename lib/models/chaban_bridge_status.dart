@@ -6,16 +6,17 @@ import 'package:intl/intl.dart';
 
 class ChabanBridgeStatus {
   final AbstractChabanBridgeForecast currentChabanBridgeForecast;
+  final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
   final DateTime now = DateTime.now();
   late String currentStatus;
   late String currentStatusShort;
   late String nextStatusMessagePrefix;
   late Duration differenceStartingPoint;
-  late String remainingTime;
   late bool isOpen;
 
   ChabanBridgeStatus(
       {required this.currentChabanBridgeForecast,
+        required this.previousChabanBridgeForecast,
       required BuildContext context}) {
     if (currentChabanBridgeForecast.isCurrentlyClosed()) {
       differenceStartingPoint =
@@ -33,28 +34,9 @@ class ChabanBridgeStatus {
       currentStatusShort = AppLocalizations.of(context)!.open;
     }
     nextStatusMessagePrefix += ' ';
-    remainingTime = _formatRemainingTime(
-        differenceStartingPoint.inDays,
-        differenceStartingPoint.inHours.remainder(24),
-        differenceStartingPoint.inMinutes.remainder(60),
-        context);
     currentStatus =
         '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently}';
     isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
-  }
-
-  String _formatRemainingTime(
-      int days, int hours, int mins, BuildContext context) {
-    String minSuffix = mins > 1 ? 'mins' : 'min';
-    if (days == 0) {
-      return '${hours}h $mins$minSuffix';
-    } else if (hours == 0) {
-      return '$days${AppLocalizations.of(context)!.daySmall} $mins$minSuffix';
-    } else if (mins == 0) {
-      return '$days${AppLocalizations.of(context)!.daySmall} ${hours}h';
-    } else {
-      return '$days${AppLocalizations.of(context)!.daySmall} ${hours}h $mins$minSuffix';
-    }
   }
 
   Color getBackgroundColor(BuildContext context) {

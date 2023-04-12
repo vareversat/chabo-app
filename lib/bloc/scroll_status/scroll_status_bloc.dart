@@ -23,6 +23,10 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
     );
   }
 
+
+
+
+
   Future<void> _onScrollChanged(
       ScrollStatusChanged event, Emitter<ScrollStatusState> emit) async {
     emit(

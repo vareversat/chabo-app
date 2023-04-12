@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
@@ -23,6 +25,17 @@ class ChabanBridgeForecastScreen extends StatefulWidget {
 class _ChabanBridgeForecastScreenState
     extends CustomWidgetState<ChabanBridgeForecastScreen> {
   @override
+  void initState() {
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer t) => BlocProvider.of<ChabanBridgeForecastBloc>(context).add(
+        ChabanBridgeForecastRefreshCurrentStatus(),
+      ),
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: const FloatingActions(),
@@ -37,9 +50,12 @@ class _ChabanBridgeForecastScreenState
                   return const ErrorScreen(errorMessage: 'Empty return');
                 }
                 var bridgeStatus = ChabanBridgeStatus(
-                    currentChabanBridgeForecast:
-                        state.currentChabanBridgeForecast!,
-                    context: context);
+                  currentChabanBridgeForecast:
+                      state.currentChabanBridgeForecast!,
+                  previousChabanBridgeForecast:
+                      state.previousChabanBridgeForecast,
+                  context: context,
+                );
 
                 return MultiBlocListener(
                   listeners: [

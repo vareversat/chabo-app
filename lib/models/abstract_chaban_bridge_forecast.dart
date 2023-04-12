@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 abstract class AbstractChabanBridgeForecast extends Equatable {
   final bool totalClosing;
   final ChabanBridgeForecastClosingReason closingReason;
-  late final Duration duration;
+  late final Duration closedDuration;
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
   final ChabanBridgeForecastClosingType closingType;
@@ -31,7 +31,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
           tmpCirculationReOpeningDate.difference(_circulationClosingDate);
     }
     _circulationReOpeningDate = tmpCirculationReOpeningDate;
-    duration = tmpDuration;
+    closedDuration = tmpDuration;
   }
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
@@ -102,7 +102,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   List<Object?> get props => [
         totalClosing,
         closingReason,
-        duration,
+        closedDuration,
         circulationClosingDate,
         circulationReOpeningDate,
         closingType,

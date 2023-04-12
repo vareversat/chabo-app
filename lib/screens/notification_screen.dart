@@ -122,11 +122,11 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                   enabled: state.durationNotificationEnabled,
                   title:
                       AppLocalizations.of(context)!.durationNotificationTitle(
-                    state.durationNotificationValue.durationToString(),
+                    state.durationNotificationValue.durationToString(context),
                   ),
                   subtitle: AppLocalizations.of(context)!
                       .durationNotificationExplanation(
-                    state.durationNotificationValue.durationToString(),
+                    state.durationNotificationValue.durationToString(context),
                   ),
                   leadingIcon: Icons.timer_outlined,
                 ),

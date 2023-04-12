@@ -43,13 +43,13 @@
   "systemTheme": "Thème système",
   "notifications": "Notifications",
   "notificationsSubtitle": "Gérer les notifications de l'application",
-  "durationNotificationTitle": "{duration} avant",
+  "durationNotificationTitle": "{duration}avant",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration} avant la prochaine fermeture",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
