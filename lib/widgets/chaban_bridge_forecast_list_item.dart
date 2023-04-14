@@ -117,7 +117,8 @@ class ChabanBridgeForecastListItem extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          chabanBridgeForecast.closedDuration.durationToString(context),
+                          chabanBridgeForecast.closedDuration
+                              .durationToString(context),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.timeColor,
                             fontWeight: FontWeight.bold,

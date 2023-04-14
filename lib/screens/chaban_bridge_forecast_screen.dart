@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
+import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/custom_widgets_state.dart';
-import 'package:chabo/models/chaban_bridge_status.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list.dart';
 import 'package:chabo/widgets/chaban_bridge_status_widget.dart';
@@ -25,22 +24,14 @@ class ChabanBridgeForecastScreen extends StatefulWidget {
 class _ChabanBridgeForecastScreenState
     extends CustomWidgetState<ChabanBridgeForecastScreen> {
   @override
-  void initState() {
-    Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer t) => BlocProvider.of<ChabanBridgeForecastBloc>(context).add(
-        ChabanBridgeForecastRefreshCurrentStatus(),
-      ),
-    );
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: const FloatingActions(),
       body: SafeArea(
         child: BlocBuilder<ChabanBridgeForecastBloc, ChabanBridgeForecastState>(
+          buildWhen: (previous, current) =>
+              previous.status == ChabanBridgeForecastStatus.initial &&
+              current.status == ChabanBridgeForecastStatus.success,
           builder: (context, state) {
             switch (state.status) {
               case ChabanBridgeForecastStatus.failure:
@@ -49,16 +40,25 @@ class _ChabanBridgeForecastScreenState
                 if (state.chabanBridgeForecasts.isEmpty) {
                   return const ErrorScreen(errorMessage: 'Empty return');
                 }
-                var bridgeStatus = ChabanBridgeStatus(
-                  currentChabanBridgeForecast:
-                      state.currentChabanBridgeForecast!,
-                  previousChabanBridgeForecast:
-                      state.previousChabanBridgeForecast,
-                  context: context,
-                );
 
                 return MultiBlocListener(
                   listeners: [
+                    BlocListener<ChabanBridgeForecastBloc,
+                        ChabanBridgeForecastState>(
+                      listener: (context, state) async {
+                        BlocProvider.of<ChabanBridgeStatusBloc>(context).add(
+                          ChabanBridgeStatusChanged(
+                            currentChabanBridgeForecast:
+                                state.currentChabanBridgeForecast,
+                            previousChabanBridgeForecast:
+                                state.previousChabanBridgeForecast,
+                          ),
+                        );
+                        BlocProvider.of<ScrollStatusBloc>(context).add(
+                          GoTo(goTo: state.currentChabanBridgeForecast),
+                        );
+                      },
+                    ),
                     BlocListener<NotificationBloc, NotificationSate>(
                       listener: (context, state) async {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -134,18 +134,11 @@ class _ChabanBridgeForecastScreenState
                     )
                   ],
                   child: Column(
-                    children: [
-                      ChabanBridgeStatusWidget(
-                        bridgeStatus: bridgeStatus,
-                      ),
+                    children: const [
+                      ChabanBridgeStatusWidget(),
                       Expanded(
                         flex: 11,
-                        child: ChabanBridgeForecastList(
-                          currentChabanBridgeForecast:
-                              state.currentChabanBridgeForecast,
-                          chabanBridgeForecasts: state.chabanBridgeForecasts,
-                          hasReachedMax: state.hasReachedMax,
-                        ),
+                        child: ChabanBridgeForecastList(),
                       ),
                     ],
                   ),

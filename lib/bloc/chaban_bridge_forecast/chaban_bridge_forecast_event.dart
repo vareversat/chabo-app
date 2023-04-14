@@ -4,6 +4,5 @@ abstract class ChabanBridgeForecastEvent extends ChaboEvent {}
 
 class ChabanBridgeForecastFetched extends ChabanBridgeForecastEvent {}
 
-class ChabanBridgeForecastRefreshCurrentStatus extends ChabanBridgeForecastEvent {}
-
-
+class ChabanBridgeForecastRefreshCurrentStatus
+    extends ChabanBridgeForecastEvent {}

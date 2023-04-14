@@ -8,6 +8,9 @@ class Const {
   static const String appName = 'Chabo';
   static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
 
+  /// List
+  static const int chabanBridgeForecastLimit = 1000;
+
   /// Paths
   static const String changelogPlaceholder = ':lang:';
   static const String changelogPath = 'CHANGELOG_$changelogPlaceholder.md';
