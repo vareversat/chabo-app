@@ -47,8 +47,9 @@ class Chabo extends StatelessWidget {
         /// Bloc intended to manage the FloatingActions
         BlocProvider(
           create: (_) => FloatingActionsCubit(
-            false,
-          ),
+            storageService,
+            const FloatingActionsState(isMenuOpen: false, isRightHanded: true),
+          )..init(),
         ),
 
         /// Bloc intended to manage the forecast displayed

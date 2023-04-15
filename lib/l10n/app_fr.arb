@@ -160,5 +160,7 @@
       "count": {}
     }
   },
-  "notificationDayChannelName": "Fermetures prévues"
+  "notificationDayChannelName": "Fermetures prévues",
+  "leftHanded": "Gaucher.ère",
+  "rightHanded": "Droitier.ère"
 }
