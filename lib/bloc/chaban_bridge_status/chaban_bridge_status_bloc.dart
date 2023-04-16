@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/chabo_event.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:equatable/equatable.dart';
@@ -57,18 +58,15 @@ class ChabanBridgeStatusBloc
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null) {
       final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
-      final differenceStartingPoint = currentChabanBridgeForecast
-          .circulationReOpeningDate
-          .difference(DateTime.now());
-      if (isOpen && differenceStartingPoint.inMinutes <= 120) {
-        return Theme.of(context).colorScheme.tertiaryContainer;
+      if (isOpen && state.durationUntilNextEvent.inMinutes < 120) {
+        return Theme.of(context).colorScheme.warningColor;
       } else if (isOpen) {
         return Colors.green;
       } else {
-        return Theme.of(context).colorScheme.errorContainer;
+        return Theme.of(context).colorScheme.error;
       }
     } else {
-      return Colors.yellow;
+      return Colors.purple;
     }
   }
 
@@ -76,15 +74,10 @@ class ChabanBridgeStatusBloc
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null) {
       final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
-      final differenceStartingPoint = currentChabanBridgeForecast
-          .circulationReOpeningDate
-          .difference(DateTime.now());
-      if (isOpen && differenceStartingPoint.inMinutes <= 120) {
-        return Theme.of(context).colorScheme.onTertiaryContainer;
-      } else if (isOpen) {
+      if (isOpen || state.durationUntilNextEvent.inMinutes < 120) {
         return Theme.of(context).colorScheme.background;
       } else {
-        return Theme.of(context).colorScheme.onErrorContainer;
+        return Theme.of(context).colorScheme.onError;
       }
     } else {
       return Colors.purple;
@@ -107,8 +100,13 @@ class ChabanBridgeStatusBloc
   String _getMainStatus(BuildContext context) {
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null &&
-        !currentChabanBridgeForecast.isCurrentlyClosed()) {
+        !currentChabanBridgeForecast.isCurrentlyClosed() &&
+        state.durationUntilNextEvent.inMinutes >= 120) {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}';
+    } else if (currentChabanBridgeForecast != null &&
+        !currentChabanBridgeForecast.isCurrentlyClosed() &&
+        state.durationUntilNextEvent.inMinutes < 120) {
+      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}';
     } else {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}';
     }
@@ -154,7 +152,7 @@ class ChabanBridgeStatusBloc
           (durationUntilNextEvent.inSeconds /
               durationBetweenPreviousAndNextEvent.inSeconds);
     } else {
-      return 1;
+      return -1;
     }
   }
 

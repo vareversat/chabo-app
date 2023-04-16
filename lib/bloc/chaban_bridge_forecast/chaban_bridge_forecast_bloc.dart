@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 part 'chaban_bridge_forecast_event.dart';
-
 part 'chaban_bridge_forecast_state.dart';
 
 class ChabanBridgeForecastBloc
@@ -34,7 +33,8 @@ class ChabanBridgeForecastBloc
         final currentStatus = _getCurrentStatus(state.chabanBridgeForecasts);
         final previousStatus =
             _getPreviousStatus(state.chabanBridgeForecasts, currentStatus);
-        if (currentStatus != state.currentChabanBridgeForecast) {
+        if (currentStatus != state.currentChabanBridgeForecast &&
+            currentStatus != previousStatus) {
           emit(
             state.copyWith(
               currentChabanBridgeForecast: currentStatus,
@@ -93,11 +93,14 @@ class ChabanBridgeForecastBloc
       return chabanBridgeForecast[middle];
     }
     if (chabanBridgeForecast.length == 2) {
-      return chabanBridgeForecast[0]
-              .circulationClosingDate
-              .isAfter(DateTime.now())
-          ? chabanBridgeForecast[0]
-          : chabanBridgeForecast[1];
+      return chabanBridgeForecast[1]
+                  .circulationClosingDate
+                  .isAfter(DateTime.now()) &&
+              chabanBridgeForecast[0]
+                  .circulationReOpeningDate
+                  .isBefore(DateTime.now())
+          ? chabanBridgeForecast[1]
+          : chabanBridgeForecast[0];
     } else if (chabanBridgeForecast[middle]
         .circulationClosingDate
         .isAfter(DateTime.now())) {
