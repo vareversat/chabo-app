@@ -50,7 +50,7 @@
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Reciba una notificación {duration}antes del próximo cierre",
+  "durationNotificationExplanation": "Reciba una notificación {duration}antes del próximo cierre. Este valor también gestiona el cambio de color del estado actual",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}

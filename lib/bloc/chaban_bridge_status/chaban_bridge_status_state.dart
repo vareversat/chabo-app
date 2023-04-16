@@ -7,6 +7,7 @@ class ChabanBridgeStatusState extends Equatable {
   final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
   final Duration durationUntilNextEvent;
+  final Duration durationForCloseClosing;
   final Duration? durationBetweenPreviousAndNextEvent;
   final double completionPercentage;
   final String mainMessageStatus;
@@ -19,6 +20,7 @@ class ChabanBridgeStatusState extends Equatable {
       required this.currentChabanBridgeForecast,
       required this.previousChabanBridgeForecast,
       required this.durationUntilNextEvent,
+      required this.durationForCloseClosing,
       required this.durationBetweenPreviousAndNextEvent,
       required this.completionPercentage,
       required this.mainMessageStatus,
@@ -31,6 +33,7 @@ class ChabanBridgeStatusState extends Equatable {
       AbstractChabanBridgeForecast? currentChabanBridgeForecast,
       AbstractChabanBridgeForecast? previousChabanBridgeForecast,
       Duration? durationUntilNextEvent,
+      Duration? durationForCloseClosing,
       Duration? durationBetweenPreviousAndNextEvent,
       double? completionPercentage,
       String? mainMessageStatus,
@@ -46,6 +49,8 @@ class ChabanBridgeStatusState extends Equatable {
             previousChabanBridgeForecast ?? this.previousChabanBridgeForecast,
         durationUntilNextEvent:
             durationUntilNextEvent ?? this.durationUntilNextEvent,
+        durationForCloseClosing:
+            durationForCloseClosing ?? this.durationForCloseClosing,
         durationBetweenPreviousAndNextEvent:
             durationBetweenPreviousAndNextEvent ??
                 this.durationBetweenPreviousAndNextEvent,
@@ -62,6 +67,7 @@ class ChabanBridgeStatusState extends Equatable {
         currentChabanBridgeForecast,
         previousChabanBridgeForecast,
         durationUntilNextEvent,
+        durationForCloseClosing,
         durationBetweenPreviousAndNextEvent,
         completionPercentage,
         mainMessageStatus,
@@ -78,6 +84,8 @@ class ChabanBridgeStatusStateInitial extends ChabanBridgeStatusState {
             currentChabanBridgeForecast: null,
             durationUntilNextEvent: Duration.zero,
             durationBetweenPreviousAndNextEvent: null,
+            durationForCloseClosing:
+                Const.notificationDurationValueDefaultValue,
             chabanBridgeStatusLifespan: ChabanBridgeStatusLifespan.empty,
             completionPercentage: 0,
             mainMessageStatus: '',

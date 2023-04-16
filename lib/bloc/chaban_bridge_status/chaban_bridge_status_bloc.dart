@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/chabo_event.dart';
+import 'package:chabo/const.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 part 'chaban_bridge_status_event.dart';
+
 part 'chaban_bridge_status_state.dart';
 
 class ChabanBridgeStatusBloc
@@ -19,6 +21,18 @@ class ChabanBridgeStatusBloc
     );
     on<ChabanBridgeStatusRefresh>(
       _onRefresh,
+    );
+    on<ChabanBridgeStatusDurationChanged>(
+      _onDurationChanged,
+    );
+  }
+
+  void _onDurationChanged(ChabanBridgeStatusDurationChanged event,
+      Emitter<ChabanBridgeStatusState> emit) {
+    emit(
+      state.copyWith(
+        durationForCloseClosing: event.duration,
+      ),
     );
   }
 
@@ -58,7 +72,9 @@ class ChabanBridgeStatusBloc
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null) {
       final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
-      if (isOpen && state.durationUntilNextEvent.inMinutes < 120) {
+      if (isOpen &&
+          state.durationUntilNextEvent.inMinutes <
+              state.durationForCloseClosing.inMinutes) {
         return Theme.of(context).colorScheme.warningColor;
       } else if (isOpen) {
         return Colors.green;
@@ -74,7 +90,9 @@ class ChabanBridgeStatusBloc
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null) {
       final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
-      if (isOpen || state.durationUntilNextEvent.inMinutes < 120) {
+      if (isOpen ||
+          state.durationUntilNextEvent.inMinutes <
+              state.durationForCloseClosing.inMinutes) {
         return Theme.of(context).colorScheme.background;
       } else {
         return Theme.of(context).colorScheme.onError;
@@ -101,11 +119,13 @@ class ChabanBridgeStatusBloc
     final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
     if (currentChabanBridgeForecast != null &&
         !currentChabanBridgeForecast.isCurrentlyClosed() &&
-        state.durationUntilNextEvent.inMinutes >= 120) {
+        state.durationUntilNextEvent.inMinutes >=
+            state.durationForCloseClosing.inMinutes) {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}';
     } else if (currentChabanBridgeForecast != null &&
         !currentChabanBridgeForecast.isCurrentlyClosed() &&
-        state.durationUntilNextEvent.inMinutes < 120) {
+        state.durationUntilNextEvent.inMinutes <
+            state.durationForCloseClosing.inMinutes) {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}';
     } else {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}';

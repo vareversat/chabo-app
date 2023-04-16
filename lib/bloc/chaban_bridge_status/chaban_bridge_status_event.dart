@@ -19,3 +19,11 @@ class ChabanBridgeStatusRefresh extends ChabanBridgeStatusEvent {
     required this.context,
   }) : super();
 }
+
+class ChabanBridgeStatusDurationChanged extends ChabanBridgeStatusEvent {
+  final Duration duration;
+
+  ChabanBridgeStatusDurationChanged({
+    required this.duration,
+  }) : super();
+}

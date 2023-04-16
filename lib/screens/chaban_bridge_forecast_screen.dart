@@ -71,6 +71,12 @@ class _ChabanBridgeForecastScreenState
                         ),
                         BlocListener<NotificationBloc, NotificationSate>(
                           listener: (context, state) async {
+                            BlocProvider.of<ChabanBridgeStatusBloc>(context)
+                                .add(
+                              ChabanBridgeStatusDurationChanged(
+                                duration: state.durationNotificationValue,
+                              ),
+                            );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Row(

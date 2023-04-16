@@ -50,7 +50,7 @@
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statur actuel",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
