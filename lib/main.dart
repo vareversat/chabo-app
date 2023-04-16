@@ -18,7 +18,7 @@ void main() async {
   );
   MobileAds.instance.initialize();
 
-  //Bloc.observer = SimpleBlocObserver();
+  Bloc.observer = SimpleBlocObserver();
 
   runApp(
     Chabo(
