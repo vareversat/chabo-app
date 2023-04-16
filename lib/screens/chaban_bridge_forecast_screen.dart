@@ -9,6 +9,7 @@ import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list.dart';
 import 'package:chabo/widgets/chaban_bridge_status_widget.dart';
+import 'package:chabo/widgets/custom_circular_progress_indicator.dart';
 import 'package:chabo/widgets/floating_actions_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -162,8 +163,8 @@ class _ChabanBridgeForecastScreenState
                       ),
                     );
                   default:
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return CustomCircularProgressIndicator(
+                      message: AppLocalizations.of(context)!.loading,
                     );
                 }
               },

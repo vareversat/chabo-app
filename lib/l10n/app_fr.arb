@@ -163,5 +163,7 @@
   },
   "notificationDayChannelName": "Fermetures prévues",
   "leftHanded": "Gaucher.ère",
-  "rightHanded": "Droitier.ère"
+  "rightHanded": "Droitier.ère",
+  "statusLoadMessage": "Chargement de l'état actuel du pont",
+  "loading": "Chargement..."
 }

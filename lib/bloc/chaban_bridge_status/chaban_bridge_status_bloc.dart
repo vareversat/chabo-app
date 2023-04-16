@@ -65,6 +65,7 @@ class ChabanBridgeStatusBloc
         mainMessageStatus: mainMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
+        chabanBridgeStatusLifecycle: ChabanBridgeStatusLifecycle.populated,
         backgroundColor: backgroundColor));
   }
 

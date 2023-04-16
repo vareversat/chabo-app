@@ -163,5 +163,7 @@
   },
   "notificationDayChannelName": "Cierres planificados",
   "leftHanded": "Zurdo.a",
-  "rightHanded": "Diestro.a"
+  "rightHanded": "Diestro.a",
+  "statusLoadMessage": "Carga del estado actual del puente",
+  "loading": "Cargando..."
 }
