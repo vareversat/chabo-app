@@ -1,6 +1,10 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:chabo/bloc/chabo_event.dart';
+import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/chaban_bridge_boat_forecast.dart';
 import 'package:chabo/models/chaban_bridge_maintenance_forecast.dart';
@@ -11,18 +15,38 @@ import 'package:http/http.dart' as http;
 part 'chaban_bridge_forecast_event.dart';
 part 'chaban_bridge_forecast_state.dart';
 
-const _chabanBridgeForecastLimit = 1000;
-const throttleDuration = Duration(milliseconds: 1000);
-
 class ChabanBridgeForecastBloc
     extends Bloc<ChabanBridgeForecastEvent, ChabanBridgeForecastState> {
   final http.Client httpClient;
 
   ChabanBridgeForecastBloc({required this.httpClient})
       : super(const ChabanBridgeForecastState()) {
+    Timer.periodic(const Duration(seconds: 1), _onRefreshCurrentStatus);
     on<ChabanBridgeForecastFetched>(
       _onChabanBridgeForecastFetched,
     );
+  }
+
+  void _onRefreshCurrentStatus(Timer timer) {
+    try {
+      if (state.status == ChabanBridgeForecastStatus.success) {
+        final currentStatus = _getCurrentStatus(state.chabanBridgeForecasts);
+        final previousStatus =
+            _getPreviousStatus(state.chabanBridgeForecasts, currentStatus);
+        if (currentStatus != state.currentChabanBridgeForecast &&
+            currentStatus != previousStatus) {
+          emit(
+            state.copyWith(
+              currentChabanBridgeForecast: currentStatus,
+              previousChabanBridgeForecast: previousStatus,
+            ),
+          );
+        }
+      }
+    } catch (_) {
+      emit(state.copyWith(
+          status: ChabanBridgeForecastStatus.failure, message: _.toString()));
+    }
   }
 
   Future<List<AbstractChabanBridgeForecast>> _fetchChabanBridgeForecasts(
@@ -32,7 +56,7 @@ class ChabanBridgeForecastBloc
       '/api/records/1.0/search',
       <String, String>{
         'dataset': 'previsions_pont_chaban',
-        'rows': '$_chabanBridgeForecastLimit',
+        'rows': '${Const.chabanBridgeForecastLimit}',
         'sort': '-date_passage',
         'start': '$offset',
         'timezone': 'Europe/Paris'
@@ -57,7 +81,7 @@ class ChabanBridgeForecastBloc
     return [];
   }
 
-  AbstractChabanBridgeForecast _setCurrentStatus(
+  AbstractChabanBridgeForecast _getCurrentStatus(
       List<AbstractChabanBridgeForecast> chabanBridgeForecast) {
     int middle = chabanBridgeForecast.length ~/ 2;
     if ((chabanBridgeForecast[middle]
@@ -69,17 +93,31 @@ class ChabanBridgeForecastBloc
       return chabanBridgeForecast[middle];
     }
     if (chabanBridgeForecast.length == 2) {
-      return chabanBridgeForecast[0]
-              .circulationClosingDate
-              .isAfter(DateTime.now())
-          ? chabanBridgeForecast[0]
-          : chabanBridgeForecast[1];
+      return chabanBridgeForecast[1]
+                  .circulationClosingDate
+                  .isAfter(DateTime.now()) &&
+              chabanBridgeForecast[0]
+                  .circulationReOpeningDate
+                  .isBefore(DateTime.now())
+          ? chabanBridgeForecast[1]
+          : chabanBridgeForecast[0];
     } else if (chabanBridgeForecast[middle]
         .circulationClosingDate
         .isAfter(DateTime.now())) {
-      return _setCurrentStatus(chabanBridgeForecast.sublist(0, middle + 1));
+      return _getCurrentStatus(chabanBridgeForecast.sublist(0, middle + 1));
     } else {
-      return _setCurrentStatus(chabanBridgeForecast.sublist(middle));
+      return _getCurrentStatus(chabanBridgeForecast.sublist(middle));
+    }
+  }
+
+  AbstractChabanBridgeForecast? _getPreviousStatus(
+      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
+      AbstractChabanBridgeForecast currentStatus) {
+    if (chabanBridgeForecasts.indexOf(currentStatus) == 0) {
+      return null;
+    } else {
+      return chabanBridgeForecasts
+          .elementAt(chabanBridgeForecasts.indexOf(currentStatus) - 1);
     }
   }
 
@@ -90,26 +128,36 @@ class ChabanBridgeForecastBloc
       if (state.status == ChabanBridgeForecastStatus.initial) {
         final chabanBridgeForecasts =
             await _fetchChabanBridgeForecasts(state.offset);
+        final currentStatus = _getCurrentStatus(chabanBridgeForecasts);
         emit(state.copyWith(
             status: ChabanBridgeForecastStatus.success,
             chabanBridgeForecasts: chabanBridgeForecasts,
-            currentChabanBridgeForecast:
-                _setCurrentStatus(chabanBridgeForecasts),
+            currentChabanBridgeForecast: currentStatus,
+            previousChabanBridgeForecast:
+                _getPreviousStatus(chabanBridgeForecasts, currentStatus),
             hasReachedMax: false,
-            offset: state.offset + _chabanBridgeForecastLimit));
+            offset: state.offset + Const.chabanBridgeForecastLimit));
       }
       final chabanBridgeForecasts =
           await _fetchChabanBridgeForecasts(state.chabanBridgeForecasts.length);
-      emit(chabanBridgeForecasts.isEmpty
-          ? state.copyWith(hasReachedMax: true)
-          : state.copyWith(
-              currentChabanBridgeForecast: state.currentChabanBridgeForecast ??
-                  _setCurrentStatus(chabanBridgeForecasts),
-              status: ChabanBridgeForecastStatus.success,
-              chabanBridgeForecasts: List.of(state.chabanBridgeForecasts)
-                ..addAll(chabanBridgeForecasts),
-              hasReachedMax: false,
-              offset: state.offset + _chabanBridgeForecastLimit));
+      emit(
+        chabanBridgeForecasts.isEmpty
+            ? state.copyWith(hasReachedMax: true)
+            : state.copyWith(
+                currentChabanBridgeForecast:
+                    state.currentChabanBridgeForecast ??
+                        _getCurrentStatus(chabanBridgeForecasts),
+                previousChabanBridgeForecast:
+                    state.previousChabanBridgeForecast ??
+                        _getPreviousStatus(chabanBridgeForecasts,
+                            _getCurrentStatus(chabanBridgeForecasts)),
+                status: ChabanBridgeForecastStatus.success,
+                chabanBridgeForecasts: List.of(state.chabanBridgeForecasts)
+                  ..addAll(chabanBridgeForecasts),
+                hasReachedMax: false,
+                offset: state.offset + Const.chabanBridgeForecastLimit,
+              ),
+      );
     } catch (_) {
       emit(state.copyWith(
           status: ChabanBridgeForecastStatus.failure, message: _.toString()));

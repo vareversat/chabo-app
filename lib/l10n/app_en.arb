@@ -12,6 +12,7 @@
   "open": "open",
   "scheduledToOpen": "scheduled to open in",
   "theBridgeIsCurrently": "the Chaban bridge is",
+  "aboutToClose": "about to close",
   "settingsTitle": "Settings",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -43,13 +44,13 @@
   "systemTheme": "System theme",
   "notifications": "Notifications",
   "notificationsSubtitle": "Manage the notifications of the app",
-  "durationNotificationTitle": "{duration} before",
+  "durationNotificationTitle": "{duration}before",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Receive a notification {duration} before the next closing",
+  "durationNotificationExplanation": "Receive a notification {duration}before the next closing. This value also manages the color change of the current status",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -160,5 +161,7 @@
       "count": {}
     }
   },
-  "notificationDayChannelName": "Planned closures"
+  "notificationDayChannelName": "Planned closures",
+  "leftHanded": "Left handed",
+  "rightHanded": "Right handed"
 }

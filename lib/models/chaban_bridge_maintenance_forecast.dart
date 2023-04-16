@@ -47,7 +47,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
   List<Object?> get props => [
         totalClosing,
         closingReason,
-        duration,
+        closedDuration,
         circulationClosingDate,
         circulationReOpeningDate,
         closingType
@@ -58,7 +58,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
       BuildContext context, String pickedDuration) {
     return AppLocalizations.of(context)!.notificationDurationMaintenanceMessage(
       pickedDuration,
-      duration.durationToString(),
+      closedDuration.durationToString(context),
     );
   }
 
@@ -66,14 +66,14 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
   String getNotificationTimeMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
       DateFormat.Hm().format(circulationClosingDate),
-      duration.durationToString(),
+      closedDuration.durationToString(context),
     );
   }
 
   @override
   String getNotificationClosingMessage(BuildContext context) {
-    return AppLocalizations.of(context)!
-        .notificationClosingMaintenanceMessage(duration.durationToString());
+    return AppLocalizations.of(context)!.notificationClosingMaintenanceMessage(
+        closedDuration.durationToString(context));
   }
 
   @override
@@ -144,7 +144,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
                 '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
-            text: duration.durationToString(),
+            text: closedDuration.durationToString(context),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.timeColor,

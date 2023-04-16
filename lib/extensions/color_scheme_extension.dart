@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 extension ColorSchemeExtension on ColorScheme {
+  MaterialColor get warningColor {
+    return brightness == Brightness.light ? Colors.orange : Colors.amber;
+  }
+
   MaterialColor get timeColor {
     return brightness == Brightness.light ? Colors.orange : Colors.amber;
   }

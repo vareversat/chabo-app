@@ -4,30 +4,33 @@ import 'package:chabo/bloc/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/screens/notification_screen.dart';
+import 'package:chabo/widgets/floating_actions/floating_action_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class FloatingActions extends StatefulWidget {
-  const FloatingActions({Key? key}) : super(key: key);
+class FloatingActionsWidget extends StatefulWidget {
+  const FloatingActionsWidget({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _FloatingActionsState();
+    return _FloatingActionsWidgetState();
   }
 }
 
-class _FloatingActionsState extends State<FloatingActions>
+class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FloatingActionsCubit, bool>(
+    return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: state.isRightHanded
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.start,
           children: [
             AnimatedSwitcher(
               duration: const Duration(
@@ -49,7 +52,7 @@ class _FloatingActionsState extends State<FloatingActions>
                   ),
                 );
               },
-              child: state
+              child: state.isMenuOpen
                   ? BackdropFilter(
                       filter: ImageFilter.blur(
                         sigmaX: CustomProperties.blurSigmaX,
@@ -57,11 +60,31 @@ class _FloatingActionsState extends State<FloatingActions>
                       ),
                       child: Wrap(
                         direction: Axis.vertical,
-                        crossAxisAlignment: WrapCrossAlignment.end,
+                        crossAxisAlignment: state.isRightHanded
+                            ? WrapCrossAlignment.end
+                            : WrapCrossAlignment.start,
                         spacing: 10,
                         children: [
-                          FloatingActionButton.extended(
-                            heroTag: null,
+                          FloatingActionsItem(
+                            onPressed: () {
+                              context
+                                  .read<FloatingActionsCubit>()
+                                  .changeFloatingActionsSide();
+                            },
+                            content: [
+                              Text(
+                                state.isRightHanded
+                                    ? AppLocalizations.of(context)!.rightHanded
+                                    : AppLocalizations.of(context)!.leftHanded,
+                              ),
+                              Icon(state.isRightHanded
+                                  ? Icons.back_hand
+                                  : Icons.front_hand),
+                            ],
+                            isRightHanded: state.isRightHanded,
+                            isSpaced: true,
+                          ),
+                          FloatingActionsItem(
                             onPressed: () {
                               showModalBottomSheet(
                                 useSafeArea: true,
@@ -77,20 +100,16 @@ class _FloatingActionsState extends State<FloatingActions>
                               );
                               context
                                   .read<FloatingActionsCubit>()
-                                  .openActions();
+                                  .openFloatingActions();
                             },
-                            label: Wrap(
-                              spacing: 10,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.themeSetting,
-                                ),
-                                const Icon(Icons.format_paint_rounded),
-                              ],
-                            ),
+                            content: [
+                              Text(AppLocalizations.of(context)!.themeSetting),
+                              const Icon(Icons.format_paint_rounded)
+                            ],
+                            isRightHanded: state.isRightHanded,
+                            isSpaced: true,
                           ),
-                          FloatingActionButton.extended(
-                            heroTag: null,
+                          FloatingActionsItem(
                             onPressed: () async {
                               Navigator.of(context).push(
                                 PageRouteBuilder(
@@ -119,23 +138,21 @@ class _FloatingActionsState extends State<FloatingActions>
                               );
                               context
                                   .read<FloatingActionsCubit>()
-                                  .openActions();
+                                  .openFloatingActions();
                             },
-                            label: Wrap(
-                              spacing: 10,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .notificationsTitle,
-                                ),
-                                const Icon(
-                                  Icons.notifications_active_outlined,
-                                ),
-                              ],
-                            ),
+                            content: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .notificationsTitle,
+                              ),
+                              const Icon(
+                                Icons.notifications_active_outlined,
+                              ),
+                            ],
+                            isRightHanded: state.isRightHanded,
+                            isSpaced: true,
                           ),
-                          FloatingActionButton.extended(
-                            heroTag: null,
+                          FloatingActionsItem(
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -151,19 +168,18 @@ class _FloatingActionsState extends State<FloatingActions>
                               );
                               context
                                   .read<FloatingActionsCubit>()
-                                  .openActions();
+                                  .openFloatingActions();
                             },
-                            label: Wrap(
-                              spacing: 10,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.about,
-                                ),
-                                const Icon(
-                                  Icons.info_outline,
-                                ),
-                              ],
-                            ),
+                            content: [
+                              Text(
+                                AppLocalizations.of(context)!.about,
+                              ),
+                              const Icon(
+                                Icons.info_outline,
+                              ),
+                            ],
+                            isRightHanded: state.isRightHanded,
+                            isSpaced: true,
                           ),
                         ],
                       ),
@@ -173,61 +189,59 @@ class _FloatingActionsState extends State<FloatingActions>
             const SizedBox(
               height: 25,
             ),
-            FloatingActionButton.extended(
-              heroTag: null,
+            FloatingActionsItem(
               onPressed: () {
                 HapticFeedback.lightImpact();
-                context.read<FloatingActionsCubit>().openActions();
+                context.read<FloatingActionsCubit>().openFloatingActions();
               },
-              label: Wrap(
-                alignment: WrapAlignment.center,
-                children: [
-                  AnimatedSize(
-                    curve: Curves.easeIn,
-                    duration: const Duration(milliseconds: 200),
+              isRightHanded: state.isRightHanded,
+              content: [
+                AnimatedSize(
+                  curve: Curves.easeIn,
+                  duration: const Duration(milliseconds: 200),
+                  reverseDuration: const Duration(
+                    milliseconds: 200,
+                  ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(
+                      milliseconds: 200,
+                    ),
                     reverseDuration: const Duration(
                       milliseconds: 200,
                     ),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(
-                        milliseconds: 200,
-                      ),
-                      reverseDuration: const Duration(
-                        milliseconds: 200,
-                      ),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return SlideTransition(
-                          position: Tween(
-                            begin: const Offset(0.5, 0.0),
-                            end: const Offset(0.0, 0.0),
-                          ).animate(animation),
-                          child: FadeTransition(
-                              opacity: CurvedAnimation(
-                                parent: animation,
-                                curve: Curves.easeIn,
-                              ),
-                              child: child),
-                        );
-                      },
-                      child: state
-                          ? Text(
-                              AppLocalizations.of(context)!.settingsTitle,
-                              style: Theme.of(context).textTheme.titleMedium,
-                              textAlign: TextAlign.start,
-                            )
-                          : const SizedBox.shrink(),
-                    ),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return SlideTransition(
+                        position: Tween(
+                          begin: Offset(state.isRightHanded ? .5 : -.5, 0.0),
+                          end: const Offset(0.0, 0.0),
+                        ).animate(animation),
+                        child: FadeTransition(
+                            opacity: CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.easeIn,
+                            ),
+                            child: child),
+                      );
+                    },
+                    child: state.isMenuOpen
+                        ? Text(
+                            AppLocalizations.of(context)!.settingsTitle,
+                            style: Theme.of(context).textTheme.titleMedium,
+                            textAlign: TextAlign.start,
+                          )
+                        : const SizedBox.shrink(),
                   ),
-                  state
-                      ? const Icon(
-                          Icons.close,
-                        )
-                      : const Icon(
-                          Icons.settings,
-                        ),
-                ],
-              ),
+                ),
+                state.isMenuOpen
+                    ? const Icon(
+                        Icons.close,
+                      )
+                    : const Icon(
+                        Icons.settings,
+                      ),
+              ],
+              isSpaced: state.isMenuOpen,
             ),
           ],
         );

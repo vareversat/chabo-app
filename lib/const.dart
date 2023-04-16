@@ -8,6 +8,9 @@ class Const {
   static const String appName = 'Chabo';
   static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
 
+  /// List
+  static const int chabanBridgeForecastLimit = 1000;
+
   /// Paths
   static const String changelogPlaceholder = ':lang:';
   static const String changelogPath = 'CHANGELOG_$changelogPlaceholder.md';
@@ -51,6 +54,7 @@ class Const {
       'NOTIFICATION_OPENING_SETTINGS_ENABLED';
   static const String notificationClosingEnabledKey =
       'NOTIFICATION_CLOSING_SETTINGS_ENABLED';
+  static const String isRightHandedKey = 'RIGHT_HANDED';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -67,6 +71,9 @@ class Const {
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;
+
+  /// UI
+  static const bool isRightHandedDefaultValue = true;
 
   /// Android Notifications
   static const String androidTicket = 'ticker';

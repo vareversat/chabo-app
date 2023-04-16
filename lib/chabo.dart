@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/floating_actions_cubit.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/notification_service_cubit.dart';
@@ -46,8 +47,9 @@ class Chabo extends StatelessWidget {
         /// Bloc intended to manage the FloatingActions
         BlocProvider(
           create: (_) => FloatingActionsCubit(
-            false,
-          ),
+            storageService,
+            const FloatingActionsState(isMenuOpen: false, isRightHanded: true),
+          )..init(),
         ),
 
         /// Bloc intended to manage the forecast displayed
@@ -57,6 +59,11 @@ class Chabo extends StatelessWidget {
           )..add(
               ChabanBridgeForecastFetched(),
             ),
+        ),
+
+        /// Bloc intended to manage the status
+        BlocProvider(
+          create: (_) => ChabanBridgeStatusBloc(),
         ),
 
         /// Bloc intended to manage scroll to status to display (or not) the current status

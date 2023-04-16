@@ -1,3 +1,4 @@
+import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
@@ -8,16 +9,7 @@ import 'package:intl/intl.dart';
 import 'ad_banner_widget.dart';
 
 class ChabanBridgeForecastList extends StatefulWidget {
-  final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
-  final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
-  final bool hasReachedMax;
-
-  const ChabanBridgeForecastList({
-    Key? key,
-    required this.chabanBridgeForecasts,
-    required this.hasReachedMax,
-    required this.currentChabanBridgeForecast,
-  }) : super(key: key);
+  const ChabanBridgeForecastList({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -37,40 +29,46 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
         }
         return true;
       },
-      child: ListView.separated(
-        cacheExtent: 5000,
-        padding: const EdgeInsets.all(0),
-        itemBuilder: (BuildContext context, int index) {
-          return ChabanBridgeForecastListItem(
-              key:
-                  GlobalObjectKey(widget.chabanBridgeForecasts[index].hashCode),
-              isCurrent: widget.chabanBridgeForecasts[index] ==
-                  widget.currentChabanBridgeForecast,
-              hasPassed: widget
-                  .chabanBridgeForecasts[index].circulationReOpeningDate
-                  .isBefore(DateTime.now()),
-              chabanBridgeForecast: widget.chabanBridgeForecasts[index],
-              index: index);
-        },
-        itemCount: widget.chabanBridgeForecasts.length,
-        controller: BlocProvider.of<ScrollStatusBloc>(context).scrollController,
-        separatorBuilder: (BuildContext context, int index) {
-          if ((index + 1 <= widget.chabanBridgeForecasts.length &&
-              widget.chabanBridgeForecasts[index].circulationClosingDate
-                      .month !=
-                  widget.chabanBridgeForecasts[index + 1].circulationClosingDate
-                      .month)) {
-            return _MonthWidget(
-                chabanBridgeForecast: widget.chabanBridgeForecasts[index + 1]);
-          }
-          if ((index % 10 == 0 ||
-                  index ==
-                      widget.chabanBridgeForecasts
-                          .indexOf(widget.currentChabanBridgeForecast!)) &&
-              index != 0) {
-            return const AdBannerWidget();
-          }
-          return const SizedBox.shrink();
+      child: BlocBuilder<ChabanBridgeForecastBloc, ChabanBridgeForecastState>(
+        builder: (context, state) {
+          return ListView.separated(
+            cacheExtent: 5000,
+            padding: const EdgeInsets.all(0),
+            itemBuilder: (BuildContext context, int index) {
+              return ChabanBridgeForecastListItem(
+                  key: GlobalObjectKey(
+                      state.chabanBridgeForecasts[index].hashCode),
+                  isCurrent: state.chabanBridgeForecasts[index] ==
+                      state.currentChabanBridgeForecast,
+                  hasPassed: state
+                      .chabanBridgeForecasts[index].circulationReOpeningDate
+                      .isBefore(DateTime.now()),
+                  chabanBridgeForecast: state.chabanBridgeForecasts[index],
+                  index: index);
+            },
+            itemCount: state.chabanBridgeForecasts.length,
+            controller:
+                BlocProvider.of<ScrollStatusBloc>(context).scrollController,
+            separatorBuilder: (BuildContext context, int index) {
+              if ((index + 1 <= state.chabanBridgeForecasts.length &&
+                  state.chabanBridgeForecasts[index].circulationClosingDate
+                          .month !=
+                      state.chabanBridgeForecasts[index + 1]
+                          .circulationClosingDate.month)) {
+                return _MonthWidget(
+                  chabanBridgeForecast: state.chabanBridgeForecasts[index + 1],
+                );
+              }
+              if ((index % 10 == 0 ||
+                      index ==
+                          state.chabanBridgeForecasts
+                              .indexOf(state.currentChabanBridgeForecast!)) &&
+                  index != 0) {
+                return const AdBannerWidget();
+              }
+              return const SizedBox.shrink();
+            },
+          );
         },
       ),
     );

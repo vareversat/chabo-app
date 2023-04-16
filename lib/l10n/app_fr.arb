@@ -12,6 +12,7 @@
   "open": "ouvert",
   "scheduledToOpen": "ouverture prévue dans",
   "theBridgeIsCurrently": "le pont Chaban est",
+  "aboutToClose": "sur le point de fermer",
   "settingsTitle": "Paramètres",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -43,13 +44,13 @@
   "systemTheme": "Thème système",
   "notifications": "Notifications",
   "notificationsSubtitle": "Gérer les notifications de l'application",
-  "durationNotificationTitle": "{duration} avant",
+  "durationNotificationTitle": "{duration}avant",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration} avant la prochaine fermeture",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statur actuel",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -160,5 +161,7 @@
       "count": {}
     }
   },
-  "notificationDayChannelName": "Fermetures prévues"
+  "notificationDayChannelName": "Fermetures prévues",
+  "leftHanded": "Gaucher.ère",
+  "rightHanded": "Droitier.ère"
 }
