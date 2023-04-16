@@ -1,3 +1,15 @@
+# **v1.3.0** :
+
+- *Fix*:
+  - L'icône de l'application s'affiche maintenant correctement sur les notifications
+  - L'icône de l'application s'affiche maintenant sur fond blanc dans la fenêtre "Licenses"
+- *Interface*:
+  - Disparition de la fenêtre des réglages au profit d'un bouton flotant
+  - L'interface se met maintenant à jour en temps réel
+  - Ajout de nouvelles transitions / animations
+- *Fonctionnalités*:
+  - Utilisable par des gaucher.ères
+***
 # **v1.1.0** :
 
 - *Fix*:

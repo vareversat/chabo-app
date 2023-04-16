@@ -1,3 +1,15 @@
+# **v1.3.0** :
+
+- *Fijado*:
+  - El ícono de la aplicación ahora se muestra correctamente en las notificaciones
+  - El ícono de la aplicación ahora se muestra sobre un fondo blanco en la ventana "Licencias"
+- *Interfaz*:
+  - Desaparición de la ventana de configuración a favor de un botón flotante
+  - La interfaz ahora se actualiza en tiempo real
+  - Se agregaron nuevas transiciones / animaciones.
+- *Características*:
+  - Puede ser utilizado por zurdos
+***
 # **v1.1.0** :
 
 - *Fijado*:

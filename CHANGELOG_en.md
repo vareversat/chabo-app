@@ -1,3 +1,15 @@
+# **v1.3.0** :
+
+- *Fixed*:
+  - App icon is now displayed correctly on notifications
+  - The application icon is now displayed on a white background in the "Licenses" window
+- *Interface*:
+  - Disappearance of the settings window in favor of a floating button
+  - The interface now updates in real time
+  - Added new transitions / animations
+- *Features*:
+  - Can be used by left-handers
+***
 # **v1.1.0** :
 
 - *Fixed*:
