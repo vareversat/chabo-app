@@ -3,6 +3,7 @@ import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -58,11 +59,12 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                   chabanBridgeForecast: state.chabanBridgeForecasts[index + 1],
                 );
               }
-              if ((index % 10 == 0 ||
-                      index ==
-                          state.chabanBridgeForecasts
-                              .indexOf(state.currentChabanBridgeForecast!)) &&
-                  index != 0) {
+              if (((index % 10 == 0 ||
+                          index ==
+                              state.chabanBridgeForecasts.indexOf(
+                                  state.currentChabanBridgeForecast!)) &&
+                      index != 0) &&
+                  !kIsWeb) {
                 return const AdBannerWidget();
               }
               return const SizedBox.shrink();
