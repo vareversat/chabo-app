@@ -66,10 +66,10 @@ class ChabanBridgeStatusBloc
         mainMessageStatus: mainMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
-        chabanBridgeStatusLifecycle:
-            state.durationUntilNextEvent != Duration.zero // Prevents from displaying the wrong status color
-                ? ChabanBridgeStatusLifecycle.populated
-                : ChabanBridgeStatusLifecycle.empty,
+        chabanBridgeStatusLifecycle: state.durationUntilNextEvent !=
+                Duration.zero // Prevents from displaying the wrong status color
+            ? ChabanBridgeStatusLifecycle.populated
+            : ChabanBridgeStatusLifecycle.empty,
         backgroundColor: backgroundColor,
       ),
     );
