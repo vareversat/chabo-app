@@ -1,9 +1,9 @@
 part of 'chaban_bridge_status_bloc.dart';
 
-enum ChabanBridgeStatusLifespan { empty, populated }
+enum ChabanBridgeStatusLifecycle { empty, populated }
 
 class ChabanBridgeStatusState extends Equatable {
-  final ChabanBridgeStatusLifespan chabanBridgeStatusLifespan;
+  final ChabanBridgeStatusLifecycle chabanBridgeStatusLifecycle;
   final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
   final Duration durationUntilNextEvent;
@@ -16,7 +16,7 @@ class ChabanBridgeStatusState extends Equatable {
   final Color backgroundColor;
 
   const ChabanBridgeStatusState(
-      {required this.chabanBridgeStatusLifespan,
+      {required this.chabanBridgeStatusLifecycle,
       required this.currentChabanBridgeForecast,
       required this.previousChabanBridgeForecast,
       required this.durationUntilNextEvent,
@@ -29,7 +29,7 @@ class ChabanBridgeStatusState extends Equatable {
       required this.backgroundColor});
 
   ChabanBridgeStatusState copyWith(
-      {ChabanBridgeStatusLifespan? chabanBridgeStatusLifespan,
+      {ChabanBridgeStatusLifecycle? chabanBridgeStatusLifecycle,
       AbstractChabanBridgeForecast? currentChabanBridgeForecast,
       AbstractChabanBridgeForecast? previousChabanBridgeForecast,
       Duration? durationUntilNextEvent,
@@ -41,8 +41,8 @@ class ChabanBridgeStatusState extends Equatable {
       Color? foregroundColor,
       Color? backgroundColor}) {
     return ChabanBridgeStatusState(
-        chabanBridgeStatusLifespan:
-            chabanBridgeStatusLifespan ?? this.chabanBridgeStatusLifespan,
+        chabanBridgeStatusLifecycle:
+            chabanBridgeStatusLifecycle ?? this.chabanBridgeStatusLifecycle,
         currentChabanBridgeForecast:
             currentChabanBridgeForecast ?? this.currentChabanBridgeForecast,
         previousChabanBridgeForecast:
@@ -63,7 +63,7 @@ class ChabanBridgeStatusState extends Equatable {
 
   @override
   List<Object?> get props => [
-        chabanBridgeStatusLifespan,
+        chabanBridgeStatusLifecycle,
         currentChabanBridgeForecast,
         previousChabanBridgeForecast,
         durationUntilNextEvent,
@@ -86,7 +86,7 @@ class ChabanBridgeStatusStateInitial extends ChabanBridgeStatusState {
             durationBetweenPreviousAndNextEvent: null,
             durationForCloseClosing:
                 Const.notificationDurationValueDefaultValue,
-            chabanBridgeStatusLifespan: ChabanBridgeStatusLifespan.empty,
+            chabanBridgeStatusLifecycle: ChabanBridgeStatusLifecycle.empty,
             completionPercentage: 0,
             mainMessageStatus: '',
             timeMessagePrefix: '',

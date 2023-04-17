@@ -163,5 +163,7 @@
   },
   "notificationDayChannelName": "Planned closures",
   "leftHanded": "Left handed",
-  "rightHanded": "Right handed"
+  "rightHanded": "Right handed",
+  "statusLoadMessage": "Loading of the bridge's current status",
+  "loading": "Loading..."
 }
