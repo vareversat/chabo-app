@@ -81,7 +81,7 @@ class NotificationService {
     tz.initializeTimeZones();
     int index = 0;
     await localNotifications.cancelAll();
-    List<AbstractChabanBridgeForecast> weekSeparatedChabanBridgeForecast = [];
+    List<DateTime> weekSeparatedChabanBridgeForecast = [];
     for (final chabanBridgeForecast in chabanBridgeForecasts) {
       if (notificationSate.openingNotificationEnabled) {
         index += 1;
@@ -102,22 +102,19 @@ class NotificationService {
         var last = chabanBridgeForecast.circulationClosingDate
             .previous(notificationSate.dayNotificationValue.weekPosition);
         if (weekSeparatedChabanBridgeForecast.isEmpty ||
-            weekSeparatedChabanBridgeForecast.last.circulationClosingDate
-                    .previous(
-                        notificationSate.dayNotificationValue.weekPosition)
-                    .day ==
-                last.day) {
-          weekSeparatedChabanBridgeForecast.add(chabanBridgeForecast);
+            weekSeparatedChabanBridgeForecast.last == last) {
+          weekSeparatedChabanBridgeForecast.add(last);
         } else {
           index += 1;
           await _createDayScheduledNotifications(
             index,
             weekSeparatedChabanBridgeForecast.length,
-            last,
+            weekSeparatedChabanBridgeForecast.last,
             notificationSate.dayNotificationTimeValue,
             context,
           );
-          weekSeparatedChabanBridgeForecast = [];
+          weekSeparatedChabanBridgeForecast.clear();
+          weekSeparatedChabanBridgeForecast.add(last);
         }
       }
       if (notificationSate.durationNotificationEnabled) {
