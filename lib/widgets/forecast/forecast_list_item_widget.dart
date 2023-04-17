@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ChabanBridgeForecastListItem extends StatelessWidget {
+class ForecastListItemWidget extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
   final Function()? onTap;
   final bool hasPassed;
   final bool isCurrent;
   final int index;
 
-  const ChabanBridgeForecastListItem(
+  const ForecastListItemWidget(
       {Key? key,
       required this.chabanBridgeForecast,
       required this.index,

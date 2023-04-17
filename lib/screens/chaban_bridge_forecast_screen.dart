@@ -1,16 +1,16 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
-import 'package:chabo/bloc/floating_actions_cubit.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
-import 'package:chabo/bloc/notification_service_cubit.dart';
+import 'package:chabo/cubits/notification_service_cubit.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
-import 'package:chabo/widgets/chaban_bridge_forecast_list.dart';
-import 'package:chabo/widgets/chaban_bridge_status_widget.dart';
-import 'package:chabo/widgets/custom_circular_progress_indicator.dart';
-import 'package:chabo/widgets/floating_actions_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_list_widget.dart';
+import 'package:chabo/widgets/forecast/status_widget.dart';
+import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:chabo/widgets/floating_actions/floating_actions_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -154,10 +154,10 @@ class _ChabanBridgeForecastScreenState
                       ],
                       child: Column(
                         children: const [
-                          ChabanBridgeStatusWidget(),
+                          StatusWidget(),
                           Expanded(
                             flex: 11,
-                            child: ChabanBridgeForecastList(),
+                            child: ForecastListWidget(),
                           ),
                         ],
                       ),

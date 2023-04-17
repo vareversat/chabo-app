@@ -1,23 +1,22 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
-import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
+import 'package:chabo/widgets/ad_banner_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'ad_banner_widget.dart';
-
-class ChabanBridgeForecastList extends StatefulWidget {
-  const ChabanBridgeForecastList({super.key});
+class ForecastListWidget extends StatefulWidget {
+  const ForecastListWidget({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ChabanBridgeForecastListState();
+    return _ForecastListWidgetState();
   }
 }
 
-class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
+class _ForecastListWidgetState extends State<ForecastListWidget> {
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
@@ -35,7 +34,7 @@ class _ChabanBridgeForecastListState extends State<ChabanBridgeForecastList> {
             cacheExtent: 5000,
             padding: const EdgeInsets.all(0),
             itemBuilder: (BuildContext context, int index) {
-              return ChabanBridgeForecastListItem(
+              return ForecastListItemWidget(
                   key: GlobalObjectKey(
                       state.chabanBridgeForecasts[index].hashCode),
                   isCurrent: state.chabanBridgeForecasts[index] ==

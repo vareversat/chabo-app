@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:chabo/bloc/floating_actions_cubit.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';

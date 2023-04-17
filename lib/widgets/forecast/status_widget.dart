@@ -5,25 +5,24 @@ import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/widgets/chaban_bridge_forecast_list_item.dart';
-import 'package:chabo/widgets/custom_circular_progress_indicator.dart';
-import 'package:chabo/widgets/custom_progress_bar_indicator.dart';
+import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
+import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:chabo/widgets/progress_indicator/custom_progress_bar_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ChabanBridgeStatusWidget extends StatefulWidget {
-  const ChabanBridgeStatusWidget({super.key});
+class StatusWidget extends StatefulWidget {
+  const StatusWidget({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return ChabanBridgeStatusWidgetState();
+    return StatusWidgetState();
   }
 }
 
-class ChabanBridgeStatusWidgetState
-    extends CustomWidgetState<ChabanBridgeStatusWidget> {
+class StatusWidgetState extends CustomWidgetState<StatusWidget> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback(
@@ -173,7 +172,7 @@ class ChabanBridgeStatusWidgetState
                                           right: 10.0,
                                           bottom: 15.0,
                                         ),
-                                        child: ChabanBridgeForecastListItem(
+                                        child: ForecastListItemWidget(
                                           onTap: () =>
                                               BlocProvider.of<ScrollStatusBloc>(
                                                       context)
