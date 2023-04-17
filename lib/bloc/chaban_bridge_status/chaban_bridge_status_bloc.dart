@@ -57,7 +57,8 @@ class ChabanBridgeStatusBloc
     final Color foregroundColor = _getForegroundColor(event.context);
     final Color backgroundColor = _getBackgroundColor(event.context);
 
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         durationUntilNextEvent: durationUntilNextEvent,
         durationBetweenPreviousAndNextEvent:
             durationBetweenPreviousAndNextEvent,
@@ -65,8 +66,13 @@ class ChabanBridgeStatusBloc
         mainMessageStatus: mainMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
-        chabanBridgeStatusLifecycle: ChabanBridgeStatusLifecycle.populated,
-        backgroundColor: backgroundColor));
+        chabanBridgeStatusLifecycle:
+            state.durationUntilNextEvent != Duration.zero // Prevents from displaying the wrong status color
+                ? ChabanBridgeStatusLifecycle.populated
+                : ChabanBridgeStatusLifecycle.empty,
+        backgroundColor: backgroundColor,
+      ),
+    );
   }
 
   Color _getBackgroundColor(BuildContext context) {
@@ -83,7 +89,7 @@ class ChabanBridgeStatusBloc
         return Theme.of(context).colorScheme.error;
       }
     } else {
-      return Colors.purple;
+      return state.backgroundColor;
     }
   }
 
@@ -99,7 +105,7 @@ class ChabanBridgeStatusBloc
         return Theme.of(context).colorScheme.onError;
       }
     } else {
-      return Colors.purple;
+      return state.foregroundColor;
     }
   }
 
