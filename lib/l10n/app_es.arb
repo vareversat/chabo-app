@@ -155,7 +155,7 @@
   "refreshingNotifications": "Refrescando tus notificaciones",
   "refreshingNotificationsDone": "Terminado !",
   "notificationDayTitle": "\uD83D\uDD2E Cierre programado",
-  "notificationDayMessage": "{count, plural, =0{No hay cierres programados para la próxima semana} =1{1 cierre programado para la próxima semana} other{{count} cierres programados para la próxima semana}}",
+  "notificationDayMessage": "{count, plural, =0{No hay cierres programados para la próxima semana} =1{La próxima semana, el puente Chaban Delmas solo cerrará una vez} other{La próxima semana, el puente Chaban Delmas cerrará {count} veces}}",
   "@notificationDayMessage": {
     "placeholders": {
       "count": {}

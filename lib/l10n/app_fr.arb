@@ -155,7 +155,7 @@
   "refreshingNotifications": "Actualisation de vos notifications",
   "refreshingNotificationsDone": "Terminé !",
   "notificationDayTitle": "\uD83D\uDD2E Fermetures prévues",
-  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{1 fermeture prévue pour la semaine prochaine} other{{count} fermetures prévues pour la semaine prochaine}}",
+  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera a {count} reprises}}",
   "@notificationDayMessage": {
     "placeholders": {
       "count": {}
