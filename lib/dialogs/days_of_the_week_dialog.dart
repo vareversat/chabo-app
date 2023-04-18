@@ -1,6 +1,7 @@
-import 'package:chabo/custom_properties.dart';
+import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
   final Day selectedDay;
@@ -11,46 +12,52 @@ class DaysOfTheWeekDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      titlePadding: const EdgeInsets.all(0),
-      contentPadding: const EdgeInsets.all(20),
-      actionsPadding: const EdgeInsets.fromLTRB(
-        0,
-        0,
-        20,
-        10,
-      ),
+      contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           15,
         ),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: Day.values
-            .map(
-              (day) => RadioListTile<Day>(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    CustomProperties.borderRadius,
-                  ),
-                ),
-                title: Text(
-                  day.localizedName(context),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                value: day,
-                groupValue: selectedDay,
+      content: BlocBuilder<NotificationBloc, NotificationSate>(
+        builder: (context, state) {
+          return Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 5,
+            runSpacing: 10,
+            children: [
+              Text('Le '),
+              DropdownButton(
+                borderRadius:  BorderRadius.circular(12.0),
                 onChanged: (Day? value) {
                   Navigator.pop(context, value);
                 },
+                value: Day.friday,
+                items: Day.values
+                    .map(
+                      (day) => DropdownMenuItem<Day>(
+                        value: day,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            day.localizedName(context),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
-            )
-            .toList(),
+              Text(' à '),
+              Text(
+                state.dayNotificationTimeValue.format(context),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
