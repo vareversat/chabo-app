@@ -1,3 +1,9 @@
+# **v1.3.1** :
+
+- *Fijado*:
+  - La notificación de resumen ahora funciona correctamente
+  - El color de estado se muestra correctamente al iniciar la aplicación
+***
 # **v1.3.0** :
 
 - *Fijado*:

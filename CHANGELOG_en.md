@@ -1,3 +1,9 @@
+# **v1.3.1** :
+
+- *Fixed*:
+  - Recap notification now works correctly
+  - The status color is correctly displayed when starting the application
+***
 # **v1.3.0** :
 
 - *Fixed*:

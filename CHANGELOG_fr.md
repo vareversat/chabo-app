@@ -1,3 +1,9 @@
+# **v1.3.1** :
+
+- *Fix*:
+  - La notification de recap fonctionne maintenant correctement
+  - La couleur du status est correctement affichée au démarrage de l'application
+***
 # **v1.3.0** :
 
 - *Fix*:
