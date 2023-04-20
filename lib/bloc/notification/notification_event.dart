@@ -38,6 +38,12 @@ class DayNotificationValueEvent extends NotificationEvent {
   DayNotificationValueEvent({required this.day}) : super();
 }
 
+class DayNotificationTimeValueEvent extends NotificationEvent {
+  final TimeOfDay time;
+
+  DayNotificationTimeValueEvent({required this.time}) : super();
+}
+
 class DurationNotificationValueEvent extends NotificationEvent {
   final Duration duration;
 

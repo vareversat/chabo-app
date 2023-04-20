@@ -43,6 +43,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
     on<DayNotificationValueEvent>(
       _onDayNotificationValueEvent,
     );
+    on<DayNotificationTimeValueEvent>(
+      _onDayNotificationTimeValueEvent,
+    );
     on<TimeNotificationStateEvent>(
       _onTimeNotificationStateEvent,
     );
@@ -98,6 +101,17 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
     HapticFeedback.lightImpact();
     emit(
       state.copyWith(dayNotificationValue: event.day),
+    );
+  }
+
+  Future<void> _onDayNotificationTimeValueEvent(
+      DayNotificationTimeValueEvent event,
+      Emitter<NotificationSate> emit) async {
+    await storageService.saveTimeOfDay(
+        Const.notificationDayTimeValueKey, event.time);
+    HapticFeedback.lightImpact();
+    emit(
+      state.copyWith(dayNotificationTimeValue: event.time),
     );
   }
 
@@ -167,6 +181,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
         storageService.readDay(Const.notificationDayValueKey) ??
             Const.notificationDayValueDefaultValue;
 
+    final dayNotificationTimeValue =
+        storageService.readTimeOfDay(Const.notificationDayTimeValueKey) ??
+            Const.notificationDayValueDefaultTimeValue;
+
     final openingNotificationEnabled =
         storageService.readBool(Const.notificationOpeningEnabledKey) ??
             Const.notificationOpeningEnabledDefaultValue;
@@ -183,6 +201,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
           timeNotificationValue: timeNotificationValue,
           dayNotificationEnabled: dayNotificationEnabled,
           dayNotificationValue: dayNotificationValue,
+          dayNotificationTimeValue: dayNotificationTimeValue,
           openingNotificationEnabled: openingNotificationEnabled,
           closingNotificationEnabled: closingNotificationEnabled),
     );
