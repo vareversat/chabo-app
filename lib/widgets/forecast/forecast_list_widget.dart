@@ -44,7 +44,8 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                       .chabanBridgeForecasts[index].circulationReOpeningDate
                       .isBefore(DateTime.now()),
                   chabanBridgeForecast: state.chabanBridgeForecasts[index],
-                  index: index);
+                  index: index,
+              isInterfering: index % 2 == 0,);
             },
             itemCount: state.chabanBridgeForecasts.length,
             controller:

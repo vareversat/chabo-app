@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 abstract class AbstractChabanBridgeForecast extends Equatable {
   final bool totalClosing;
+  late bool isDuringTwoDays = false;
   final ChabanBridgeForecastClosingReason closingReason;
   late final Duration closedDuration;
   late final DateTime _circulationClosingDate;
@@ -20,11 +21,12 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
       required this.closingType}) {
     _circulationClosingDate = circulationClosingDate;
 
-    var tmpCirculationReOpeningDate = circulationReOpeningDate;
+    var tmpCirculationReOpeningDate = circulationReOpeningDate.toLocal();
     var tmpDuration =
-        tmpCirculationReOpeningDate.difference(_circulationClosingDate);
+        tmpCirculationReOpeningDate.difference(_circulationClosingDate.toLocal());
 
     if (tmpDuration.isNegative) {
+      isDuringTwoDays = true;
       tmpCirculationReOpeningDate =
           tmpCirculationReOpeningDate.add(const Duration(days: 1));
       tmpDuration =

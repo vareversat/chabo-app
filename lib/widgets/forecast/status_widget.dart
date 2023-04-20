@@ -186,6 +186,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                                           chabanBridgeForecast:
                                               state.currentTarget!,
                                           index: -1,
+                                          isInterfering: false,
                                         ),
                                       )
                                     : const SizedBox.shrink(),

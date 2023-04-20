@@ -13,6 +13,7 @@ class ForecastListItemWidget extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
   final Function()? onTap;
   final bool hasPassed;
+  final bool isInterfering;
   final bool isCurrent;
   final int index;
 
@@ -22,36 +23,37 @@ class ForecastListItemWidget extends StatelessWidget {
       required this.index,
       required this.hasPassed,
       required this.isCurrent,
-      this.onTap})
+      this.onTap, required this.isInterfering})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-          shape: isCurrent
-              ? RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(
-                      12,
-                    ),
-                  ),
-                  side: BorderSide(
-                    // border color
-                    color: chabanBridgeForecast.getColor(context, false),
-                    // border thickness
-                    width: 2,
-                  ),
-                )
-              : null,
-          child: InkWell(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                12,
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Stack(
+        children: [
+          ElevatedButton(
+            style: ButtonStyle(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(CustomProperties.borderRadius),
+                  side: isCurrent
+                      ? BorderSide(
+                          width: 2,
+                          color: chabanBridgeForecast.getColor(context, false),
+                        )
+                      : BorderSide.none,
+                ),
+              ),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
+                const EdgeInsets.only(
+                  right: 0,
+                ),
               ),
             ),
-            onTap: onTap ??
+            onPressed: onTap ??
                 () async => {
                       await showGeneralDialog(
                         context: context,
@@ -80,16 +82,34 @@ class ForecastListItemWidget extends StatelessWidget {
                         ),
                       )
                     },
-            child: ListTile(
-              horizontalTitleGap: 0,
-              leading: chabanBridgeForecast.getIconWidget(context, false),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: SizedBox(
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Container(
+                    width: 65,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
+                      ),
+                      color: chabanBridgeForecast.getColor(context, false),
+                    ),
+                    child: Center(child: chabanBridgeForecast.getIconWidget(context, true)),
+                  ),
+
                   Flexible(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          MaterialLocalizations.of(context).formatMediumDate(
+                            chabanBridgeForecast.circulationClosingDate,
+                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -99,15 +119,10 @@ class ForecastListItemWidget extends StatelessWidget {
                               chabanBridgeForecast.circulationClosingDateString(
                                 context,
                               ),
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ],
                         ),
-                        Text(
-                          MaterialLocalizations.of(context).formatMediumDate(
-                            chabanBridgeForecast.circulationClosingDate,
-                          ),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        )
                       ],
                     ),
                   ),
@@ -136,6 +151,12 @@ class ForecastListItemWidget extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        Text(
+                          MaterialLocalizations.of(context).formatMediumDate(
+                            chabanBridgeForecast.circulationReOpeningDate,
+                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -146,40 +167,58 @@ class ForecastListItemWidget extends StatelessWidget {
                                   .circulationReOpeningDateString(
                                 context,
                               ),
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
+                            if (chabanBridgeForecast.isDuringTwoDays)
+                              Text('(j +1)',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
                           ],
                         ),
-                        Text(
-                          MaterialLocalizations.of(context).formatMediumDate(
-                            chabanBridgeForecast.circulationReOpeningDate,
-                          ),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        )
                       ],
                     ),
                   ),
+                 isInterfering ?
+                  Container(
+                    width: 30,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
+                      color: Theme.of(context).colorScheme.timeColor,
+                    ),
+                    child: Icon(
+                      Icons.warning_rounded,
+                      size: 20,
+                      color: Theme.of(context).cardColor,
+                    ),
+                  ) : Container(width: 15,),
                 ],
               ),
             ),
           ),
-        ),
-        if (hasPassed)
-          Positioned.fill(
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                    sigmaX: CustomProperties.blurSigmaX,
-                    sigmaY: CustomProperties.blurSigmaY),
-                child: Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.passedClosure,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+          if (hasPassed)
+            Positioned.fill(
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                      sigmaX: CustomProperties.blurSigmaX,
+                      sigmaY: CustomProperties.blurSigmaY),
+                  child: Center(
+                    child: Text(
+                      AppLocalizations.of(context)!.passedClosure,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
