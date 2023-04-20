@@ -1,1 +1,9 @@
-¡Todos los horarios de cierre (para el paso de barcos o para mantenimiento) se ingresan en esta aplicación! También puede crear alertas personalizadas para recibir notificaciones cuando el puente esté cerrado al tráfico
+¡Todos los horarios de cierre (por paso de naves o por mantenimiento) están disponibles en Chabo! ¡La aplicación también le permite recibir notificaciones de próximos eventos con hasta una semana de anticipación!
+Hay varios tipos de notificaciones disponibles:
+  - En el momento del cierre
+  - En el momento de la apertura
+  - El día de cierre a la hora que quieras
+  - Un día antes del cierre a la hora que quieras
+  - Un resumen de los próximos cierres para la próxima semana.
+
+Descargo de responsabilidad: Chabo utiliza los servicios web proporcionados por Bordeaux Métropole, pero de ninguna manera está afiliado a este último ni a ninguna otra entidad pública.
