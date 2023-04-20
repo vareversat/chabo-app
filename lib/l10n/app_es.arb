@@ -165,5 +165,6 @@
   "leftHanded": "Zurdo.a",
   "rightHanded": "Diestro.a",
   "statusLoadMessage": "Carga del estado actual del puente",
-  "loading": "Cargando..."
+  "loading": "Cargando...",
+  "dayNotificationAt": "en las"
 }

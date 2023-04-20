@@ -50,6 +50,8 @@ class Const {
       'NOTIFICATION_DAY_SETTINGS_ENABLED';
   static const String notificationDayValueKey =
       'NOTIFICATION_DAY_SETTINGS_VALUE';
+  static const String notificationDayTimeValueKey =
+      'NOTIFICATION_DAY_TIME_SETTINGS_VALUE';
   static const String notificationOpeningEnabledKey =
       'NOTIFICATION_OPENING_SETTINGS_ENABLED';
   static const String notificationClosingEnabledKey =

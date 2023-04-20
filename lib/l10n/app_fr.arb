@@ -165,5 +165,6 @@
   "leftHanded": "Gaucher.ère",
   "rightHanded": "Droitier.ère",
   "statusLoadMessage": "Chargement de l'état actuel du pont",
-  "loading": "Chargement..."
+  "loading": "Chargement...",
+  "dayNotificationAt": "à"
 }
