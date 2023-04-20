@@ -1,3 +1,8 @@
+# **v1.3.2** :
+
+- *Google play store*:
+  - Compliance of the description
+***
 # **v1.3.1** :
 
 - *Fixed*:

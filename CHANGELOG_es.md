@@ -1,3 +1,8 @@
+# **v1.3.2** :
+
+- *Google play store*:
+  - Cumplimiento de la descripción
+***
 # **v1.3.1** :
 
 - *Fijado*:
