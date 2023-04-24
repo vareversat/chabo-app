@@ -197,8 +197,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               filter: ImageFilter.blur(
                                   sigmaX: CustomProperties.blurSigmaX,
                                   sigmaY: CustomProperties.blurSigmaY),
-                              child: DaysOfTheWeekDialog(
-                                  selectedDay: state.dayNotificationValue),
+                              child: const DaysOfTheWeekDialog(),
                             );
                           },
                         );
