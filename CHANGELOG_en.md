@@ -1,3 +1,8 @@
+# **v1.4.0** :
+
+- *Features*:
+   - It is now possible to choose the time at which weekend recap notifications are sent
+***
 # **v1.3.2** :
 
 - *Google play store*:

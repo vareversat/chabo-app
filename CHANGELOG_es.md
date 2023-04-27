@@ -1,3 +1,8 @@
+# **v1.4.0** :
+
+- *Características*:
+   - Ahora es posible elegir la hora a la que se envían las notificaciones de resumen del fin de semana
+***
 # **v1.3.2** :
 
 - *Google play store*:

@@ -1,3 +1,8 @@
+# **v1.4.0** :
+
+- *Fonctionnalités*:
+  - Il est maintenant possible de choisir l'heure à laquelle les notifications de recap de fin de semaine sont envoyées
+***
 # **v1.3.2** :
 
 - *Google play store*:
