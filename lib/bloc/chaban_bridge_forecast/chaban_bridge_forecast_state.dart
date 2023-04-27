@@ -6,6 +6,7 @@ class ChabanBridgeForecastState extends Equatable {
   final ChabanBridgeForecastStatus status;
   final List<AbstractChabanBridgeForecast> chabanBridgeForecasts;
   final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
+  final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
   final bool hasReachedMax;
   final int offset;
   final String message;
@@ -14,6 +15,7 @@ class ChabanBridgeForecastState extends Equatable {
       {this.status = ChabanBridgeForecastStatus.initial,
       this.chabanBridgeForecasts = const <AbstractChabanBridgeForecast>[],
       this.currentChabanBridgeForecast,
+      this.previousChabanBridgeForecast,
       this.hasReachedMax = false,
       this.offset = 0,
       this.message = 'OK'});
@@ -22,6 +24,7 @@ class ChabanBridgeForecastState extends Equatable {
       {ChabanBridgeForecastStatus? status,
       List<AbstractChabanBridgeForecast>? chabanBridgeForecasts,
       AbstractChabanBridgeForecast? currentChabanBridgeForecast,
+      AbstractChabanBridgeForecast? previousChabanBridgeForecast,
       bool? hasReachedMax,
       int? offset,
       String? message}) {
@@ -31,6 +34,8 @@ class ChabanBridgeForecastState extends Equatable {
             chabanBridgeForecasts ?? this.chabanBridgeForecasts,
         currentChabanBridgeForecast:
             currentChabanBridgeForecast ?? this.currentChabanBridgeForecast,
+        previousChabanBridgeForecast:
+            previousChabanBridgeForecast ?? this.previousChabanBridgeForecast,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
         offset: offset ?? this.offset,
         message: message ?? this.message);
@@ -42,6 +47,13 @@ class ChabanBridgeForecastState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [status, chabanBridgeForecasts, hasReachedMax, offset, message];
+  List<Object?> get props => [
+        status,
+        chabanBridgeForecasts,
+        hasReachedMax,
+        offset,
+        message,
+        currentChabanBridgeForecast,
+        previousChabanBridgeForecast,
+      ];
 }

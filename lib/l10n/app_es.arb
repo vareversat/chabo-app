@@ -12,7 +12,9 @@
   "open": "abierto",
   "scheduledToOpen": "programado para abrir en",
   "theBridgeIsCurrently": "el puente Chaban está",
+  "aboutToClose": "a punto de cerrarse",
   "settingsTitle": "Ajustes",
+  "notificationsTitle": "Notificaciónes",
   "information": "Información",
   "dialogInformationContentThe": "el ",
   "dialogInformationContentThe2": "desde ",
@@ -30,14 +32,11 @@
   "errorScreenContentTechnical_Info": "Información técnica",
   "lisOfUpcomingClosures": "Lista de próximos cierres",
   "unableAppInfo": "No se puede obtener información de la aplicación",
-  "appDescription": "La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Burdeos, Francia",
-  "sourceCode": "Código fuente",
+  "appDescription": "La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Bordeaux, Francia",
   "changelog": "Registro de cambios",
-  "privacyPolicy": "Política de privacidad",
   "informationAboutTheApp": "Información sobre la aplicación",
   "about": "Acerca de",
   "disclaimer": "Descargo de responsabilidad: cierres provisionales. Sujeto a confirmación de la Capitanía de Puerto.",
-  "usefulLinks": "Enlaces útiles:",
   "themeSetting": "Tema",
   "themeSettingSubtitle": "Establezca el tema de la aplicación",
   "lightTheme": "Tema claro",
@@ -45,13 +44,13 @@
   "systemTheme": "Tema del sistema",
   "notifications": "Notificaciones",
   "notificationsSubtitle": "Administre las notificaciones de la aplicación",
-  "durationNotificationTitle": "{duration} antes",
+  "durationNotificationTitle": "{duration}antes",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Reciba una notificación {duration} antes del próximo cierre",
+  "durationNotificationExplanation": "Reciba una notificación {duration}antes del próximo cierre. Este valor también gestiona el cambio de color del estado actual",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -75,10 +74,11 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Reciba una notificación el {day} que enumere todos los cierres planeados para la próxima semana",
+  "dayNotificationExplanation": "Reciba una notificación el {day} a las {time} que enumere todos los cierres planeados para la próxima semana",
   "@dayNotificationExplanation": {
     "placeholders": {
-      "day": {}
+      "day": {},
+      "time": {}
     }
   },
   "closingNotificationTitle": "En el cierre",
@@ -144,5 +144,27 @@
     }
   },
   "notificationTimeChannelName": "Cierres del próximo día",
-  "passedClosure": "Cierre pasado"
+  "passedClosure": "Cierre pasado",
+  "selectAboutDialog": "{choice, select, source_code {Código\nfuente} privacy_policy {Política de\nprivacidad} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ciudad de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
+  "@selectAboutDialog": {
+    "placeholders": {
+      "choice": {}
+    }
+  },
+  "day": "Día",
+  "refreshingNotifications": "Refrescando tus notificaciones",
+  "refreshingNotificationsDone": "Terminado !",
+  "notificationDayTitle": "\uD83D\uDD2E Cierre programado",
+  "notificationDayMessage": "{count, plural, =0{No hay cierres programados para la próxima semana} =1{La próxima semana, el puente Chaban Delmas solo cerrará una vez} other{La próxima semana, el puente Chaban Delmas cerrará {count} veces}}",
+  "@notificationDayMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "notificationDayChannelName": "Cierres planificados",
+  "leftHanded": "Zurdo.a",
+  "rightHanded": "Diestro.a",
+  "statusLoadMessage": "Carga del estado actual del puente",
+  "loading": "Cargando...",
+  "dayNotificationAt": "en las"
 }

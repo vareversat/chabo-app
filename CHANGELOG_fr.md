@@ -1,3 +1,42 @@
+# **v1.4.0** :
+
+- *Fonctionnalités*:
+  - Il est maintenant possible de choisir l'heure à laquelle les notifications de recap de fin de semaine sont envoyées
+***
+# **v1.3.2** :
+
+- *Google play store*:
+  - Mise en conformité de la description
+***
+# **v1.3.1** :
+
+- *Fix*:
+  - La notification de recap fonctionne maintenant correctement
+  - La couleur du status est correctement affichée au démarrage de l'application
+***
+# **v1.3.0** :
+
+- *Fix*:
+  - L'icône de l'application s'affiche maintenant correctement sur les notifications
+  - L'icône de l'application s'affiche maintenant sur fond blanc dans la fenêtre "Licenses"
+- *Interface*:
+  - Disparition de la fenêtre des réglages au profit d'un bouton flotant
+  - L'interface se met maintenant à jour en temps réel
+  - Ajout de nouvelles transitions / animations
+- *Fonctionnalités*:
+  - Utilisable par des gaucher.ères
+***
+# **v1.1.0** :
+
+- *Fix*:
+  - La première fermeture s'affiche maintenant correctement 
+- *Interface*:
+  - Retravail de la fenêtre "A propos"
+  - Retravail complet de la fenêtre de gestion des notifications
+  - Quelques améliorations pour la lisibilité
+- *Fonctionnalités*:
+  - Les notifications de recap sont maintenant fonctionnelles
+***
 # **v1.0.0** :
 Première version stable
 - *Fonctionnalités*:

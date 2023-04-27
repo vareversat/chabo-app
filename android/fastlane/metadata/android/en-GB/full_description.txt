@@ -1,1 +1,9 @@
-All closing times (for the passage of ships or due to maintenance maintenance) are entered in this application! You can also create custom alerts to receive notifications when the bridge is closed to traffic
+All closing schedules (for the passage of ships or for maintenance) are available in Chabo! The application also allows you to be notified of upcoming events up to a week in advance!
+Several types of notifications are available:
+  - At the time of closing
+  - At the time of opening
+  - The day of closing at the time you want
+  - One day before closing at the time you want
+  - A summary of upcoming closures for the coming week
+
+Disclaimer: Chabo uses the web services provided by Bordeaux Métropole but is in no way affiliated with the latter or any other public entity whatsoever and does not represent any government entity.

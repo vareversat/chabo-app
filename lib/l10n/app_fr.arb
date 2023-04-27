@@ -12,7 +12,9 @@
   "open": "ouvert",
   "scheduledToOpen": "ouverture prévue dans",
   "theBridgeIsCurrently": "le pont Chaban est",
+  "aboutToClose": "sur le point de fermer",
   "settingsTitle": "Paramètres",
+  "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "le ",
   "dialogInformationContentThe2": "du ",
@@ -31,13 +33,10 @@
   "lisOfUpcomingClosures": "Liste des prochaines perturbations",
   "unableAppInfo": "Impossible d'obtenir les informations de l'application",
   "appDescription": "L'application Mobile pour connaître les horaires de fermeture et d'ouverture du pont Chaban Delmas situé à Bordeaux, France",
-  "sourceCode": "Code source",
   "changelog": "Journal des modifications",
-  "privacyPolicy": "Politique de confidentialité",
   "informationAboutTheApp": "Informations concernant l'application",
   "about": "À propos",
   "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
-  "usefulLinks": "Liens utiles :",
   "themeSetting": "Thème",
   "themeSettingSubtitle": "Choisir le thème de l'application",
   "lightTheme": "Thème clair",
@@ -45,13 +44,13 @@
   "systemTheme": "Thème système",
   "notifications": "Notifications",
   "notificationsSubtitle": "Gérer les notifications de l'application",
-  "durationNotificationTitle": "{duration} avant",
+  "durationNotificationTitle": "{duration}avant",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration} avant la prochaine fermeture",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statur actuel",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -75,10 +74,11 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Recevoir une notification le {day} listant toutes les fermetures prévues pour la semaine qui arrive",
+  "dayNotificationExplanation": "Recevoir une notification le {day} à {time} listant toutes les fermetures prévues pour la semaine qui arrive",
   "@dayNotificationExplanation": {
     "placeholders": {
-      "day": {}
+      "day": {},
+      "time": {}
     }
   },
   "closingNotificationTitle": "À la fermeture",
@@ -144,5 +144,27 @@
     }
   },
   "notificationTimeChannelName": "Fermetures du lendemain",
-  "passedClosure": "Fermeture passée"
+  "passedClosure": "Fermeture passée",
+  "selectAboutDialog": "{choice, select, source_code {Code\nsource} privacy_policy {Politique de\nconfidentialité} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ville de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} changelog {Journal des\nmodifications} licenses {Licences} other {Undefined}}",
+  "@selectAboutDialog": {
+    "placeholders": {
+      "choice": {}
+    }
+  },
+  "day": "Jour",
+  "refreshingNotifications": "Actualisation de vos notifications",
+  "refreshingNotificationsDone": "Terminé !",
+  "notificationDayTitle": "\uD83D\uDD2E Fermetures prévues",
+  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera a {count} reprises}}",
+  "@notificationDayMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "notificationDayChannelName": "Fermetures prévues",
+  "leftHanded": "Gaucher.ère",
+  "rightHanded": "Droitier.ère",
+  "statusLoadMessage": "Chargement de l'état actuel du pont",
+  "loading": "Chargement...",
+  "dayNotificationAt": "à"
 }

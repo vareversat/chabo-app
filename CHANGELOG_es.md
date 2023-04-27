@@ -1,7 +1,47 @@
+# **v1.4.0** :
+
+- *Características*:
+   - Ahora es posible elegir la hora a la que se envían las notificaciones de resumen del fin de semana
+***
+# **v1.3.2** :
+
+- *Google play store*:
+  - Cumplimiento de la descripción
+***
+# **v1.3.1** :
+
+- *Fijado*:
+  - La notificación de resumen ahora funciona correctamente
+  - El color de estado se muestra correctamente al iniciar la aplicación
+***
+# **v1.3.0** :
+
+- *Fijado*:
+  - El ícono de la aplicación ahora se muestra correctamente en las notificaciones
+  - El ícono de la aplicación ahora se muestra sobre un fondo blanco en la ventana "Licencias"
+- *Interfaz*:
+  - Desaparición de la ventana de configuración a favor de un botón flotante
+  - La interfaz ahora se actualiza en tiempo real
+  - Se agregaron nuevas transiciones / animaciones.
+- *Características*:
+  - Puede ser utilizado por zurdos
+***
+# **v1.1.0** :
+
+- *Fijado*:
+  - El primer cierre ahora se muestra correctamente
+- *Interfaz*:
+  - Reelaboración de la ventana "Acerca de"
+  - Reelaboración completa de la ventana de gestión de notificaciones.
+  - Algunas mejoras para la legibilidad.
+- *Características*:
+  - Las notificaciones de resumen ahora son funcionales
+***
+
 # **v1.0.0** :
-First stable release
-- *Features*:
-  - Added support for changing language
+Primera versión estable
+- *Características*:
+  - Se agregó soporte para cambiar el idioma.
 ***
 # **v0.12.0**:
 

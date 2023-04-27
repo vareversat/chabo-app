@@ -1,5 +1,3 @@
-import 'package:chabo/bloc/duration_picker/duration_picker_bloc.dart';
-import 'package:chabo/bloc/time_picker/time_picker_bloc.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
 import 'package:equatable/equatable.dart';
@@ -9,19 +7,17 @@ import 'package:intl/intl.dart';
 abstract class AbstractChabanBridgeForecast extends Equatable {
   final bool totalClosing;
   final ChabanBridgeForecastClosingReason closingReason;
-  late final Duration duration;
+  late final Duration closedDuration;
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
   final ChabanBridgeForecastClosingType closingType;
-  final Color color;
 
   AbstractChabanBridgeForecast(
       {required this.totalClosing,
       required this.closingReason,
       required DateTime circulationClosingDate,
       required DateTime circulationReOpeningDate,
-      required this.closingType,
-      required this.color}) {
+      required this.closingType}) {
     _circulationClosingDate = circulationClosingDate;
 
     var tmpCirculationReOpeningDate = circulationReOpeningDate;
@@ -35,7 +31,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
           tmpCirculationReOpeningDate.difference(_circulationClosingDate);
     }
     _circulationReOpeningDate = tmpCirculationReOpeningDate;
-    duration = tmpDuration;
+    closedDuration = tmpDuration;
   }
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
@@ -56,15 +52,16 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
 
   Widget getInformationWidget(BuildContext context);
 
-  Widget getIconWidget(Color? color);
+  Widget getIconWidget(BuildContext context, bool reversed);
 
   String getNotificationDurationMessage(
-      BuildContext context, DurationPickerState durationPickerState);
+      BuildContext context, String pickedDuration);
 
-  String getNotificationTimeMessage(
-      BuildContext context, TimePickerState timePickerState);
+  String getNotificationTimeMessage(BuildContext context);
 
   String getNotificationClosingMessage(BuildContext context);
+
+  Color getColor(BuildContext context, bool reversed);
 
   String circulationClosingDateString(BuildContext context) {
     return DateFormat.jm(Localizations.localeOf(context).languageCode)
@@ -74,14 +71,6 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   String circulationReOpeningDateString(BuildContext context) {
     return DateFormat.jm(Localizations.localeOf(context).languageCode)
         .format(circulationReOpeningDate);
-  }
-
-  String durationString() {
-    if (duration.inMinutes.remainder(60) == 0) {
-      return '${duration.inHours}h';
-    } else {
-      return '${duration.inHours}h ${duration.inMinutes.remainder(60)}mins';
-    }
   }
 
   bool isCurrentlyClosed() {
@@ -113,7 +102,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   List<Object?> get props => [
         totalClosing,
         closingReason,
-        duration,
+        closedDuration,
         circulationClosingDate,
         circulationReOpeningDate,
         closingType,

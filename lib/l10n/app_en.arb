@@ -12,7 +12,9 @@
   "open": "open",
   "scheduledToOpen": "scheduled to open in",
   "theBridgeIsCurrently": "the Chaban bridge is",
+  "aboutToClose": "about to close",
   "settingsTitle": "Settings",
+  "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "",
   "dialogInformationContentThe2": "from ",
@@ -31,13 +33,10 @@
   "lisOfUpcomingClosures": "List of upcoming closures",
   "unableAppInfo": "Unable to get application information",
   "appDescription": "The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France",
-  "sourceCode": "Source code",
   "changelog": "Changelog",
-  "privacyPolicy": "Privacy policy",
   "informationAboutTheApp": "Information about the app",
   "about": "About",
   "disclaimer": "Disclaimer: provisional closures. Subject to confirmation from the Harbor Master's Office.",
-  "usefulLinks": "Useful links:",
   "themeSetting": "Theme",
   "themeSettingSubtitle": "Set the theme of the app",
   "lightTheme": "Light theme",
@@ -45,13 +44,13 @@
   "systemTheme": "System theme",
   "notifications": "Notifications",
   "notificationsSubtitle": "Manage the notifications of the app",
-  "durationNotificationTitle": "{duration} before",
+  "durationNotificationTitle": "{duration}before",
   "@durationNotificationTitle": {
     "placeholders": {
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Receive a notification {duration} before the next closing",
+  "durationNotificationExplanation": "Receive a notification {duration}before the next closing. This value also manages the color change of the current status",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -75,10 +74,11 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Receive a notification on {day} listing all planned closures for the coming week",
+  "dayNotificationExplanation": "Receive a notification on {day} at {time} listing all planned closures for the coming week",
   "@dayNotificationExplanation": {
     "placeholders": {
-      "day": {}
+      "day": {},
+      "time": {}
     }
   },
   "closingNotificationTitle": "At closing",
@@ -144,5 +144,27 @@
     }
   },
   "notificationTimeChannelName": "Next day closings",
-  "passedClosure": "Past closure"
+  "passedClosure": "Past closure",
+  "selectAboutDialog": "{choice, select, source_code {Source\ncode} privacy_policy {Privacy\npolicy} yuhliet_instagram {Yuhliet's\nInstagram} city_of_bordeaux {City of\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licenses} changelog {Changelog} other {Undefined}}",
+  "@selectAboutDialog": {
+    "placeholders": {
+      "choice": {}
+    }
+  },
+  "day": "Day",
+  "refreshingNotifications": "Refreshing your notifications",
+  "refreshingNotificationsDone": "Done !",
+  "notificationDayTitle": "\uD83D\uDD2E Closing scheduled",
+  "notificationDayMessage": "{count, plural, =0{No closures scheduled for next week} =1{Next week, the Chaban Delmas bridge will only close once} other{Next week, the Chaban Delmas bridge will close {count} times}}",
+  "@notificationDayMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "notificationDayChannelName": "Planned closures",
+  "leftHanded": "Left handed",
+  "rightHanded": "Right handed",
+  "statusLoadMessage": "Loading of the bridge's current status",
+  "loading": "Loading...",
+  "dayNotificationAt": "at"
 }

@@ -1,7 +1,47 @@
+# **v1.4.0** :
+
+- *Features*:
+   - It is now possible to choose the time at which weekend recap notifications are sent
+***
+# **v1.3.2** :
+
+- *Google play store*:
+  - Compliance of the description
+***
+# **v1.3.1** :
+
+- *Fixed*:
+  - Recap notification now works correctly
+  - The status color is correctly displayed when starting the application
+***
+# **v1.3.0** :
+
+- *Fixed*:
+  - App icon is now displayed correctly on notifications
+  - The application icon is now displayed on a white background in the "Licenses" window
+- *Interface*:
+  - Disappearance of the settings window in favor of a floating button
+  - The interface now updates in real time
+  - Added new transitions / animations
+- *Features*:
+  - Can be used by left-handers
+***
+# **v1.1.0** :
+
+- *Fixed*:
+  - The first closing is now displayed correctly
+- *Interface*:
+  - Rework of the "About" window
+  - Complete rework of the notification management window
+  - Some improvements for readability
+- *Features*:
+  - Recap notifications are now functional
+***
+
 # **v1.0.0** :
-Primera versión estable
-- *Características*:
-  - Se agregó soporte para cambiar el idioma.
+First stable release
+- *Features*:
+  - Added support for changing language
 ***
 # **v0.12.0** :
 

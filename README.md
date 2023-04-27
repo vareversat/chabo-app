@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/flutter-blue?logo=flutter&style=for-the-badge"></a> 
-  <a href="https://github.com/vareversat/chabo/actions"><img src="https://img.shields.io/github/actions/workflow/status/vareversat/chabo/flutter.build.action.yaml?branch=dev?logo=github&style=for-the-badge"></a>
+  <a href="https://github.com/vareversat/chabo/actions"><img src="https://img.shields.io/github/actions/workflow/status/vareversat/chabo/dev.yaml?logo=github&style=for-the-badge"></a>
   <a href="https://github.com/vareversat/chabo/releases"><img src="https://img.shields.io/github/v/tag/vareversat/chabo?label=version&logo=git&logoColor=white&style=for-the-badge"></a>
 </p>
 

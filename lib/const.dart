@@ -1,8 +1,15 @@
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/link_icon.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Const {
   /// App
   static const String appName = 'Chabo';
+  static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
+
+  /// List
+  static const int chabanBridgeForecastLimit = 1000;
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';
@@ -10,12 +17,23 @@ class Const {
   static const String appLogoPath = 'assets/images/chabo_icon.png';
 
   /// Link
+  static const String vesselFinderLinkPlaceholder = ':boatName:';
+  static const String vesselFinderLink =
+      'https://www.vesselfinder.com/fr/vessels?name=$vesselFinderLinkPlaceholder&type=301';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
-  static const List<String> usefulLinks = [
-    'https://www.instagram.com/_yuhliet_/',
-    'https://sedeplacer.bordeaux-metropole.fr/',
-    'https://opendata.bordeaux-metropole.fr/'
+
+  static List<WebLinkIcon> usefulLinks = [
+    WebLinkIcon('https://www.instagram.com/_yuhliet_/',
+        FontAwesomeIcons.instagram, 'yuhliet_instagram'),
+    WebLinkIcon('https://bordeaux-metropole.fr/', Icons.location_city_rounded,
+        'city_of_bordeaux'),
+    WebLinkIcon('https://opendata.bordeaux-metropole.fr/',
+        Icons.data_thresholding_rounded, 'bordeaux_open_data'),
+    WebLinkIcon('https://github.com/vareversat/chabo', FontAwesomeIcons.github,
+        'source_code'),
+    WebLinkIcon('https://chabo.vareversat.fr/privacy',
+        Icons.privacy_tip_rounded, 'privacy_policy'),
   ];
 
   /// Local storage
@@ -32,10 +50,13 @@ class Const {
       'NOTIFICATION_DAY_SETTINGS_ENABLED';
   static const String notificationDayValueKey =
       'NOTIFICATION_DAY_SETTINGS_VALUE';
+  static const String notificationDayTimeValueKey =
+      'NOTIFICATION_DAY_TIME_SETTINGS_VALUE';
   static const String notificationOpeningEnabledKey =
       'NOTIFICATION_OPENING_SETTINGS_ENABLED';
   static const String notificationClosingEnabledKey =
       'NOTIFICATION_CLOSING_SETTINGS_ENABLED';
+  static const String isRightHandedKey = 'RIGHT_HANDED';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -43,13 +64,18 @@ class Const {
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
   static const bool notificationDurationEnabledDefaultValue = true;
-  static const Duration notificationTimeValueDefaultValue =
-      Duration(hours: 20, minutes: 00);
+  static TimeOfDay notificationTimeValueDefaultValue =
+      const TimeOfDay(hour: 6, minute: 0);
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
+  static TimeOfDay notificationDayValueDefaultTimeValue =
+      const TimeOfDay(hour: 20, minute: 00);
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;
+
+  /// UI
+  static const bool isRightHandedDefaultValue = true;
 
   /// Android Notifications
   static const String androidTicket = 'ticker';
@@ -57,13 +83,7 @@ class Const {
   static const String notificationTimeChannelId = 'tomorrow_closures';
   static const String notificationOpeningChannelId = 'opening';
   static const String notificationClosingChannelId = 'closing';
-
-  /// Notification misc
-  static const int durationNotificationStartId = 0;
-  static const int timeNotificationStartId = 1000;
-  static const int dayNotificationStartId = 2000;
-  static const int openingNotificationStartId = 3000;
-  static const int closingNotificationStartId = 4000;
+  static const String notificationDayChannelId = 'next_week_closures';
 
   /// AdMod
   static const String androidInlineBanner =

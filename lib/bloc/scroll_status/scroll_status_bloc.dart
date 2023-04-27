@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'scroll_status_event.dart';
-
 part 'scroll_status_state.dart';
 
 class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
@@ -13,7 +12,9 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
 
   ScrollStatusBloc({required this.scrollController})
       : super(ScrollStatusState(
-            showCurrentStatus: true, status: ScrollStatus.ok)) {
+            showCurrentStatus: true,
+            status: ScrollStatus.ok,
+            currentTarget: null)) {
     on<ScrollStatusChanged>(
       _onScrollChanged,
       transformer: droppable(),
@@ -28,9 +29,9 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
       ScrollStatusChanged event, Emitter<ScrollStatusState> emit) async {
     emit(
       state.copyWith(
-        showCurrentStatus: true,
-        status: ScrollStatus.ok,
-      ),
+          showCurrentStatus: true,
+          status: ScrollStatus.ok,
+          currentTarget: state.currentTarget),
     );
   }
 
@@ -58,9 +59,9 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
         duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
     emit(
       state.copyWith(
-        showCurrentStatus: false,
-        status: ScrollStatus.ok,
-      ),
+          showCurrentStatus: false,
+          status: ScrollStatus.ok,
+          currentTarget: event.goTo),
     );
   }
 }

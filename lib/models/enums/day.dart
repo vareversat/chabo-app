@@ -4,6 +4,27 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 enum Day { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
 
 extension DayExtension on Day? {
+  int get weekPosition {
+    switch (this) {
+      case Day.monday:
+        return 1;
+      case Day.tuesday:
+        return 2;
+      case Day.wednesday:
+        return 3;
+      case Day.thursday:
+        return 4;
+      case Day.friday:
+        return 5;
+      case Day.saturday:
+        return 6;
+      case Day.sunday:
+        return 7;
+      default:
+        return -1;
+    }
+  }
+
   String localizedName(BuildContext context) {
     switch (this) {
       case Day.monday:
@@ -20,8 +41,8 @@ extension DayExtension on Day? {
         return AppLocalizations.of(context)!.saturday;
       case Day.sunday:
         return AppLocalizations.of(context)!.sunday;
-      case null:
-        throw Exception('Day not defined for null');
+      default:
+        return 'no_date';
     }
   }
 }

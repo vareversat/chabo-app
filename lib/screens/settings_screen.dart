@@ -25,11 +25,21 @@ class _SettingsScreenState extends CustomWidgetState<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:
-            const Hero(tag: 'settingsButtonIcon', child: Icon(Icons.settings)),
-        title: Text(AppLocalizations.of(context)!.settingsTitle),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        leading: const Icon(
+          Icons.settings,
+        ),
+        title: Text(
+          AppLocalizations.of(context)!.settingsTitle,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+        ),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.only(
+          top: 20,
+        ),
         child: Column(
           children: [
             BlocBuilder<ThemeBloc, ThemeState>(

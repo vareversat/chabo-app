@@ -1,1 +1,9 @@
-Toutes les heures de fermetures (pour le passage de navires ou pour cause de maintenance) sont renseignées dans cette application ! Vous pouvez aussi créer des alertes personnalisées pour recevoir des notifications lorsque le pont est fermé à la circulation
+Tous les créneaux de fermeture (pour le passage de navires ou pour cause de maintenance) sont renseignées dans Chabo ! L'application vous permet aussi d'être notifié pour les évènements à venir jusqu'à une semaine à l'avance !
+Plusieurs types de notifications sont disponibles :
+ - Au moment de la fermeture
+ - Au moment de l'ouverture
+ - Le jour de la fermeture au moment où vous le souhaitez
+ - Un jour avant fermeture à l'heure que vous souhaitez
+ - Un récapitulatif des fermetures à venir pour la semaine qui arrive
+
+Avis de non-responsabilité : Chabo utilise les services web fournis par Bordeaux métropole mais n'est en aucun cas affilié à cette dernière ou à aucune autre entité publique que ce soit et ne représente aucune entité gouvernementale
