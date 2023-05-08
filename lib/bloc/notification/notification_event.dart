@@ -69,6 +69,14 @@ class ValueTimeSlotEvent extends NotificationEvent {
   ValueTimeSlotEvent({required this.timeSlot, required this.index}) : super();
 }
 
+class ComputeNotificationEvent extends NotificationEvent {
+  final List<AbstractChabanBridgeForecast> forecasts;
+  final BuildContext context;
+
+  ComputeNotificationEvent({required this.forecasts, required this.context})
+      : super();
+}
+
 class AppEvent extends NotificationEvent {
   AppEvent() : super();
 }

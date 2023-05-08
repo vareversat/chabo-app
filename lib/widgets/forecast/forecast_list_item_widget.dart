@@ -117,6 +117,7 @@ class ForecastListItemWidget extends StatelessWidget {
                     ),
                   ),
                   Flexible(
+                    flex: 2,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -168,6 +169,7 @@ class ForecastListItemWidget extends StatelessWidget {
                     ),
                   ),
                   Flexible(
+                    flex: 2,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

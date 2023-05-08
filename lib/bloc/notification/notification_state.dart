@@ -12,8 +12,10 @@ class NotificationState {
   final bool closingNotificationEnabled;
   final bool timeSlotsEnabledForNotifications;
   final List<TimeSlot> timeSlotsValue;
+  final bool notificationEnabled;
 
   NotificationState({
+    required this.notificationEnabled,
     required this.durationNotificationEnabled,
     required this.durationNotificationValue,
     required this.timeNotificationEnabled,
@@ -39,6 +41,7 @@ class NotificationState {
     bool? closingNotificationEnabled,
     bool? timeSlotsEnabledForNotifications,
     List<TimeSlot>? timeSlotsValue,
+    bool? notificationEnabled,
   }) {
     return NotificationState(
       durationNotificationEnabled:
@@ -61,6 +64,7 @@ class NotificationState {
       timeSlotsEnabledForNotifications: timeSlotsEnabledForNotifications ??
           this.timeSlotsEnabledForNotifications,
       timeSlotsValue: timeSlotsValue ?? this.timeSlotsValue,
+      notificationEnabled: notificationEnabled ?? this.notificationEnabled,
     );
   }
 }

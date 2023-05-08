@@ -3,7 +3,6 @@ import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
-import 'package:chabo/cubits/notification_service_cubit.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
@@ -78,16 +77,15 @@ class _ChabanBridgeForecastScreenState
                                 duration: state.durationNotificationValue,
                               ),
                             );
-                            context
-                                .read<NotificationServiceCubit>()
-                                .state
-                                .computeNotifications(
-                                  BlocProvider.of<ChabanBridgeForecastBloc>(
-                                    context,
-                                  ).state.chabanBridgeForecasts,
-                                  state,
+                            BlocProvider.of<NotificationBloc>(context).add(
+                              ComputeNotificationEvent(
+                                forecasts:
+                                    BlocProvider.of<ChabanBridgeForecastBloc>(
                                   context,
-                                );
+                                ).state.chabanBridgeForecasts,
+                                context: context,
+                              ),
+                            );
                           },
                         ),
                       ],

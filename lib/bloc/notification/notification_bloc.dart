@@ -1,22 +1,28 @@
+import 'dart:async';
+
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
+import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/time_slot.dart';
+import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'notification_event.dart';
-
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final StorageService storageService;
+  final NotificationService notificationService;
 
-  NotificationBloc({required this.storageService})
-      : super(
+  NotificationBloc({
+    required this.storageService,
+    required this.notificationService,
+  }) : super(
           NotificationState(
             durationNotificationEnabled:
                 Const.notificationDurationEnabledDefaultValue,
@@ -35,6 +41,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
             timeSlotsEnabledForNotifications:
                 Const.notificationFavoriteSlotsEnabledDefaultValue,
             timeSlotsValue: Const.notificationFavoriteSlotsDefaultValue,
+            notificationEnabled: false,
           ),
         ) {
     on<OpeningNotificationStateEvent>(
@@ -81,6 +88,10 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       _onTimeSlotsEventValue,
       transformer: sequential(),
     );
+    on<ComputeNotificationEvent>(
+      _onComputeNotificationEvent,
+      transformer: sequential(),
+    );
     on<AppEvent>(
       _onAppEvent,
       transformer: sequential(),
@@ -97,7 +108,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(openingNotificationEnabled: event.enabled),
+      state.copyWith(
+        openingNotificationEnabled: event.enabled,
+      ),
     );
   }
 
@@ -109,9 +122,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       Const.notificationClosingEnabledKey,
       event.enabled,
     );
+
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(closingNotificationEnabled: event.enabled),
+      state.copyWith(
+        closingNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
@@ -124,8 +142,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.enabled,
     );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(dayNotificationEnabled: event.enabled),
+      state.copyWith(
+        dayNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
@@ -133,10 +155,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     DayNotificationValueEvent event,
     Emitter<NotificationState> emit,
   ) async {
-    await storageService.saveDay(Const.notificationDayValueKey, event.day);
+    await storageService.saveDay(
+      Const.notificationDayValueKey,
+      event.day,
+    );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(dayNotificationValue: event.day),
+      state.copyWith(
+        dayNotificationValue: event.day,
+      ),
     );
   }
 
@@ -150,7 +177,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(dayNotificationTimeValue: event.time),
+      state.copyWith(
+        dayNotificationTimeValue: event.time,
+      ),
     );
   }
 
@@ -163,8 +192,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.enabled,
     );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(timeNotificationEnabled: event.enabled),
+      state.copyWith(
+        timeNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
@@ -177,7 +210,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.time,
     );
     emit(
-      state.copyWith(timeNotificationValue: event.time),
+      state.copyWith(
+        timeNotificationValue: event.time,
+      ),
     );
   }
 
@@ -190,9 +225,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.enabled,
     );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
       state.copyWith(
         durationNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
       ),
     );
   }
@@ -244,10 +281,21 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
   }
 
+  Future<void> _onComputeNotificationEvent(
+    ComputeNotificationEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    await notificationService.computeNotifications(
+      event.forecasts,
+      state,
+      event.context,
+    );
+  }
+
   void _onAppEvent(
     AppEvent event,
     Emitter<NotificationState> emit,
-  ) {
+  ) async {
     final durationNotificationEnabled =
         storageService.readBool(Const.notificationDurationEnabledKey) ??
             Const.notificationDurationEnabledDefaultValue;
@@ -292,6 +340,8 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
             Const.notificationFavoriteSlotsEnabledDefaultValue;
 
+    final enabled = await notificationService.areNotificationsEnabled();
+
     emit(
       state.copyWith(
         durationNotificationEnabled: durationNotificationEnabled,
@@ -305,6 +355,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         closingNotificationEnabled: closingNotificationEnabled,
         timeSlotsValue: timeSlots,
         timeSlotsEnabledForNotifications: enabledForNotifications,
+        notificationEnabled: enabled,
       ),
     );
   }
