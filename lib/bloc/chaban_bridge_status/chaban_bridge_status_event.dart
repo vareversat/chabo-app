@@ -6,10 +6,10 @@ class ChabanBridgeStatusChanged extends ChabanBridgeStatusEvent {
   final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
   final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
 
-  ChabanBridgeStatusChanged(
-      {required this.currentChabanBridgeForecast,
-      required this.previousChabanBridgeForecast})
-      : super();
+  ChabanBridgeStatusChanged({
+    required this.currentChabanBridgeForecast,
+    required this.previousChabanBridgeForecast,
+  }) : super();
 }
 
 class ChabanBridgeStatusRefresh extends ChabanBridgeStatusEvent {

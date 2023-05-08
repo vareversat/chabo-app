@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TheSwitcherWidget extends StatelessWidget {
-  const TheSwitcherWidget({Key? key}) : super(key: key);
+class ThemeSwitcherWidget extends StatelessWidget {
+  const ThemeSwitcherWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return Padding(
@@ -31,18 +33,18 @@ class TheSwitcherWidget extends StatelessWidget {
                 values: const [
                   ThemeStateStatus.light,
                   ThemeStateStatus.dark,
-                  ThemeStateStatus.system
+                  ThemeStateStatus.system,
                 ],
-                indicatorColor: Theme.of(context).colorScheme.tertiary,
-                innerColor: Theme.of(context).colorScheme.primaryContainer,
-                borderColor: Theme.of(context).colorScheme.primary,
+                indicatorColor: colorScheme.tertiary,
+                innerColor: colorScheme.primaryContainer,
+                borderColor: colorScheme.primary,
                 indicatorSize: const Size.fromWidth(65),
                 iconBuilder: (value, size) {
                   return Icon(
                     value.icon,
                     color: state.status == value
-                        ? Theme.of(context).colorScheme.onTertiary
-                        : Theme.of(context).colorScheme.onPrimaryContainer,
+                        ? colorScheme.onTertiary
+                        : colorScheme.onPrimaryContainer,
                   );
                 },
                 onChanged: (value) => BlocProvider.of<ThemeBloc>(context).add(
@@ -65,11 +67,12 @@ class TheSwitcherWidget extends StatelessWidget {
                       end: const Offset(0.0, 0.0),
                     ).animate(animation),
                     child: FadeTransition(
-                        opacity: CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeIn,
-                        ),
-                        child: child),
+                      opacity: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeIn,
+                      ),
+                      child: child,
+                    ),
                   );
                 },
                 child: Text(

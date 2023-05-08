@@ -1,5 +1,5 @@
 import 'package:chabo/const.dart';
-import 'package:chabo/custom_widgets_state.dart';
+import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,8 +17,10 @@ class ChangeLogScreen extends StatefulWidget {
 
 class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
   String _getChangelogPath(BuildContext context) {
-    return Const.changelogPath.replaceAll(Const.changelogPlaceholder,
-        Localizations.localeOf(context).languageCode);
+    return Const.changelogPath.replaceAll(
+      Const.changelogPlaceholder,
+      Localizations.localeOf(context).languageCode,
+    );
   }
 
   @override
@@ -41,6 +43,7 @@ class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
               errorMessage: snapshot.error.toString(),
             );
           }
+
           return const Center(
             child: CircularProgressIndicator(),
           );

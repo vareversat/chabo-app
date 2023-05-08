@@ -4,15 +4,15 @@ class FloatingActionsItem extends StatelessWidget {
   final bool isSpaced;
   final List<Widget> content;
   final bool isRightHanded;
-  final Function()? onPressed;
+  final Function() onPressed;
 
-  const FloatingActionsItem(
-      {Key? key,
-      required this.isRightHanded,
-      this.onPressed,
-      required this.content,
-      required this.isSpaced})
-      : super(key: key);
+  const FloatingActionsItem({
+    Key? key,
+    required this.isRightHanded,
+    required this.onPressed,
+    required this.content,
+    required this.isSpaced,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

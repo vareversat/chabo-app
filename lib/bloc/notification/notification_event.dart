@@ -56,6 +56,27 @@ class TimeNotificationValueEvent extends NotificationEvent {
   TimeNotificationValueEvent({required this.time}) : super();
 }
 
+class EnabledTimeSlotEvent extends NotificationEvent {
+  final bool enabled;
+
+  EnabledTimeSlotEvent({required this.enabled}) : super();
+}
+
+class ValueTimeSlotEvent extends NotificationEvent {
+  final TimeSlot timeSlot;
+  final int index;
+
+  ValueTimeSlotEvent({required this.timeSlot, required this.index}) : super();
+}
+
+class ComputeNotificationEvent extends NotificationEvent {
+  final List<AbstractChabanBridgeForecast> forecasts;
+  final BuildContext context;
+
+  ComputeNotificationEvent({required this.forecasts, required this.context})
+      : super();
+}
+
 class AppEvent extends NotificationEvent {
   AppEvent() : super();
 }

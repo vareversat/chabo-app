@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class NoScalingAnimation extends FloatingActionButtonAnimator {
   @override
-  Offset getOffset(
-      {required Offset begin, required Offset end, required double progress}) {
+  Offset getOffset({
+    required Offset begin,
+    required Offset end,
+    required double progress,
+  }) {
     return end;
   }
 

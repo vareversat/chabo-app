@@ -152,8 +152,6 @@
     }
   },
   "day": "Día",
-  "refreshingNotifications": "Refrescando tus notificaciones",
-  "refreshingNotificationsDone": "Terminado !",
   "notificationDayTitle": "\uD83D\uDD2E Cierre programado",
   "notificationDayMessage": "{count, plural, =0{No hay cierres programados para la próxima semana} =1{La próxima semana, el puente Chaban Delmas solo cerrará una vez} other{La próxima semana, el puente Chaban Delmas cerrará {count} veces}}",
   "@notificationDayMessage": {
@@ -166,5 +164,19 @@
   "rightHanded": "Diestro.a",
   "statusLoadMessage": "Carga del estado actual del puente",
   "loading": "Cargando...",
-  "dayNotificationAt": "en las"
+  "dayNotificationAt": "en las",
+  "favoriteSlotsFrom": "De",
+  "favoriteSlotsTo": "a",
+  "favoriteSlots": "Mis franjas horarias favoritas",
+  "favoriteSlotsDescription": "Puede completar dos intervalos de tiempo durante los cuales es probable que los eventos del puente Chaban lo afecten",
+  "favoriteTimeSlotDefaultName": "Franja horaria n°{index}",
+  "@favoriteTimeSlotDefaultName": {
+    "placeholders": {
+      "index": {}
+    }
+  },
+  "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o más intervalos de tiempo",
+  "favoriteTimeSlotEnabledWarning": "Atención, al activar este parámetro solo recibirás notificaciones cuando ocurra un evento durante una de tus franjas horarias",
+  "notificationNotEnabledMessage": "Tenga en cuenta que las notificaciones no están permitidas. Vaya a la configuración de la aplicación para autorizar el envío de notificaciones.",
+  "notificationNotEnabledOpenSettings": "Abrir configuración de notificaciones"
 }

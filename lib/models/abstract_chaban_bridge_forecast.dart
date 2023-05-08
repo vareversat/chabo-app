@@ -1,50 +1,54 @@
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 abstract class AbstractChabanBridgeForecast extends Equatable {
   final bool totalClosing;
+  late final bool isDuringTwoDays;
   final ChabanBridgeForecastClosingReason closingReason;
   late final Duration closedDuration;
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
   final ChabanBridgeForecastClosingType closingType;
+  final List<TimeSlot> interferingTimeSlots = [];
 
-  AbstractChabanBridgeForecast(
-      {required this.totalClosing,
-      required this.closingReason,
-      required DateTime circulationClosingDate,
-      required DateTime circulationReOpeningDate,
-      required this.closingType}) {
+  AbstractChabanBridgeForecast({
+    required this.totalClosing,
+    required this.closingReason,
+    required DateTime circulationClosingDate,
+    required DateTime circulationReOpeningDate,
+    required this.closingType,
+  }) {
     _circulationClosingDate = circulationClosingDate;
 
-    var tmpCirculationReOpeningDate = circulationReOpeningDate;
-    var tmpDuration =
-        tmpCirculationReOpeningDate.difference(_circulationClosingDate);
+    var tmpCirculationReOpeningDate = circulationReOpeningDate.toLocal();
+    var tmpDuration = tmpCirculationReOpeningDate
+        .difference(_circulationClosingDate.toLocal());
+    var tmpIsDuringTwoDays = false;
 
     if (tmpDuration.isNegative) {
+      tmpIsDuringTwoDays = true;
       tmpCirculationReOpeningDate =
           tmpCirculationReOpeningDate.add(const Duration(days: 1));
       tmpDuration =
           tmpCirculationReOpeningDate.difference(_circulationClosingDate);
     }
+    isDuringTwoDays = tmpIsDuringTwoDays;
     _circulationReOpeningDate = tmpCirculationReOpeningDate;
     closedDuration = tmpDuration;
   }
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
 
-  DateTime get circulationReOpeningDateUTC => circulationClosingDate;
-
   set circulationReOpeningDate(DateTime value) {
     _circulationReOpeningDate = value;
   }
 
   DateTime get circulationClosingDate => _circulationClosingDate.toLocal();
-
-  DateTime get circulationClosingDateUTC => _circulationClosingDate;
 
   set circulationClosingDate(DateTime value) {
     _circulationClosingDate = value;
@@ -55,7 +59,9 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   Widget getIconWidget(BuildContext context, bool reversed);
 
   String getNotificationDurationMessage(
-      BuildContext context, String pickedDuration);
+    BuildContext context,
+    String pickedDuration,
+  );
 
   String getNotificationTimeMessage(BuildContext context);
 
@@ -73,29 +79,80 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
         .format(circulationReOpeningDate);
   }
 
+  void computeSlotInterference(List<TimeSlot> timeSlots) {
+    interferingTimeSlots.clear();
+    for (var timeSlot in timeSlots) {
+      if (isOverlappingWithPeriod(timeSlot.from, timeSlot.to)) {
+        interferingTimeSlots.add(timeSlot);
+      }
+    }
+  }
+
   bool isCurrentlyClosed() {
-    var now = DateTime.now();
-    return now.isAfter(circulationClosingDate) &&
-        now.isBefore(circulationReOpeningDate);
+    return isOverlappingWith(DateTime.now());
+  }
+
+  bool isOverlappingWith(DateTime dateTime) {
+    return dateTime.isAfter(circulationClosingDate) &&
+        dateTime.isBefore(circulationReOpeningDate);
+  }
+
+  bool isOverlappingWithPeriod(TimeOfDay start, TimeOfDay end) {
+    final startDateTime = circulationClosingDate.applied(start);
+    final endDateTime = circulationClosingDate.applied(end);
+
+    final startIsBeforeClosing = startDateTime.isBefore(
+      circulationClosingDate,
+    );
+
+    final endIsBeforeClosing = endDateTime.isBefore(
+      circulationClosingDate,
+    );
+
+    final startIsBeforeReopening = startDateTime.isBefore(
+      circulationReOpeningDate,
+    );
+    final endIsBeforeReopening = endDateTime.isBefore(
+      circulationReOpeningDate,
+    );
+
+    return (startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            endIsBeforeReopening) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            endIsBeforeClosing &&
+            !endIsBeforeClosing) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            !endIsBeforeReopening) ||
+        (startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            !endIsBeforeReopening);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {
-    if (stringValue == 'oui') {
-      return true;
-    } else {
-      return false;
-    }
+    return stringValue == 'oui';
   }
 
   static String getApiTimeZone(String recordTimestamp) {
     return recordTimestamp.substring(
-        recordTimestamp.indexOf('+'), recordTimestamp.length);
+      recordTimestamp.indexOf('+'),
+      recordTimestamp.length,
+    );
   }
 
   static DateTime parseFieldDate(
-      Map<String, dynamic> json, String fieldName, String timezone) {
+    Map<String, dynamic> json,
+    String fieldName,
+    String timezone,
+  ) {
     return DateTime.parse(
-        "${json['fields']['date_passage']}T${json['fields'][fieldName]}:00$timezone");
+      "${json['fields']['date_passage']}T${json['fields'][fieldName]}:00$timezone",
+    );
   }
 
   @override

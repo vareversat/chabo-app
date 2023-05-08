@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-extension DurationExtention on Duration {
+extension DurationExtension on Duration {
   String durationToString(BuildContext context) {
     final dayToken = inDays == 0
         ? ''
@@ -15,6 +15,7 @@ extension DurationExtention on Duration {
     final secsToken = inSeconds.remainder(60) == 0
         ? ''
         : '${inSeconds.remainder(60).toString()}s ';
+
     return '$dayToken$hourToken$minToken$secsToken';
   }
 

@@ -1,13 +1,16 @@
 import 'dart:ui';
 
-import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/custom_widgets_state.dart';
+import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/dialogs/days_of_the_week_dialog.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/widgets/time_slot_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -58,10 +61,137 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
             padding: const EdgeInsets.only(
               top: 20,
             ),
-            child: BlocBuilder<NotificationBloc, NotificationSate>(
-              builder: (context, state) {
+            child: BlocBuilder<NotificationBloc, NotificationState>(
+              builder: (context, notificationState) {
                 return Column(
                   children: [
+                    Builder(builder: (context) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        if (!notificationState.notificationEnabled) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: const Duration(seconds: 10),
+                              showCloseIcon: true,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.error,
+                              content: Column(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .notificationNotEnabledMessage,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onError,
+                                        ),
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () =>
+                                        AppSettings.openNotificationSettings(),
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .notificationNotEnabledOpenSettings,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                      });
+
+                      return const SizedBox.shrink();
+                    }),
+                    Column(
+                      children: [
+                        _CustomListTile(
+                          onChanged: (bool value) => {
+                            BlocProvider.of<NotificationBloc>(context).add(
+                              EnabledTimeSlotEvent(
+                                enabled: value,
+                              ),
+                            ),
+                            if (value)
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: const Duration(seconds: 7),
+                                    showCloseIcon: true,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .warningColor,
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            AppLocalizations.of(context)!
+                                                .favoriteTimeSlotEnabledWarning,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              }
+                            else
+                              {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar(
+                                  reason: SnackBarClosedReason.action,
+                                ),
+                              },
+                          },
+                          enabled: notificationState
+                              .timeSlotsEnabledForNotifications,
+                          title: AppLocalizations.of(context)!.favoriteSlots,
+                          subtitle: AppLocalizations.of(context)!
+                              .favoriteSlotsDescription,
+                          leadingIcon: Icons.warning_rounded,
+                          iconColor: Theme.of(context).colorScheme.warningColor,
+                          constrainedBySlots: false,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              for (var i = 0;
+                                  i < notificationState.timeSlotsValue.length;
+                                  i++) ...[
+                                TimeSlotWidget(
+                                  timeSlot: notificationState.timeSlotsValue[i],
+                                  index: i,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Divider(
+                      height: 5,
+                      indent: 25,
+                      endIndent: 25,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     _CustomListTile(
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -69,13 +199,15 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.openingNotificationEnabled,
+                      enabled: notificationState.openingNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .openingNotificationTitle,
                       subtitle: AppLocalizations.of(context)!
                           .openingNotificationExplanation,
                       leadingIcon: Icons.check_circle,
                       iconColor: Colors.green,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
                       onChanged: (bool value) =>
@@ -84,23 +216,26 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.closingNotificationEnabled,
+                      enabled: notificationState.closingNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .closingNotificationTitle,
                       subtitle: AppLocalizations.of(context)!
                           .closingNotificationExplanation,
                       leadingIcon: Icons.block_rounded,
                       iconColor: Colors.red,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        var time = await showTimePicker(
+                      onTap: () {
+                        showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
-                          initialTime: state.durationNotificationValue
+                          initialTime: notificationState
+                              .durationNotificationValue
                               .durationToTimeOfDay(),
                           builder: (BuildContext context, Widget? child) {
                             return MediaQuery(
@@ -110,18 +245,21 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               child: child!,
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DurationNotificationValueEvent(
+                                    duration: Duration(
+                                      hours: value.hour,
+                                      minutes: value.minute,
+                                    ),
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (time != null) {
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            DurationNotificationValueEvent(
-                              duration: Duration(
-                                hours: time.hour,
-                                minutes: time.minute,
-                              ),
-                            ),
-                          );
-                        }
                       },
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -129,25 +267,27 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.durationNotificationEnabled,
+                      enabled: notificationState.durationNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .durationNotificationTitle(
-                        state.durationNotificationValue
+                        notificationState.durationNotificationValue
                             .durationToString(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .durationNotificationExplanation(
-                        state.durationNotificationValue
+                        notificationState.durationNotificationValue
                             .durationToString(context),
                       ),
                       leadingIcon: Icons.timer_outlined,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        var time = await showTimePicker(
+                      onTap: () {
+                        showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
-                          initialTime: state.timeNotificationValue,
+                          initialTime: notificationState.timeNotificationValue,
                           builder: (BuildContext context, Widget? child) {
                             return MediaQuery(
                               data: MediaQuery.of(context).copyWith(
@@ -156,18 +296,21 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               child: child!,
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  TimeNotificationValueEvent(
+                                    time: TimeOfDay(
+                                      hour: value.hour,
+                                      minute: value.minute,
+                                    ),
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (time != null) {
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            TimeNotificationValueEvent(
-                              time: TimeOfDay(
-                                hour: time.hour,
-                                minute: time.minute,
-                              ),
-                            ),
-                          );
-                        }
                       },
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -175,47 +318,60 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.timeNotificationEnabled,
+                      enabled: notificationState.timeNotificationEnabled,
                       title:
                           AppLocalizations.of(context)!.timeNotificationTitle(
-                        state.timeNotificationValue.format(context),
+                        notificationState.timeNotificationValue.format(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .timeNotificationExplanation(
-                        state.timeNotificationValue.format(context),
+                        notificationState.timeNotificationValue.format(context),
                       ),
                       leadingIcon: Icons.plus_one_outlined,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        final day = await showDialog(
+                      onTap: () {
+                        showDialog(
                           context: context,
                           builder: (
                             BuildContext context,
                           ) {
                             return BackdropFilter(
                               filter: ImageFilter.blur(
-                                  sigmaX: CustomProperties.blurSigmaX,
-                                  sigmaY: CustomProperties.blurSigmaY),
-                              child: DaysOfTheWeekDialog(
-                                  selectedDay: state.dayNotificationValue),
+                                sigmaX: CustomProperties.blurSigmaX,
+                                sigmaY: CustomProperties.blurSigmaY,
+                              ),
+                              child: const DaysOfTheWeekDialog(),
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DayNotificationValueEvent(
+                                    day: value,
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (day != null) {
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            DayNotificationValueEvent(day: day),
-                          );
-                        }
                       },
-                      enabled: state.dayNotificationEnabled,
+                      enabled: notificationState.dayNotificationEnabled,
                       title: AppLocalizations.of(context)!.dayNotificationTitle(
-                        state.dayNotificationValue.localizedName(context),
+                        notificationState.dayNotificationValue
+                            .localizedName(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .dayNotificationExplanation(
-                              state.dayNotificationValue.localizedName(context),
-                              state.dayNotificationTimeValue.format(context)),
+                        notificationState.dayNotificationValue
+                            .localizedName(context),
+                        notificationState.dayNotificationTimeValue.format(
+                          context,
+                        ),
+                      ),
                       leadingIcon: Icons.calendar_month_outlined,
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -223,7 +379,9 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                    )
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
+                    ),
                   ],
                 );
               },
@@ -237,6 +395,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
 
 class _CustomListTile extends StatelessWidget {
   final bool enabled;
+  final bool constrainedBySlots;
   final Function()? onTap;
   final Function(bool) onChanged;
   final String title;
@@ -244,23 +403,62 @@ class _CustomListTile extends StatelessWidget {
   final IconData leadingIcon;
   final Color? iconColor;
 
-  const _CustomListTile(
-      {Key? key,
-      required this.enabled,
-      this.onTap,
-      this.iconColor,
-      required this.title,
-      required this.subtitle,
-      required this.leadingIcon,
-      required this.onChanged})
-      : super(key: key);
+  const _CustomListTile({
+    Key? key,
+    required this.enabled,
+    this.onTap,
+    this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.leadingIcon,
+    required this.onChanged,
+    required this.constrainedBySlots,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.titleLarge,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Flexible(
+            flex: 3,
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+              overflow: TextOverflow.clip,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Flexible(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity:
+                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  child: SlideTransition(
+                    position: Tween(
+                      begin: const Offset(-1.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ).animate(animation),
+                    child: child,
+                  ),
+                );
+              },
+              child: constrainedBySlots && enabled
+                  ? CircleAvatar(
+                      radius: 5,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.warningColor,
+                      child: Container(),
+                    )
+                  : const SizedBox(),
+            ),
+          ),
+        ],
       ),
       horizontalTitleGap: 0,
       subtitle: Text(subtitle),

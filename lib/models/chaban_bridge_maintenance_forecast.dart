@@ -9,38 +9,47 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
-  ChabanBridgeMaintenanceForecast(
-      {required bool totalClosing,
-      required DateTime circulationClosingDate,
-      required DateTime circulationReOpeningDate,
-      required ChabanBridgeForecastClosingType closingType})
-      : super(
-            circulationClosingDate: circulationClosingDate,
-            circulationReOpeningDate: circulationReOpeningDate,
-            closingReason: ChabanBridgeForecastClosingReason.maintenance,
-            closingType: closingType,
-            totalClosing: totalClosing);
+  ChabanBridgeMaintenanceForecast({
+    required bool totalClosing,
+    required DateTime circulationClosingDate,
+    required DateTime circulationReOpeningDate,
+    required ChabanBridgeForecastClosingType closingType,
+  }) : super(
+          circulationClosingDate: circulationClosingDate,
+          circulationReOpeningDate: circulationReOpeningDate,
+          closingReason: ChabanBridgeForecastClosingReason.maintenance,
+          closingType: closingType,
+          totalClosing: totalClosing,
+        );
 
   factory ChabanBridgeMaintenanceForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone =
         AbstractChabanBridgeForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, 'fermeture_a_la_circulation', apiTimezone);
+      json,
+      'fermeture_a_la_circulation',
+      apiTimezone,
+    );
     var reopeningDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, 're_ouverture_a_la_circulation', apiTimezone);
+      json,
+      're_ouverture_a_la_circulation',
+      apiTimezone,
+    );
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
                 'totale'
             ? ChabanBridgeForecastClosingType.complete
             : ChabanBridgeForecastClosingType.partial;
     var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
-        json['fields']['fermeture_totale']);
+      json['fields']['fermeture_totale'],
+    );
 
     return ChabanBridgeMaintenanceForecast(
-        totalClosing: totalClosing,
-        circulationReOpeningDate: reopeningDate,
-        circulationClosingDate: closingDate,
-        closingType: closingType);
+      totalClosing: totalClosing,
+      circulationReOpeningDate: reopeningDate,
+      circulationClosingDate: closingDate,
+      closingType: closingType,
+    );
   }
 
   @override
@@ -50,12 +59,14 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
         closedDuration,
         circulationClosingDate,
         circulationReOpeningDate,
-        closingType
+        closingType,
       ];
 
   @override
   String getNotificationDurationMessage(
-      BuildContext context, String pickedDuration) {
+    BuildContext context,
+    String pickedDuration,
+  ) {
     return AppLocalizations.of(context)!.notificationDurationMaintenanceMessage(
       pickedDuration,
       closedDuration.durationToString(context),
@@ -73,7 +84,10 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
   @override
   String getNotificationClosingMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationClosingMaintenanceMessage(
-        closedDuration.durationToString(context));
+      closedDuration.durationToString(
+        context,
+      ),
+    );
   }
 
   @override
@@ -99,6 +113,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
           '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, '
           '${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
     }
+
     return Text.rich(
       TextSpan(
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
@@ -160,7 +175,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),
-      size: 30,
+      size: 25,
     );
   }
 

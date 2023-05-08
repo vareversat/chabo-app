@@ -25,7 +25,7 @@ class FloatingActionsCubit extends Cubit<FloatingActionsState> {
     );
   }
 
-  void init() async {
+  void init() {
     final isRightHanded = storageService.readBool(Const.isRightHandedKey) ??
         Const.isRightHandedDefaultValue;
     emit(
@@ -40,13 +40,16 @@ class FloatingActionsState extends Equatable {
   final bool isMenuOpen;
   final bool isRightHanded;
 
-  const FloatingActionsState(
-      {required this.isMenuOpen, required this.isRightHanded});
+  const FloatingActionsState({
+    required this.isMenuOpen,
+    required this.isRightHanded,
+  });
 
   FloatingActionsState copyWith({bool? isMenuOpen, bool? isRightHanded}) {
     return FloatingActionsState(
-        isMenuOpen: isMenuOpen ?? this.isMenuOpen,
-        isRightHanded: isRightHanded ?? this.isRightHanded);
+      isMenuOpen: isMenuOpen ?? this.isMenuOpen,
+      isRightHanded: isRightHanded ?? this.isRightHanded,
+    );
   }
 
   @override

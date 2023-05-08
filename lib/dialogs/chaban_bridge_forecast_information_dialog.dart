@@ -1,3 +1,4 @@
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -5,8 +6,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ChabanBridgeForecastInformationDialog extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
 
-  const ChabanBridgeForecastInformationDialog(
-      {super.key, required this.chabanBridgeForecast});
+  const ChabanBridgeForecastInformationDialog({
+    super.key,
+    required this.chabanBridgeForecast,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class ChabanBridgeForecastInformationDialog extends StatelessWidget {
         horizontal: 20,
       ),
       titlePadding: const EdgeInsets.all(0),
-      contentPadding: const EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(0),
       actionsPadding: const EdgeInsets.fromLTRB(
         0,
         0,
@@ -59,7 +62,45 @@ class ChabanBridgeForecastInformationDialog extends StatelessWidget {
           15,
         ),
       ),
-      content: chabanBridgeForecast.getInformationWidget(context),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: chabanBridgeForecast.getInformationWidget(context),
+          ),
+          if (chabanBridgeForecast.interferingTimeSlots.isNotEmpty)
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.warningColor,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(
+                    15.0,
+                  ),
+                  bottomRight: Radius.circular(
+                    15.0,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .favoriteSlotsInterferenceWarning,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                        color: Theme.of(context).cardColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

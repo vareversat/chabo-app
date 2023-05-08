@@ -20,6 +20,9 @@ class ChaboAboutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return FutureBuilder<PackageInfo>(
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -29,6 +32,7 @@ class ChaboAboutDialog extends StatelessWidget {
             snapshot.data == null) {
           return Text(AppLocalizations.of(context)!.unableAppInfo);
         }
+
         return AlertDialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           titlePadding: const EdgeInsets.all(20),
@@ -70,14 +74,14 @@ class ChaboAboutDialog extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                              ' | v${snapshot.data!.version} (${snapshot.data!.buildNumber})',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                            ' | v${snapshot.data!.version} (${snapshot.data!.buildNumber})',
+                            style: textTheme.bodyMedium,
+                          ),
                         ],
                       ),
                       Text(
                         Const.legalLease,
-                        style:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(),
+                        style: textTheme.bodySmall!.copyWith(),
                       ),
                     ],
                   ),
@@ -94,7 +98,7 @@ class ChaboAboutDialog extends StatelessWidget {
             children: <Widget>[
               Text(
                 AppLocalizations.of(context)!.appDescription,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: textTheme.bodyLarge,
               ),
               const SizedBox(
                 height: 15,
@@ -116,7 +120,7 @@ class ChaboAboutDialog extends StatelessWidget {
                 children: Const.usefulLinks
                     .map(
                       (link) => ElevatedButton(
-                        onPressed: () async => link.launchURL(),
+                        onPressed: () => link.launchURL(),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -156,9 +160,11 @@ class ChaboAboutDialog extends StatelessWidget {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.secondaryContainer),
+                        colorScheme.secondaryContainer,
+                      ),
                       foregroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.onSecondaryContainer),
+                        colorScheme.onSecondaryContainer,
+                      ),
                     ),
                     onPressed: () => Navigator.push(
                       context,
@@ -190,9 +196,11 @@ class ChaboAboutDialog extends StatelessWidget {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.secondaryContainer),
+                        colorScheme.secondaryContainer,
+                      ),
                       foregroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.onSecondaryContainer),
+                        colorScheme.onSecondaryContainer,
+                      ),
                     ),
                     onPressed: () {
                       showLicensePage(
@@ -249,7 +257,8 @@ class ChaboAboutDialog extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 foregroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).primaryColor),
+                  Theme.of(context).primaryColor,
+                ),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -263,7 +272,7 @@ class ChaboAboutDialog extends StatelessWidget {
               label: Text(
                 MaterialLocalizations.of(context).closeButtonLabel,
               ),
-            )
+            ),
           ],
           scrollable: true,
         );

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/custom_widgets_state.dart';
+import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
 import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
@@ -60,7 +60,8 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                     ChabanBridgeStatusLifecycle.empty
                 ? Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height / 5),
+                      vertical: MediaQuery.of(context).size.height / 5,
+                    ),
                     child: CustomCircularProgressIndicator(
                       message: AppLocalizations.of(context)!.statusLoadMessage,
                     ),
@@ -90,7 +91,9 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                             transitionBuilder:
                                 (Widget child, Animation<double> animation) {
                               return FadeTransition(
-                                  opacity: animation, child: child);
+                                opacity: animation,
+                                child: child,
+                              );
                             },
                             child: Text(
                               state.mainMessageStatus,
@@ -127,7 +130,9 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                             state.completionPercentage != -1
                                 ? Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0, vertical: 5),
+                                      horizontal: 20.0,
+                                      vertical: 5,
+                                    ),
                                     child: SizedBox(
                                       height: 10,
                                       child: ClipRRect(
@@ -175,8 +180,8 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                                         child: ForecastListItemWidget(
                                           onTap: () =>
                                               BlocProvider.of<ScrollStatusBloc>(
-                                                      context)
-                                                  .add(
+                                            context,
+                                          ).add(
                                             GoTo(
                                               goTo: state.currentTarget,
                                             ),
@@ -186,6 +191,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                                           chabanBridgeForecast:
                                               state.currentTarget!,
                                           index: -1,
+                                          timeSlots: const [],
                                         ),
                                       )
                                     : const SizedBox.shrink(),
