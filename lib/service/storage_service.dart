@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -48,6 +50,13 @@ class StorageService {
     return await sharedPreferences.setString(key, value.name);
   }
 
+  Future<bool> saveTimeSlots(String key, List<TimeSlot> timeSlots) async {
+    developer.log('{$key: $timeSlots}',
+        name: 'storage-service.on.saveTimeSlots');
+
+    return await sharedPreferences.setString(key, jsonEncode(timeSlots));
+  }
+
   String? readString(String key) {
     final value = sharedPreferences.getString(key);
     developer.log('{$key: $value}', name: 'storage-service.on.readString');
@@ -58,17 +67,6 @@ class StorageService {
     final value = sharedPreferences.getBool(key);
     developer.log('{$key: $value}', name: 'storage-service.on.readBool');
     return value;
-  }
-
-  DateTime? reaDateTime(String key) {
-    final stringValue = sharedPreferences.getString(key);
-    if (stringValue == null) {
-      return null;
-    } else {
-      final value = DateTime.parse(sharedPreferences.getString(key)!);
-      developer.log('{$key: $value}', name: 'storage-service.on.readDuration');
-      return value;
-    }
   }
 
   Duration? readDuration(String key) {
@@ -115,6 +113,20 @@ class StorageService {
           EnumToString.fromString(ThemeStateStatus.values, stringValue);
       developer.log('{$key: $value}', name: 'storage-service.on.readTheme');
       return value;
+    }
+  }
+
+  List<TimeSlot>? readTimeSlots(String key) {
+    final stringValue = sharedPreferences.getString(key);
+    if (stringValue == null) {
+      return null;
+    } else {
+      final list = json.decode(stringValue);
+      final List<TimeSlot> timeSlotList =
+          list.map<TimeSlot>((item) => TimeSlot.fromJSON(item)).toList();
+      developer.log('{$key: $timeSlotList',
+          name: 'storage-service.on.readTimeSlots');
+      return timeSlotList;
     }
   }
 }
