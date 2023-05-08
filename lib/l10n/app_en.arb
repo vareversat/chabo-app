@@ -166,5 +166,16 @@
   "rightHanded": "Right handed",
   "statusLoadMessage": "Loading of the bridge's current status",
   "loading": "Loading...",
-  "dayNotificationAt": "at"
+  "dayNotificationAt": "at",
+  "favoriteSlotsFrom": "From",
+  "favoriteSlotsTo": "to",
+  "favoriteSlots": "My favorite time slots",
+  "favoriteSlotsDescription": "You can fill in two time slots during which the events of the Chaban bridge are likely to impact you",
+  "favoriteTimeSlotDefaultName": "Time slot n°{index}",
+  "@favoriteTimeSlotDefaultName": {
+    "placeholders": {
+      "index": {}
+    }
+  },
+  "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots"
 }

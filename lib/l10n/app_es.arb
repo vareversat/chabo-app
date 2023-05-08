@@ -166,5 +166,16 @@
   "rightHanded": "Diestro.a",
   "statusLoadMessage": "Carga del estado actual del puente",
   "loading": "Cargando...",
-  "dayNotificationAt": "en las"
+  "dayNotificationAt": "en las",
+  "favoriteSlotsFrom": "De",
+  "favoriteSlotsTo": "a",
+  "favoriteSlots": "Mis franjas horarias favoritas",
+  "favoriteSlotsDescription": "Puede completar dos intervalos de tiempo durante los cuales es probable que los eventos del puente Chaban lo afecten",
+  "favoriteTimeSlotDefaultName": "Franja horaria n°{index}",
+  "@favoriteTimeSlotDefaultName": {
+    "placeholders": {
+      "index": {}
+    }
+  },
+  "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o más intervalos de tiempo"
 }

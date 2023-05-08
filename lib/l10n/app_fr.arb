@@ -166,5 +166,17 @@
   "rightHanded": "Droitier.ère",
   "statusLoadMessage": "Chargement de l'état actuel du pont",
   "loading": "Chargement...",
-  "dayNotificationAt": "à"
+  "dayNotificationAt": "à",
+  "favoriteSlotsFrom": "De",
+  "favoriteSlotsTo": "à",
+  "favoriteSlots": "Mes créneaux horaires favoris",
+  "favoriteSlotsDescription": "Vous pouvez renseigner deux créneaux durant lesquels les évènements du pont Chaban risques de vous impacter",
+  "favoriteTimeSlotDefaultName": "Créneau n°{index}",
+  "@favoriteTimeSlotDefaultName": {
+    "placeholders": {
+      "index": {}
+    }
+  },
+  "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux"
+
 }
