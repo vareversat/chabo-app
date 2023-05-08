@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -35,6 +33,7 @@ class ChabanBridgeForecastBloc
             _getPreviousStatus(state.chabanBridgeForecasts, currentStatus);
         if (currentStatus != state.currentChabanBridgeForecast &&
             currentStatus != previousStatus) {
+          // ignore: invalid_use_of_visible_for_testing_member
           emit(
             state.copyWith(
               currentChabanBridgeForecast: currentStatus,
@@ -44,6 +43,7 @@ class ChabanBridgeForecastBloc
         }
       }
     } catch (_) {
+      // ignore: invalid_use_of_visible_for_testing_member
       emit(state.copyWith(
           status: ChabanBridgeForecastStatus.failure, message: _.toString()));
     }

@@ -1,5 +1,7 @@
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
 import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,7 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
   final ChabanBridgeForecastClosingType closingType;
+  final List<TimeSlot> interferingTimeSlots = [];
 
   AbstractChabanBridgeForecast(
       {required this.totalClosing,
@@ -38,15 +41,11 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
 
   DateTime get circulationReOpeningDate => _circulationReOpeningDate.toLocal();
 
-  DateTime get circulationReOpeningDateUTC => circulationClosingDate;
-
   set circulationReOpeningDate(DateTime value) {
     _circulationReOpeningDate = value;
   }
 
   DateTime get circulationClosingDate => _circulationClosingDate.toLocal();
-
-  DateTime get circulationClosingDateUTC => _circulationClosingDate;
 
   set circulationClosingDate(DateTime value) {
     _circulationClosingDate = value;
@@ -75,10 +74,28 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
         .format(circulationReOpeningDate);
   }
 
+  void checkSlotInterference(List<TimeSlot> timeSlots) {
+    interferingTimeSlots.clear();
+    for (var timeSlot in timeSlots) {
+      if (isOverlappingWithTimeOfDay(timeSlot.to)) {
+        interferingTimeSlots.add(timeSlot);
+      }
+    }
+  }
+
   bool isCurrentlyClosed() {
-    var now = DateTime.now();
-    return now.isAfter(circulationClosingDate) &&
-        now.isBefore(circulationReOpeningDate);
+    return isOverlappingWith(DateTime.now());
+  }
+
+  bool isOverlappingWith(DateTime dateTime) {
+    return dateTime.isAfter(circulationClosingDate) &&
+        dateTime.isBefore(circulationReOpeningDate);
+  }
+
+  bool isOverlappingWithTimeOfDay(TimeOfDay timeOfDay) {
+    final dateTimeConversion = circulationClosingDate.applied(timeOfDay);
+    return dateTimeConversion.isAfter(circulationClosingDate) &&
+        dateTimeConversion.isBefore(circulationReOpeningDate);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {

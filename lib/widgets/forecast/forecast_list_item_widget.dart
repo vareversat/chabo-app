@@ -5,6 +5,7 @@ import 'package:chabo/dialogs/chaban_bridge_forecast_information_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,7 +14,7 @@ class ForecastListItemWidget extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
   final Function()? onTap;
   final bool hasPassed;
-  final bool isInterfering;
+  final List<TimeSlot> timeSlots;
   final bool isCurrent;
   final int index;
 
@@ -23,7 +24,8 @@ class ForecastListItemWidget extends StatelessWidget {
       required this.index,
       required this.hasPassed,
       required this.isCurrent,
-      this.onTap, required this.isInterfering})
+      this.onTap,
+      required this.timeSlots})
       : super(key: key);
 
   @override
@@ -83,45 +85,57 @@ class ForecastListItemWidget extends StatelessWidget {
                       )
                     },
             child: SizedBox(
-              height: 60,
+              height: 65,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 65,
-                    height: 60,
+                    width: 55,
+                    height: 65,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        bottomLeft: Radius.circular(15),
+                        topLeft: Radius.circular(
+                          CustomProperties.borderRadius,
+                        ),
+                        bottomLeft: Radius.circular(
+                          CustomProperties.borderRadius,
+                        ),
                       ),
-                      color: chabanBridgeForecast.getColor(context, false),
+                      color: chabanBridgeForecast.getColor(
+                        context,
+                        false,
+                      ),
                     ),
-                    child: Center(child: chabanBridgeForecast.getIconWidget(context, true)),
+                    child: Center(
+                      child: chabanBridgeForecast.getIconWidget(
+                        context,
+                        true,
+                      ),
+                    ),
                   ),
-
                   Flexible(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          MaterialLocalizations.of(context).formatMediumDate(
-                            chabanBridgeForecast.circulationClosingDate,
-                          ),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Icon(Icons.block_rounded,
-                                size: 20, color: Colors.red),
+                                size: 18, color: Colors.red),
                             Text(
-                              chabanBridgeForecast.circulationClosingDateString(
-                                context,
+                              MaterialLocalizations.of(context)
+                                  .formatMediumDate(
+                                chabanBridgeForecast.circulationClosingDate,
                               ),
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
+                        ),
+                        Text(
+                          chabanBridgeForecast.circulationClosingDateString(
+                            context,
+                          ),
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ],
                     ),
@@ -151,50 +165,51 @@ class ForecastListItemWidget extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          MaterialLocalizations.of(context).formatMediumDate(
-                            chabanBridgeForecast.circulationReOpeningDate,
-                          ),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Icon(Icons.check_circle,
-                                size: 20, color: Colors.green),
+                                size: 18, color: Colors.green),
                             Text(
-                              chabanBridgeForecast
-                                  .circulationReOpeningDateString(
-                                context,
+                              MaterialLocalizations.of(context)
+                                  .formatMediumDate(
+                                chabanBridgeForecast.circulationReOpeningDate,
                               ),
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
-                            if (chabanBridgeForecast.isDuringTwoDays)
-                              Text('(j +1)',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
                           ],
+                        ),
+                        Text(
+                          chabanBridgeForecast.circulationReOpeningDateString(
+                            context,
+                          ),
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ],
                     ),
                   ),
-                 isInterfering ?
-                  Container(
-                    width: 30,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                      ),
-                      color: Theme.of(context).colorScheme.timeColor,
-                    ),
-                    child: Icon(
-                      Icons.warning_rounded,
-                      size: 20,
-                      color: Theme.of(context).cardColor,
-                    ),
-                  ) : Container(width: 15,),
+                  timeSlots.isNotEmpty
+                      ? Container(
+                          width: 30,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(
+                                  CustomProperties.borderRadius),
+                              bottomRight: Radius.circular(
+                                  CustomProperties.borderRadius),
+                            ),
+                            color: Theme.of(context).colorScheme.warningColor,
+                          ),
+                          child: Icon(
+                            Icons.warning_rounded,
+                            size: 20,
+                            color: Theme.of(context).cardColor,
+                          ),
+                        )
+                      : Container(
+                          width: 15,
+                        ),
                 ],
               ),
             ),
