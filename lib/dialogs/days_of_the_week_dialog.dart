@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
-
-  const DaysOfTheWeekDialog({Key? key})
-      : super(key: key);
+  const DaysOfTheWeekDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
