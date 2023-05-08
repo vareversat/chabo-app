@@ -226,13 +226,15 @@ class NotificationService {
       String notificationChannelId, String notificationChannelName) {
     final AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
-            notificationChannelId, notificationChannelName,
-            importance: Importance.high,
-            priority: Priority.max,
-            ongoing: true,
-            fullScreenIntent: true,
-            styleInformation: const BigTextStyleInformation(''),
-            ticker: Const.androidTicket);
+      notificationChannelId,
+      notificationChannelName,
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority,
+      ongoing: false,
+      fullScreenIntent: true,
+      styleInformation: const BigTextStyleInformation(''),
+      ticker: Const.androidTicket,
+    );
     return NotificationDetails(android: androidNotificationDetails);
   }
 
@@ -257,7 +259,7 @@ class NotificationService {
             tz.local,
           ),
           notificationDetails,
-          androidAllowWhileIdle: true,
+          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime);
     }
