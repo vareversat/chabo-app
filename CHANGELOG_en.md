@@ -1,3 +1,12 @@
+# **v1.6.0** :
+
+- *Features*:
+  - It is now possible to add two favorite slots to be notified only of impacting events
+- *Interface*:
+  - Revised list of closures to make it easier to read.
+  - Highlighting impacting events with an orange border.
+  - Adding a message if notifications are disabled
+***
 # **v1.4.0** :
 
 - *Features*:

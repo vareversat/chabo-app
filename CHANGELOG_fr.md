@@ -1,3 +1,12 @@
+# **v1.6.0** :
+
+- *Fonctionnalités*:
+  - Il est maintenant possible d'ajouter deux créneaux favoris pour n'être averti que des évènements impactant
+- *Interface*:
+  - Remaniement de la liste des fermetures afin de la rendre plus facile à lire.
+  - Mise en valeur d'événements impactants grâce à une bordure orange.
+  - Ajout d'un message si les notifications sont désactivées
+***
 # **v1.4.0** :
 
 - *Fonctionnalités*:
