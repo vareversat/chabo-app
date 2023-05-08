@@ -1,13 +1,16 @@
 import 'dart:ui';
 
-import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widgets_state.dart';
 import 'package:chabo/dialogs/days_of_the_week_dialog.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/widgets/time_slot_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -62,6 +65,56 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
               builder: (context, state) {
                 return Column(
                   children: [
+                    BlocBuilder<TimeSlotBloc, TimeSlotState>(
+                      builder: (context, state) {
+                        return Column(
+                          children: [
+                            _CustomListTile(
+                              onChanged: (bool value) =>
+                                  BlocProvider.of<TimeSlotBloc>(context).add(
+                                EnabledTimeSlotEvent(
+                                  enabled: value,
+                                ),
+                              ),
+                              enabled: state.enabledForNotifications,
+                              title:
+                                  AppLocalizations.of(context)!.favoriteSlots,
+                              subtitle: AppLocalizations.of(context)!
+                                  .favoriteSlotsDescription,
+                              leadingIcon: Icons.warning_rounded,
+                              iconColor:
+                                  Theme.of(context).colorScheme.warningColor,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    for (var i = 0;
+                                        i < state.timeSlots.length;
+                                        i++) ...[
+                                      TimeSlotWidget(
+                                          timeSlot: state.timeSlots[i],
+                                          index: i)
+                                    ],
+                                  ]),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Divider(
+                      height: 5,
+                      indent: 25,
+                      endIndent: 25,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     _CustomListTile(
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -222,7 +275,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 );
               },
