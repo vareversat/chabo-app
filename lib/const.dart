@@ -1,5 +1,6 @@
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/link_icon.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -57,6 +58,10 @@ class Const {
   static const String notificationClosingEnabledKey =
       'NOTIFICATION_CLOSING_SETTINGS_ENABLED';
   static const String isRightHandedKey = 'RIGHT_HANDED';
+  static const String notificationFavoriteSlotsEnabledKey =
+      'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_ENABLED';
+  static const String notificationFavoriteSlotsValueKey =
+      'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -73,6 +78,25 @@ class Const {
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;
+  static const bool notificationFavoriteSlotsEnabledDefaultValue = false;
+  static List<TimeSlot> notificationFavoriteSlotsDefaultValue = [
+    const TimeSlot(
+      name: '',
+      from: TimeOfDay(hour: 7, minute: 0),
+      to: TimeOfDay(
+        hour: 9,
+        minute: 30,
+      ),
+    ),
+    const TimeSlot(
+      name: '',
+      from: TimeOfDay(hour: 17, minute: 0),
+      to: TimeOfDay(
+        hour: 19,
+        minute: 30,
+      ),
+    )
+  ];
 
   /// UI
   static const bool isRightHandedDefaultValue = true;
