@@ -95,7 +95,15 @@ class NotificationService {
     localNotifications.cancelAll().then((value) => null);
     List<DateTime> weekSeparatedChabanBridgeForecast = [];
     for (final chabanBridgeForecast in chabanBridgeForecasts) {
-      if (notificationSate.openingNotificationEnabled) {
+      /// Compute the slot time linked to a forecast before starting the notification computation
+      chabanBridgeForecast
+          .computeSlotInterference(notificationSate.timeSlotsValue);
+      final hasTimeSlots = chabanBridgeForecast.interferingTimeSlots.isNotEmpty;
+      if ((notificationSate.openingNotificationEnabled &&
+              !notificationSate.timeSlotsEnabledForNotifications) ||
+          (notificationSate.openingNotificationEnabled &&
+              notificationSate.timeSlotsEnabledForNotifications &&
+              hasTimeSlots)) {
         index += 1;
         await _createOpeningScheduledNotifications(
           index,
@@ -103,7 +111,11 @@ class NotificationService {
           context,
         );
       }
-      if (notificationSate.closingNotificationEnabled) {
+      if ((notificationSate.closingNotificationEnabled &&
+              !notificationSate.timeSlotsEnabledForNotifications) ||
+          (notificationSate.closingNotificationEnabled &&
+              notificationSate.timeSlotsEnabledForNotifications &&
+              hasTimeSlots)) {
         index += 1;
         await _createClosingScheduledNotifications(
           index,
@@ -111,7 +123,11 @@ class NotificationService {
           context,
         );
       }
-      if (notificationSate.timeNotificationEnabled) {
+      if ((notificationSate.timeNotificationEnabled &&
+              !notificationSate.timeSlotsEnabledForNotifications) ||
+          (notificationSate.timeNotificationEnabled &&
+              notificationSate.timeSlotsEnabledForNotifications &&
+              hasTimeSlots)) {
         index += 1;
         await _createTimeScheduledNotifications(
           index,
@@ -120,7 +136,11 @@ class NotificationService {
           notificationSate.timeNotificationValue,
         );
       }
-      if (notificationSate.dayNotificationEnabled) {
+      if ((notificationSate.dayNotificationEnabled &&
+              !notificationSate.timeSlotsEnabledForNotifications) ||
+          (notificationSate.dayNotificationEnabled &&
+              notificationSate.timeSlotsEnabledForNotifications &&
+              hasTimeSlots)) {
         var last = chabanBridgeForecast.circulationClosingDate
             .previous(notificationSate.dayNotificationValue.weekPosition);
         if (weekSeparatedChabanBridgeForecast.isEmpty ||
@@ -139,7 +159,11 @@ class NotificationService {
           weekSeparatedChabanBridgeForecast.add(last);
         }
       }
-      if (notificationSate.durationNotificationEnabled) {
+      if ((notificationSate.durationNotificationEnabled &&
+              !notificationSate.timeSlotsEnabledForNotifications) ||
+          (notificationSate.durationNotificationEnabled &&
+              notificationSate.timeSlotsEnabledForNotifications &&
+              hasTimeSlots)) {
         index += 1;
         await _createDurationScheduledNotifications(
           index,
@@ -293,7 +317,7 @@ class NotificationService {
     DateTime notificationScheduleTime,
     NotificationDetails notificationDetails,
   ) async {
-    /// Prevent from creating notification in the past
+    /// Prevent from creating notification in the past AND make sure that the user enable the notification
     if (notificationScheduleTime.isAfter(DateTime.now()) &&
         await _requestPermissions()) {
       developer.log(

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:chabo/bloc/notification/notification_bloc.dart';
-import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
@@ -62,49 +61,79 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
               top: 20,
             ),
             child: BlocBuilder<NotificationBloc, NotificationState>(
-              builder: (context, state) {
+              builder: (context, notificationState) {
                 return Column(
                   children: [
-                    BlocBuilder<TimeSlotBloc, TimeSlotState>(
-                      builder: (context, state) {
-                        return Column(
-                          children: [
-                            _CustomListTile(
-                              onChanged: (bool value) =>
-                                  BlocProvider.of<TimeSlotBloc>(context).add(
-                                EnabledTimeSlotEvent(
-                                  enabled: value,
-                                ),
+                    Column(
+                      children: [
+                        _CustomListTile(
+                          onChanged: (bool value) => {
+                            BlocProvider.of<NotificationBloc>(context).add(
+                              EnabledTimeSlotEvent(
+                                enabled: value,
                               ),
-                              enabled: state.enabledForNotifications,
-                              title:
-                                  AppLocalizations.of(context)!.favoriteSlots,
-                              subtitle: AppLocalizations.of(context)!
-                                  .favoriteSlotsDescription,
-                              leadingIcon: Icons.warning_rounded,
-                              iconColor:
-                                  Theme.of(context).colorScheme.warningColor,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  for (var i = 0;
-                                      i < state.timeSlots.length;
-                                      i++) ...[
-                                    TimeSlotWidget(
-                                      timeSlot: state.timeSlots[i],
-                                      index: i,
+                            if (value)
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: const Duration(seconds: 7),
+                                    showCloseIcon: true,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .warningColor,
+                                    content: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            AppLocalizations.of(context)!
+                                                .favoriteTimeSlotEnabledWarning,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                                  ),
+                                ),
+                              }
+                            else
+                              {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar(
+                                  reason: SnackBarClosedReason.action,
+                                ),
+                              },
+                          },
+                          enabled: notificationState
+                              .timeSlotsEnabledForNotifications,
+                          title: AppLocalizations.of(context)!.favoriteSlots,
+                          subtitle: AppLocalizations.of(context)!
+                              .favoriteSlotsDescription,
+                          leadingIcon: Icons.warning_rounded,
+                          iconColor: Theme.of(context).colorScheme.warningColor,
+                          constrainedBySlots: false,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              for (var i = 0;
+                                  i < notificationState.timeSlotsValue.length;
+                                  i++) ...[
+                                TimeSlotWidget(
+                                  timeSlot: notificationState.timeSlotsValue[i],
+                                  index: i,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 10,
@@ -124,13 +153,15 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.openingNotificationEnabled,
+                      enabled: notificationState.openingNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .openingNotificationTitle,
                       subtitle: AppLocalizations.of(context)!
                           .openingNotificationExplanation,
                       leadingIcon: Icons.check_circle,
                       iconColor: Colors.green,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
                       onChanged: (bool value) =>
@@ -139,13 +170,15 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.closingNotificationEnabled,
+                      enabled: notificationState.closingNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .closingNotificationTitle,
                       subtitle: AppLocalizations.of(context)!
                           .closingNotificationExplanation,
                       leadingIcon: Icons.block_rounded,
                       iconColor: Colors.red,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     const SizedBox(
                       height: 20,
@@ -155,7 +188,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                         showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
-                          initialTime: state.durationNotificationValue
+                          initialTime: notificationState
+                              .durationNotificationValue
                               .durationToTimeOfDay(),
                           builder: (BuildContext context, Widget? child) {
                             return MediaQuery(
@@ -187,25 +221,27 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.durationNotificationEnabled,
+                      enabled: notificationState.durationNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .durationNotificationTitle(
-                        state.durationNotificationValue
+                        notificationState.durationNotificationValue
                             .durationToString(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .durationNotificationExplanation(
-                        state.durationNotificationValue
+                        notificationState.durationNotificationValue
                             .durationToString(context),
                       ),
                       leadingIcon: Icons.timer_outlined,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
                       onTap: () {
                         showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
-                          initialTime: state.timeNotificationValue,
+                          initialTime: notificationState.timeNotificationValue,
                           builder: (BuildContext context, Widget? child) {
                             return MediaQuery(
                               data: MediaQuery.of(context).copyWith(
@@ -236,16 +272,18 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
-                      enabled: state.timeNotificationEnabled,
+                      enabled: notificationState.timeNotificationEnabled,
                       title:
                           AppLocalizations.of(context)!.timeNotificationTitle(
-                        state.timeNotificationValue.format(context),
+                        notificationState.timeNotificationValue.format(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .timeNotificationExplanation(
-                        state.timeNotificationValue.format(context),
+                        notificationState.timeNotificationValue.format(context),
                       ),
                       leadingIcon: Icons.plus_one_outlined,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     _CustomListTile(
                       onTap: () {
@@ -275,14 +313,16 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           },
                         );
                       },
-                      enabled: state.dayNotificationEnabled,
+                      enabled: notificationState.dayNotificationEnabled,
                       title: AppLocalizations.of(context)!.dayNotificationTitle(
-                        state.dayNotificationValue.localizedName(context),
+                        notificationState.dayNotificationValue
+                            .localizedName(context),
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .dayNotificationExplanation(
-                        state.dayNotificationValue.localizedName(context),
-                        state.dayNotificationTimeValue.format(
+                        notificationState.dayNotificationValue
+                            .localizedName(context),
+                        notificationState.dayNotificationTimeValue.format(
                           context,
                         ),
                       ),
@@ -293,6 +333,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           enabled: value,
                         ),
                       ),
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                   ],
                 );
@@ -307,6 +349,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
 
 class _CustomListTile extends StatelessWidget {
   final bool enabled;
+  final bool constrainedBySlots;
   final Function()? onTap;
   final Function(bool) onChanged;
   final String title;
@@ -323,14 +366,53 @@ class _CustomListTile extends StatelessWidget {
     required this.subtitle,
     required this.leadingIcon,
     required this.onChanged,
+    required this.constrainedBySlots,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.titleLarge,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Flexible(
+            flex: 3,
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+              overflow: TextOverflow.clip,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Flexible(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity:
+                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  child: SlideTransition(
+                    position: Tween(
+                      begin: const Offset(-1.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ).animate(animation),
+                    child: child,
+                  ),
+                );
+              },
+              child: constrainedBySlots && enabled
+                  ? CircleAvatar(
+                      radius: 5,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.warningColor,
+                      child: Container(),
+                    )
+                  : const SizedBox(),
+            ),
+          ),
+        ],
       ),
       horizontalTitleGap: 0,
       subtitle: Text(subtitle),

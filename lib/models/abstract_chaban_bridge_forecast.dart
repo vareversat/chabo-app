@@ -79,10 +79,10 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
         .format(circulationReOpeningDate);
   }
 
-  void checkSlotInterference(List<TimeSlot> timeSlots) {
+  void computeSlotInterference(List<TimeSlot> timeSlots) {
     interferingTimeSlots.clear();
     for (var timeSlot in timeSlots) {
-      if (isOverlappingWithTimeOfDay(timeSlot.to)) {
+      if (isOverlappingWithPeriod(timeSlot.from, timeSlot.to)) {
         interferingTimeSlots.add(timeSlot);
       }
     }
@@ -97,15 +97,41 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
         dateTime.isBefore(circulationReOpeningDate);
   }
 
-  bool isOverlappingWithTimeOfDay(TimeOfDay timeOfDay) {
-    final dateTimeConversion = circulationClosingDate.applied(timeOfDay);
+  bool isOverlappingWithPeriod(TimeOfDay start, TimeOfDay end) {
+    final startDateTime = circulationClosingDate.applied(start);
+    final endDateTime = circulationClosingDate.applied(end);
 
-    return dateTimeConversion.isAfter(
-          circulationClosingDate,
-        ) &&
-        dateTimeConversion.isBefore(
-          circulationReOpeningDate,
-        );
+    final startIsBeforeClosing = startDateTime.isBefore(
+      circulationClosingDate,
+    );
+
+    final endIsBeforeClosing = endDateTime.isBefore(
+      circulationClosingDate,
+    );
+
+    final startIsBeforeReopening = startDateTime.isBefore(
+      circulationReOpeningDate,
+    );
+    final endIsBeforeReopening = endDateTime.isBefore(
+      circulationReOpeningDate,
+    );
+
+    return (startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            endIsBeforeReopening) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            endIsBeforeClosing &&
+            !endIsBeforeClosing) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            !endIsBeforeReopening) ||
+        (startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            !endIsBeforeReopening);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {

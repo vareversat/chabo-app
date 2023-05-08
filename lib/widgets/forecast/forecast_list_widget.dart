@@ -1,6 +1,6 @@
 import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
+import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
-import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
 import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
@@ -33,14 +33,16 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
       },
       child: BlocBuilder<ChabanBridgeForecastBloc, ChabanBridgeForecastState>(
         builder: (context, forecastState) {
-          return BlocBuilder<TimeSlotBloc, TimeSlotState>(
+          return BlocBuilder<NotificationBloc, NotificationState>(
+            buildWhen: (previous, next) =>
+                previous.timeSlotsValue != next.timeSlotsValue,
             builder: (context, timeSlotState) {
               return ListView.separated(
                 cacheExtent: 5000,
                 padding: const EdgeInsets.all(0),
                 itemBuilder: (BuildContext context, int index) {
                   forecastState.chabanBridgeForecasts[index]
-                      .checkSlotInterference(timeSlotState.timeSlots);
+                      .computeSlotInterference(timeSlotState.timeSlotsValue);
 
                   return ForecastListItemWidget(
                     key: GlobalObjectKey(

@@ -3,7 +3,6 @@ import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
-import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/cubits/notification_service_cubit.dart';
 import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
@@ -80,15 +79,6 @@ class Chabo extends StatelessWidget {
             storageService: storageService,
           )..add(
               AppEvent(),
-            ),
-        ),
-
-        /// Bloc intended to manage favorite time slots
-        BlocProvider(
-          create: (_) => TimeSlotBloc(
-            storageService: storageService,
-          )..add(
-              TimeSlotAppEvent(),
             ),
         ),
       ],

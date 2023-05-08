@@ -1,12 +1,15 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'notification_event.dart';
+
 part 'notification_state.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
@@ -29,37 +32,58 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
                 Const.notificationOpeningEnabledDefaultValue,
             closingNotificationEnabled:
                 Const.notificationClosingEnabledDefaultValue,
+            timeSlotsEnabledForNotifications:
+                Const.notificationFavoriteSlotsEnabledDefaultValue,
+            timeSlotsValue: Const.notificationFavoriteSlotsDefaultValue,
           ),
         ) {
     on<OpeningNotificationStateEvent>(
       _onOpeningNotificationStateEvent,
+      transformer: sequential(),
     );
     on<ClosingNotificationStateEvent>(
       _onClosingNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DayNotificationStateEvent>(
       _onDayNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DayNotificationValueEvent>(
       _onDayNotificationValueEvent,
+      transformer: sequential(),
     );
     on<DayNotificationTimeValueEvent>(
       _onDayNotificationTimeValueEvent,
+      transformer: sequential(),
     );
     on<TimeNotificationStateEvent>(
       _onTimeNotificationStateEvent,
+      transformer: sequential(),
     );
     on<TimeNotificationValueEvent>(
       _onTimeNotificationValueEvent,
+      transformer: sequential(),
     );
     on<DurationNotificationStateEvent>(
       _onDurationNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DurationNotificationValueEvent>(
       _onDurationNotificationValueEvent,
+      transformer: sequential(),
+    );
+    on<EnabledTimeSlotEvent>(
+      _onEnabledTimeSlotEvent,
+      transformer: sequential(),
+    );
+    on<ValueTimeSlotEvent>(
+      _onTimeSlotsEventValue,
+      transformer: sequential(),
     );
     on<AppEvent>(
       _onAppEvent,
+      transformer: sequential(),
     );
   }
 
@@ -186,6 +210,40 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
   }
 
+  Future<void> _onEnabledTimeSlotEvent(
+    EnabledTimeSlotEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    await storageService.saveBool(
+      Const.notificationFavoriteSlotsEnabledKey,
+      event.enabled,
+    );
+    HapticFeedback.lightImpact();
+
+    emit(state.copyWith(
+      timeSlotsEnabledForNotifications: event.enabled,
+    ));
+  }
+
+  Future<void> _onTimeSlotsEventValue(
+    ValueTimeSlotEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    final timeSlots = List<TimeSlot>.from(state.timeSlotsValue);
+    timeSlots[event.index] = event.timeSlot;
+    await storageService.saveTimeSlots(
+      Const.notificationFavoriteSlotsValueKey,
+      timeSlots,
+    );
+    HapticFeedback.lightImpact();
+
+    emit(
+      state.copyWith(
+        timeSlotsValue: timeSlots,
+      ),
+    );
+  }
+
   void _onAppEvent(
     AppEvent event,
     Emitter<NotificationState> emit,
@@ -226,6 +284,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         storageService.readBool(Const.notificationClosingEnabledKey) ??
             Const.notificationClosingEnabledDefaultValue;
 
+    final timeSlots =
+        storageService.readTimeSlots(Const.notificationFavoriteSlotsValueKey) ??
+            Const.notificationFavoriteSlotsDefaultValue;
+
+    final enabledForNotifications =
+        storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
+            Const.notificationFavoriteSlotsEnabledDefaultValue;
+
     emit(
       state.copyWith(
         durationNotificationEnabled: durationNotificationEnabled,
@@ -237,6 +303,8 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         dayNotificationTimeValue: dayNotificationTimeValue,
         openingNotificationEnabled: openingNotificationEnabled,
         closingNotificationEnabled: closingNotificationEnabled,
+        timeSlotsValue: timeSlots,
+        timeSlotsEnabledForNotifications: enabledForNotifications,
       ),
     );
   }

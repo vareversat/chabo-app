@@ -1,4 +1,4 @@
-import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
+import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class TimeSlotDialog extends StatelessWidget {
           15,
         ),
       ),
-      content: BlocBuilder<TimeSlotBloc, TimeSlotState>(
+      content: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
           return Wrap(
             alignment: WrapAlignment.center,
@@ -37,7 +37,7 @@ class TimeSlotDialog extends StatelessWidget {
                   showTimePicker(
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     context: context,
-                    initialTime: state.timeSlots[index].from,
+                    initialTime: state.timeSlotsValue[index].from,
                     builder: (BuildContext context, Widget? child) {
                       return MediaQuery(
                         data: MediaQuery.of(context),
@@ -47,12 +47,12 @@ class TimeSlotDialog extends StatelessWidget {
                   ).then((value) => {
                         if (value != null)
                           {
-                            BlocProvider.of<TimeSlotBloc>(context).add(
+                            BlocProvider.of<NotificationBloc>(context).add(
                               ValueTimeSlotEvent(
                                 timeSlot: TimeSlot(
-                                  name: state.timeSlots[index].name,
+                                  name: state.timeSlotsValue[index].name,
                                   from: value,
-                                  to: state.timeSlots[index].to,
+                                  to: state.timeSlotsValue[index].to,
                                 ),
                                 index: index,
                               ),
@@ -61,7 +61,7 @@ class TimeSlotDialog extends StatelessWidget {
                       });
                 },
                 child: Text(
-                  state.timeSlots[index].from.format(context),
+                  state.timeSlotsValue[index].from.format(context),
                   style: textTheme.titleMedium,
                 ),
               ),
@@ -74,7 +74,7 @@ class TimeSlotDialog extends StatelessWidget {
                   showTimePicker(
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     context: context,
-                    initialTime: state.timeSlots[index].to,
+                    initialTime: state.timeSlotsValue[index].to,
                     builder: (BuildContext context, Widget? child) {
                       return MediaQuery(
                         data: MediaQuery.of(context),
@@ -84,11 +84,11 @@ class TimeSlotDialog extends StatelessWidget {
                   ).then((value) => {
                         if (value != null)
                           {
-                            BlocProvider.of<TimeSlotBloc>(context).add(
+                            BlocProvider.of<NotificationBloc>(context).add(
                               ValueTimeSlotEvent(
                                 timeSlot: TimeSlot(
-                                  name: state.timeSlots[index].name,
-                                  from: state.timeSlots[index].from,
+                                  name: state.timeSlotsValue[index].name,
+                                  from: state.timeSlotsValue[index].from,
                                   to: value,
                                 ),
                                 index: index,
@@ -98,7 +98,7 @@ class TimeSlotDialog extends StatelessWidget {
                       });
                 },
                 child: Text(
-                  state.timeSlots[index].to.format(context),
+                  state.timeSlotsValue[index].to.format(context),
                   style: textTheme.titleMedium,
                 ),
               ),

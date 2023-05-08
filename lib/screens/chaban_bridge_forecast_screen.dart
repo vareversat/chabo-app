@@ -78,34 +78,6 @@ class _ChabanBridgeForecastScreenState
                                 duration: state.durationNotificationValue,
                               ),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: CircularProgressIndicator(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .inversePrimary,
-                                        strokeWidth: 5,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .refreshingNotifications,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
                             context
                                 .read<NotificationServiceCubit>()
                                 .state
@@ -115,45 +87,6 @@ class _ChabanBridgeForecastScreenState
                                   ).state.chabanBridgeForecasts,
                                   state,
                                   context,
-                                )
-                                .then(
-                                  (value) => {
-                                    ScaffoldMessenger.of(context)
-                                        .removeCurrentSnackBar(
-                                      reason: SnackBarClosedReason.remove,
-                                    ),
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        duration: const Duration(
-                                          milliseconds: 1000,
-                                        ),
-                                        content: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: Icon(
-                                                Icons.check,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .inversePrimary,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 8,
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .refreshingNotificationsDone,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  },
                                 );
                           },
                         ),
