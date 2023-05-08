@@ -176,5 +176,7 @@
     }
   },
   "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots",
-  "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots"
+  "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots",
+  "notificationNotEnabledMessage": "Please note that notifications are not allowed. Please go to the application settings to authorize the sending of notifications",
+  "notificationNotEnabledOpenSettings": "Open notification settings"
 }

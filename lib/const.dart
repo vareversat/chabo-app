@@ -83,7 +83,7 @@ class Const {
       '@mipmap/ic_slice_launcher_adaptive_fore';
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
-  static const bool notificationDurationEnabledDefaultValue = true;
+  static const bool notificationDurationEnabledDefaultValue = false;
   static TimeOfDay notificationTimeValueDefaultValue =
       const TimeOfDay(hour: 6, minute: 0);
   static const bool notificationTimeEnabledDefaultValue = false;

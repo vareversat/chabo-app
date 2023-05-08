@@ -85,6 +85,18 @@ class NotificationService {
     return false;
   }
 
+  Future<bool> areNotificationsEnabled() async {
+    if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          localNotifications.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      return await androidImplementation?.areNotificationsEnabled() ?? false;
+    }
+
+    return false;
+  }
+
   Future<void> computeNotifications(
     List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
     NotificationState notificationSate,
@@ -92,86 +104,90 @@ class NotificationService {
   ) async {
     tz.initializeTimeZones();
     int index = 0;
-    localNotifications.cancelAll().then((value) => null);
+    localNotifications.cancelAll();
     List<DateTime> weekSeparatedChabanBridgeForecast = [];
-    for (final chabanBridgeForecast in chabanBridgeForecasts) {
-      /// Compute the slot time linked to a forecast before starting the notification computation
-      chabanBridgeForecast
-          .computeSlotInterference(notificationSate.timeSlotsValue);
-      final hasTimeSlots = chabanBridgeForecast.interferingTimeSlots.isNotEmpty;
-      if ((notificationSate.openingNotificationEnabled &&
-              !notificationSate.timeSlotsEnabledForNotifications) ||
-          (notificationSate.openingNotificationEnabled &&
-              notificationSate.timeSlotsEnabledForNotifications &&
-              hasTimeSlots)) {
-        index += 1;
-        await _createOpeningScheduledNotifications(
-          index,
-          chabanBridgeForecast,
-          context,
-        );
-      }
-      if ((notificationSate.closingNotificationEnabled &&
-              !notificationSate.timeSlotsEnabledForNotifications) ||
-          (notificationSate.closingNotificationEnabled &&
-              notificationSate.timeSlotsEnabledForNotifications &&
-              hasTimeSlots)) {
-        index += 1;
-        await _createClosingScheduledNotifications(
-          index,
-          chabanBridgeForecast,
-          context,
-        );
-      }
-      if ((notificationSate.timeNotificationEnabled &&
-              !notificationSate.timeSlotsEnabledForNotifications) ||
-          (notificationSate.timeNotificationEnabled &&
-              notificationSate.timeSlotsEnabledForNotifications &&
-              hasTimeSlots)) {
-        index += 1;
-        await _createTimeScheduledNotifications(
-          index,
-          chabanBridgeForecast,
-          context,
-          notificationSate.timeNotificationValue,
-        );
-      }
-      if ((notificationSate.dayNotificationEnabled &&
-              !notificationSate.timeSlotsEnabledForNotifications) ||
-          (notificationSate.dayNotificationEnabled &&
-              notificationSate.timeSlotsEnabledForNotifications &&
-              hasTimeSlots)) {
-        var last = chabanBridgeForecast.circulationClosingDate
-            .previous(notificationSate.dayNotificationValue.weekPosition);
-        if (weekSeparatedChabanBridgeForecast.isEmpty ||
-            weekSeparatedChabanBridgeForecast.last == last) {
-          weekSeparatedChabanBridgeForecast.add(last);
-        } else {
+    if (await _requestPermissions()) {
+      for (final chabanBridgeForecast in chabanBridgeForecasts) {
+        /// Compute the slot time linked to a forecast before starting the notification computation
+        chabanBridgeForecast
+            .computeSlotInterference(notificationSate.timeSlotsValue);
+        final hasTimeSlots =
+            chabanBridgeForecast.interferingTimeSlots.isNotEmpty;
+        if ((notificationSate.openingNotificationEnabled &&
+                !notificationSate.timeSlotsEnabledForNotifications) ||
+            (notificationSate.openingNotificationEnabled &&
+                notificationSate.timeSlotsEnabledForNotifications &&
+                hasTimeSlots)) {
           index += 1;
-          await _createDayScheduledNotifications(
+          await _createOpeningScheduledNotifications(
             index,
-            weekSeparatedChabanBridgeForecast.length,
-            weekSeparatedChabanBridgeForecast.last,
-            notificationSate.dayNotificationTimeValue,
+            chabanBridgeForecast,
             context,
           );
-          weekSeparatedChabanBridgeForecast.clear();
-          weekSeparatedChabanBridgeForecast.add(last);
         }
-      }
-      if ((notificationSate.durationNotificationEnabled &&
-              !notificationSate.timeSlotsEnabledForNotifications) ||
-          (notificationSate.durationNotificationEnabled &&
-              notificationSate.timeSlotsEnabledForNotifications &&
-              hasTimeSlots)) {
-        index += 1;
-        await _createDurationScheduledNotifications(
-          index,
-          chabanBridgeForecast,
-          context,
-          notificationSate.durationNotificationValue,
-          notificationSate.durationNotificationValue.durationToString(context),
-        );
+        if ((notificationSate.closingNotificationEnabled &&
+                !notificationSate.timeSlotsEnabledForNotifications) ||
+            (notificationSate.closingNotificationEnabled &&
+                notificationSate.timeSlotsEnabledForNotifications &&
+                hasTimeSlots)) {
+          index += 1;
+          await _createClosingScheduledNotifications(
+            index,
+            chabanBridgeForecast,
+            context,
+          );
+        }
+        if ((notificationSate.timeNotificationEnabled &&
+                !notificationSate.timeSlotsEnabledForNotifications) ||
+            (notificationSate.timeNotificationEnabled &&
+                notificationSate.timeSlotsEnabledForNotifications &&
+                hasTimeSlots)) {
+          index += 1;
+          await _createTimeScheduledNotifications(
+            index,
+            chabanBridgeForecast,
+            context,
+            notificationSate.timeNotificationValue,
+          );
+        }
+        if ((notificationSate.dayNotificationEnabled &&
+                !notificationSate.timeSlotsEnabledForNotifications) ||
+            (notificationSate.dayNotificationEnabled &&
+                notificationSate.timeSlotsEnabledForNotifications &&
+                hasTimeSlots)) {
+          var last = chabanBridgeForecast.circulationClosingDate
+              .previous(notificationSate.dayNotificationValue.weekPosition);
+          if (weekSeparatedChabanBridgeForecast.isEmpty ||
+              weekSeparatedChabanBridgeForecast.last == last) {
+            weekSeparatedChabanBridgeForecast.add(last);
+          } else {
+            index += 1;
+            await _createDayScheduledNotifications(
+              index,
+              weekSeparatedChabanBridgeForecast.length,
+              weekSeparatedChabanBridgeForecast.last,
+              notificationSate.dayNotificationTimeValue,
+              context,
+            );
+            weekSeparatedChabanBridgeForecast.clear();
+            weekSeparatedChabanBridgeForecast.add(last);
+          }
+        }
+        if ((notificationSate.durationNotificationEnabled &&
+                !notificationSate.timeSlotsEnabledForNotifications) ||
+            (notificationSate.durationNotificationEnabled &&
+                notificationSate.timeSlotsEnabledForNotifications &&
+                hasTimeSlots)) {
+          index += 1;
+          await _createDurationScheduledNotifications(
+            index,
+            chabanBridgeForecast,
+            context,
+            notificationSate.durationNotificationValue,
+            notificationSate.durationNotificationValue
+                .durationToString(context),
+          );
+        }
       }
     }
   }
@@ -318,8 +334,7 @@ class NotificationService {
     NotificationDetails notificationDetails,
   ) async {
     /// Prevent from creating notification in the past AND make sure that the user enable the notification
-    if (notificationScheduleTime.isAfter(DateTime.now()) &&
-        await _requestPermissions()) {
+    if (notificationScheduleTime.isAfter(DateTime.now())) {
       developer.log(
         'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',
         name: 'notification-service.on.scheduleNotification',
