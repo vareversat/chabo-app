@@ -160,7 +160,7 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),
-      size: 30,
+      size: 25,
     );
   }
 

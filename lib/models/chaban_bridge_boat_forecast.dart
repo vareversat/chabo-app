@@ -199,31 +199,31 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
           child: Icon(
             Icons.directions_boat_rounded,
             color: getColor(context, reversed),
-            size: 30,
+            size: 25,
           ),
         ),
         Positioned(
           right: 0,
-          top: 0,
+          top: -3,
           child: RotatedBox(
             quarterTurns: boats[0].isLeaving ? 0 : 2,
             child: Icon(
               Icons.double_arrow_rounded,
               color: getColor(context, reversed),
-              size: 18,
+              size: 15,
             ),
           ),
         ),
         boats.length == 2
             ? Positioned(
                 right: 0,
-                top: 14,
+                top: 10,
                 child: RotatedBox(
                   quarterTurns: boats[1].isLeaving ? 0 : 2,
                   child: Icon(
                     Icons.double_arrow_rounded,
                     color: getColor(context, reversed),
-                    size: 18,
+                    size: 15,
                   ),
                 ),
               )
