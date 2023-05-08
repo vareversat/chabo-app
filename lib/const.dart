@@ -1,6 +1,6 @@
 import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/link_icon.dart';
 import 'package:chabo/models/time_slot.dart';
+import 'package:chabo/models/web_link_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,16 +25,31 @@ class Const {
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
 
   static List<WebLinkIcon> usefulLinks = [
-    WebLinkIcon('https://www.instagram.com/_yuhliet_/',
-        FontAwesomeIcons.instagram, 'yuhliet_instagram'),
-    WebLinkIcon('https://bordeaux-metropole.fr/', Icons.location_city_rounded,
-        'city_of_bordeaux'),
-    WebLinkIcon('https://opendata.bordeaux-metropole.fr/',
-        Icons.data_thresholding_rounded, 'bordeaux_open_data'),
-    WebLinkIcon('https://github.com/vareversat/chabo', FontAwesomeIcons.github,
-        'source_code'),
-    WebLinkIcon('https://chabo.vareversat.fr/privacy',
-        Icons.privacy_tip_rounded, 'privacy_policy'),
+    WebLinkIcon(
+      'https://www.instagram.com/_yuhliet_/',
+      FontAwesomeIcons.instagram,
+      'yuhliet_instagram',
+    ),
+    WebLinkIcon(
+      'https://bordeaux-metropole.fr/',
+      Icons.location_city_rounded,
+      'city_of_bordeaux',
+    ),
+    WebLinkIcon(
+      'https://opendata.bordeaux-metropole.fr/',
+      Icons.data_thresholding_rounded,
+      'bordeaux_open_data',
+    ),
+    WebLinkIcon(
+      'https://github.com/vareversat/chabo',
+      FontAwesomeIcons.github,
+      'source_code',
+    ),
+    WebLinkIcon(
+      'https://chabo.vareversat.fr/privacy',
+      Icons.privacy_tip_rounded,
+      'privacy_policy',
+    ),
   ];
 
   /// Local storage
@@ -95,7 +110,7 @@ class Const {
         hour: 19,
         minute: 30,
       ),
-    )
+    ),
   ];
 
   /// UI

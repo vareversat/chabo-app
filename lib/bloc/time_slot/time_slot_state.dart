@@ -4,8 +4,10 @@ class TimeSlotState extends Equatable {
   final List<TimeSlot> timeSlots;
   final bool enabledForNotifications;
 
-  const TimeSlotState(
-      {required this.timeSlots, required this.enabledForNotifications});
+  const TimeSlotState({
+    required this.timeSlots,
+    required this.enabledForNotifications,
+  });
 
   TimeSlotState copyWith({
     List<TimeSlot>? timeSlots,

@@ -6,8 +6,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ChabanBridgeForecastInformationDialog extends StatelessWidget {
   final AbstractChabanBridgeForecast chabanBridgeForecast;
 
-  const ChabanBridgeForecastInformationDialog(
-      {super.key, required this.chabanBridgeForecast});
+  const ChabanBridgeForecastInformationDialog({
+    super.key,
+    required this.chabanBridgeForecast,
+  });
 
   @override
   Widget build(BuildContext context) {

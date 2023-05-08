@@ -18,7 +18,8 @@ void main() async {
 
   runApp(
     Chabo(
-        storageService: storageService,
-        notificationService: notificationService),
+      storageService: storageService,
+      notificationService: notificationService,
+    ),
   );
 }

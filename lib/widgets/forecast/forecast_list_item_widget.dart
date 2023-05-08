@@ -18,18 +18,20 @@ class ForecastListItemWidget extends StatelessWidget {
   final bool isCurrent;
   final int index;
 
-  const ForecastListItemWidget(
-      {Key? key,
-      required this.chabanBridgeForecast,
-      required this.index,
-      required this.hasPassed,
-      required this.isCurrent,
-      this.onTap,
-      required this.timeSlots})
-      : super(key: key);
+  const ForecastListItemWidget({
+    Key? key,
+    required this.chabanBridgeForecast,
+    required this.index,
+    required this.hasPassed,
+    required this.isCurrent,
+    this.onTap,
+    required this.timeSlots,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Stack(
@@ -69,8 +71,9 @@ class ForecastListItemWidget extends StatelessWidget {
                                 Tween<double>(begin: 0.0, end: 1.0).animate(a1),
                             child: BackdropFilter(
                               filter: ImageFilter.blur(
-                                  sigmaX: CustomProperties.blurSigmaX,
-                                  sigmaY: CustomProperties.blurSigmaY),
+                                sigmaX: CustomProperties.blurSigmaX,
+                                sigmaY: CustomProperties.blurSigmaY,
+                              ),
                               child: ChabanBridgeForecastInformationDialog(
                                 chabanBridgeForecast: chabanBridgeForecast,
                               ),
@@ -82,7 +85,7 @@ class ForecastListItemWidget extends StatelessWidget {
                         transitionDuration: const Duration(
                           milliseconds: 300,
                         ),
-                      )
+                      ),
                     },
             child: SizedBox(
               height: 65,
@@ -120,14 +123,17 @@ class ForecastListItemWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(Icons.block_rounded,
-                                size: 18, color: Colors.red),
+                            const Icon(
+                              Icons.block_rounded,
+                              size: 18,
+                              color: Colors.red,
+                            ),
                             Text(
                               MaterialLocalizations.of(context)
                                   .formatMediumDate(
                                 chabanBridgeForecast.circulationClosingDate,
                               ),
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: textTheme.bodySmall,
                             ),
                           ],
                         ),
@@ -135,7 +141,7 @@ class ForecastListItemWidget extends StatelessWidget {
                           chabanBridgeForecast.circulationClosingDateString(
                             context,
                           ),
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: textTheme.headlineSmall,
                         ),
                       ],
                     ),
@@ -168,14 +174,17 @@ class ForecastListItemWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(Icons.check_circle,
-                                size: 18, color: Colors.green),
+                            const Icon(
+                              Icons.check_circle,
+                              size: 18,
+                              color: Colors.green,
+                            ),
                             Text(
                               MaterialLocalizations.of(context)
                                   .formatMediumDate(
                                 chabanBridgeForecast.circulationReOpeningDate,
                               ),
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: textTheme.bodySmall,
                             ),
                           ],
                         ),
@@ -183,7 +192,7 @@ class ForecastListItemWidget extends StatelessWidget {
                           chabanBridgeForecast.circulationReOpeningDateString(
                             context,
                           ),
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: textTheme.headlineSmall,
                         ),
                       ],
                     ),
@@ -195,9 +204,11 @@ class ForecastListItemWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(
-                                  CustomProperties.borderRadius),
+                                CustomProperties.borderRadius,
+                              ),
                               bottomRight: Radius.circular(
-                                  CustomProperties.borderRadius),
+                                CustomProperties.borderRadius,
+                              ),
                             ),
                             color: Theme.of(context).colorScheme.warningColor,
                           ),
@@ -219,8 +230,9 @@ class ForecastListItemWidget extends StatelessWidget {
               child: ClipRect(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                      sigmaX: CustomProperties.blurSigmaX,
-                      sigmaY: CustomProperties.blurSigmaY),
+                    sigmaX: CustomProperties.blurSigmaX,
+                    sigmaY: CustomProperties.blurSigmaY,
+                  ),
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context)!.passedClosure,

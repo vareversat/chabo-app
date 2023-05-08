@@ -45,12 +45,15 @@ class ChabanBridgeForecastBloc
     } catch (_) {
       // ignore: invalid_use_of_visible_for_testing_member
       emit(state.copyWith(
-          status: ChabanBridgeForecastStatus.failure, message: _.toString()));
+        status: ChabanBridgeForecastStatus.failure,
+        message: _.toString(),
+      ));
     }
   }
 
   Future<List<AbstractChabanBridgeForecast>> _fetchChabanBridgeForecasts(
-      int offset) async {
+    int offset,
+  ) async {
     var uri = Uri.https(
       'opendata.bordeaux-metropole.fr',
       '/api/records/1.0/search',
@@ -59,30 +62,35 @@ class ChabanBridgeForecastBloc
         'rows': '${Const.chabanBridgeForecastLimit}',
         'sort': '-date_passage',
         'start': '$offset',
-        'timezone': 'Europe/Paris'
+        'timezone': 'Europe/Paris',
       },
     );
     final response = await httpClient.get(uri);
     if (response.statusCode == 200) {
       final body = json.decode(response.body);
-      return (body['records'] as List).map((dynamic json) {
+
+      return (body['records'] as List).map((json) {
         if (json['fields']['bateau'].toString().toLowerCase() ==
             'maintenance') {
           final maintenanceForecast =
               ChabanBridgeMaintenanceForecast.fromJSON(json);
+
           return maintenanceForecast;
         }
         final boatForecast = ChabanBridgeBoatForecast.fromJSON(json);
+
         return boatForecast;
       }).toList()
         ..sort((a, b) =>
             a.circulationClosingDate.compareTo(b.circulationClosingDate));
     }
+
     return [];
   }
 
   AbstractChabanBridgeForecast _getCurrentStatus(
-      List<AbstractChabanBridgeForecast> chabanBridgeForecast) {
+    List<AbstractChabanBridgeForecast> chabanBridgeForecast,
+  ) {
     int middle = chabanBridgeForecast.length ~/ 2;
     if ((chabanBridgeForecast[middle]
             .circulationClosingDate
@@ -111,18 +119,19 @@ class ChabanBridgeForecastBloc
   }
 
   AbstractChabanBridgeForecast? _getPreviousStatus(
-      List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
-      AbstractChabanBridgeForecast currentStatus) {
-    if (chabanBridgeForecasts.indexOf(currentStatus) == 0) {
-      return null;
-    } else {
-      return chabanBridgeForecasts
-          .elementAt(chabanBridgeForecasts.indexOf(currentStatus) - 1);
-    }
+    List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
+    AbstractChabanBridgeForecast currentStatus,
+  ) {
+    return chabanBridgeForecasts.indexOf(currentStatus) == 0
+        ? null
+        : chabanBridgeForecasts
+            .elementAt(chabanBridgeForecasts.indexOf(currentStatus) - 1);
   }
 
-  Future<void> _onChabanBridgeForecastFetched(ChabanBridgeForecastFetched event,
-      Emitter<ChabanBridgeForecastState> emit) async {
+  Future<void> _onChabanBridgeForecastFetched(
+    ChabanBridgeForecastFetched event,
+    Emitter<ChabanBridgeForecastState> emit,
+  ) async {
     if (state.hasReachedMax) return;
     try {
       if (state.status == ChabanBridgeForecastStatus.initial) {
@@ -130,13 +139,14 @@ class ChabanBridgeForecastBloc
             await _fetchChabanBridgeForecasts(state.offset);
         final currentStatus = _getCurrentStatus(chabanBridgeForecasts);
         emit(state.copyWith(
-            status: ChabanBridgeForecastStatus.success,
-            chabanBridgeForecasts: chabanBridgeForecasts,
-            currentChabanBridgeForecast: currentStatus,
-            previousChabanBridgeForecast:
-                _getPreviousStatus(chabanBridgeForecasts, currentStatus),
-            hasReachedMax: false,
-            offset: state.offset + Const.chabanBridgeForecastLimit));
+          status: ChabanBridgeForecastStatus.success,
+          chabanBridgeForecasts: chabanBridgeForecasts,
+          currentChabanBridgeForecast: currentStatus,
+          previousChabanBridgeForecast:
+              _getPreviousStatus(chabanBridgeForecasts, currentStatus),
+          hasReachedMax: false,
+          offset: state.offset + Const.chabanBridgeForecastLimit,
+        ));
       }
       final chabanBridgeForecasts =
           await _fetchChabanBridgeForecasts(state.chabanBridgeForecasts.length);
@@ -149,8 +159,10 @@ class ChabanBridgeForecastBloc
                         _getCurrentStatus(chabanBridgeForecasts),
                 previousChabanBridgeForecast:
                     state.previousChabanBridgeForecast ??
-                        _getPreviousStatus(chabanBridgeForecasts,
-                            _getCurrentStatus(chabanBridgeForecasts)),
+                        _getPreviousStatus(
+                          chabanBridgeForecasts,
+                          _getCurrentStatus(chabanBridgeForecasts),
+                        ),
                 status: ChabanBridgeForecastStatus.success,
                 chabanBridgeForecasts: List.of(state.chabanBridgeForecasts)
                   ..addAll(chabanBridgeForecasts),
@@ -160,7 +172,9 @@ class ChabanBridgeForecastBloc
       );
     } catch (_) {
       emit(state.copyWith(
-          status: ChabanBridgeForecastStatus.failure, message: _.toString()));
+        status: ChabanBridgeForecastStatus.failure,
+        message: _.toString(),
+      ));
     }
   }
 }

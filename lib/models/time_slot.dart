@@ -19,6 +19,7 @@ class TimeSlot extends Equatable {
 
   factory TimeSlot.fromJSON(Map<String, dynamic> json) {
     final format = DateFormat.Hm();
+
     return TimeSlot(
       name: json['name'] ?? '',
       from: TimeOfDay.fromDateTime(

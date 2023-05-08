@@ -4,7 +4,7 @@ import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/time_slot/time_slot_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/custom_widgets_state.dart';
+import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/dialogs/days_of_the_week_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
@@ -61,7 +61,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
             padding: const EdgeInsets.only(
               top: 20,
             ),
-            child: BlocBuilder<NotificationBloc, NotificationSate>(
+            child: BlocBuilder<NotificationBloc, NotificationState>(
               builder: (context, state) {
                 return Column(
                   children: [
@@ -88,17 +88,19 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    for (var i = 0;
-                                        i < state.timeSlots.length;
-                                        i++) ...[
-                                      TimeSlotWidget(
-                                          timeSlot: state.timeSlots[i],
-                                          index: i)
-                                    ],
-                                  ]),
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  for (var i = 0;
+                                      i < state.timeSlots.length;
+                                      i++) ...[
+                                    TimeSlotWidget(
+                                      timeSlot: state.timeSlots[i],
+                                      index: i,
+                                    ),
+                                  ],
+                                ],
+                              ),
                             ),
                           ],
                         );
@@ -149,8 +151,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       height: 20,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        var time = await showTimePicker(
+                      onTap: () {
+                        showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
                           initialTime: state.durationNotificationValue
@@ -163,18 +165,21 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               child: child!,
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DurationNotificationValueEvent(
+                                    duration: Duration(
+                                      hours: value.hour,
+                                      minutes: value.minute,
+                                    ),
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (time != null) {
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            DurationNotificationValueEvent(
-                              duration: Duration(
-                                hours: time.hour,
-                                minutes: time.minute,
-                              ),
-                            ),
-                          );
-                        }
                       },
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -196,8 +201,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       leadingIcon: Icons.timer_outlined,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        var time = await showTimePicker(
+                      onTap: () {
+                        showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
                           context: context,
                           initialTime: state.timeNotificationValue,
@@ -209,18 +214,21 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               child: child!,
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  TimeNotificationValueEvent(
+                                    time: TimeOfDay(
+                                      hour: value.hour,
+                                      minute: value.minute,
+                                    ),
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (time != null) {
-                          // ignore: use_build_context_synchronously
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            TimeNotificationValueEvent(
-                              time: TimeOfDay(
-                                hour: time.hour,
-                                minute: time.minute,
-                              ),
-                            ),
-                          );
-                        }
                       },
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -240,25 +248,32 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       leadingIcon: Icons.plus_one_outlined,
                     ),
                     _CustomListTile(
-                      onTap: () async {
-                        final day = await showDialog(
+                      onTap: () {
+                        showDialog(
                           context: context,
                           builder: (
                             BuildContext context,
                           ) {
                             return BackdropFilter(
                               filter: ImageFilter.blur(
-                                  sigmaX: CustomProperties.blurSigmaX,
-                                  sigmaY: CustomProperties.blurSigmaY),
+                                sigmaX: CustomProperties.blurSigmaX,
+                                sigmaY: CustomProperties.blurSigmaY,
+                              ),
                               child: const DaysOfTheWeekDialog(),
                             );
                           },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DayNotificationValueEvent(
+                                    day: value,
+                                  ),
+                                ),
+                              },
+                          },
                         );
-                        if (day != null) {
-                          BlocProvider.of<NotificationBloc>(context).add(
-                            DayNotificationValueEvent(day: day),
-                          );
-                        }
                       },
                       enabled: state.dayNotificationEnabled,
                       title: AppLocalizations.of(context)!.dayNotificationTitle(
@@ -266,8 +281,11 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       ),
                       subtitle: AppLocalizations.of(context)!
                           .dayNotificationExplanation(
-                              state.dayNotificationValue.localizedName(context),
-                              state.dayNotificationTimeValue.format(context)),
+                        state.dayNotificationValue.localizedName(context),
+                        state.dayNotificationTimeValue.format(
+                          context,
+                        ),
+                      ),
                       leadingIcon: Icons.calendar_month_outlined,
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
@@ -296,16 +314,16 @@ class _CustomListTile extends StatelessWidget {
   final IconData leadingIcon;
   final Color? iconColor;
 
-  const _CustomListTile(
-      {Key? key,
-      required this.enabled,
-      this.onTap,
-      this.iconColor,
-      required this.title,
-      required this.subtitle,
-      required this.leadingIcon,
-      required this.onChanged})
-      : super(key: key);
+  const _CustomListTile({
+    Key? key,
+    required this.enabled,
+    this.onTap,
+    this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.leadingIcon,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,8 @@ class AdHelper {
       return Const.androidInlineBanner;
     } else {
       throw UnsupportedError(
-          'Unsupported platform to determine the banner unit ID');
+        'Unsupported platform to determine the banner unit ID',
+      );
     }
   }
 
@@ -17,7 +18,8 @@ class AdHelper {
       return Const.androidNativeBanner;
     } else {
       throw UnsupportedError(
-          'Unsupported platform to determine the banner unit ID');
+        'Unsupported platform to determine the banner unit ID',
+      );
     }
   }
 }

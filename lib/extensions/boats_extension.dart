@@ -15,7 +15,10 @@ extension BoatsExtension on List<Boat> {
               .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
         }
       }
-      return TextSpan(children: finalTextSpan);
+
+      return TextSpan(
+        children: finalTextSpan,
+      );
     }
   }
 
@@ -30,6 +33,7 @@ extension BoatsExtension on List<Boat> {
           finalString += ' ${AppLocalizations.of(context)!.and} ';
         }
       }
+
       return finalString;
     }
   }

@@ -11,6 +11,8 @@ class TimeSlotDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return AlertDialog(
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
@@ -28,11 +30,11 @@ class TimeSlotDialog extends StatelessWidget {
             children: [
               Text(
                 ' ${AppLocalizations.of(context)!.favoriteSlotsFrom} ',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: textTheme.titleMedium,
               ),
               ElevatedButton(
-                onPressed: () async {
-                  var time = await showTimePicker(
+                onPressed: () {
+                  showTimePicker(
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     context: context,
                     initialTime: state.timeSlots[index].from,
@@ -42,31 +44,34 @@ class TimeSlotDialog extends StatelessWidget {
                         child: child!,
                       );
                     },
-                  );
-                  if (time != null) {
-                    // ignore: use_build_context_synchronously
-                    BlocProvider.of<TimeSlotBloc>(context).add(
-                      ValueTimeSlotEvent(
-                          timeSlot: TimeSlot(
-                              name: state.timeSlots[index].name,
-                              from: time,
-                              to: state.timeSlots[index].to),
-                          index: index),
-                    );
-                  }
+                  ).then((value) => {
+                        if (value != null)
+                          {
+                            BlocProvider.of<TimeSlotBloc>(context).add(
+                              ValueTimeSlotEvent(
+                                timeSlot: TimeSlot(
+                                  name: state.timeSlots[index].name,
+                                  from: value,
+                                  to: state.timeSlots[index].to,
+                                ),
+                                index: index,
+                              ),
+                            ),
+                          },
+                      });
                 },
                 child: Text(
                   state.timeSlots[index].from.format(context),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: textTheme.titleMedium,
                 ),
               ),
               Text(
                 ' ${AppLocalizations.of(context)!.favoriteSlotsTo} ',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: textTheme.titleMedium,
               ),
               ElevatedButton(
-                onPressed: () async {
-                  var time = await showTimePicker(
+                onPressed: () {
+                  showTimePicker(
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     context: context,
                     initialTime: state.timeSlots[index].to,
@@ -76,22 +81,25 @@ class TimeSlotDialog extends StatelessWidget {
                         child: child!,
                       );
                     },
-                  );
-                  if (time != null) {
-                    // ignore: use_build_context_synchronously
-                    BlocProvider.of<TimeSlotBloc>(context).add(
-                      ValueTimeSlotEvent(
-                          timeSlot: TimeSlot(
-                              name: state.timeSlots[index].name,
-                              from: state.timeSlots[index].from,
-                              to: time),
-                          index: index),
-                    );
-                  }
+                  ).then((value) => {
+                        if (value != null)
+                          {
+                            BlocProvider.of<TimeSlotBloc>(context).add(
+                              ValueTimeSlotEvent(
+                                timeSlot: TimeSlot(
+                                  name: state.timeSlots[index].name,
+                                  from: state.timeSlots[index].from,
+                                  to: value,
+                                ),
+                                index: index,
+                              ),
+                            ),
+                          },
+                      });
                 },
                 child: Text(
                   state.timeSlots[index].to.format(context),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: textTheme.titleMedium,
                 ),
               ),
             ],

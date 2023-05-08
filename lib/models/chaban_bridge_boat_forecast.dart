@@ -1,4 +1,4 @@
-import 'package:chabo/extensions/boats_extensions.dart';
+import 'package:chabo/extensions/boats_extension.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
@@ -15,34 +15,42 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
 
   static final List<String> allBoatNames = [];
 
-  ChabanBridgeBoatForecast(
-      {required bool totalClosing,
-      required DateTime circulationClosingDate,
-      required DateTime circulationReOpeningDate,
-      required this.boats,
-      required ChabanBridgeForecastClosingType closingType})
-      : assert(boats.isNotEmpty),
+  ChabanBridgeBoatForecast({
+    required bool totalClosing,
+    required DateTime circulationClosingDate,
+    required DateTime circulationReOpeningDate,
+    required this.boats,
+    required ChabanBridgeForecastClosingType closingType,
+  })  : assert(boats.isNotEmpty),
         super(
-            circulationClosingDate: circulationClosingDate,
-            circulationReOpeningDate: circulationReOpeningDate,
-            closingReason: ChabanBridgeForecastClosingReason.boat,
-            closingType: closingType,
-            totalClosing: totalClosing);
+          circulationClosingDate: circulationClosingDate,
+          circulationReOpeningDate: circulationReOpeningDate,
+          closingReason: ChabanBridgeForecastClosingReason.boat,
+          closingType: closingType,
+          totalClosing: totalClosing,
+        );
 
   factory ChabanBridgeBoatForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone =
         AbstractChabanBridgeForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, 'fermeture_a_la_circulation', apiTimezone);
+      json,
+      'fermeture_a_la_circulation',
+      apiTimezone,
+    );
     var reopeningDate = AbstractChabanBridgeForecast.parseFieldDate(
-        json, 're_ouverture_a_la_circulation', apiTimezone);
+      json,
+      're_ouverture_a_la_circulation',
+      apiTimezone,
+    );
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
                 'totale'
             ? ChabanBridgeForecastClosingType.complete
             : ChabanBridgeForecastClosingType.partial;
     var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
-        json['fields']['fermeture_totale']);
+      json['fields']['fermeture_totale'],
+    );
 
     List<Boat> boats = [];
     bool isLeaving = false;
@@ -59,11 +67,12 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
     }
 
     return ChabanBridgeBoatForecast(
-        boats: boats,
-        totalClosing: totalClosing,
-        circulationReOpeningDate: reopeningDate,
-        circulationClosingDate: closingDate,
-        closingType: closingType);
+      boats: boats,
+      totalClosing: totalClosing,
+      circulationReOpeningDate: reopeningDate,
+      circulationClosingDate: closingDate,
+      closingType: closingType,
+    );
   }
 
   @override
@@ -74,7 +83,7 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
         boats,
         circulationClosingDate,
         circulationReOpeningDate,
-        closingType
+        closingType,
       ];
 
   @override
@@ -135,12 +144,14 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             ),
           ),
           TextSpan(
-              text:
-                  ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} '),
+            text:
+                ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
+          ),
           boats.toLocalizedTextSpan(context),
           TextSpan(
-              text:
-                  '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : '),
+            text:
+                '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
+          ),
           TextSpan(
             text: '${closedDuration.durationToString(context)}\n',
             style: TextStyle(
@@ -149,8 +160,9 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
             ),
           ),
           TextSpan(
-              text:
-                  '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : '),
+            text:
+                '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
+          ),
           TextSpan(
             text: scheduleString,
             style: TextStyle(
@@ -165,7 +177,9 @@ class ChabanBridgeBoatForecast extends AbstractChabanBridgeForecast {
 
   @override
   String getNotificationDurationMessage(
-      BuildContext context, String pickedDuration) {
+    BuildContext context,
+    String pickedDuration,
+  ) {
     return AppLocalizations.of(context)!.notificationDurationBoatMessage(
       boats.toLocalizedString(context),
       pickedDuration,

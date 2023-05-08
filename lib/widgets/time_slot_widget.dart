@@ -18,27 +18,32 @@ class TimeSlotWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () async {
-        final day = await showDialog(
+      onPressed: () {
+        showDialog(
           context: context,
           builder: (
             BuildContext context,
           ) {
             return BackdropFilter(
               filter: ImageFilter.blur(
-                  sigmaX: CustomProperties.blurSigmaX,
-                  sigmaY: CustomProperties.blurSigmaY),
+                sigmaX: CustomProperties.blurSigmaX,
+                sigmaY: CustomProperties.blurSigmaY,
+              ),
               child: TimeSlotDialog(
                 index: index,
               ),
             );
           },
+        ).then(
+          (value) => {
+            if (value != null)
+              {
+                BlocProvider.of<NotificationBloc>(context).add(
+                  DayNotificationValueEvent(day: value),
+                ),
+              },
+          },
         );
-        if (day != null) {
-          BlocProvider.of<NotificationBloc>(context).add(
-            DayNotificationValueEvent(day: day),
-          );
-        }
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

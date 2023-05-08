@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'time_slot_event.dart';
-
 part 'time_slot_state.dart';
 
 class TimeSlotBloc extends Bloc<TimeSlotEvent, TimeSlotState> {
@@ -18,9 +17,10 @@ class TimeSlotBloc extends Bloc<TimeSlotEvent, TimeSlotState> {
 
   TimeSlotBloc({required this.storageService})
       : super(TimeSlotState(
-            timeSlots: Const.notificationFavoriteSlotsDefaultValue,
-            enabledForNotifications:
-                Const.notificationFavoriteSlotsEnabledDefaultValue)) {
+          timeSlots: Const.notificationFavoriteSlotsDefaultValue,
+          enabledForNotifications:
+              Const.notificationFavoriteSlotsEnabledDefaultValue,
+        )) {
     on<TimeSlotAppEvent>(
       _onAppEvent,
     );
@@ -32,8 +32,10 @@ class TimeSlotBloc extends Bloc<TimeSlotEvent, TimeSlotState> {
     );
   }
 
-  Future<void> _onAppEvent(
-      TimeSlotAppEvent event, Emitter<TimeSlotState> emit) async {
+  void _onAppEvent(
+    TimeSlotAppEvent event,
+    Emitter<TimeSlotState> emit,
+  ) {
     final timeSlots =
         storageService.readTimeSlots(Const.notificationFavoriteSlotsValueKey) ??
             Const.notificationFavoriteSlotsDefaultValue;
@@ -42,27 +44,42 @@ class TimeSlotBloc extends Bloc<TimeSlotEvent, TimeSlotState> {
         storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
             Const.notificationFavoriteSlotsEnabledDefaultValue;
     emit(state.copyWith(
-        timeSlots: timeSlots,
-        enabledForNotifications: enabledForNotifications));
+      timeSlots: timeSlots,
+      enabledForNotifications: enabledForNotifications,
+    ));
   }
 
   Future<void> _onEnabledTimeSlotEvent(
-      EnabledTimeSlotEvent event, Emitter<TimeSlotState> emit) async {
+    EnabledTimeSlotEvent event,
+    Emitter<TimeSlotState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationFavoriteSlotsEnabledKey, event.enabled);
+      Const.notificationFavoriteSlotsEnabledKey,
+      event.enabled,
+    );
     HapticFeedback.lightImpact();
 
-    emit(state.copyWith(enabledForNotifications: event.enabled));
+    emit(state.copyWith(
+      enabledForNotifications: event.enabled,
+    ));
   }
 
   Future<void> _onTimeSlotsEventValue(
-      ValueTimeSlotEvent event, Emitter<TimeSlotState> emit) async {
+    ValueTimeSlotEvent event,
+    Emitter<TimeSlotState> emit,
+  ) async {
     final timeSlots = List<TimeSlot>.from(state.timeSlots);
     timeSlots[event.index] = event.timeSlot;
     await storageService.saveTimeSlots(
-        Const.notificationFavoriteSlotsValueKey, timeSlots);
+      Const.notificationFavoriteSlotsValueKey,
+      timeSlots,
+    );
     HapticFeedback.lightImpact();
 
-    emit(state.copyWith(timeSlots: timeSlots));
+    emit(
+      state.copyWith(
+        timeSlots: timeSlots,
+      ),
+    );
   }
 }

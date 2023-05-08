@@ -28,6 +28,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
             ScrollStatusChanged(),
           );
         }
+
         return true;
       },
       child: BlocBuilder<ChabanBridgeForecastBloc, ChabanBridgeForecastState>(
@@ -40,9 +41,11 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                 itemBuilder: (BuildContext context, int index) {
                   forecastState.chabanBridgeForecasts[index]
                       .checkSlotInterference(timeSlotState.timeSlots);
+
                   return ForecastListItemWidget(
                     key: GlobalObjectKey(
-                        forecastState.chabanBridgeForecasts[index].hashCode),
+                      forecastState.chabanBridgeForecasts[index].hashCode,
+                    ),
                     isCurrent: forecastState.chabanBridgeForecasts[index] ==
                         forecastState.currentChabanBridgeForecast,
                     hasPassed: forecastState
@@ -73,12 +76,13 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                   if (((index % 10 == 0 ||
                               index ==
                                   forecastState.chabanBridgeForecasts.indexOf(
-                                      forecastState
-                                          .currentChabanBridgeForecast!)) &&
+                                    forecastState.currentChabanBridgeForecast!,
+                                  )) &&
                           index != 0) &&
                       !kIsWeb) {
                     return const AdBannerWidget();
                   }
+
                   return const SizedBox.shrink();
                 },
               );

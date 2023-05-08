@@ -5,9 +5,12 @@ class CustomProgressBarIndicator extends StatelessWidget {
   final double current;
   final Color color;
 
-  const CustomProgressBarIndicator(
-      {Key? key, required this.max, required this.current, required this.color})
-      : super(key: key);
+  const CustomProgressBarIndicator({
+    Key? key,
+    required this.max,
+    required this.current,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class CustomProgressBarIndicator extends StatelessWidget {
       builder: (_, boxConstraints) {
         var x = boxConstraints.maxWidth;
         var percent = (current / max) * x;
+
         return Stack(
           alignment: Alignment.centerLeft,
           children: [

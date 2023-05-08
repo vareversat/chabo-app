@@ -16,7 +16,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
           15,
         ),
       ),
-      content: BlocBuilder<NotificationBloc, NotificationSate>(
+      content: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
           return Wrap(
             alignment: WrapAlignment.center,
@@ -25,7 +25,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
             runSpacing: 10,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {}, // ignore: no-empty-block
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                     borderRadius: BorderRadius.circular(12.0),
@@ -63,8 +63,8 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               ElevatedButton(
-                onPressed: () async {
-                  var time = await showTimePicker(
+                onPressed: () {
+                  showTimePicker(
                     initialEntryMode: TimePickerEntryMode.dialOnly,
                     context: context,
                     initialTime: state.dayNotificationTimeValue,
@@ -74,15 +74,18 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                         child: child!,
                       );
                     },
+                  ).then(
+                    (value) => {
+                      if (value != null)
+                        {
+                          BlocProvider.of<NotificationBloc>(context).add(
+                            DayNotificationTimeValueEvent(
+                              time: value,
+                            ),
+                          ),
+                        },
+                    },
                   );
-                  if (time != null) {
-                    // ignore: use_build_context_synchronously
-                    BlocProvider.of<NotificationBloc>(context).add(
-                      DayNotificationTimeValueEvent(
-                        time: time,
-                      ),
-                    );
-                  }
                 },
                 child: Text(
                   state.dayNotificationTimeValue.format(context),

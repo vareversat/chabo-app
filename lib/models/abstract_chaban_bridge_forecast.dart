@@ -16,12 +16,13 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   final ChabanBridgeForecastClosingType closingType;
   final List<TimeSlot> interferingTimeSlots = [];
 
-  AbstractChabanBridgeForecast(
-      {required this.totalClosing,
-      required this.closingReason,
-      required DateTime circulationClosingDate,
-      required DateTime circulationReOpeningDate,
-      required this.closingType}) {
+  AbstractChabanBridgeForecast({
+    required this.totalClosing,
+    required this.closingReason,
+    required DateTime circulationClosingDate,
+    required DateTime circulationReOpeningDate,
+    required this.closingType,
+  }) {
     _circulationClosingDate = circulationClosingDate;
 
     var tmpCirculationReOpeningDate = circulationReOpeningDate.toLocal();
@@ -56,7 +57,9 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
   Widget getIconWidget(BuildContext context, bool reversed);
 
   String getNotificationDurationMessage(
-      BuildContext context, String pickedDuration);
+    BuildContext context,
+    String pickedDuration,
+  );
 
   String getNotificationTimeMessage(BuildContext context);
 
@@ -94,27 +97,34 @@ abstract class AbstractChabanBridgeForecast extends Equatable {
 
   bool isOverlappingWithTimeOfDay(TimeOfDay timeOfDay) {
     final dateTimeConversion = circulationClosingDate.applied(timeOfDay);
-    return dateTimeConversion.isAfter(circulationClosingDate) &&
-        dateTimeConversion.isBefore(circulationReOpeningDate);
+
+    return dateTimeConversion.isAfter(
+          circulationClosingDate,
+        ) &&
+        dateTimeConversion.isBefore(
+          circulationReOpeningDate,
+        );
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {
-    if (stringValue == 'oui') {
-      return true;
-    } else {
-      return false;
-    }
+    return stringValue == 'oui';
   }
 
   static String getApiTimeZone(String recordTimestamp) {
     return recordTimestamp.substring(
-        recordTimestamp.indexOf('+'), recordTimestamp.length);
+      recordTimestamp.indexOf('+'),
+      recordTimestamp.length,
+    );
   }
 
   static DateTime parseFieldDate(
-      Map<String, dynamic> json, String fieldName, String timezone) {
+    Map<String, dynamic> json,
+    String fieldName,
+    String timezone,
+  ) {
     return DateTime.parse(
-        "${json['fields']['date_passage']}T${json['fields'][fieldName]}:00$timezone");
+      "${json['fields']['date_passage']}T${json['fields'][fieldName]}:00$timezone",
+    );
   }
 
   @override
