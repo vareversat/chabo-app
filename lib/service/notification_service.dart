@@ -320,6 +320,7 @@ class NotificationService {
       styleInformation: const BigTextStyleInformation(''),
       ticker: Const.androidTicket,
     );
+
     return NotificationDetails(android: androidNotificationDetails);
   }
 
