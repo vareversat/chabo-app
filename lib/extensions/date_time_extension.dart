@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension DateTimeExtension on DateTime {
   DateTime previous(int day) {
     if (day == weekday) {
@@ -10,5 +12,9 @@ extension DateTimeExtension on DateTime {
             minutes: minute),
       );
     }
+  }
+
+  DateTime applied(TimeOfDay time) {
+    return DateTime(year, month, day, time.hour, time.minute);
   }
 }
