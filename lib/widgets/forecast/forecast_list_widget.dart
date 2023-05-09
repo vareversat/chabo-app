@@ -37,8 +37,13 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
             builder: (context, timeSlotState) {
               return ListView.separated(
                 cacheExtent: 5000,
-                padding: const EdgeInsets.all(0),
-                itemBuilder: (BuildContext context, int index) {
+                padding: const EdgeInsets.symmetric(horizontal: 5).copyWith(
+                  bottom: 200,
+                ),
+                itemBuilder: (
+                  BuildContext context,
+                  int index,
+                ) {
                   forecastState.forecasts[index]
                       .computeSlotInterference(timeSlotState.timeSlotsValue);
 
