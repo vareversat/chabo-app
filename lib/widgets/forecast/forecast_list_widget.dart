@@ -2,9 +2,7 @@ import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -71,15 +69,6 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                     return _MonthWidget(
                       forecast: forecastState.forecasts[index + 1],
                     );
-                  }
-                  if (((index % 10 == 0 ||
-                              index ==
-                                  forecastState.forecasts.indexOf(
-                                    forecastState.currentForecast!,
-                                  )) &&
-                          index != 0) &&
-                      !kIsWeb) {
-                    return const AdBannerWidget();
                   }
 
                   return const SizedBox.shrink();

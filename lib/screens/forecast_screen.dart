@@ -6,6 +6,7 @@ import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
+import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_widget.dart';
 import 'package:chabo/widgets/forecast/forecast_list_widget.dart';
 import 'package:chabo/widgets/forecast/status_widget.dart';
@@ -29,7 +30,22 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: const FloatingActionsWidget(),
+          floatingActionButton: Column(
+            crossAxisAlignment: state.isRightHanded
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+            children: [
+              const Expanded(child: FloatingActionsWidget()),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: state.isRightHanded ? 32 : 0,
+                  right: state.isRightHanded ? 0 : 32,
+                  top: 15,
+                ),
+                child: const AdBannerWidget(),
+              ),
+            ],
+          ),
           floatingActionButtonLocation: state.isRightHanded
               ? FloatingActionButtonLocation.endFloat
               : FloatingActionButtonLocation.startFloat,

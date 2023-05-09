@@ -41,8 +41,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               ),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return FadeTransition(
-                  opacity:
-                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  opacity: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeIn,
+                  ),
                   child: SlideTransition(
                     position: Tween(
                       begin: const Offset(0.0, 1.0),
