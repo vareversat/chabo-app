@@ -1,7 +1,7 @@
-import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
-import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
+import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
@@ -14,17 +14,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ChabanBridgeForecastScreen extends StatefulWidget {
-  const ChabanBridgeForecastScreen({Key? key}) : super(key: key);
+class ForecastScreen extends StatefulWidget {
+  const ForecastScreen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ChabanBridgeForecastScreenState();
+    return _ForecastScreenState();
   }
 }
 
-class _ChabanBridgeForecastScreenState
-    extends CustomWidgetState<ChabanBridgeForecastScreen> {
+class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
@@ -36,53 +35,46 @@ class _ChabanBridgeForecastScreenState
               : FloatingActionButtonLocation.startFloat,
           floatingActionButtonAnimator: NoScalingAnimation(),
           body: SafeArea(
-            child: BlocBuilder<ChabanBridgeForecastBloc,
-                ChabanBridgeForecastState>(
+            child: BlocBuilder<ForecastBloc, ForecastState>(
               buildWhen: (previous, current) =>
-                  previous.status == ChabanBridgeForecastStatus.initial &&
-                  current.status == ChabanBridgeForecastStatus.success,
+                  previous.status == ForecastStatus.initial &&
+                  current.status == ForecastStatus.success,
               builder: (context, state) {
                 switch (state.status) {
-                  case ChabanBridgeForecastStatus.failure:
+                  case ForecastStatus.failure:
                     return ErrorScreen(errorMessage: state.message);
-                  case ChabanBridgeForecastStatus.success:
-                    if (state.chabanBridgeForecasts.isEmpty) {
+                  case ForecastStatus.success:
+                    if (state.forecasts.isEmpty) {
                       return const ErrorScreen(errorMessage: 'Empty return');
                     }
 
                     return MultiBlocListener(
                       listeners: [
-                        BlocListener<ChabanBridgeForecastBloc,
-                            ChabanBridgeForecastState>(
+                        BlocListener<ForecastBloc, ForecastState>(
                           listener: (context, state) {
-                            BlocProvider.of<ChabanBridgeStatusBloc>(context)
-                                .add(
-                              ChabanBridgeStatusChanged(
-                                currentChabanBridgeForecast:
-                                    state.currentChabanBridgeForecast,
-                                previousChabanBridgeForecast:
-                                    state.previousChabanBridgeForecast,
+                            BlocProvider.of<StatusBloc>(context).add(
+                              StatusChanged(
+                                currentForecast: state.currentForecast,
+                                previousForecast: state.previousForecast,
                               ),
                             );
                             BlocProvider.of<ScrollStatusBloc>(context).add(
-                              GoTo(goTo: state.currentChabanBridgeForecast),
+                              GoTo(goTo: state.currentForecast),
                             );
                           },
                         ),
                         BlocListener<NotificationBloc, NotificationState>(
                           listener: (context, state) {
-                            BlocProvider.of<ChabanBridgeStatusBloc>(context)
-                                .add(
-                              ChabanBridgeStatusDurationChanged(
+                            BlocProvider.of<StatusBloc>(context).add(
+                              StatusDurationChanged(
                                 duration: state.durationNotificationValue,
                               ),
                             );
                             BlocProvider.of<NotificationBloc>(context).add(
                               ComputeNotificationEvent(
-                                forecasts:
-                                    BlocProvider.of<ChabanBridgeForecastBloc>(
+                                forecasts: BlocProvider.of<ForecastBloc>(
                                   context,
-                                ).state.chabanBridgeForecasts,
+                                ).state.forecasts,
                                 context: context,
                               ),
                             );

@@ -1,36 +1,35 @@
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
-import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
-import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
+import 'package:chabo/models/abstract_forecast.dart';
+import 'package:chabo/models/enums/forecast_closing_reason.dart';
+import 'package:chabo/models/enums/forecast_closing_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
-class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
-  ChabanBridgeMaintenanceForecast({
+class MaintenanceForecast extends AbstractForecast {
+  MaintenanceForecast({
     required bool totalClosing,
     required DateTime circulationClosingDate,
     required DateTime circulationReOpeningDate,
-    required ChabanBridgeForecastClosingType closingType,
+    required ForecastClosingType closingType,
   }) : super(
           circulationClosingDate: circulationClosingDate,
           circulationReOpeningDate: circulationReOpeningDate,
-          closingReason: ChabanBridgeForecastClosingReason.maintenance,
+          closingReason: ForecastClosingReason.maintenance,
           closingType: closingType,
           totalClosing: totalClosing,
         );
 
-  factory ChabanBridgeMaintenanceForecast.fromJSON(Map<String, dynamic> json) {
-    var apiTimezone =
-        AbstractChabanBridgeForecast.getApiTimeZone(json['record_timestamp']);
-    var closingDate = AbstractChabanBridgeForecast.parseFieldDate(
+  factory MaintenanceForecast.fromJSON(Map<String, dynamic> json) {
+    var apiTimezone = AbstractForecast.getApiTimeZone(json['record_timestamp']);
+    var closingDate = AbstractForecast.parseFieldDate(
       json,
       'fermeture_a_la_circulation',
       apiTimezone,
     );
-    var reopeningDate = AbstractChabanBridgeForecast.parseFieldDate(
+    var reopeningDate = AbstractForecast.parseFieldDate(
       json,
       're_ouverture_a_la_circulation',
       apiTimezone,
@@ -38,13 +37,13 @@ class ChabanBridgeMaintenanceForecast extends AbstractChabanBridgeForecast {
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
                 'totale'
-            ? ChabanBridgeForecastClosingType.complete
-            : ChabanBridgeForecastClosingType.partial;
-    var totalClosing = AbstractChabanBridgeForecast.getBooleanTotalClosingValue(
+            ? ForecastClosingType.complete
+            : ForecastClosingType.partial;
+    var totalClosing = AbstractForecast.getBooleanTotalClosingValue(
       json['fields']['fermeture_totale'],
     );
 
-    return ChabanBridgeMaintenanceForecast(
+    return MaintenanceForecast(
       totalClosing: totalClosing,
       circulationReOpeningDate: reopeningDate,
       circulationClosingDate: closingDate,

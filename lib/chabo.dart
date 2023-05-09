@@ -1,10 +1,10 @@
-import 'package:chabo/bloc/chaban_bridge_forecast/chaban_bridge_forecast_bloc.dart';
-import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
+import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
-import 'package:chabo/screens/chaban_bridge_forecast_screen.dart';
+import 'package:chabo/screens/forecast_screen.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -46,16 +46,16 @@ class Chabo extends StatelessWidget {
 
         /// Bloc intended to manage the forecast displayed
         BlocProvider(
-          create: (_) => ChabanBridgeForecastBloc(
+          create: (_) => ForecastBloc(
             httpClient: http.Client(),
           )..add(
-              ChabanBridgeForecastFetched(),
+              ForecastFetched(),
             ),
         ),
 
         /// Bloc intended to manage the status
         BlocProvider(
-          create: (_) => ChabanBridgeStatusBloc(),
+          create: (_) => StatusBloc(),
         ),
 
         /// Bloc intended to manage scroll to status to display (or not) the current status
@@ -80,7 +80,7 @@ class Chabo extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
-            home: const ChabanBridgeForecastScreen(),
+            home: const ForecastScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

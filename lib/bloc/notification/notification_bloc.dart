@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:chabo/service/notification_service.dart';

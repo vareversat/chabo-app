@@ -7,7 +7,7 @@ import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
@@ -98,21 +98,19 @@ class NotificationService {
   }
 
   Future<void> computeNotifications(
-    List<AbstractChabanBridgeForecast> chabanBridgeForecasts,
+    List<AbstractForecast> forecasts,
     NotificationState notificationSate,
     BuildContext context,
   ) async {
     tz.initializeTimeZones();
     int index = 0;
     localNotifications.cancelAll();
-    List<DateTime> weekSeparatedChabanBridgeForecast = [];
+    List<DateTime> weekSeparatedForecast = [];
     if (await _requestPermissions()) {
-      for (final chabanBridgeForecast in chabanBridgeForecasts) {
+      for (final forecast in forecasts) {
         /// Compute the slot time linked to a forecast before starting the notification computation
-        chabanBridgeForecast
-            .computeSlotInterference(notificationSate.timeSlotsValue);
-        final hasTimeSlots =
-            chabanBridgeForecast.interferingTimeSlots.isNotEmpty;
+        forecast.computeSlotInterference(notificationSate.timeSlotsValue);
+        final hasTimeSlots = forecast.interferingTimeSlots.isNotEmpty;
         if ((notificationSate.openingNotificationEnabled &&
                 !notificationSate.timeSlotsEnabledForNotifications) ||
             (notificationSate.openingNotificationEnabled &&
@@ -121,7 +119,7 @@ class NotificationService {
           index += 1;
           await _createOpeningScheduledNotifications(
             index,
-            chabanBridgeForecast,
+            forecast,
             context,
           );
         }
@@ -133,7 +131,7 @@ class NotificationService {
           index += 1;
           await _createClosingScheduledNotifications(
             index,
-            chabanBridgeForecast,
+            forecast,
             context,
           );
         }
@@ -145,7 +143,7 @@ class NotificationService {
           index += 1;
           await _createTimeScheduledNotifications(
             index,
-            chabanBridgeForecast,
+            forecast,
             context,
             notificationSate.timeNotificationValue,
           );
@@ -155,22 +153,22 @@ class NotificationService {
             (notificationSate.dayNotificationEnabled &&
                 notificationSate.timeSlotsEnabledForNotifications &&
                 hasTimeSlots)) {
-          var last = chabanBridgeForecast.circulationClosingDate
+          var last = forecast.circulationClosingDate
               .previous(notificationSate.dayNotificationValue.weekPosition);
-          if (weekSeparatedChabanBridgeForecast.isEmpty ||
-              weekSeparatedChabanBridgeForecast.last == last) {
-            weekSeparatedChabanBridgeForecast.add(last);
+          if (weekSeparatedForecast.isEmpty ||
+              weekSeparatedForecast.last == last) {
+            weekSeparatedForecast.add(last);
           } else {
             index += 1;
             await _createDayScheduledNotifications(
               index,
-              weekSeparatedChabanBridgeForecast.length,
-              weekSeparatedChabanBridgeForecast.last,
+              weekSeparatedForecast.length,
+              weekSeparatedForecast.last,
               notificationSate.dayNotificationTimeValue,
               context,
             );
-            weekSeparatedChabanBridgeForecast.clear();
-            weekSeparatedChabanBridgeForecast.add(last);
+            weekSeparatedForecast.clear();
+            weekSeparatedForecast.add(last);
           }
         }
         if ((notificationSate.durationNotificationEnabled &&
@@ -181,7 +179,7 @@ class NotificationService {
           index += 1;
           await _createDurationScheduledNotifications(
             index,
-            chabanBridgeForecast,
+            forecast,
             context,
             notificationSate.durationNotificationValue,
             notificationSate.durationNotificationValue
@@ -194,11 +192,10 @@ class NotificationService {
 
   Future<void> _createOpeningScheduledNotifications(
     int index,
-    AbstractChabanBridgeForecast chabanBridgeForecast,
+    AbstractForecast forecast,
     BuildContext context,
   ) async {
-    final notificationScheduleTime =
-        chabanBridgeForecast.circulationReOpeningDate;
+    final notificationScheduleTime = forecast.circulationReOpeningDate;
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationOpeningChannelId,
       AppLocalizations.of(context)!.notificationOpeningChannelName,
@@ -214,11 +211,10 @@ class NotificationService {
 
   Future<void> _createClosingScheduledNotifications(
     int index,
-    AbstractChabanBridgeForecast chabanBridgeForecast,
+    AbstractForecast forecast,
     BuildContext context,
   ) async {
-    final notificationScheduleTime =
-        chabanBridgeForecast.circulationClosingDate;
+    final notificationScheduleTime = forecast.circulationClosingDate;
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationClosingChannelId,
       AppLocalizations.of(context)!.notificationClosingChannelName,
@@ -226,7 +222,7 @@ class NotificationService {
     await _scheduleNotification(
       index,
       AppLocalizations.of(context)!.notificationClosingTitle,
-      chabanBridgeForecast.getNotificationClosingMessage(context),
+      forecast.getNotificationClosingMessage(context),
       notificationScheduleTime,
       notificationDetails,
     );
@@ -234,11 +230,11 @@ class NotificationService {
 
   Future<void> _createTimeScheduledNotifications(
     int index,
-    AbstractChabanBridgeForecast chabanBridgeForecast,
+    AbstractForecast forecast,
     BuildContext context,
     TimeOfDay value,
   ) async {
-    final notificationScheduleTime = chabanBridgeForecast.circulationClosingDate
+    final notificationScheduleTime = forecast.circulationClosingDate
         .subtract(
           const Duration(
             days: 1,
@@ -252,7 +248,7 @@ class NotificationService {
     await _scheduleNotification(
       index,
       AppLocalizations.of(context)!.notificationTimeTitle,
-      chabanBridgeForecast.getNotificationTimeMessage(context),
+      forecast.getNotificationTimeMessage(context),
       notificationScheduleTime,
       notificationDetails,
     );
@@ -260,13 +256,13 @@ class NotificationService {
 
   Future<void> _createDurationScheduledNotifications(
     int index,
-    AbstractChabanBridgeForecast chabanBridgeForecast,
+    AbstractForecast forecast,
     BuildContext context,
     Duration durationValue,
     String durationString,
   ) async {
     final notificationScheduleTime =
-        chabanBridgeForecast.circulationClosingDate.subtract(durationValue);
+        forecast.circulationClosingDate.subtract(durationValue);
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationDurationChannelId,
       AppLocalizations.of(context)!.notificationDurationChannelName,
@@ -274,7 +270,7 @@ class NotificationService {
     await _scheduleNotification(
       index,
       AppLocalizations.of(context)!.notificationDurationTitle,
-      chabanBridgeForecast.getNotificationDurationMessage(
+      forecast.getNotificationDurationMessage(
         context,
         durationString,
       ),

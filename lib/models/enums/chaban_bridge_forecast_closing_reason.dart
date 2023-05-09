@@ -1,4 +1,0 @@
-enum ChabanBridgeForecastClosingReason {
-  boat,
-  maintenance;
-}

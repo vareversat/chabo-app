@@ -1,22 +1,22 @@
 import 'package:chabo/extensions/date_time_extension.dart';
-import 'package:chabo/models/enums/chaban_bridge_forecast_closing_reason.dart';
-import 'package:chabo/models/enums/chaban_bridge_forecast_closing_type.dart';
+import 'package:chabo/models/enums/forecast_closing_reason.dart';
+import 'package:chabo/models/enums/forecast_closing_type.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-abstract class AbstractChabanBridgeForecast extends Equatable {
+abstract class AbstractForecast extends Equatable {
   final bool totalClosing;
   late final bool isDuringTwoDays;
-  final ChabanBridgeForecastClosingReason closingReason;
+  final ForecastClosingReason closingReason;
   late final Duration closedDuration;
   late final DateTime _circulationClosingDate;
   late final DateTime _circulationReOpeningDate;
-  final ChabanBridgeForecastClosingType closingType;
+  final ForecastClosingType closingType;
   final List<TimeSlot> interferingTimeSlots = [];
 
-  AbstractChabanBridgeForecast({
+  AbstractForecast({
     required this.totalClosing,
     required this.closingReason,
     required DateTime circulationClosingDate,

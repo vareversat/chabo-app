@@ -2,33 +2,32 @@ import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
-part 'chaban_bridge_status_event.dart';
-part 'chaban_bridge_status_state.dart';
+part 'status_event.dart';
+part 'status_state.dart';
 
-class ChabanBridgeStatusBloc
-    extends Bloc<ChabanBridgeStatusEvent, ChabanBridgeStatusState> {
-  ChabanBridgeStatusBloc() : super(const ChabanBridgeStatusStateInitial()) {
-    on<ChabanBridgeStatusChanged>(
-      _onChabanBridgeStatusChanged,
+class StatusBloc extends Bloc<StatusEvent, StatusState> {
+  StatusBloc() : super(const StatusStateInitial()) {
+    on<StatusChanged>(
+      _onStatusChanged,
     );
-    on<ChabanBridgeStatusRefresh>(
+    on<StatusRefresh>(
       _onRefresh,
     );
-    on<ChabanBridgeStatusDurationChanged>(
+    on<StatusDurationChanged>(
       _onDurationChanged,
     );
   }
 
   void _onDurationChanged(
-    ChabanBridgeStatusDurationChanged event,
-    Emitter<ChabanBridgeStatusState> emit,
+    StatusDurationChanged event,
+    Emitter<StatusState> emit,
   ) {
     emit(
       state.copyWith(
@@ -37,21 +36,21 @@ class ChabanBridgeStatusBloc
     );
   }
 
-  void _onChabanBridgeStatusChanged(
-    ChabanBridgeStatusChanged event,
-    Emitter<ChabanBridgeStatusState> emit,
+  void _onStatusChanged(
+    StatusChanged event,
+    Emitter<StatusState> emit,
   ) {
     emit(
       state.copyWith(
-        currentChabanBridgeForecast: event.currentChabanBridgeForecast,
-        previousChabanBridgeForecast: event.previousChabanBridgeForecast,
+        currentForecast: event.currentForecast,
+        previousForecast: event.previousForecast,
       ),
     );
   }
 
   void _onRefresh(
-    ChabanBridgeStatusRefresh event,
-    Emitter<ChabanBridgeStatusState> emit,
+    StatusRefresh event,
+    Emitter<StatusState> emit,
   ) {
     final Duration? durationUntilNextEvent = _getDurationUntilNextEvent();
     final Duration? durationBetweenPreviousAndNextEvent =
@@ -74,19 +73,19 @@ class ChabanBridgeStatusBloc
         mainMessageStatus: mainMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
-        chabanBridgeStatusLifecycle: state.durationUntilNextEvent !=
+        statusLifecycle: state.durationUntilNextEvent !=
                 Duration.zero // Prevents from displaying the wrong status color
-            ? ChabanBridgeStatusLifecycle.populated
-            : ChabanBridgeStatusLifecycle.empty,
+            ? StatusLifecycle.populated
+            : StatusLifecycle.empty,
         backgroundColor: backgroundColor,
       ),
     );
   }
 
   Color _getBackgroundColor(BuildContext context) {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
-    if (currentChabanBridgeForecast != null) {
-      final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null) {
+      final isOpen = !currentForecast.isCurrentlyClosed();
       if (isOpen &&
           state.durationUntilNextEvent.inMinutes <
               state.durationForCloseClosing.inMinutes) {
@@ -102,9 +101,9 @@ class ChabanBridgeStatusBloc
   }
 
   Color _getForegroundColor(BuildContext context) {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
-    if (currentChabanBridgeForecast != null) {
-      final isOpen = !currentChabanBridgeForecast.isCurrentlyClosed();
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null) {
+      final isOpen = !currentForecast.isCurrentlyClosed();
       final colorScheme = Theme.of(context).colorScheme;
 
       return isOpen ||
@@ -118,9 +117,9 @@ class ChabanBridgeStatusBloc
   }
 
   String _getTimeMessagePrefix(BuildContext context) {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
-    if (currentChabanBridgeForecast != null) {
-      return currentChabanBridgeForecast.isCurrentlyClosed()
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null) {
+      return currentForecast.isCurrentlyClosed()
           ? '${AppLocalizations.of(context)!.scheduledToOpen.capitalize()} '
           : '${AppLocalizations.of(context)!.nextClosingScheduled.capitalize()} ';
     } else {
@@ -129,14 +128,14 @@ class ChabanBridgeStatusBloc
   }
 
   String _getMainStatus(BuildContext context) {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
-    if (currentChabanBridgeForecast != null &&
-        !currentChabanBridgeForecast.isCurrentlyClosed() &&
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null &&
+        !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes >=
             state.durationForCloseClosing.inMinutes) {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}';
-    } else if (currentChabanBridgeForecast != null &&
-        !currentChabanBridgeForecast.isCurrentlyClosed() &&
+    } else if (currentForecast != null &&
+        !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes <
             state.durationForCloseClosing.inMinutes) {
       return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}';
@@ -146,26 +145,25 @@ class ChabanBridgeStatusBloc
   }
 
   Duration? _getDurationUntilNextEvent() {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
+    final currentForecast = state.currentForecast;
     final DateTime now = DateTime.now();
-    if (currentChabanBridgeForecast != null) {
-      return currentChabanBridgeForecast.isCurrentlyClosed()
-          ? currentChabanBridgeForecast.circulationReOpeningDate.difference(now)
-          : currentChabanBridgeForecast.circulationClosingDate.difference(now);
+    if (currentForecast != null) {
+      return currentForecast.isCurrentlyClosed()
+          ? currentForecast.circulationReOpeningDate.difference(now)
+          : currentForecast.circulationClosingDate.difference(now);
     } else {
       return null;
     }
   }
 
   Duration? _getDurationBetweenPreviousAndNextEvent() {
-    final currentChabanBridgeForecast = state.currentChabanBridgeForecast;
-    final previousChabanBridgeForecast = state.previousChabanBridgeForecast;
-    if (currentChabanBridgeForecast != null &&
-        previousChabanBridgeForecast != null) {
-      return currentChabanBridgeForecast.isCurrentlyClosed()
-          ? currentChabanBridgeForecast.closedDuration
-          : currentChabanBridgeForecast.circulationClosingDate.difference(
-              previousChabanBridgeForecast.circulationReOpeningDate,
+    final currentForecast = state.currentForecast;
+    final previousForecast = state.previousForecast;
+    if (currentForecast != null && previousForecast != null) {
+      return currentForecast.isCurrentlyClosed()
+          ? currentForecast.closedDuration
+          : currentForecast.circulationClosingDate.difference(
+              previousForecast.circulationReOpeningDate,
             );
     } else {
       return null;

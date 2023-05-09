@@ -1,4 +1,0 @@
-enum ChabanBridgeForecastClosingType {
-  partial,
-  complete;
-}

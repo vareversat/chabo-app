@@ -1,14 +1,14 @@
 import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ChabanBridgeForecastInformationDialog extends StatelessWidget {
-  final AbstractChabanBridgeForecast chabanBridgeForecast;
+class ForecastInformationDialog extends StatelessWidget {
+  final AbstractForecast forecast;
 
-  const ChabanBridgeForecastInformationDialog({
+  const ForecastInformationDialog({
     super.key,
-    required this.chabanBridgeForecast,
+    required this.forecast,
   });
 
   @override
@@ -27,7 +27,7 @@ class ChabanBridgeForecastInformationDialog extends StatelessWidget {
       ),
       title: Container(
         decoration: BoxDecoration(
-          color: chabanBridgeForecast.getColor(context, false),
+          color: forecast.getColor(context, false),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(
               15.0,
@@ -45,7 +45,7 @@ class ChabanBridgeForecastInformationDialog extends StatelessWidget {
         ),
         child: Row(
           children: [
-            chabanBridgeForecast.getIconWidget(context, true),
+            forecast.getIconWidget(context, true),
             const SizedBox(width: 20),
             Text(
               AppLocalizations.of(context)!.information,
@@ -67,9 +67,9 @@ class ChabanBridgeForecastInformationDialog extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: chabanBridgeForecast.getInformationWidget(context),
+            child: forecast.getInformationWidget(context),
           ),
-          if (chabanBridgeForecast.interferingTimeSlots.isNotEmpty)
+          if (forecast.interferingTimeSlots.isNotEmpty)
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(

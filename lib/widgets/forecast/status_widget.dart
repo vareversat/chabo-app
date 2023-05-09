@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:chabo/bloc/chaban_bridge_status/chaban_bridge_status_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/extensions/duration_extension.dart';
@@ -29,8 +29,8 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
       (_) {
         Timer.periodic(
           const Duration(seconds: 1),
-          (Timer t) => BlocProvider.of<ChabanBridgeStatusBloc>(context).add(
-            ChabanBridgeStatusRefresh(
+          (Timer t) => BlocProvider.of<StatusBloc>(context).add(
+            StatusRefresh(
               context: context,
             ),
           ),
@@ -42,7 +42,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChabanBridgeStatusBloc, ChabanBridgeStatusState>(
+    return BlocBuilder<StatusBloc, StatusState>(
       builder: (context, state) {
         return AnimatedSize(
           curve: Curves.ease,
@@ -56,8 +56,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                 child: child,
               );
             },
-            child: state.chabanBridgeStatusLifecycle ==
-                    ChabanBridgeStatusLifecycle.empty
+            child: state.statusLifecycle == StatusLifecycle.empty
                 ? Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: MediaQuery.of(context).size.height / 5,
@@ -188,8 +187,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
                                           ),
                                           hasPassed: false,
                                           isCurrent: true,
-                                          chabanBridgeForecast:
-                                              state.currentTarget!,
+                                          forecast: state.currentTarget!,
                                           index: -1,
                                           timeSlots: const [],
                                         ),

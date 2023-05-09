@@ -1,7 +1,7 @@
 part of 'scroll_status_bloc.dart';
 
 class ScrollStatusState {
-  final AbstractChabanBridgeForecast? currentTarget;
+  final AbstractForecast? currentTarget;
   final bool showCurrentStatus;
   final ScrollStatus status;
 
@@ -14,7 +14,7 @@ class ScrollStatusState {
   ScrollStatusState copyWith({
     bool? showCurrentStatus,
     ScrollStatus? status,
-    AbstractChabanBridgeForecast? currentTarget,
+    AbstractForecast? currentTarget,
   }) {
     return ScrollStatusState(
       status: status ?? this.status,

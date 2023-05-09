@@ -1,17 +1,17 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/chaban_bridge_forecast_information_dialog.dart';
+import 'package:chabo/dialogs/forecast_information_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/models/abstract_chaban_bridge_forecast.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ForecastListItemWidget extends StatelessWidget {
-  final AbstractChabanBridgeForecast chabanBridgeForecast;
+  final AbstractForecast forecast;
   final Function()? onTap;
   final bool hasPassed;
   final List<TimeSlot> timeSlots;
@@ -20,7 +20,7 @@ class ForecastListItemWidget extends StatelessWidget {
 
   const ForecastListItemWidget({
     Key? key,
-    required this.chabanBridgeForecast,
+    required this.forecast,
     required this.index,
     required this.hasPassed,
     required this.isCurrent,
@@ -46,7 +46,7 @@ class ForecastListItemWidget extends StatelessWidget {
                   side: isCurrent
                       ? BorderSide(
                           width: 2,
-                          color: chabanBridgeForecast.getColor(context, false),
+                          color: forecast.getColor(context, false),
                         )
                       : BorderSide.none,
                 ),
@@ -74,8 +74,8 @@ class ForecastListItemWidget extends StatelessWidget {
                                 sigmaX: CustomProperties.blurSigmaX,
                                 sigmaY: CustomProperties.blurSigmaY,
                               ),
-                              child: ChabanBridgeForecastInformationDialog(
-                                chabanBridgeForecast: chabanBridgeForecast,
+                              child: ForecastInformationDialog(
+                                forecast: forecast,
                               ),
                             ),
                           );
@@ -104,13 +104,13 @@ class ForecastListItemWidget extends StatelessWidget {
                           CustomProperties.borderRadius,
                         ),
                       ),
-                      color: chabanBridgeForecast.getColor(
+                      color: forecast.getColor(
                         context,
                         false,
                       ),
                     ),
                     child: Center(
-                      child: chabanBridgeForecast.getIconWidget(
+                      child: forecast.getIconWidget(
                         context,
                         true,
                       ),
@@ -132,14 +132,14 @@ class ForecastListItemWidget extends StatelessWidget {
                             Text(
                               MaterialLocalizations.of(context)
                                   .formatMediumDate(
-                                chabanBridgeForecast.circulationClosingDate,
+                                forecast.circulationClosingDate,
                               ),
                               style: textTheme.bodySmall,
                             ),
                           ],
                         ),
                         Text(
-                          chabanBridgeForecast.circulationClosingDateString(
+                          forecast.circulationClosingDateString(
                             context,
                           ),
                           style: textTheme.headlineSmall,
@@ -153,8 +153,7 @@ class ForecastListItemWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          chabanBridgeForecast.closedDuration
-                              .durationToString(context),
+                          forecast.closedDuration.durationToString(context),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.timeColor,
                             fontWeight: FontWeight.bold,
@@ -184,14 +183,14 @@ class ForecastListItemWidget extends StatelessWidget {
                             Text(
                               MaterialLocalizations.of(context)
                                   .formatMediumDate(
-                                chabanBridgeForecast.circulationReOpeningDate,
+                                forecast.circulationReOpeningDate,
                               ),
                               style: textTheme.bodySmall,
                             ),
                           ],
                         ),
                         Text(
-                          chabanBridgeForecast.circulationReOpeningDateString(
+                          forecast.circulationReOpeningDateString(
                             context,
                           ),
                           style: textTheme.headlineSmall,

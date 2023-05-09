@@ -10,7 +10,7 @@ class Const {
   static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
 
   /// List
-  static const int chabanBridgeForecastLimit = 1000;
+  static const int forecastLimit = 1000;
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';

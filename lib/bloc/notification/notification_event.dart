@@ -70,7 +70,7 @@ class ValueTimeSlotEvent extends NotificationEvent {
 }
 
 class ComputeNotificationEvent extends NotificationEvent {
-  final List<AbstractChabanBridgeForecast> forecasts;
+  final List<AbstractForecast> forecasts;
   final BuildContext context;
 
   ComputeNotificationEvent({required this.forecasts, required this.context})

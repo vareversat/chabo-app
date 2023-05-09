@@ -1,9 +1,9 @@
-part of 'chaban_bridge_status_bloc.dart';
+part of 'status_bloc.dart';
 
-class ChabanBridgeStatusState extends Equatable {
-  final ChabanBridgeStatusLifecycle chabanBridgeStatusLifecycle;
-  final AbstractChabanBridgeForecast? currentChabanBridgeForecast;
-  final AbstractChabanBridgeForecast? previousChabanBridgeForecast;
+class StatusState extends Equatable {
+  final StatusLifecycle statusLifecycle;
+  final AbstractForecast? currentForecast;
+  final AbstractForecast? previousForecast;
   final Duration durationUntilNextEvent;
   final Duration durationForCloseClosing;
   final Duration? durationBetweenPreviousAndNextEvent;
@@ -13,10 +13,10 @@ class ChabanBridgeStatusState extends Equatable {
   final Color foregroundColor;
   final Color backgroundColor;
 
-  const ChabanBridgeStatusState({
-    required this.chabanBridgeStatusLifecycle,
-    required this.currentChabanBridgeForecast,
-    required this.previousChabanBridgeForecast,
+  const StatusState({
+    required this.statusLifecycle,
+    required this.currentForecast,
+    required this.previousForecast,
     required this.durationUntilNextEvent,
     required this.durationForCloseClosing,
     required this.durationBetweenPreviousAndNextEvent,
@@ -27,10 +27,10 @@ class ChabanBridgeStatusState extends Equatable {
     required this.backgroundColor,
   });
 
-  ChabanBridgeStatusState copyWith({
-    ChabanBridgeStatusLifecycle? chabanBridgeStatusLifecycle,
-    AbstractChabanBridgeForecast? currentChabanBridgeForecast,
-    AbstractChabanBridgeForecast? previousChabanBridgeForecast,
+  StatusState copyWith({
+    StatusLifecycle? statusLifecycle,
+    AbstractForecast? currentForecast,
+    AbstractForecast? previousForecast,
     Duration? durationUntilNextEvent,
     Duration? durationForCloseClosing,
     Duration? durationBetweenPreviousAndNextEvent,
@@ -40,13 +40,10 @@ class ChabanBridgeStatusState extends Equatable {
     Color? foregroundColor,
     Color? backgroundColor,
   }) {
-    return ChabanBridgeStatusState(
-      chabanBridgeStatusLifecycle:
-          chabanBridgeStatusLifecycle ?? this.chabanBridgeStatusLifecycle,
-      currentChabanBridgeForecast:
-          currentChabanBridgeForecast ?? this.currentChabanBridgeForecast,
-      previousChabanBridgeForecast:
-          previousChabanBridgeForecast ?? this.previousChabanBridgeForecast,
+    return StatusState(
+      statusLifecycle: statusLifecycle ?? this.statusLifecycle,
+      currentForecast: currentForecast ?? this.currentForecast,
+      previousForecast: previousForecast ?? this.previousForecast,
       durationUntilNextEvent:
           durationUntilNextEvent ?? this.durationUntilNextEvent,
       durationForCloseClosing:
@@ -64,9 +61,9 @@ class ChabanBridgeStatusState extends Equatable {
 
   @override
   List<Object?> get props => [
-        chabanBridgeStatusLifecycle,
-        currentChabanBridgeForecast,
-        previousChabanBridgeForecast,
+        statusLifecycle,
+        currentForecast,
+        previousForecast,
         durationUntilNextEvent,
         durationForCloseClosing,
         durationBetweenPreviousAndNextEvent,
@@ -78,15 +75,15 @@ class ChabanBridgeStatusState extends Equatable {
       ];
 }
 
-class ChabanBridgeStatusStateInitial extends ChabanBridgeStatusState {
-  const ChabanBridgeStatusStateInitial()
+class StatusStateInitial extends StatusState {
+  const StatusStateInitial()
       : super(
-          previousChabanBridgeForecast: null,
-          currentChabanBridgeForecast: null,
+          previousForecast: null,
+          currentForecast: null,
           durationUntilNextEvent: Duration.zero,
           durationBetweenPreviousAndNextEvent: null,
           durationForCloseClosing: Const.notificationDurationValueDefaultValue,
-          chabanBridgeStatusLifecycle: ChabanBridgeStatusLifecycle.empty,
+          statusLifecycle: StatusLifecycle.empty,
           completionPercentage: 0,
           mainMessageStatus: '',
           timeMessagePrefix: '',
@@ -95,4 +92,4 @@ class ChabanBridgeStatusStateInitial extends ChabanBridgeStatusState {
         );
 }
 
-enum ChabanBridgeStatusLifecycle { empty, populated }
+enum StatusLifecycle { empty, populated }
