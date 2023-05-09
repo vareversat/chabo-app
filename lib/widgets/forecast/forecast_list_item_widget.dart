@@ -88,13 +88,13 @@ class ForecastListItemWidget extends StatelessWidget {
                       ),
                     },
             child: SizedBox(
-              height: 65,
+              height: 60,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 55,
-                    height: 65,
+                    height: 60,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(
@@ -201,7 +201,7 @@ class ForecastListItemWidget extends StatelessWidget {
                   timeSlots.isNotEmpty
                       ? Container(
                           width: 30,
-                          height: 65,
+                          height: 60,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(
