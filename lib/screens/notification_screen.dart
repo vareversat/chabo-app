@@ -65,51 +65,54 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
               builder: (context, notificationState) {
                 return Column(
                   children: [
-                    Builder(builder: (context) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        if (!notificationState.notificationEnabled) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: const Duration(seconds: 10),
-                              showCloseIcon: true,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.error,
-                              content: Column(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .notificationNotEnabledMessage,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onError,
+                    Builder(
+                      builder: (context) {
+                        WidgetsBinding.instance.addPostFrameCallback(
+                          (_) {
+                            if (!notificationState.notificationEnabled) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  duration: const Duration(seconds: 10),
+                                  showCloseIcon: true,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.error,
+                                  content: Column(
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .notificationNotEnabledMessage,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onError,
+                                            ),
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () => AppSettings
+                                            .openNotificationSettings(),
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .notificationNotEnabledOpenSettings,
                                         ),
-                                    overflow: TextOverflow.visible,
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () =>
-                                        AppSettings.openNotificationSettings(),
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .notificationNotEnabledOpenSettings,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-                      });
+                                ),
+                              );
+                            }
+                          },
+                        );
 
-                      return const SizedBox.shrink();
-                    }),
+                        return const SizedBox.shrink();
+                      },
+                    ),
                     Column(
                       children: [
                         _CustomListTile(
