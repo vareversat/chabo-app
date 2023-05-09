@@ -1,3 +1,11 @@
+# **v1.6.1** :
+
+- *Fix*:
+  - El snackbar de advertencia de la activación de las notificaciones en las ranuras está ahora correctamente en su lugar
+- *Interfaz*:
+  - Añadir un relleno para mostrar el último elemento de la lista de cierres
+  - Ahora solo se muestra un anuncio
+***
 # **v1.6.0** :
 
 - *Funcionalidades*:

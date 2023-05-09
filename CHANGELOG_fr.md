@@ -1,3 +1,11 @@
+# **v1.6.1** :
+
+- *Fix*:
+  - La SnackBar d'avertissement de l'activation des notifications sur les créneaux est maintenant correctement en place
+- *Interface*:
+  - Ajout d'un padding pour afficher le dernier élément de la liste des fermetures
+  - Seulement une seule publicité est maintenant affichée
+***
 # **v1.6.0** :
 
 - *Fonctionnalités*:

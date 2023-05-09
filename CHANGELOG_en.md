@@ -1,3 +1,11 @@
+# **v1.6.1** :
+
+- *Fix*:
+  - The SnackBar warning of activation of notifications on slots is now correctly in place
+- *Interface*:
+  - Adding a padding to display the last item in the closures list
+  - Only one ad is now displayed
+***
 # **v1.6.0** :
 
 - *Features*:
