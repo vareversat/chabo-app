@@ -14,7 +14,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   final StorageService storageService;
 
   ThemeBloc({required this.storageService})
-      : super(ThemeState(themeData: AppThemes.lightTheme)) {
+      : super(ThemeState(themeData: AppTheme.lightTheme)) {
     on<ThemeChanged>(
       _onThemeChanged,
     );
@@ -27,11 +27,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     var brightness =
         SchedulerBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-    return isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme;
+
+    return isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   }
 
-  Future<void> _onAppStateChanged(
-      AppStateChanged event, Emitter<ThemeState> emit) async {
+  void _onAppStateChanged(
+    AppStateChanged event,
+    Emitter<ThemeState> emit,
+  ) {
     var savedStatus = storageService.readTheme(Const.storageThemeKey);
     if (savedStatus == null) {
       emit(
@@ -45,14 +48,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         emit(
           state.copyWith(
             status: ThemeStateStatus.light,
-            themeData: AppThemes.lightTheme,
+            themeData: AppTheme.lightTheme,
           ),
         );
       } else if (savedStatus == ThemeStateStatus.dark) {
         emit(
           state.copyWith(
             status: ThemeStateStatus.dark,
-            themeData: AppThemes.darkTheme,
+            themeData: AppTheme.darkTheme,
           ),
         );
       } else if (savedStatus == ThemeStateStatus.system) {
@@ -67,7 +70,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   }
 
   Future<void> _onThemeChanged(
-      ThemeChanged event, Emitter<ThemeState> emit) async {
+    ThemeChanged event,
+    Emitter<ThemeState> emit,
+  ) async {
     await storageService.saveTheme(
       Const.storageThemeKey,
       event.status,
@@ -76,14 +81,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       emit(
         state.copyWith(
           status: ThemeStateStatus.light,
-          themeData: AppThemes.lightTheme,
+          themeData: AppTheme.lightTheme,
         ),
       );
     } else if (event.status == ThemeStateStatus.dark) {
       emit(
         state.copyWith(
           status: ThemeStateStatus.dark,
-          themeData: AppThemes.darkTheme,
+          themeData: AppTheme.darkTheme,
         ),
       );
     } else if (event.status == ThemeStateStatus.system) {

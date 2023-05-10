@@ -8,14 +8,14 @@ class ThemeState {
 
   ThemeState copyWith({ThemeStateStatus? status, ThemeData? themeData}) {
     return ThemeState(
-        status: status ?? this.status, themeData: themeData ?? this.themeData);
+      status: status ?? this.status,
+      themeData: themeData ?? this.themeData,
+    );
   }
 
   IconData getIconData() {
-    if (themeData == AppThemes.lightTheme) {
-      return Icons.brightness_low;
-    } else {
-      return Icons.dark_mode_outlined;
-    }
+    return themeData == AppTheme.lightTheme
+        ? Icons.brightness_low
+        : Icons.dark_mode_outlined;
   }
 }

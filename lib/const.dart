@@ -1,5 +1,6 @@
 import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/link_icon.dart';
+import 'package:chabo/models/time_slot.dart';
+import 'package:chabo/models/web_link_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,7 +10,7 @@ class Const {
   static String legalLease = '© ${DateTime.now().year} - Valentin REVERSAT';
 
   /// List
-  static const int chabanBridgeForecastLimit = 1000;
+  static const int forecastLimit = 1000;
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';
@@ -24,16 +25,31 @@ class Const {
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
 
   static List<WebLinkIcon> usefulLinks = [
-    WebLinkIcon('https://www.instagram.com/_yuhliet_/',
-        FontAwesomeIcons.instagram, 'yuhliet_instagram'),
-    WebLinkIcon('https://bordeaux-metropole.fr/', Icons.location_city_rounded,
-        'city_of_bordeaux'),
-    WebLinkIcon('https://opendata.bordeaux-metropole.fr/',
-        Icons.data_thresholding_rounded, 'bordeaux_open_data'),
-    WebLinkIcon('https://github.com/vareversat/chabo', FontAwesomeIcons.github,
-        'source_code'),
-    WebLinkIcon('https://chabo.vareversat.fr/privacy',
-        Icons.privacy_tip_rounded, 'privacy_policy'),
+    WebLinkIcon(
+      'https://www.instagram.com/_yuhliet_/',
+      FontAwesomeIcons.instagram,
+      'yuhliet_instagram',
+    ),
+    WebLinkIcon(
+      'https://bordeaux-metropole.fr/',
+      Icons.location_city_rounded,
+      'city_of_bordeaux',
+    ),
+    WebLinkIcon(
+      'https://opendata.bordeaux-metropole.fr/',
+      Icons.data_thresholding_rounded,
+      'bordeaux_open_data',
+    ),
+    WebLinkIcon(
+      'https://github.com/vareversat/chabo',
+      FontAwesomeIcons.github,
+      'source_code',
+    ),
+    WebLinkIcon(
+      'https://chabo.vareversat.fr/privacy',
+      Icons.privacy_tip_rounded,
+      'privacy_policy',
+    ),
   ];
 
   /// Local storage
@@ -57,13 +73,17 @@ class Const {
   static const String notificationClosingEnabledKey =
       'NOTIFICATION_CLOSING_SETTINGS_ENABLED';
   static const String isRightHandedKey = 'RIGHT_HANDED';
+  static const String notificationFavoriteSlotsEnabledKey =
+      'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_ENABLED';
+  static const String notificationFavoriteSlotsValueKey =
+      'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
 
   /// Notifications
   static const String androidAppLogoPath =
       '@mipmap/ic_slice_launcher_adaptive_fore';
   static const Duration notificationDurationValueDefaultValue =
       Duration(minutes: 60);
-  static const bool notificationDurationEnabledDefaultValue = true;
+  static const bool notificationDurationEnabledDefaultValue = false;
   static TimeOfDay notificationTimeValueDefaultValue =
       const TimeOfDay(hour: 6, minute: 0);
   static const bool notificationTimeEnabledDefaultValue = false;
@@ -73,6 +93,25 @@ class Const {
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;
+  static const bool notificationFavoriteSlotsEnabledDefaultValue = false;
+  static List<TimeSlot> notificationFavoriteSlotsDefaultValue = [
+    const TimeSlot(
+      name: '',
+      from: TimeOfDay(hour: 7, minute: 0),
+      to: TimeOfDay(
+        hour: 9,
+        minute: 30,
+      ),
+    ),
+    const TimeSlot(
+      name: '',
+      from: TimeOfDay(hour: 17, minute: 0),
+      to: TimeOfDay(
+        hour: 19,
+        minute: 30,
+      ),
+    ),
+  ];
 
   /// UI
   static const bool isRightHandedDefaultValue = true;

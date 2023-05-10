@@ -1,3 +1,20 @@
+# **v1.6.1** :
+
+- *Fix*:
+  - El snackbar de advertencia de la activación de las notificaciones en las ranuras está ahora correctamente en su lugar
+- *Interfaz*:
+  - Añadir un relleno para mostrar el último elemento de la lista de cierres
+  - Ahora solo se muestra un anuncio
+***
+# **v1.6.0** :
+
+- *Funcionalidades*:
+  - Ahora es posible añadir dos franjas horarias favoritas para ser notificado solo de los eventos impactantes
+- *Interfaz*:
+  - Reordenar la lista de cierres para que sea más fácil de leer.
+  - Resalta eventos impactantes con un borde naranja.
+  - Añadido un mensaje si las notificaciones están desactivadas
+***
 # **v1.4.0** :
 
 - *Características*:

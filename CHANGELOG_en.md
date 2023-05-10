@@ -1,3 +1,20 @@
+# **v1.6.1** :
+
+- *Fix*:
+  - The SnackBar warning of activation of notifications on slots is now correctly in place
+- *Interface*:
+  - Adding a padding to display the last item in the closures list
+  - Only one ad is now displayed
+***
+# **v1.6.0** :
+
+- *Features*:
+  - It is now possible to add two favorite slots to be notified only of impacting events
+- *Interface*:
+  - Revised list of closures to make it easier to read.
+  - Highlighting impacting events with an orange border.
+  - Adding a message if notifications are disabled
+***
 # **v1.4.0** :
 
 - *Features*:

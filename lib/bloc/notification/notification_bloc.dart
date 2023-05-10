@@ -1,6 +1,12 @@
+import 'dart:async';
+
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
 import 'package:chabo/const.dart';
+import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/time_slot.dart';
+import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,154 +15,287 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'notification_event.dart';
 part 'notification_state.dart';
 
-class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
+class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final StorageService storageService;
+  final NotificationService notificationService;
 
-  NotificationBloc({required this.storageService})
-      : super(
-          NotificationSate(
-              durationNotificationEnabled:
-                  Const.notificationDurationEnabledDefaultValue,
-              durationNotificationValue:
-                  Const.notificationDurationValueDefaultValue,
-              timeNotificationEnabled:
-                  Const.notificationTimeEnabledDefaultValue,
-              timeNotificationValue: Const.notificationTimeValueDefaultValue,
-              dayNotificationEnabled: Const.notificationDayEnabledDefaultValue,
-              dayNotificationValue: Const.notificationDayValueDefaultValue,
-              dayNotificationTimeValue:
-                  Const.notificationDayValueDefaultTimeValue,
-              openingNotificationEnabled:
-                  Const.notificationOpeningEnabledDefaultValue,
-              closingNotificationEnabled:
-                  Const.notificationClosingEnabledDefaultValue),
+  NotificationBloc({
+    required this.storageService,
+    required this.notificationService,
+  }) : super(
+          NotificationState(
+            durationNotificationEnabled:
+                Const.notificationDurationEnabledDefaultValue,
+            durationNotificationValue:
+                Const.notificationDurationValueDefaultValue,
+            timeNotificationEnabled: Const.notificationTimeEnabledDefaultValue,
+            timeNotificationValue: Const.notificationTimeValueDefaultValue,
+            dayNotificationEnabled: Const.notificationDayEnabledDefaultValue,
+            dayNotificationValue: Const.notificationDayValueDefaultValue,
+            dayNotificationTimeValue:
+                Const.notificationDayValueDefaultTimeValue,
+            openingNotificationEnabled:
+                Const.notificationOpeningEnabledDefaultValue,
+            closingNotificationEnabled:
+                Const.notificationClosingEnabledDefaultValue,
+            timeSlotsEnabledForNotifications:
+                Const.notificationFavoriteSlotsEnabledDefaultValue,
+            timeSlotsValue: Const.notificationFavoriteSlotsDefaultValue,
+            notificationEnabled: false,
+          ),
         ) {
     on<OpeningNotificationStateEvent>(
       _onOpeningNotificationStateEvent,
+      transformer: sequential(),
     );
     on<ClosingNotificationStateEvent>(
       _onClosingNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DayNotificationStateEvent>(
       _onDayNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DayNotificationValueEvent>(
       _onDayNotificationValueEvent,
+      transformer: sequential(),
     );
     on<DayNotificationTimeValueEvent>(
       _onDayNotificationTimeValueEvent,
+      transformer: sequential(),
     );
     on<TimeNotificationStateEvent>(
       _onTimeNotificationStateEvent,
+      transformer: sequential(),
     );
     on<TimeNotificationValueEvent>(
       _onTimeNotificationValueEvent,
+      transformer: sequential(),
     );
     on<DurationNotificationStateEvent>(
       _onDurationNotificationStateEvent,
+      transformer: sequential(),
     );
     on<DurationNotificationValueEvent>(
       _onDurationNotificationValueEvent,
+      transformer: sequential(),
+    );
+    on<EnabledTimeSlotEvent>(
+      _onEnabledTimeSlotEvent,
+      transformer: sequential(),
+    );
+    on<ValueTimeSlotEvent>(
+      _onTimeSlotsEventValue,
+      transformer: sequential(),
+    );
+    on<ComputeNotificationEvent>(
+      _onComputeNotificationEvent,
+      transformer: sequential(),
     );
     on<AppEvent>(
       _onAppEvent,
+      transformer: sequential(),
     );
   }
 
   Future<void> _onOpeningNotificationStateEvent(
-      OpeningNotificationStateEvent event,
-      Emitter<NotificationSate> emit) async {
+    OpeningNotificationStateEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationOpeningEnabledKey, event.enabled);
+      Const.notificationOpeningEnabledKey,
+      event.enabled,
+    );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(openingNotificationEnabled: event.enabled),
+      state.copyWith(
+        openingNotificationEnabled: event.enabled,
+      ),
     );
   }
 
   Future<void> _onClosingNotificationStateEvent(
-      ClosingNotificationStateEvent event,
-      Emitter<NotificationSate> emit) async {
+    ClosingNotificationStateEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationClosingEnabledKey, event.enabled);
+      Const.notificationClosingEnabledKey,
+      event.enabled,
+    );
+
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(closingNotificationEnabled: event.enabled),
+      state.copyWith(
+        closingNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
   Future<void> _onDayNotificationStateEvent(
-      DayNotificationStateEvent event, Emitter<NotificationSate> emit) async {
+    DayNotificationStateEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationDayEnabledKey, event.enabled);
+      Const.notificationDayEnabledKey,
+      event.enabled,
+    );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(dayNotificationEnabled: event.enabled),
+      state.copyWith(
+        dayNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
   Future<void> _onDayNotificationValueEvent(
-      DayNotificationValueEvent event, Emitter<NotificationSate> emit) async {
-    await storageService.saveDay(Const.notificationDayValueKey, event.day);
+    DayNotificationValueEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    await storageService.saveDay(
+      Const.notificationDayValueKey,
+      event.day,
+    );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(dayNotificationValue: event.day),
+      state.copyWith(
+        dayNotificationValue: event.day,
+      ),
     );
   }
 
   Future<void> _onDayNotificationTimeValueEvent(
-      DayNotificationTimeValueEvent event,
-      Emitter<NotificationSate> emit) async {
+    DayNotificationTimeValueEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveTimeOfDay(
-        Const.notificationDayTimeValueKey, event.time);
+      Const.notificationDayTimeValueKey,
+      event.time,
+    );
     HapticFeedback.lightImpact();
     emit(
-      state.copyWith(dayNotificationTimeValue: event.time),
+      state.copyWith(
+        dayNotificationTimeValue: event.time,
+      ),
     );
   }
 
   Future<void> _onTimeNotificationStateEvent(
-      TimeNotificationStateEvent event, Emitter<NotificationSate> emit) async {
+    TimeNotificationStateEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationTimeEnabledKey, event.enabled);
+      Const.notificationTimeEnabledKey,
+      event.enabled,
+    );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(timeNotificationEnabled: event.enabled),
+      state.copyWith(
+        timeNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
   Future<void> _onTimeNotificationValueEvent(
-      TimeNotificationValueEvent event, Emitter<NotificationSate> emit) async {
+    TimeNotificationValueEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveTimeOfDay(
-        Const.notificationTimeValueKey, event.time);
+      Const.notificationTimeValueKey,
+      event.time,
+    );
     emit(
-      state.copyWith(timeNotificationValue: event.time),
+      state.copyWith(
+        timeNotificationValue: event.time,
+      ),
     );
   }
 
   Future<void> _onDurationNotificationStateEvent(
-      DurationNotificationStateEvent event,
-      Emitter<NotificationSate> emit) async {
+    DurationNotificationStateEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveBool(
-        Const.notificationDurationEnabledKey, event.enabled);
+      Const.notificationDurationEnabledKey,
+      event.enabled,
+    );
     HapticFeedback.lightImpact();
+    final enabled = await notificationService.areNotificationsEnabled();
     emit(
-      state.copyWith(durationNotificationEnabled: event.enabled),
+      state.copyWith(
+        durationNotificationEnabled: event.enabled,
+        notificationEnabled: enabled,
+      ),
     );
   }
 
   Future<void> _onDurationNotificationValueEvent(
-      DurationNotificationValueEvent event,
-      Emitter<NotificationSate> emit) async {
+    DurationNotificationValueEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     await storageService.saveDuration(
-        Const.notificationDurationValueKey, event.duration);
+      Const.notificationDurationValueKey,
+      event.duration,
+    );
     emit(
       state.copyWith(durationNotificationValue: event.duration),
     );
   }
 
-  Future<void> _onAppEvent(
-      AppEvent event, Emitter<NotificationSate> emit) async {
+  Future<void> _onEnabledTimeSlotEvent(
+    EnabledTimeSlotEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    await storageService.saveBool(
+      Const.notificationFavoriteSlotsEnabledKey,
+      event.enabled,
+    );
+    HapticFeedback.lightImpact();
+
+    emit(state.copyWith(
+      timeSlotsEnabledForNotifications: event.enabled,
+    ));
+  }
+
+  Future<void> _onTimeSlotsEventValue(
+    ValueTimeSlotEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    final timeSlots = List<TimeSlot>.from(state.timeSlotsValue);
+    timeSlots[event.index] = event.timeSlot;
+    await storageService.saveTimeSlots(
+      Const.notificationFavoriteSlotsValueKey,
+      timeSlots,
+    );
+    HapticFeedback.lightImpact();
+
+    emit(
+      state.copyWith(
+        timeSlotsValue: timeSlots,
+      ),
+    );
+  }
+
+  Future<void> _onComputeNotificationEvent(
+    ComputeNotificationEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
+    await notificationService.computeNotifications(
+      event.forecasts,
+      state,
+      event.context,
+    );
+  }
+
+  void _onAppEvent(
+    AppEvent event,
+    Emitter<NotificationState> emit,
+  ) async {
     final durationNotificationEnabled =
         storageService.readBool(Const.notificationDurationEnabledKey) ??
             Const.notificationDurationEnabledDefaultValue;
@@ -193,17 +332,31 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationSate> {
         storageService.readBool(Const.notificationClosingEnabledKey) ??
             Const.notificationClosingEnabledDefaultValue;
 
+    final timeSlots =
+        storageService.readTimeSlots(Const.notificationFavoriteSlotsValueKey) ??
+            Const.notificationFavoriteSlotsDefaultValue;
+
+    final enabledForNotifications =
+        storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
+            Const.notificationFavoriteSlotsEnabledDefaultValue;
+
+    final enabled = await notificationService.areNotificationsEnabled();
+
     emit(
       state.copyWith(
-          durationNotificationEnabled: durationNotificationEnabled,
-          durationNotificationValue: durationNotificationValue,
-          timeNotificationEnabled: timeNotificationEnabled,
-          timeNotificationValue: timeNotificationValue,
-          dayNotificationEnabled: dayNotificationEnabled,
-          dayNotificationValue: dayNotificationValue,
-          dayNotificationTimeValue: dayNotificationTimeValue,
-          openingNotificationEnabled: openingNotificationEnabled,
-          closingNotificationEnabled: closingNotificationEnabled),
+        durationNotificationEnabled: durationNotificationEnabled,
+        durationNotificationValue: durationNotificationValue,
+        timeNotificationEnabled: timeNotificationEnabled,
+        timeNotificationValue: timeNotificationValue,
+        dayNotificationEnabled: dayNotificationEnabled,
+        dayNotificationValue: dayNotificationValue,
+        dayNotificationTimeValue: dayNotificationTimeValue,
+        openingNotificationEnabled: openingNotificationEnabled,
+        closingNotificationEnabled: closingNotificationEnabled,
+        timeSlotsValue: timeSlots,
+        timeSlotsEnabledForNotifications: enabledForNotifications,
+        notificationEnabled: enabled,
+      ),
     );
   }
 }

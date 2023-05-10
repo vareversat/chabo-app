@@ -31,20 +31,25 @@ class Boat {
         decoration: TextDecoration.underline,
       ),
     );
-    if (isLeaving) {
-      return TextSpan(children: [
-        TextSpan(
-            text:
-                '${AppLocalizations.of(context)!.dialogInformationContentBridgeDeparture} '),
-        textSpanLink,
-      ]);
-    } else {
-      return TextSpan(children: [
-        TextSpan(
-            text:
-                '${AppLocalizations.of(context)!.dialogInformationContentBridgeArrival} '),
-        textSpanLink,
-      ]);
-    }
+
+    return isLeaving
+        ? TextSpan(
+            children: [
+              TextSpan(
+                text:
+                    '${AppLocalizations.of(context)!.dialogInformationContentBridgeDeparture} ',
+              ),
+              textSpanLink,
+            ],
+          )
+        : TextSpan(
+            children: [
+              TextSpan(
+                text:
+                    '${AppLocalizations.of(context)!.dialogInformationContentBridgeArrival} ',
+              ),
+              textSpanLink,
+            ],
+          );
   }
 }

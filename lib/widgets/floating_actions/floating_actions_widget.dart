@@ -4,7 +4,7 @@ import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
 import 'package:chabo/screens/notification_screen.dart';
-import 'package:chabo/widgets/floating_actions/floating_action_item.dart';
+import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,8 +41,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               ),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return FadeTransition(
-                  opacity:
-                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  opacity: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeIn,
+                  ),
                   child: SlideTransition(
                     position: Tween(
                       begin: const Offset(0.0, 1.0),
@@ -95,7 +97,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                   ),
                                 ),
                                 builder: (context) {
-                                  return const TheSwitcherWidget();
+                                  return const ThemeSwitcherWidget();
                                 },
                               );
                               context
@@ -104,7 +106,9 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             },
                             content: [
                               Text(AppLocalizations.of(context)!.themeSetting),
-                              const Icon(Icons.format_paint_rounded)
+                              const Icon(
+                                Icons.format_paint_rounded,
+                              ),
                             ],
                             isRightHanded: state.isRightHanded,
                             isSpaced: true,
@@ -116,8 +120,12 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                   pageBuilder:
                                       (context, animation1, animation2) =>
                                           const NotificationScreen(),
-                                  transitionsBuilder: (context, animation,
-                                      secondaryAnimation, child) {
+                                  transitionsBuilder: (
+                                    context,
+                                    animation,
+                                    secondaryAnimation,
+                                    child,
+                                  ) {
                                     const begin = Offset(0.0, 1.0);
                                     const end = Offset.zero;
                                     const curve = Curves.ease;
@@ -217,11 +225,12 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                           end: const Offset(0.0, 0.0),
                         ).animate(animation),
                         child: FadeTransition(
-                            opacity: CurvedAnimation(
-                              parent: animation,
-                              curve: Curves.easeIn,
-                            ),
-                            child: child),
+                          opacity: CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeIn,
+                          ),
+                          child: child,
+                        ),
                       );
                     },
                     child: state.isMenuOpen

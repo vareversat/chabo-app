@@ -7,7 +7,7 @@ class ScrollStatusChanged extends ScrollStatusEvent {
 }
 
 class GoTo extends ScrollStatusEvent {
-  final AbstractChabanBridgeForecast? goTo;
+  final AbstractForecast? goTo;
 
   GoTo({this.goTo}) : super();
 }
