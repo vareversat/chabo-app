@@ -1,5 +1,7 @@
-import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/custom_properties.dart';
+import 'package:chabo/helpers/custom_page_routes.dart';
 import 'package:chabo/models/abstract_forecast.dart';
+import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,6 +15,8 @@ class ForecastInformationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -59,7 +63,7 @@ class ForecastInformationDialog extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          15,
+          CustomProperties.borderRadius,
         ),
       ),
       content: Column(
@@ -73,7 +77,7 @@ class ForecastInformationDialog extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.warningColor,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     15.0,
@@ -83,20 +87,46 @@ class ForecastInformationDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      AppLocalizations.of(context)!
-                          .favoriteSlotsInterferenceWarning,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        color: Theme.of(context).cardColor,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        AppLocalizations.of(context)!
+                            .favoriteSlotsInterferenceWarning,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                          color: Theme.of(context).cardColor,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          colorScheme.secondaryContainer,
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                      onPressed: () => {
+                        Navigator.of(context).pop(),
+                        Navigator.of(context).push(
+                          BottomToTopPageRoute(
+                            builder: (context) => const NotificationScreen(
+                              highlightTimeSlots: true,
+                            ),
+                          ),
+                        ),
+                      },
+                      child: const Icon(
+                        Icons.notifications_active,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
         ],

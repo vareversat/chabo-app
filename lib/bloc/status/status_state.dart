@@ -12,6 +12,7 @@ class StatusState extends Equatable {
   final String timeMessagePrefix;
   final Color foregroundColor;
   final Color backgroundColor;
+  final StatusWidgetDimension statusWidgetDimension;
 
   const StatusState({
     required this.statusLifecycle,
@@ -25,6 +26,7 @@ class StatusState extends Equatable {
     required this.timeMessagePrefix,
     required this.foregroundColor,
     required this.backgroundColor,
+    required this.statusWidgetDimension,
   });
 
   StatusState copyWith({
@@ -39,6 +41,7 @@ class StatusState extends Equatable {
     String? timeMessagePrefix,
     Color? foregroundColor,
     Color? backgroundColor,
+    StatusWidgetDimension? statusWidgetDimension,
   }) {
     return StatusState(
       statusLifecycle: statusLifecycle ?? this.statusLifecycle,
@@ -56,6 +59,8 @@ class StatusState extends Equatable {
       timeMessagePrefix: timeMessagePrefix ?? this.timeMessagePrefix,
       foregroundColor: foregroundColor ?? this.foregroundColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
+      statusWidgetDimension:
+          statusWidgetDimension ?? this.statusWidgetDimension,
     );
   }
 
@@ -72,6 +77,7 @@ class StatusState extends Equatable {
         timeMessagePrefix,
         foregroundColor,
         backgroundColor,
+        statusWidgetDimension,
       ];
 }
 
@@ -89,7 +95,10 @@ class StatusStateInitial extends StatusState {
           timeMessagePrefix: '',
           foregroundColor: Colors.white,
           backgroundColor: Colors.white,
+          statusWidgetDimension: StatusWidgetDimension.large,
         );
 }
 
 enum StatusLifecycle { empty, populated }
+
+enum StatusWidgetDimension { small, large }

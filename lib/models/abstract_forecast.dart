@@ -92,6 +92,10 @@ abstract class AbstractForecast extends Equatable {
     return isOverlappingWith(DateTime.now());
   }
 
+  bool hasPassed() {
+    return circulationReOpeningDate.isBefore(DateTime.now());
+  }
+
   bool isOverlappingWith(DateTime dateTime) {
     return dateTime.isAfter(circulationClosingDate) &&
         dateTime.isBefore(circulationReOpeningDate);

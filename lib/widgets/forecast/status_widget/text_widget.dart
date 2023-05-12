@@ -1,0 +1,64 @@
+part of 'status_widget.dart';
+
+class _TextWidget extends StatelessWidget {
+  final StatusState statusState;
+
+  const _TextWidget({
+    Key? key,
+    required this.statusState,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 5,
+      ),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+        decoration: BoxDecoration(
+          color: statusState.backgroundColor,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              CustomProperties.borderRadius,
+            ),
+          ),
+        ),
+        child: AnimatedSize(
+          curve: Curves.ease,
+          duration: const Duration(
+            milliseconds: CustomProperties.animationDurationMs,
+          ),
+          child: AnimatedSwitcher(
+            duration: const Duration(
+              milliseconds: CustomProperties.animationDurationMs,
+            ),
+            reverseDuration: const Duration(milliseconds: 100),
+            switchInCurve: Curves.ease,
+            switchOutCurve: Curves.ease,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            child: Text(
+              key: ValueKey<String>(
+                statusState.statusWidgetDimension.toString(),
+              ),
+              statusState.mainMessageStatus,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: statusState.foregroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/chabo_about_dialog.dart';
-import 'package:chabo/screens/notification_screen.dart';
+import 'package:chabo/helpers/custom_page_routes.dart';
+import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,9 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                 context: context,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25.0),
+                                    top: Radius.circular(
+                                      CustomProperties.borderRadius * 2,
+                                    ),
                                   ),
                                 ),
                                 builder: (context) {
@@ -114,34 +117,13 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             isSpaced: true,
                           ),
                           FloatingActionsItem(
-                            onPressed: () async {
+                            onPressed: () {
                               Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const NotificationScreen(),
-                                  transitionsBuilder: (
-                                    context,
-                                    animation,
-                                    secondaryAnimation,
-                                    child,
-                                  ) {
-                                    const begin = Offset(0.0, 1.0);
-                                    const end = Offset.zero;
-                                    const curve = Curves.ease;
-
-                                    var tween =
-                                        Tween(begin: begin, end: end).chain(
-                                      CurveTween(
-                                        curve: curve,
-                                      ),
-                                    );
-
-                                    return SlideTransition(
-                                      position: animation.drive(tween),
-                                      child: child,
-                                    );
-                                  },
+                                BottomToTopPageRoute(
+                                  builder: (context) =>
+                                      const NotificationScreen(
+                                    highlightTimeSlots: false,
+                                  ),
                                 ),
                               );
                               context
@@ -206,7 +188,9 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               content: [
                 AnimatedSize(
                   curve: Curves.easeIn,
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(
+                    milliseconds: CustomProperties.animationDurationMs,
+                  ),
                   reverseDuration: const Duration(
                     milliseconds: 200,
                   ),
