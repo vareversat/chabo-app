@@ -91,6 +91,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             onPressed: () {
                               showModalBottomSheet(
                                 useSafeArea: true,
+                                constraints: const BoxConstraints(
+                                  minWidth: double.infinity,
+                                ),
+                                enableDrag: false,
                                 context: context,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
