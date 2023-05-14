@@ -6,8 +6,8 @@ publish_to: 'none'
 version: 1.6.1
 
 environment:
-  sdk: '>=2.17.6 <3.0.0'
-  flutter: '3.7.7'
+  sdk: '>=2.19.0 <3.0.0'
+  flutter: '3.10.0'
 
 dependencies:
   animated_toggle_switch: ^0.6.2
@@ -27,8 +27,8 @@ dependencies:
   google_fonts: ^4.0.0
   google_mobile_ads: ^3.0.0
   http: ^0.13.0
-  intl: ^0.17.0
-  package_info_plus: ^3.0.3
+  intl: ^0.18.0
+  package_info_plus: ^4.0.0
   shared_preferences: ^2.0.17
   stream_transform: ^2.0.0
   timezone: ^0.9.1

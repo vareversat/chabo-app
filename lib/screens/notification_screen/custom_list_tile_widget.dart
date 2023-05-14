@@ -69,7 +69,6 @@ class _CustomListTileWidget extends StatelessWidget {
           ),
         ],
       ),
-      horizontalTitleGap: 0,
       subtitle: Text(subtitle),
       leading: Icon(
         leadingIcon,
