@@ -1,3 +1,14 @@
+# **v1.8.0** :
+
+- *Fix*:
+  - Algunas franjas horarias no se tuvieron debidamente en cuenta
+- *Interfaz*:
+  - Los cierres pasados ya no se muestran
+  - La ventana principal es más orgánica
+  - Se agregó un botón para ir directamente a comprobar las ranuras configuradas
+- *Core*:
+  - Actualización a Flutter 3.10.0
+***
 # **v1.6.1** :
 
 - *Fix*:
