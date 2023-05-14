@@ -54,6 +54,7 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
               : FloatingActionButtonLocation.startFloat,
           floatingActionButtonAnimator: NoScalingAnimation(),
           body: SafeArea(
+            top: false,
             child: BlocBuilder<ForecastBloc, ForecastState>(
               builder: (context, state) {
                 switch (state.status) {
