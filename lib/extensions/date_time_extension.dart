@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 extension DateTimeExtension on DateTime {
   DateTime previous(int day) {
     return day == weekday
-        ? subtract(const Duration(days: 7))
+        ? subtract(Duration(
+            days: 7,
+            hours: hour,
+            minutes: minute,
+          ))
         : subtract(
             Duration(
               days: (weekday - day) % DateTime.daysPerWeek,
