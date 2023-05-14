@@ -82,7 +82,7 @@ abstract class AbstractForecast extends Equatable {
   void computeSlotInterference(List<TimeSlot> timeSlots) {
     interferingTimeSlots.clear();
     for (var timeSlot in timeSlots) {
-      if (isOverlappingWithPeriod(timeSlot.from, timeSlot.to)) {
+      if (isOverlappingWithTimeSlot(timeSlot)) {
         interferingTimeSlots.add(timeSlot);
       }
     }
@@ -101,9 +101,9 @@ abstract class AbstractForecast extends Equatable {
         dateTime.isBefore(circulationReOpeningDate);
   }
 
-  bool isOverlappingWithPeriod(TimeOfDay start, TimeOfDay end) {
-    final startDateTime = circulationClosingDate.applied(start);
-    final endDateTime = circulationClosingDate.applied(end);
+  bool isOverlappingWithTimeSlot(TimeSlot timeSlot) {
+    final startDateTime = circulationClosingDate.applied(timeSlot.from);
+    final endDateTime = circulationReOpeningDate.applied(timeSlot.to);
 
     final startIsBeforeClosing = startDateTime.isBefore(
       circulationClosingDate,
@@ -126,16 +126,16 @@ abstract class AbstractForecast extends Equatable {
             endIsBeforeReopening) ||
         (!startIsBeforeClosing &&
             startIsBeforeReopening &&
-            endIsBeforeClosing &&
-            !endIsBeforeClosing) ||
-        (!startIsBeforeClosing &&
-            startIsBeforeReopening &&
             !endIsBeforeClosing &&
             !endIsBeforeReopening) ||
         (startIsBeforeClosing &&
             startIsBeforeReopening &&
             !endIsBeforeClosing &&
-            !endIsBeforeReopening);
+            !endIsBeforeReopening) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            endIsBeforeReopening);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {
