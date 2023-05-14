@@ -5,5 +5,7 @@ Plusieurs types de notifications sont disponibles :
  - Le jour de la fermeture au moment où vous le souhaitez
  - Un jour avant fermeture à l'heure que vous souhaitez
  - Un récapitulatif des fermetures à venir pour la semaine qui arrive
+ 
+Vous avez aussi la possibilité de renseigner des créneaux horaires afin d'être uniquement avertis des évènements qui vous impactent !
 
 Avis de non-responsabilité : Chabo utilise les services web fournis par Bordeaux métropole mais n'est en aucun cas affilié à cette dernière ou à aucune autre entité publique que ce soit et ne représente aucune entité gouvernementale

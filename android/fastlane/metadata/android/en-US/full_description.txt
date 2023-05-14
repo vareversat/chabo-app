@@ -6,4 +6,6 @@ Several types of notifications are available:
   - One day before closing at the time you want
   - A summary of upcoming closures for the coming week
 
+You also have the possibility to fill in slots in order to be informed only of events that impact you!
+
 Disclaimer: Chabo uses the web services provided by Bordeaux Métropole but is in no way affiliated with the latter or any other public entity whatsoever and does not represent any government entity.
