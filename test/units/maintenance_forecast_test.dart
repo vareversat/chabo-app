@@ -19,6 +19,13 @@ void main() {
     closingType: ForecastClosingType.complete,
   );
 
+  final forecast3 = MaintenanceForecast(
+    totalClosing: true,
+    circulationClosingDate: DateTime(2023, 5, 14, 23, 0),
+    circulationReOpeningDate: DateTime(2023, 5, 15, 05, 0),
+    closingType: ForecastClosingType.complete,
+  );
+
   group('MaintenanceForecast TESTS', () {
     test('Is during 2 days', () {
       expect(forecast2.isDuringTwoDays, true);
@@ -100,7 +107,49 @@ void main() {
       expect(isOverlaping, true);
     });
 
-    test('Is NOT overlaping with [TimeSlots]', () {
+    test('(5) Is overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 15, minute: 30),
+        to: TimeOfDay(
+          hour: 18,
+          minute: 30,
+        ),
+      );
+
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      expect(isOverlaping, true);
+    });
+
+    test('(6) Is overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 23, minute: 00),
+        to: TimeOfDay(
+          hour: 23,
+          minute: 30,
+        ),
+      );
+
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
+      expect(isOverlaping, true);
+    });
+
+    test('(7) Is overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 00, minute: 00),
+        to: TimeOfDay(
+          hour: 1,
+          minute: 30,
+        ),
+      );
+
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
+      expect(isOverlaping, true);
+    });
+
+    test('(1) Is NOT overlaping with [TimeSlots]', () {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 19, minute: 00),
@@ -111,6 +160,20 @@ void main() {
       );
 
       final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      expect(isOverlaping, false);
+    });
+
+    test('(2) Is NOT overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 7, minute: 00),
+        to: TimeOfDay(
+          hour: 8,
+          minute: 30,
+        ),
+      );
+
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
       expect(isOverlaping, false);
     });
 

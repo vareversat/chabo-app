@@ -101,9 +101,9 @@ abstract class AbstractForecast extends Equatable {
         dateTime.isBefore(circulationReOpeningDate);
   }
 
-  bool isOverlappingWithTimeSlot(TimeSlot timeSlot) {
-    final startDateTime = circulationClosingDate.applied(timeSlot.from);
-    final endDateTime = circulationReOpeningDate.applied(timeSlot.to);
+  bool _isOverlapping(DateTime dateTimeToCompare, TimeSlot timeSlot) {
+    final startDateTime = dateTimeToCompare.applied(timeSlot.from);
+    final endDateTime = dateTimeToCompare.applied(timeSlot.to);
 
     final startIsBeforeClosing = startDateTime.isBefore(
       circulationClosingDate,
@@ -136,6 +136,15 @@ abstract class AbstractForecast extends Equatable {
             startIsBeforeReopening &&
             !endIsBeforeClosing &&
             endIsBeforeReopening);
+  }
+
+  bool isOverlappingWithTimeSlot(TimeSlot timeSlot) {
+    /// We must compute the overlapping for the open and closing date separately
+    /// if open and closing dates are not during the same day
+    return circulationClosingDate.day != circulationReOpeningDate.day
+        ? _isOverlapping(circulationClosingDate, timeSlot) ||
+            _isOverlapping(circulationReOpeningDate, timeSlot)
+        : _isOverlapping(circulationClosingDate, timeSlot);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {

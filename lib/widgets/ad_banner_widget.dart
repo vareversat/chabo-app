@@ -68,7 +68,9 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
                 duration: const Duration(seconds: 1),
                 child: AnimatedSwitcher(
                   duration: const Duration(seconds: 1),
-                  reverseDuration: const Duration(milliseconds: CustomProperties.animationDurationMs,),
+                  reverseDuration: const Duration(
+                    milliseconds: CustomProperties.animationDurationMs,
+                  ),
                   transitionBuilder: (child, animation) {
                     return FadeTransition(
                       opacity: animation,
