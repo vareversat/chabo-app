@@ -35,7 +35,7 @@ class _CurrentStatusWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                     ),
-                    child: ForecastListItemWidget(
+                    child: ForecastWidget(
                       onTap: () => {
                         BlocProvider.of<ScrollStatusBloc>(
                           context,

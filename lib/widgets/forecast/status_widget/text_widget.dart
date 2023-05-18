@@ -53,7 +53,11 @@ class _TextWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     color: statusState.foregroundColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: DeviceHelper.isMobile(context)
+                        ? 30
+                        : DeviceHelper.isPortrait(context)
+                            ? 30
+                            : 55,
                   ),
             ),
           ),

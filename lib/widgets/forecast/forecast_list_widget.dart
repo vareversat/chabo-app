@@ -2,7 +2,7 @@ import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/widgets/forecast/forecast_list_item_widget/forecast_list_item_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +42,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                       .computeSlotInterference(timeSlotState.timeSlotsValue);
 
                   return !forecast.hasPassed()
-                      ? ForecastListItemWidget(
+                      ? ForecastWidget(
                           key: GlobalObjectKey(forecast.hashCode),
                           isCurrent: forecast == forecastState.currentForecast,
                           hasPassed: forecast.hasPassed(),

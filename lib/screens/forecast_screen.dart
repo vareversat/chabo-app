@@ -5,6 +5,7 @@ import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
@@ -39,13 +40,17 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
               const Expanded(
                 child: FloatingActionsWidget(),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: state.isRightHanded ? 32 : 0,
-                  right: state.isRightHanded ? 0 : 32,
-                  top: 5,
-                ),
-                child: const AdBannerWidget(),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: state.isRightHanded ? 32 : 0,
+                      right: state.isRightHanded ? 0 : 32,
+                      top: 5,
+                    ),
+                    child: const AdBannerWidget(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -132,36 +137,85 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                         },
                         child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
                           builder: (context, state) {
-                            return CustomScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              slivers: [
-                                SliverAppBar(
-                                  pinned: true,
-                                  snap: false,
-                                  stretch: true,
-                                  collapsedHeight: 250,
-                                  expandedHeight: 250,
-                                  shadowColor: Colors.black,
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .surfaceVariant,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      bottom: Radius.circular(
-                                        CustomProperties.borderRadius * 2,
+                            return DeviceHelper.isPortrait(context)
+                                ? CustomScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    slivers: [
+                                      SliverAppBar(
+                                        pinned: true,
+                                        snap: false,
+                                        stretch: true,
+                                        collapsedHeight: 250,
+                                        expandedHeight: 250,
+                                        shadowColor: Colors.black,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .surfaceVariant,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            bottom: Radius.circular(
+                                              CustomProperties.borderRadius * 2,
+                                            ),
+                                          ),
+                                        ),
+                                        flexibleSpace: const FlexibleSpaceBar(
+                                          titlePadding: EdgeInsets.zero,
+                                          centerTitle: true,
+                                          expandedTitleScale: 1,
+                                          title: StatusWidget(),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  flexibleSpace: const FlexibleSpaceBar(
-                                    titlePadding: EdgeInsets.zero,
-                                    centerTitle: true,
-                                    expandedTitleScale: 1,
-                                    title: StatusWidget(),
-                                  ),
-                                ),
-                                const ForecastListWidget(),
-                              ],
-                            );
+                                      const ForecastListWidget(),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Flexible(
+                                        flex: !DeviceHelper.isMobile(context)
+                                            ? 2
+                                            : 1,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surfaceVariant,
+                                                borderRadius:
+                                                    const BorderRadius.vertical(
+                                                  bottom: Radius.circular(
+                                                    CustomProperties
+                                                            .borderRadius *
+                                                        2,
+                                                  ),
+                                                ),
+                                              ),
+                                              constraints: BoxConstraints(
+                                                minHeight:
+                                                    DeviceHelper.isMobile(
+                                                  context,
+                                                )
+                                                        ? 270
+                                                        : 380,
+                                              ),
+                                              child: const StatusWidget(),
+                                            ),
+                                            const SizedBox(
+                                              height: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const Flexible(
+                                        child: CustomScrollView(
+                                          physics: BouncingScrollPhysics(),
+                                          slivers: [
+                                            ForecastListWidget(),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  );
                           },
                         ),
                       ),
