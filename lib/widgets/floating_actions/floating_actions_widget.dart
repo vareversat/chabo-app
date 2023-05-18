@@ -193,42 +193,18 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                 AnimatedSize(
                   curve: Curves.easeIn,
                   duration: const Duration(
-                    milliseconds: CustomProperties.animationDurationMs,
-                  ),
-                  reverseDuration: const Duration(
                     milliseconds: CustomProperties.shortAnimationDurationMs,
                   ),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(
-                      milliseconds: CustomProperties.shortAnimationDurationMs,
-                    ),
-                    reverseDuration: const Duration(
-                      milliseconds: CustomProperties.shortAnimationDurationMs,
-                    ),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return SlideTransition(
-                        position: Tween(
-                          begin: Offset(state.isRightHanded ? .5 : -.5, 0.0),
-                          end: const Offset(0.0, 0.0),
-                        ).animate(animation),
-                        child: FadeTransition(
-                          opacity: CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeIn,
-                          ),
-                          child: child,
-                        ),
-                      );
-                    },
-                    child: state.isMenuOpen
-                        ? Text(
-                            AppLocalizations.of(context)!.settingsTitle,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.start,
-                          )
-                        : const SizedBox.shrink(),
+                  reverseDuration: const Duration(
+                    milliseconds: 0,
                   ),
+                  child: state.isMenuOpen
+                      ? Text(
+                          AppLocalizations.of(context)!.settingsTitle,
+                          style: Theme.of(context).textTheme.titleMedium,
+                          textAlign: TextAlign.start,
+                        )
+                      : const SizedBox.shrink(),
                 ),
                 state.isMenuOpen
                     ? const Icon(
