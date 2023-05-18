@@ -29,17 +29,15 @@ class _TextWidget extends StatelessWidget {
         child: AnimatedSize(
           curve: Curves.ease,
           duration: const Duration(
-            milliseconds: CustomProperties.animationDurationMs,
+            milliseconds: CustomProperties.shortAnimationDurationMs,
           ),
           child: AnimatedSwitcher(
             duration: const Duration(
-              milliseconds: CustomProperties.animationDurationMs,
+              milliseconds: CustomProperties.shortAnimationDurationMs,
             ),
             reverseDuration: const Duration(
-              milliseconds: CustomProperties.shortAnimationDurationMs ~/ 2,
+              milliseconds: 0,
             ),
-            switchInCurve: Curves.ease,
-            switchOutCurve: Curves.ease,
             transitionBuilder: (child, animation) {
               return FadeTransition(
                 opacity: animation,

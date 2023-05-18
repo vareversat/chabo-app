@@ -14,10 +14,10 @@ class _ProgressIndicatorWidget extends StatelessWidget {
       children: [
         AnimatedSwitcher(
           duration: const Duration(
-            milliseconds: CustomProperties.animationDurationMs,
+            milliseconds: CustomProperties.shortAnimationDurationMs,
           ),
           reverseDuration: const Duration(
-            milliseconds: CustomProperties.shortAnimationDurationMs,
+            milliseconds: 0,
           ),
           switchInCurve: Curves.ease,
           switchOutCurve: Curves.ease,
