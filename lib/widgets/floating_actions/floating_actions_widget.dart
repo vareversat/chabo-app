@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/chabo_about_dialog.dart';
+import 'package:chabo/dialogs/chabo_about_dialog/chabo_about_dialog.dart';
 import 'package:chabo/helpers/custom_page_routes.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
@@ -62,7 +63,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                         sigmaY: CustomProperties.blurSigmaY,
                       ),
                       child: Wrap(
-                        direction: Axis.vertical,
+                        direction: DeviceHelper.isMobile(context) &&
+                                !DeviceHelper.isPortrait(context)
+                            ? Axis.horizontal
+                            : Axis.vertical,
                         crossAxisAlignment: state.isRightHanded
                             ? WrapCrossAlignment.end
                             : WrapCrossAlignment.start,
@@ -91,8 +95,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             onPressed: () {
                               showModalBottomSheet(
                                 useSafeArea: true,
-                                constraints: const BoxConstraints(
-                                  minWidth: double.infinity,
+                                constraints: BoxConstraints(
+                                  minWidth: DeviceHelper.isPortrait(context)
+                                      ? double.infinity
+                                      : MediaQuery.of(context).size.width / 3,
                                 ),
                                 enableDrag: false,
                                 context: context,

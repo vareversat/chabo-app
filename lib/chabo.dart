@@ -5,6 +5,7 @@ import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/forecast_screen.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
@@ -27,6 +28,8 @@ class Chabo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceHelper.computePreferredOrientation(context);
+
     return MultiBlocProvider(
       providers: [
         /// Bloc intended to manage the theme of the App
