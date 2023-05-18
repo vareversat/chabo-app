@@ -1,9 +1,9 @@
-part of 'forecast_list_item_widget.dart';
+part of 'forecast_widget.dart';
 
-class _OpeningInfoWidget extends StatelessWidget {
+class _ClosingInfoWidget extends StatelessWidget {
   final AbstractForecast forecast;
 
-  const _OpeningInfoWidget({Key? key, required this.forecast})
+  const _ClosingInfoWidget({Key? key, required this.forecast})
       : super(key: key);
 
   @override
@@ -17,20 +17,20 @@ class _OpeningInfoWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Icon(
-              Icons.check_circle,
+              Icons.block_rounded,
               size: 18,
-              color: Colors.green,
+              color: Colors.red,
             ),
             Text(
               MaterialLocalizations.of(context).formatMediumDate(
-                forecast.circulationReOpeningDate,
+                forecast.circulationClosingDate,
               ),
               style: textTheme.bodySmall,
             ),
           ],
         ),
         Text(
-          forecast.circulationReOpeningDateString(
+          forecast.circulationClosingDateString(
             context,
           ),
           style: textTheme.headlineSmall,

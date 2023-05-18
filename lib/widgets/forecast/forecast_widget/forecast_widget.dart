@@ -20,7 +20,7 @@ part 'opening_info_widget.dart';
 
 part 'time_slot_warning_widget.dart';
 
-class ForecastListItemWidget extends StatelessWidget {
+class ForecastWidget extends StatelessWidget {
   final AbstractForecast forecast;
   final Function()? onTap;
   final bool hasPassed;
@@ -29,7 +29,7 @@ class ForecastListItemWidget extends StatelessWidget {
   final int index;
   final Color? backgroundColor;
 
-  const ForecastListItemWidget({
+  const ForecastWidget({
     Key? key,
     required this.forecast,
     required this.index,

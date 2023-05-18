@@ -6,7 +6,7 @@ import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/helpers/device_helper.dart';
-import 'package:chabo/widgets/forecast/forecast_list_item_widget/forecast_list_item_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:chabo/widgets/progress_indicator/custom_progress_bar_indicator.dart';
 import 'package:flutter/material.dart';

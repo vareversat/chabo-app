@@ -1,4 +1,4 @@
-part of 'forecast_list_item_widget.dart';
+part of 'forecast_widget.dart';
 
 class _DurationWidget extends StatelessWidget {
   final AbstractForecast forecast;
