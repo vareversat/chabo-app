@@ -57,7 +57,8 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
         return AnimatedSwitcher(
           duration: const Duration(seconds: 1),
           reverseDuration: const Duration(
-              milliseconds: CustomProperties.shortAnimationDurationMs),
+            milliseconds: CustomProperties.shortAnimationDurationMs,
+          ),
           transitionBuilder: (child, animation) {
             return FadeTransition(
               opacity: animation,
