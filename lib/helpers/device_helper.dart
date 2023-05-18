@@ -24,6 +24,6 @@ class DeviceHelper {
   static isMobile(BuildContext context) {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
 
-    return shortestSide < 600;
+    return shortestSide < 620;
   }
 }
