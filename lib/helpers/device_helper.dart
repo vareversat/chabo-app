@@ -27,5 +27,3 @@ class DeviceHelper {
     return shortestSide < 600;
   }
 }
-
-enum Device { portrait, landscape }
