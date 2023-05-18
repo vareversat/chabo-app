@@ -1,3 +1,10 @@
+# **v1.8.1**:
+
+- *Fix*:
+  - Slots on two-day events are now functioning normally
+- *Interface*:
+  - Added support for Android tablets
+***
 # **v1.8.0** :
 
 - *Fix*:

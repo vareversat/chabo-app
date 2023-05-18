@@ -1,3 +1,10 @@
+# **v1.8.1**:
+
+- *Fix*:
+  - Las franjas horarias para eventos de dos días ya funcionan normalmente
+- *Interfaz*:
+  - Añadido soporte para tabletas Android
+***
 # **v1.8.0** :
 
 - *Fix*:

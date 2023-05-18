@@ -1,3 +1,10 @@
+# **v1.8.1** :
+
+- *Fix*:
+  - Les créneaux horaires sur des évènements d'étalant sur deux jours fonctionnent maintenant normalement
+- *Interface*:
+  - Ajout du support pour les tablettes
+***
 # **v1.8.0** :
 
 - *Fix*:
