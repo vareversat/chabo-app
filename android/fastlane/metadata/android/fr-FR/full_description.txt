@@ -8,4 +8,4 @@ Plusieurs types de notifications sont disponibles :
  
 Vous avez aussi la possibilité de renseigner des créneaux horaires afin d'être uniquement avertis des évènements qui vous impactent !
 
-Avis de non-responsabilité : Chabo utilise les services web fournis par Bordeaux métropole mais n'est en aucun cas affilié à cette dernière ou à aucune autre entité publique que ce soit et ne représente aucune entité gouvernementale
+Avis de non-responsabilité : Chabo utilise les services web fournis par Bordeaux Métropole. Elle ne représente aucune entité gouvernementale ni l'agglomération de Bordeaux Métropole.
