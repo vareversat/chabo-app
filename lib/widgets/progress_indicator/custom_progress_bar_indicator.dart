@@ -1,3 +1,4 @@
+import 'package:chabo/custom_properties.dart';
 import 'package:flutter/material.dart';
 
 class CustomProgressBarIndicator extends StatelessWidget {
@@ -23,7 +24,9 @@ class CustomProgressBarIndicator extends StatelessWidget {
           alignment: Alignment.centerLeft,
           children: [
             AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(
+                milliseconds: CustomProperties.animationDurationMs,
+              ),
               width: x,
               height: 15,
               decoration: BoxDecoration(
@@ -35,7 +38,9 @@ class CustomProgressBarIndicator extends StatelessWidget {
               ),
             ),
             AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(
+                milliseconds: CustomProperties.animationDurationMs,
+              ),
               width: percent,
               height: 10,
               decoration: BoxDecoration(

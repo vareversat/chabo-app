@@ -35,7 +35,9 @@ class _TextWidget extends StatelessWidget {
             duration: const Duration(
               milliseconds: CustomProperties.animationDurationMs,
             ),
-            reverseDuration: const Duration(milliseconds: 100),
+            reverseDuration: const Duration(
+              milliseconds: CustomProperties.shortAnimationDurationMs ~/ 2,
+            ),
             switchInCurve: Curves.ease,
             switchOutCurve: Curves.ease,
             transitionBuilder: (child, animation) {

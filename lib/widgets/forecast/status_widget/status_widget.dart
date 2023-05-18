@@ -54,26 +54,22 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<StatusBloc, StatusState>(
       builder: (context, state) {
-        return AnimatedSize(
-          curve: Curves.ease,
-          duration: const Duration(milliseconds: 800),
-          child: AnimatedSwitcher(
-            duration: const Duration(seconds: 1),
-            reverseDuration: const Duration(milliseconds: 200),
-            transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-            child: state.statusLifecycle == StatusLifecycle.empty
-                ? CustomCircularProgressIndicator(
-                    message: AppLocalizations.of(context)!.statusLoadMessage,
-                  )
-                : _LayoutWidget(
-                    statusState: state,
-                  ),
-          ),
+        return AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          reverseDuration: const Duration(milliseconds: CustomProperties.shortAnimationDurationMs),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: state.statusLifecycle == StatusLifecycle.empty
+              ? CustomCircularProgressIndicator(
+                  message: AppLocalizations.of(context)!.statusLoadMessage,
+                )
+              : _LayoutWidget(
+                  statusState: state,
+                ),
         );
       },
     );

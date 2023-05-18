@@ -35,10 +35,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
           children: [
             AnimatedSwitcher(
               duration: const Duration(
-                milliseconds: 200,
+                milliseconds: CustomProperties.shortAnimationDurationMs,
               ),
               reverseDuration: const Duration(
-                milliseconds: 200,
+                milliseconds: CustomProperties.shortAnimationDurationMs,
               ),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return FadeTransition(
@@ -196,14 +196,14 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                     milliseconds: CustomProperties.animationDurationMs,
                   ),
                   reverseDuration: const Duration(
-                    milliseconds: 200,
+                    milliseconds: CustomProperties.shortAnimationDurationMs,
                   ),
                   child: AnimatedSwitcher(
                     duration: const Duration(
-                      milliseconds: 200,
+                      milliseconds: CustomProperties.shortAnimationDurationMs,
                     ),
                     reverseDuration: const Duration(
-                      milliseconds: 200,
+                      milliseconds: CustomProperties.shortAnimationDurationMs,
                     ),
                     transitionBuilder:
                         (Widget child, Animation<double> animation) {

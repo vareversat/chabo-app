@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/helpers/ad_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -67,7 +68,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
                 duration: const Duration(seconds: 1),
                 child: AnimatedSwitcher(
                   duration: const Duration(seconds: 1),
-                  reverseDuration: const Duration(milliseconds: 500),
+                  reverseDuration: const Duration(milliseconds: CustomProperties.animationDurationMs,),
                   transitionBuilder: (child, animation) {
                     return FadeTransition(
                       opacity: animation,

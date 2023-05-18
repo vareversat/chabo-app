@@ -15,9 +15,10 @@ class _CurrentStatusWidget extends StatelessWidget {
           duration: const Duration(
             milliseconds: CustomProperties.animationDurationMs,
           ),
-          reverseDuration: const Duration(milliseconds: 0),
           child: AnimatedSwitcher(
-            duration: const Duration(seconds: 1),
+            duration: const Duration(
+              seconds: 1,
+            ),
             reverseDuration: const Duration(milliseconds: 0),
             transitionBuilder: (child, animation) {
               return FadeTransition(
