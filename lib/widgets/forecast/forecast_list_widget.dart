@@ -2,7 +2,7 @@ import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/widgets/forecast/forecast_list_item_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -19,58 +19,51 @@ class ForecastListWidget extends StatefulWidget {
 class _ForecastListWidgetState extends State<ForecastListWidget> {
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (scrollNotification) {
-        if (scrollNotification is UserScrollNotification) {
-          BlocProvider.of<ScrollStatusBloc>(context).add(
-            ScrollStatusChanged(),
-          );
-        }
-
-        return true;
-      },
-      child: BlocBuilder<ForecastBloc, ForecastState>(
-        builder: (context, forecastState) {
-          return BlocBuilder<NotificationBloc, NotificationState>(
-            buildWhen: (previous, next) =>
-                previous.timeSlotsValue != next.timeSlotsValue,
-            builder: (context, timeSlotState) {
-              return ListView.separated(
+    return BlocBuilder<ForecastBloc, ForecastState>(
+      builder: (context, forecastState) {
+        return BlocBuilder<NotificationBloc, NotificationState>(
+          buildWhen: (previous, next) =>
+              previous.timeSlotsValue != next.timeSlotsValue,
+          builder: (context, timeSlotState) {
+            return SliverToBoxAdapter(
+              child: ListView.separated(
+                shrinkWrap: true,
                 cacheExtent: 5000,
                 padding: const EdgeInsets.symmetric(horizontal: 5).copyWith(
-                  bottom: 200,
+                  bottom: 150,
                 ),
                 itemBuilder: (
                   BuildContext context,
                   int index,
                 ) {
-                  forecastState.forecasts[index]
+                  final AbstractForecast forecast =
+                      forecastState.forecasts[index];
+                  forecast
                       .computeSlotInterference(timeSlotState.timeSlotsValue);
 
-                  return ForecastListItemWidget(
-                    key: GlobalObjectKey(
-                      forecastState.forecasts[index].hashCode,
-                    ),
-                    isCurrent: forecastState.forecasts[index] ==
-                        forecastState.currentForecast,
-                    hasPassed: forecastState
-                        .forecasts[index].circulationReOpeningDate
-                        .isBefore(DateTime.now()),
-                    forecast: forecastState.forecasts[index],
-                    index: index,
-                    timeSlots:
-                        forecastState.forecasts[index].interferingTimeSlots,
-                  );
+                  return !forecast.hasPassed()
+                      ? ForecastWidget(
+                          key: GlobalObjectKey(forecast.hashCode),
+                          isCurrent: forecast == forecastState.currentForecast,
+                          hasPassed: forecast.hasPassed(),
+                          forecast: forecast,
+                          index: index,
+                          timeSlots: forecast.interferingTimeSlots,
+                        )
+                      : const SizedBox.shrink();
                 },
                 itemCount: forecastState.forecasts.length,
                 controller:
                     BlocProvider.of<ScrollStatusBloc>(context).scrollController,
                 separatorBuilder: (BuildContext context, int index) {
-                  if ((index + 1 <= forecastState.forecasts.length &&
-                      forecastState
-                              .forecasts[index].circulationClosingDate.month !=
-                          forecastState.forecasts[index + 1]
-                              .circulationClosingDate.month)) {
+                  final AbstractForecast forecast =
+                      forecastState.forecasts[index];
+                  if ((forecast.circulationClosingDate.month !=
+                              forecastState.forecasts[index + 1]
+                                  .circulationClosingDate.month) &&
+                          !forecast.hasPassed() ||
+                      forecastState.forecasts[index + 1] ==
+                          forecastState.currentForecast) {
                     return _MonthWidget(
                       forecast: forecastState.forecasts[index + 1],
                     );
@@ -78,11 +71,11 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
 
                   return const SizedBox.shrink();
                 },
-              );
-            },
-          );
-        },
-      ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

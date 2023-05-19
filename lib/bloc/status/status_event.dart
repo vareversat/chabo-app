@@ -27,3 +27,13 @@ class StatusDurationChanged extends StatusEvent {
     required this.duration,
   }) : super();
 }
+
+class StatusWidgetDimensionChanged extends StatusEvent {
+  final StatusWidgetDimension dimension;
+  final BuildContext context;
+
+  StatusWidgetDimensionChanged({
+    required this.dimension,
+    required this.context,
+  }) : super();
+}

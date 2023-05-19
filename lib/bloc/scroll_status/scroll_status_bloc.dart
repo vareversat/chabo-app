@@ -1,17 +1,20 @@
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/abstract_forecast.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'scroll_status_event.dart';
+
 part 'scroll_status_state.dart';
 
 class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
   final ScrollController scrollController;
 
   ScrollStatusBloc({required this.scrollController})
-      : super(ScrollStatusState(
+      : super(const ScrollStatusState(
           showCurrentStatus: true,
           status: ScrollStatus.ok,
           currentTarget: null,
@@ -34,7 +37,6 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
       state.copyWith(
         showCurrentStatus: true,
         status: ScrollStatus.ok,
-        currentTarget: state.currentTarget,
       ),
     );
   }
@@ -50,7 +52,9 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
 
       await scrollController.animateTo(
         pixel,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(
+          milliseconds: CustomProperties.animationDurationMs,
+        ),
         curve: Curves.linear,
       );
       targetContext = GlobalObjectKey(event.goTo.hashCode).currentContext;

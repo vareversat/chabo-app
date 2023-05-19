@@ -1,11 +1,11 @@
 part of 'scroll_status_bloc.dart';
 
-class ScrollStatusState {
+class ScrollStatusState extends Equatable {
   final AbstractForecast? currentTarget;
   final bool showCurrentStatus;
   final ScrollStatus status;
 
-  ScrollStatusState({
+  const ScrollStatusState({
     required this.status,
     required this.showCurrentStatus,
     required this.currentTarget,
@@ -22,6 +22,9 @@ class ScrollStatusState {
       currentTarget: currentTarget ?? this.currentTarget,
     );
   }
+
+  @override
+  List<Object?> get props => [currentTarget, showCurrentStatus, status];
 }
 
 enum ScrollStatus { ok, error }

@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 part 'status_event.dart';
+
 part 'status_state.dart';
 
 class StatusBloc extends Bloc<StatusEvent, StatusState> {
@@ -22,6 +23,23 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     );
     on<StatusDurationChanged>(
       _onDurationChanged,
+    );
+    on<StatusWidgetDimensionChanged>(
+      _onStatusWidgetDimensionChanged,
+    );
+  }
+
+  void _onStatusWidgetDimensionChanged(
+    StatusWidgetDimensionChanged event,
+    Emitter<StatusState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        statusWidgetDimension: event.dimension,
+        mainMessageStatus: _getMainStatus(
+          event.context,
+        ),
+      ),
     );
   }
 
@@ -133,14 +151,20 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes >=
             state.durationForCloseClosing.inMinutes) {
-      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}';
+      return state.statusWidgetDimension == StatusWidgetDimension.large
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}'
+          : AppLocalizations.of(context)!.open.capitalize();
     } else if (currentForecast != null &&
         !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes <
             state.durationForCloseClosing.inMinutes) {
-      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}';
+      return state.statusWidgetDimension == StatusWidgetDimension.large
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}'
+          : AppLocalizations.of(context)!.aboutToClose.capitalize();
     } else {
-      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}';
+      return state.statusWidgetDimension == StatusWidgetDimension.large
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}'
+          : AppLocalizations.of(context)!.closed.capitalize();
     }
   }
 

@@ -32,12 +32,6 @@ class StorageService {
     return await sharedPreferences.setString(key, value.inMinutes.toString());
   }
 
-  Future<bool> saveDateTime(String key, DateTime value) async {
-    developer.log('{$key: $value}', name: 'storage-service.on.saveDuration');
-
-    return await sharedPreferences.setString(key, value.toString());
-  }
-
   Future<bool> saveTimeOfDay(String key, TimeOfDay value) async {
     developer.log('{$key: $value}', name: 'storage-service.on.saveTimeOfDay');
 

@@ -1,3 +1,21 @@
+# **v1.8.1** :
+
+- *Fix*:
+  - Les créneaux horaires sur des évènements d'étalant sur deux jours fonctionnent maintenant normalement
+- *Interface*:
+  - Ajout du support pour les tablettes
+***
+# **v1.8.0** :
+
+- *Fix*:
+  - Certains créneux n'étaient pas pris bien pris en compte
+- *Interface*:
+  - Les fermetures passées ne sont plus affichées
+  - La fenêtre principale est plus organique
+  - Ajout d'un bouton permettant d'aller directement vérifier les créneaux configurés
+- *Core*:
+  - Mise à jour en Flutter 3.10.0
+***
 # **v1.6.1** :
 
 - *Fix*:

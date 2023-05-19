@@ -1,13 +1,16 @@
+import 'package:chabo/app_theme.dart';
 import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/forecast_screen.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,6 +28,8 @@ class Chabo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceHelper.computePreferredOrientation(context);
+
     return MultiBlocProvider(
       providers: [
         /// Bloc intended to manage the theme of the App
@@ -77,6 +82,16 @@ class Chabo extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              systemStatusBarContrastEnforced: false,
+              statusBarIconBrightness: state.themeData == AppTheme.darkTheme
+                  ? Brightness.light
+                  : Brightness.dark,
+            ),
+          );
+
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: state.themeData,

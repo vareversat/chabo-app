@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ class TimeSlotDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          15,
+          CustomProperties.borderRadius,
         ),
       ),
       content: BlocBuilder<NotificationBloc, NotificationState>(

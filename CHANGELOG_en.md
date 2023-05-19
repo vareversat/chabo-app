@@ -1,3 +1,21 @@
+# **v1.8.1**:
+
+- *Fix*:
+  - Slots on two-day events are now functioning normally
+- *Interface*:
+  - Added support for Android tablets
+***
+# **v1.8.0** :
+
+- *Fix*:
+  - Certain niches were not taken into account properly
+- *Interface*:
+  - Past closures are no longer displayed
+  - Main window is more organic
+  - Added a button to go directly to check the configured slots
+- *Core*:
+  - Update to Flutter 3.10.0
+***
 # **v1.6.1** :
 
 - *Fix*:

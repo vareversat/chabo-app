@@ -1,5 +1,6 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
+import 'package:chabo/custom_properties.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,10 +56,10 @@ class ThemeSwitcherWidget extends StatelessWidget {
               ),
               AnimatedSwitcher(
                 duration: const Duration(
-                  milliseconds: 200,
+                  milliseconds: CustomProperties.shortAnimationDurationMs,
                 ),
                 reverseDuration: const Duration(
-                  milliseconds: 200,
+                  milliseconds: CustomProperties.shortAnimationDurationMs,
                 ),
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return SlideTransition(

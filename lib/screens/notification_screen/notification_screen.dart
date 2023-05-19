@@ -15,8 +15,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+part 'custom_list_tile_widget.dart';
+
+part 'favorite_slots_widget.dart';
+
 class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+  final bool highlightTimeSlots;
+
+  const NotificationScreen({
+    Key? key,
+    required this.highlightTimeSlots,
+  }) : super(key: key);
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -60,6 +69,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(
               top: 20,
+              bottom: 100,
             ),
             child: BlocBuilder<NotificationBloc, NotificationState>(
               builder: (context, notificationState) {
@@ -115,72 +125,9 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     ),
                     Column(
                       children: [
-                        _CustomListTile(
-                          onChanged: (bool value) => {
-                            BlocProvider.of<NotificationBloc>(context).add(
-                              EnabledTimeSlotEvent(
-                                enabled: value,
-                              ),
-                            ),
-                            if (value)
-                              {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    duration: const Duration(seconds: 7),
-                                    showCloseIcon: true,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .warningColor,
-                                    content: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .favoriteTimeSlotEnabledWarning,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              }
-                            else
-                              {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar(
-                                  reason: SnackBarClosedReason.action,
-                                ),
-                              },
-                          },
-                          enabled: notificationState
-                              .timeSlotsEnabledForNotifications,
-                          title: AppLocalizations.of(context)!.favoriteSlots,
-                          subtitle: AppLocalizations.of(context)!
-                              .favoriteSlotsDescription,
-                          leadingIcon: Icons.warning_rounded,
-                          iconColor: Theme.of(context).colorScheme.warningColor,
-                          constrainedBySlots: false,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              for (var i = 0;
-                                  i < notificationState.timeSlotsValue.length;
-                                  i++) ...[
-                                TimeSlotWidget(
-                                  timeSlot: notificationState.timeSlotsValue[i],
-                                  index: i,
-                                ),
-                              ],
-                            ],
-                          ),
+                        _FavoriteSlotsWidget(
+                          highlightTimeSlots: widget.highlightTimeSlots,
+                          notificationState: notificationState,
                         ),
                       ],
                     ),
@@ -195,7 +142,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    _CustomListTile(
+                    _CustomListTileWidget(
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
                         OpeningNotificationStateEvent(
@@ -212,7 +159,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       constrainedBySlots:
                           notificationState.timeSlotsEnabledForNotifications,
                     ),
-                    _CustomListTile(
+                    _CustomListTileWidget(
                       onChanged: (bool value) =>
                           BlocProvider.of<NotificationBloc>(context).add(
                         ClosingNotificationStateEvent(
@@ -232,7 +179,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    _CustomListTile(
+                    _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
@@ -285,7 +232,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       constrainedBySlots:
                           notificationState.timeSlotsEnabledForNotifications,
                     ),
-                    _CustomListTile(
+                    _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
                           initialEntryMode: TimePickerEntryMode.dialOnly,
@@ -334,7 +281,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                       constrainedBySlots:
                           notificationState.timeSlotsEnabledForNotifications,
                     ),
-                    _CustomListTile(
+                    _CustomListTileWidget(
                       onTap: () {
                         showDialog(
                           context: context,
@@ -392,99 +339,6 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
           ),
         );
       },
-    );
-  }
-}
-
-class _CustomListTile extends StatelessWidget {
-  final bool enabled;
-  final bool constrainedBySlots;
-  final Function()? onTap;
-  final Function(bool) onChanged;
-  final String title;
-  final String subtitle;
-  final IconData leadingIcon;
-  final Color? iconColor;
-
-  const _CustomListTile({
-    Key? key,
-    required this.enabled,
-    this.onTap,
-    this.iconColor,
-    required this.title,
-    required this.subtitle,
-    required this.leadingIcon,
-    required this.onChanged,
-    required this.constrainedBySlots,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Flexible(
-            flex: 3,
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
-              overflow: TextOverflow.clip,
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Flexible(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity:
-                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
-                  child: SlideTransition(
-                    position: Tween(
-                      begin: const Offset(-1.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ).animate(animation),
-                    child: child,
-                  ),
-                );
-              },
-              child: constrainedBySlots && enabled
-                  ? CircleAvatar(
-                      radius: 5,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.warningColor,
-                      child: Container(),
-                    )
-                  : const SizedBox(),
-            ),
-          ),
-        ],
-      ),
-      horizontalTitleGap: 0,
-      subtitle: Text(subtitle),
-      leading: Icon(
-        leadingIcon,
-      ),
-      onTap: onTap,
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          onTap != null
-              ? const VerticalDivider(
-                  width: 20,
-                )
-              : const SizedBox.shrink(),
-          Switch.adaptive(
-            value: enabled,
-            onChanged: onChanged,
-          ),
-        ],
-      ),
-      iconColor: iconColor ?? Theme.of(context).colorScheme.primary,
-      enabled: enabled,
     );
   }
 }

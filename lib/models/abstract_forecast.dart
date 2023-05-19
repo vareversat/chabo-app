@@ -82,7 +82,7 @@ abstract class AbstractForecast extends Equatable {
   void computeSlotInterference(List<TimeSlot> timeSlots) {
     interferingTimeSlots.clear();
     for (var timeSlot in timeSlots) {
-      if (isOverlappingWithPeriod(timeSlot.from, timeSlot.to)) {
+      if (isOverlappingWithTimeSlot(timeSlot)) {
         interferingTimeSlots.add(timeSlot);
       }
     }
@@ -92,14 +92,18 @@ abstract class AbstractForecast extends Equatable {
     return isOverlappingWith(DateTime.now());
   }
 
+  bool hasPassed() {
+    return circulationReOpeningDate.isBefore(DateTime.now());
+  }
+
   bool isOverlappingWith(DateTime dateTime) {
     return dateTime.isAfter(circulationClosingDate) &&
         dateTime.isBefore(circulationReOpeningDate);
   }
 
-  bool isOverlappingWithPeriod(TimeOfDay start, TimeOfDay end) {
-    final startDateTime = circulationClosingDate.applied(start);
-    final endDateTime = circulationClosingDate.applied(end);
+  bool _isOverlapping(DateTime dateTimeToCompare, TimeSlot timeSlot) {
+    final startDateTime = dateTimeToCompare.applied(timeSlot.from);
+    final endDateTime = dateTimeToCompare.applied(timeSlot.to);
 
     final startIsBeforeClosing = startDateTime.isBefore(
       circulationClosingDate,
@@ -122,16 +126,25 @@ abstract class AbstractForecast extends Equatable {
             endIsBeforeReopening) ||
         (!startIsBeforeClosing &&
             startIsBeforeReopening &&
-            endIsBeforeClosing &&
-            !endIsBeforeClosing) ||
-        (!startIsBeforeClosing &&
-            startIsBeforeReopening &&
             !endIsBeforeClosing &&
             !endIsBeforeReopening) ||
         (startIsBeforeClosing &&
             startIsBeforeReopening &&
             !endIsBeforeClosing &&
-            !endIsBeforeReopening);
+            !endIsBeforeReopening) ||
+        (!startIsBeforeClosing &&
+            startIsBeforeReopening &&
+            !endIsBeforeClosing &&
+            endIsBeforeReopening);
+  }
+
+  bool isOverlappingWithTimeSlot(TimeSlot timeSlot) {
+    /// We must compute the overlapping for the open and closing date separately
+    /// if open and closing dates are not during the same day
+    return circulationClosingDate.day != circulationReOpeningDate.day
+        ? _isOverlapping(circulationClosingDate, timeSlot) ||
+            _isOverlapping(circulationReOpeningDate, timeSlot)
+        : _isOverlapping(circulationClosingDate, timeSlot);
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {

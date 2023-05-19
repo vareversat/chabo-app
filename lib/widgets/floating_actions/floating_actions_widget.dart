@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/chabo_about_dialog.dart';
-import 'package:chabo/screens/notification_screen.dart';
+import 'package:chabo/dialogs/chabo_about_dialog/chabo_about_dialog.dart';
+import 'package:chabo/helpers/custom_page_routes.dart';
+import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +36,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
           children: [
             AnimatedSwitcher(
               duration: const Duration(
-                milliseconds: 200,
+                milliseconds: CustomProperties.shortAnimationDurationMs,
               ),
               reverseDuration: const Duration(
-                milliseconds: 200,
+                milliseconds: CustomProperties.shortAnimationDurationMs,
               ),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return FadeTransition(
@@ -61,7 +63,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                         sigmaY: CustomProperties.blurSigmaY,
                       ),
                       child: Wrap(
-                        direction: Axis.vertical,
+                        direction: DeviceHelper.isMobile(context) &&
+                                !DeviceHelper.isPortrait(context)
+                            ? Axis.horizontal
+                            : Axis.vertical,
                         crossAxisAlignment: state.isRightHanded
                             ? WrapCrossAlignment.end
                             : WrapCrossAlignment.start,
@@ -90,10 +95,18 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             onPressed: () {
                               showModalBottomSheet(
                                 useSafeArea: true,
+                                constraints: BoxConstraints(
+                                  minWidth: DeviceHelper.isPortrait(context)
+                                      ? double.infinity
+                                      : MediaQuery.of(context).size.width / 3,
+                                ),
+                                enableDrag: false,
                                 context: context,
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25.0),
+                                    top: Radius.circular(
+                                      CustomProperties.borderRadius * 2,
+                                    ),
                                   ),
                                 ),
                                 builder: (context) {
@@ -114,34 +127,13 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             isSpaced: true,
                           ),
                           FloatingActionsItem(
-                            onPressed: () async {
+                            onPressed: () {
                               Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                          const NotificationScreen(),
-                                  transitionsBuilder: (
-                                    context,
-                                    animation,
-                                    secondaryAnimation,
-                                    child,
-                                  ) {
-                                    const begin = Offset(0.0, 1.0);
-                                    const end = Offset.zero;
-                                    const curve = Curves.ease;
-
-                                    var tween =
-                                        Tween(begin: begin, end: end).chain(
-                                      CurveTween(
-                                        curve: curve,
-                                      ),
-                                    );
-
-                                    return SlideTransition(
-                                      position: animation.drive(tween),
-                                      child: child,
-                                    );
-                                  },
+                                BottomToTopPageRoute(
+                                  builder: (context) =>
+                                      const NotificationScreen(
+                                    highlightTimeSlots: false,
+                                  ),
                                 ),
                               );
                               context
@@ -206,41 +198,19 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               content: [
                 AnimatedSize(
                   curve: Curves.easeIn,
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(
+                    milliseconds: CustomProperties.shortAnimationDurationMs,
+                  ),
                   reverseDuration: const Duration(
-                    milliseconds: 200,
+                    milliseconds: 0,
                   ),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(
-                      milliseconds: 200,
-                    ),
-                    reverseDuration: const Duration(
-                      milliseconds: 200,
-                    ),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return SlideTransition(
-                        position: Tween(
-                          begin: Offset(state.isRightHanded ? .5 : -.5, 0.0),
-                          end: const Offset(0.0, 0.0),
-                        ).animate(animation),
-                        child: FadeTransition(
-                          opacity: CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeIn,
-                          ),
-                          child: child,
-                        ),
-                      );
-                    },
-                    child: state.isMenuOpen
-                        ? Text(
-                            AppLocalizations.of(context)!.settingsTitle,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            textAlign: TextAlign.start,
-                          )
-                        : const SizedBox.shrink(),
-                  ),
+                  child: state.isMenuOpen
+                      ? Text(
+                          AppLocalizations.of(context)!.settingsTitle,
+                          style: Theme.of(context).textTheme.titleMedium,
+                          textAlign: TextAlign.start,
+                        )
+                      : const SizedBox.shrink(),
                 ),
                 state.isMenuOpen
                     ? const Icon(
