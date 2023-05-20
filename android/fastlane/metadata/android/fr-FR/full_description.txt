@@ -8,4 +8,6 @@ Plusieurs types de notifications sont disponibles :
  
 Vous avez aussi la possibilité de renseigner des créneaux horaires afin d'être uniquement avertis des évènements qui vous impactent !
 
-Avis de non-responsabilité : Chabo utilise les services web fournis par Bordeaux Métropole. Elle ne représente aucune entité gouvernementale ni l'agglomération de Bordeaux Métropole.
+Source de données utilisées (fournie par Bordeaux Métropole OpenData) : https://opendata.bordeaux-metropole.fr/explore/dataset/previsions_pont_chaban/api/
+
+Avis de non-responsabilité : Chabo ne représente aucune entité gouvernementale ni l'agglomération de Bordeaux Métropole.
