@@ -10,7 +10,16 @@ class _CustomListTileWidget extends StatelessWidget {
   final IconData leadingIcon;
   final Color? iconColor;
 
-  const _CustomListTileWidget({
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>((states) {
+    if (states.contains(MaterialState.selected)) {
+      return const Icon(Icons.check);
+    }
+
+    return const Icon(Icons.close);
+  });
+
+  _CustomListTileWidget({
     Key? key,
     required this.enabled,
     this.onTap,
@@ -83,6 +92,7 @@ class _CustomListTileWidget extends StatelessWidget {
                 )
               : const SizedBox.shrink(),
           Switch.adaptive(
+            thumbIcon: thumbIcon,
             value: enabled,
             onChanged: onChanged,
           ),
