@@ -1,3 +1,12 @@
+# **v1.9.0** :
+
+- *Fonctionnalités*:
+  - Il est maintenant possible d'ajouter des jours de la semaine aux créneaux horaires
+- *Interface*:
+  - Corrections et ajout mineurs
+- *Core*:
+  - Mise à jour en Gradle 8
+***
 # **v1.8.1** :
 
 - *Fix*:
