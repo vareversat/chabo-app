@@ -33,7 +33,6 @@ dependencies:
   stream_transform: ^2.0.0
   timezone: ^0.9.1
   url_launcher: ^6.1.7
-  app_settings: ^4.2.0
 
 
 dev_dependencies:
