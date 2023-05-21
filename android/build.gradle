@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -19,50 +19,8 @@ allprojects {
 }
 
 rootProject.buildDir = '../build'
-
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    afterEvaluate {
-        // check if android block is available
-
-        if (it.hasProperty('android')) {
-            def manifest = new XmlSlurper().parse(file(it.android.sourceSets.main.manifest.srcFile))
-            def packageName = manifest.@package.text()
-
-            if (it.android.namespace == null) {
-                println("## Setting ${packageName} as android namespace")
-                android.namespace = packageName
-            }
-
-            println("## ${packageName} has a namespace set")
-
-            def javaVersion = JavaVersion.VERSION_17
-            android {
-                def androidApiVersion = 33
-                compileSdkVersion androidApiVersion
-                defaultConfig {
-                    targetSdkVersion androidApiVersion
-                }
-                compileOptions {
-                    sourceCompatibility javaVersion
-                    targetCompatibility javaVersion
-                }
-                tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-                    kotlinOptions {
-                        jvmTarget = javaVersion.toString()
-                    }
-                }
-                println("Setting Java version to $javaVersion")
-                println("Setting compileSdkVersion and targetSdkVersion to $androidApiVersion")
-            }
-        }
-    }
-
-}
-
-
-subprojects {
-    project.evaluationDependsOn(':app')
 }
 subprojects {
     project.evaluationDependsOn(':app')
