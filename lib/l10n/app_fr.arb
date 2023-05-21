@@ -176,7 +176,5 @@
   },
   "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux",
   "favoriteTimeSlotEnabledWarning": "Attention, en activant ce paramètres vous allez uniquement recevoir les notifications lorsqu'un évèmenent se produit durant l'un de vos créneaux",
-  "notificationNotEnabledMessage": "Attention, les notifications ne sont pas autorisées. Veuillez vous rendre dans les paramètres de l'application pour autoriser l'envoi de notification",
-  "notificationNotEnabledOpenSettings": "Ouvrir les paramètres de notification",
   "favoriteSlotsChooseDay": "Choisir les jours de la semaine"
 }

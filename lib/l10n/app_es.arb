@@ -176,7 +176,5 @@
   },
   "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o más intervalos de tiempo",
   "favoriteTimeSlotEnabledWarning": "Atención, al activar este parámetro solo recibirás notificaciones cuando ocurra un evento durante una de tus franjas horarias",
-  "notificationNotEnabledMessage": "Tenga en cuenta que las notificaciones no están permitidas. Vaya a la configuración de la aplicación para autorizar el envío de notificaciones.",
-  "notificationNotEnabledOpenSettings": "Abrir configuración de notificaciones",
   "favoriteSlotsChooseDay": "Elegir los días de la semana"
 }

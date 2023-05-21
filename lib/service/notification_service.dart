@@ -106,7 +106,7 @@ class NotificationService {
   ) async {
     tz.initializeTimeZones();
     int index = 0;
-    localNotifications.cancelAll();
+    await localNotifications.cancelAll();
     List<DateTime> weekSeparatedForecast = [];
     if (await _requestPermissions()) {
       for (final forecast in forecasts) {
