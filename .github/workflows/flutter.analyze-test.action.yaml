@@ -51,11 +51,11 @@ jobs:
       - name: 'Get dependencies'
         run: flutter pub get
       - name: '[Global] Code metrics'
-        run: flutter pub run dart_code_metrics:metrics analyze --fatal-style --fatal-warnings --fatal-performance --reporter=github lib
+        run: dart run dart_code_metrics:metrics analyze --fatal-style --fatal-warnings --fatal-performance --reporter=github lib
       - name: '[Unused files] Code metrics'
-        run: flutter pub run dart_code_metrics:metrics check-unused-files lib
+        run: dart run dart_code_metrics:metrics check-unused-files lib
       - name: '[Unused code] Code metrics'
-        run: flutter pub run dart_code_metrics:metrics check-unused-code lib
+        run: dart run dart_code_metrics:metrics check-unused-code lib
   test:
     name: 'Test'
     runs-on: ubuntu-latest
