@@ -4,6 +4,7 @@ import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/forecast_screen.dart';
@@ -76,7 +77,16 @@ class Chabo extends StatelessWidget {
             storageService: storageService,
             notificationService: notificationService,
           )..add(
-              AppEvent(),
+              NotificationAppEvent(),
+            ),
+        ),
+
+        /// Bloc intended to manage all TimeSlots
+        BlocProvider(
+          create: (_) => TimeSlotsBloc(
+            storageService: storageService,
+          )..add(
+              TimeSlotsAppEvent(),
             ),
         ),
       ],

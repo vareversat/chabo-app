@@ -47,6 +47,15 @@ class StorageService {
     return await sharedPreferences.setString(key, value.name);
   }
 
+  Future<bool> saveDays(String key, List<Day> days) async {
+    developer.log('{$key: $days}', name: 'storage-service.on.saveDays');
+
+    final stringValue =
+        days.map((e) => EnumToString.convertToString(e)).toList();
+
+    return await sharedPreferences.setString(key, json.encode(stringValue));
+  }
+
   Future<bool> saveTheme(String key, ThemeStateStatus value) async {
     developer.log('{$key: $value}', name: 'storage-service.on.saveTheme');
 
@@ -112,6 +121,25 @@ class StorageService {
       developer.log('{$key: $value}', name: 'storage-service.on.readDay');
 
       return value;
+    }
+  }
+
+  List<Day>? readDays(String key) {
+    final stringValue = sharedPreferences.getString(key);
+    if (stringValue == null) {
+      return null;
+    } else {
+      final list = json.decode(stringValue);
+      final List<Day?> days = list
+          .map<Day?>((item) => EnumToString.fromString(Day.values, item))
+          .toList();
+      days.removeWhere((element) => element == null);
+      developer.log(
+        '{$key: $days',
+        name: 'storage-service.on.readDays',
+      );
+
+      return days.nonNulls.toList();
     }
   }
 

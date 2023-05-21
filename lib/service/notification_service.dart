@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
@@ -100,6 +101,7 @@ class NotificationService {
   Future<void> computeNotifications(
     List<AbstractForecast> forecasts,
     NotificationState notificationSate,
+    TimeSlotsState timeSlotsState,
     BuildContext context,
   ) async {
     tz.initializeTimeZones();
@@ -109,7 +111,7 @@ class NotificationService {
     if (await _requestPermissions()) {
       for (final forecast in forecasts) {
         /// Compute the slot time linked to a forecast before starting the notification computation
-        forecast.computeSlotInterference(notificationSate.timeSlotsValue);
+        forecast.computeSlotInterference(timeSlotsState);
         final hasTimeSlots = forecast.interferingTimeSlots.isNotEmpty;
         if ((notificationSate.openingNotificationEnabled &&
                 !notificationSate.timeSlotsEnabledForNotifications) ||

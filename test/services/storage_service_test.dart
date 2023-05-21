@@ -97,5 +97,19 @@ void main() {
       expect(saveResult, true);
       expect(readResult, timeSlots);
     });
+
+    test('Save & Read Days', () async {
+      final days = [
+        Day.monday,
+        Day.tuesday,
+      ];
+      final saveResult = await storageService.saveDays(
+        'KEY_DAYS',
+        days,
+      );
+      final readResult = storageService.readDays('KEY_DAYS');
+      expect(saveResult, true);
+      expect(readResult, days);
+    });
   });
 }

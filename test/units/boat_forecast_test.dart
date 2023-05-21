@@ -1,5 +1,6 @@
 import 'package:chabo/models/boat.dart';
 import 'package:chabo/models/boat_forecast.dart';
+import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -79,7 +81,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.monday, Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -93,7 +96,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.monday, Day.tuesday, Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -107,7 +111,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -121,7 +126,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -135,7 +141,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.monday, Day.sunday];
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -149,7 +156,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.monday, Day.sunday];
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, true);
     });
 
@@ -163,7 +171,8 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.sunday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, false);
     });
 
@@ -177,7 +186,38 @@ void main() {
         ),
       );
 
-      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1);
+      const days = [Day.sunday];
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1, days);
+      expect(isOverlaping, false);
+    });
+
+    test('(3) Is NOT overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 14, minute: 00),
+        to: TimeOfDay(
+          hour: 15,
+          minute: 30,
+        ),
+      );
+
+      const days = [Day.thursday];
+      final isOverlaping = forecast.isOverlappingWithTimeSlot(timeSlot1, days);
+      expect(isOverlaping, false);
+    });
+
+    test('(4) Is NOT overlaping with [TimeSlots]', () {
+      const timeSlot1 = TimeSlot(
+        name: '',
+        from: TimeOfDay(hour: 00, minute: 00),
+        to: TimeOfDay(
+          hour: 1,
+          minute: 30,
+        ),
+      );
+
+      const days = [Day.wednesday];
+      final isOverlaping = forecast3.isOverlappingWithTimeSlot(timeSlot1, days);
       expect(isOverlaping, false);
     });
 

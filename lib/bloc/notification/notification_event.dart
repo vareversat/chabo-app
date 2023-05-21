@@ -62,21 +62,18 @@ class EnabledTimeSlotEvent extends NotificationEvent {
   EnabledTimeSlotEvent({required this.enabled}) : super();
 }
 
-class ValueTimeSlotEvent extends NotificationEvent {
-  final TimeSlot timeSlot;
-  final int index;
-
-  ValueTimeSlotEvent({required this.timeSlot, required this.index}) : super();
-}
-
 class ComputeNotificationEvent extends NotificationEvent {
   final List<AbstractForecast> forecasts;
   final BuildContext context;
+  final TimeSlotsState timeSlotsState;
 
-  ComputeNotificationEvent({required this.forecasts, required this.context})
-      : super();
+  ComputeNotificationEvent({
+    required this.forecasts,
+    required this.context,
+    required this.timeSlotsState,
+  }) : super();
 }
 
-class AppEvent extends NotificationEvent {
-  AppEvent() : super();
+class NotificationAppEvent extends NotificationEvent {
+  NotificationAppEvent() : super();
 }

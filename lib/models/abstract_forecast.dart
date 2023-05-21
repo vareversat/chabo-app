@@ -1,4 +1,6 @@
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
+import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/forecast_closing_reason.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
 import 'package:chabo/models/time_slot.dart';
@@ -79,10 +81,10 @@ abstract class AbstractForecast extends Equatable {
         .format(circulationReOpeningDate);
   }
 
-  void computeSlotInterference(List<TimeSlot> timeSlots) {
+  void computeSlotInterference(TimeSlotsState timeSlotsState) {
     interferingTimeSlots.clear();
-    for (var timeSlot in timeSlots) {
-      if (isOverlappingWithTimeSlot(timeSlot)) {
+    for (var timeSlot in timeSlotsState.timeSlots) {
+      if (isOverlappingWithTimeSlot(timeSlot, timeSlotsState.days)) {
         interferingTimeSlots.add(timeSlot);
       }
     }
@@ -138,13 +140,24 @@ abstract class AbstractForecast extends Equatable {
             endIsBeforeReopening);
   }
 
-  bool isOverlappingWithTimeSlot(TimeSlot timeSlot) {
+  bool isOverlappingWithTimeSlot(TimeSlot timeSlot, List<Day> days) {
+    final cDDay = circulationClosingDate.getDayOfTheWeek();
+    final cODay = circulationReOpeningDate.getDayOfTheWeek();
+
     /// We must compute the overlapping for the open and closing date separately
     /// if open and closing dates are not during the same day
-    return circulationClosingDate.day != circulationReOpeningDate.day
-        ? _isOverlapping(circulationClosingDate, timeSlot) ||
-            _isOverlapping(circulationReOpeningDate, timeSlot)
-        : _isOverlapping(circulationClosingDate, timeSlot);
+    if (cDDay != cODay) {
+      /// First of all, check if the day is one of choose
+      return !days.contains(cDDay) || !days.contains(cODay)
+          ? false
+          : _isOverlapping(circulationClosingDate, timeSlot) ||
+              _isOverlapping(circulationReOpeningDate, timeSlot);
+    } else {
+      /// First of all, check if the day is one of choose
+      return !days.contains(cDDay)
+          ? false
+          : _isOverlapping(circulationClosingDate, timeSlot);
+    }
   }
 
   static bool getBooleanTotalClosingValue(String stringValue) {
