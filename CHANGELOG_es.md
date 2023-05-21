@@ -1,3 +1,8 @@
+# **v1.9.1** :
+
+- *Fix*:
+  - Actualización revertida de Gradle
+***
 # **v1.9.0** :
 
 - *Características*:

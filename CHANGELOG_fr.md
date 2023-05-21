@@ -1,3 +1,8 @@
+# **v1.9.1** :
+
+- *Fix*:
+  - Annulation de la mise à jour de Gradle
+***
 # **v1.9.0** :
 
 - *Fonctionnalités*:

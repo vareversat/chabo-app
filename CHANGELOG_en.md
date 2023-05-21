@@ -1,3 +1,8 @@
+# **v1.9.1** :
+
+- *Fix*:
+  - Rollback Gradle Update
+***
 # **v1.9.0** :
 
 - *Features*:
