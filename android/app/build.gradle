@@ -33,6 +33,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
 
+    namespace 'fr.vareversat.chabo'
+
     compileSdkVersion 33
 
     lintOptions {
@@ -48,7 +50,7 @@ android {
 
     defaultConfig {
         multiDexEnabled true // https://pub.dev/packages/flutter_local_notifications/
-        applicationId "fr.vareversat.chabo"
+        applicationId 'fr.vareversat.chabo'
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
