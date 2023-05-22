@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+part of 'floating_actions_widget.dart';
 
-class FloatingActionsItem extends StatelessWidget {
+class _FloatingActionsItem extends StatelessWidget {
   final bool isSpaced;
   final List<Widget> content;
   final bool isRightHanded;
   final Function() onPressed;
 
-  const FloatingActionsItem({
+  const _FloatingActionsItem({
     Key? key,
     required this.isRightHanded,
     required this.onPressed,

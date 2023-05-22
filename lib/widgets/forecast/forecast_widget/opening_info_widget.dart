@@ -8,34 +8,30 @@ class _OpeningInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          bottomRight: Radius.circular(
+            CustomProperties.borderRadius,
+          ),
+        ),
+        color: Theme.of(context).colorScheme.okColor,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0).copyWith(right: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Icon(
-              Icons.check_circle,
-              size: 18,
-              color: Colors.green,
-            ),
-            Text(
-              MaterialLocalizations.of(context).formatMediumDate(
-                forecast.circulationReOpeningDate,
+            RichText(
+              text: forecast.circulationReOpeningDate.toLocalizedTextSpan(
+                context,
+                Theme.of(context).cardColor,
               ),
-              style: textTheme.bodySmall,
             ),
           ],
         ),
-        Text(
-          forecast.circulationReOpeningDateString(
-            context,
-          ),
-          style: textTheme.headlineSmall,
-        ),
-      ],
+      ),
     );
   }
 }

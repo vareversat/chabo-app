@@ -8,4 +8,6 @@ Several types of notifications are available:
 
 You also have the possibility to fill in slots in order to be informed only of events that impact you!
 
-Disclaimer: Chabo uses the web services provided by Bordeaux Métropole. It does not represent any government entity or the agglomeration of Bordeaux Métropole.
+Data source used (provided by Bordeaux Métropole OpenData): https://opendata.bordeaux-metropole.fr/explore/dataset/previsions_pont_chaban/api/
+
+Disclaimer: Chabo does not represent any government entity or the agglomeration of Bordeaux Métropole.

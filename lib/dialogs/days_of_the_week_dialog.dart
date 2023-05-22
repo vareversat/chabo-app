@@ -66,7 +66,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   showTimePicker(
-                    initialEntryMode: TimePickerEntryMode.dialOnly,
+                    initialEntryMode: TimePickerEntryMode.dial,
                     context: context,
                     initialTime: state.dayNotificationTimeValue,
                     builder: (BuildContext context, Widget? child) {
@@ -97,6 +97,27 @@ class DaysOfTheWeekDialog extends StatelessWidget {
           );
         },
       ),
+      actions: [
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    CustomProperties.borderRadius,
+                  ),
+                ),
+              ),
+            ),
+            onPressed: () => {Navigator.pop(context)},
+            icon: const Icon(Icons.check_circle),
+            label: Text(
+              MaterialLocalizations.of(context).okButtonLabel,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

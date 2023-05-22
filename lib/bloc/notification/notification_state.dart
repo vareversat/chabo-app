@@ -11,7 +11,6 @@ class NotificationState {
   final bool openingNotificationEnabled;
   final bool closingNotificationEnabled;
   final bool timeSlotsEnabledForNotifications;
-  final List<TimeSlot> timeSlotsValue;
   final bool notificationEnabled;
 
   NotificationState({
@@ -26,7 +25,6 @@ class NotificationState {
     required this.openingNotificationEnabled,
     required this.closingNotificationEnabled,
     required this.timeSlotsEnabledForNotifications,
-    required this.timeSlotsValue,
   });
 
   NotificationState copyWith({
@@ -40,7 +38,6 @@ class NotificationState {
     bool? openingNotificationEnabled,
     bool? closingNotificationEnabled,
     bool? timeSlotsEnabledForNotifications,
-    List<TimeSlot>? timeSlotsValue,
     bool? notificationEnabled,
   }) {
     return NotificationState(
@@ -63,7 +60,6 @@ class NotificationState {
           closingNotificationEnabled ?? this.closingNotificationEnabled,
       timeSlotsEnabledForNotifications: timeSlotsEnabledForNotifications ??
           this.timeSlotsEnabledForNotifications,
-      timeSlotsValue: timeSlotsValue ?? this.timeSlotsValue,
       notificationEnabled: notificationEnabled ?? this.notificationEnabled,
     );
   }

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:app_settings/app_settings.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
@@ -16,6 +16,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'custom_list_tile_widget.dart';
+
+part 'favorite_slots_day_picker_dialog.dart';
 
 part 'favorite_slots_widget.dart';
 
@@ -75,61 +77,10 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
               builder: (context, notificationState) {
                 return Column(
                   children: [
-                    Builder(
-                      builder: (context) {
-                        WidgetsBinding.instance.addPostFrameCallback(
-                          (_) {
-                            if (!notificationState.notificationEnabled) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  duration: const Duration(seconds: 10),
-                                  showCloseIcon: true,
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.error,
-                                  content: Column(
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .notificationNotEnabledMessage,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onError,
-                                            ),
-                                        overflow: TextOverflow.visible,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () => AppSettings
-                                            .openNotificationSettings(),
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                              .notificationNotEnabledOpenSettings,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        );
-
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                    Column(
-                      children: [
-                        _FavoriteSlotsWidget(
-                          highlightTimeSlots: widget.highlightTimeSlots,
-                          notificationState: notificationState,
-                        ),
-                      ],
+                    _FavoriteSlotsWidget(
+                      highlightTimeSlots: widget.highlightTimeSlots,
+                      timeSlotsEnabledForNotifications:
+                          notificationState.timeSlotsEnabledForNotifications,
                     ),
                     const SizedBox(
                       height: 10,
@@ -182,7 +133,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
-                          initialEntryMode: TimePickerEntryMode.dialOnly,
+                          initialEntryMode: TimePickerEntryMode.dial,
                           context: context,
                           initialTime: notificationState
                               .durationNotificationValue
@@ -235,7 +186,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
-                          initialEntryMode: TimePickerEntryMode.dialOnly,
+                          initialEntryMode: TimePickerEntryMode.dial,
                           context: context,
                           initialTime: notificationState.timeNotificationValue,
                           builder: (BuildContext context, Widget? child) {

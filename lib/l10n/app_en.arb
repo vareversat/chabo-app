@@ -1,18 +1,28 @@
 {
   "at": "at",
   "and": "and",
+  "the": "{startWithVowel, select, true{the } other{the }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "closing",
   "circulationReOpening": "re opening",
-  "closed": "closed to traffic",
+  "isClosed": "closed to traffic",
   "daySmall": "d",
   "goodAfternoon": "good afternoon",
   "goodEvening": "good evening",
   "goodMorning": "good morning",
   "nextClosingScheduled": "next closing scheduled in",
-  "open": "open to traffic",
+  "isOpen": "open to traffic",
   "scheduledToOpen": "scheduled to open in",
-  "theBridgeIsCurrently": "the Chaban bridge is",
-  "aboutToClose": "about to close to traffic",
+  "theChabanBridgeIsOpen": "the Chaban bridge is open to traffic",
+  "theChabanBridgeIsClosed": "the Chaban bridge is closed to traffic",
+  "theChabanBridgeWillSoonClose": "the Chaban bridge will soon close to traffic",
+  "willSoonClose": "close to traffic soon",
   "settingsTitle": "Settings",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -22,10 +32,19 @@
   "dialogInformationContentFromEnd": "to",
   "dialogInformationContentFromEnd2": "to",
   "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
-  "dialogInformationContentBridgeDeparture": "the departure of the",
-  "dialogInformationContentBridgeArrival": "the arrival of the",
-  "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
-  "dialogInformationContentClosing_time": "closing time",
+  "dialogInformationContentBridgeDeparture": "the departure of the {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeDeparture": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridgeArrival": "the arrival of {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeArrival": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridge_closed_maintenance": "maintenance",
   "dialogInformationContentTime_of_crossing": "estimated time of crossing",
   "errorScreenContentError": "Error",
   "errorScreenContentMessage": "An error occurred while opening this page. Please find technical information below",
@@ -84,7 +103,7 @@
   "closingNotificationExplanation": "Receive a notification when the bridge closes",
   "notificationClosingChannelName": "Closing",
   "notificationClosingTitle": "The Chaban bridge has closed ⛔",
-  "notificationClosingBoatMessage": "The Chaban bridge has just closed for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationClosingBoatMessage": "The Chaban bridge has just closed for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationClosingBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -110,7 +129,7 @@
   "saturday": "Saturday",
   "sunday": "Sunday",
   "notificationDurationTitle": "Imminent closure ⚠️",
-  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -127,12 +146,24 @@
   },
   "notificationDurationChannelName": "Imminent closures",
   "notificationTimeTitle": "\uD83D\uDDD3 Closing scheduled for tomorrow",
-  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
       "time": {},
       "duration": {}
+    }
+  },
+  "notificationTimeBoatArrival": "the arrival of the {boat}",
+  "@notificationTimeBoatArrival": {
+    "placeholders": {
+      "boat": {}
+    }
+  },
+  "notificationTimeBoatDeparture": "the departure of the {boat}",
+  "@notificationTimeBoatDeparture": {
+    "placeholders": {
+      "boat": {}
     }
   },
   "notificationTimeMaintenanceMessage": "The Chaban Bridge will close tomorrow at {time} for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
@@ -176,6 +207,18 @@
   },
   "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots",
   "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots",
-  "notificationNotEnabledMessage": "Please note that notifications are not allowed. Please go to the application settings to authorize the sending of notifications",
-  "notificationNotEnabledOpenSettings": "Open notification settings"
+  "favoriteSlotsChooseDay": "Choose the days of the week",
+  "moonHarborStatus": "{count, plural, =1 {is} other {are}} currently docked in the 'Moon Harbor'",
+  "@moonHarborStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {ship is} other {ships are}} currently in Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "wineFestivalSailBoats": "Wine Festival Sailboats"
 }

@@ -1,6 +1,6 @@
 import 'package:chabo/bloc/forecast/forecast_bloc.dart';
-import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +21,10 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<ForecastBloc, ForecastState>(
       builder: (context, forecastState) {
-        return BlocBuilder<NotificationBloc, NotificationState>(
-          buildWhen: (previous, next) =>
-              previous.timeSlotsValue != next.timeSlotsValue,
-          builder: (context, timeSlotState) {
-            return SliverToBoxAdapter(
-              child: ListView.separated(
+        return SliverToBoxAdapter(
+          child: BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
+            builder: (context, timeSlotState) {
+              return ListView.separated(
                 shrinkWrap: true,
                 cacheExtent: 5000,
                 padding: const EdgeInsets.symmetric(horizontal: 5).copyWith(
@@ -38,8 +36,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                 ) {
                   final AbstractForecast forecast =
                       forecastState.forecasts[index];
-                  forecast
-                      .computeSlotInterference(timeSlotState.timeSlotsValue);
+                  forecast.computeSlotInterference(timeSlotState);
 
                   return !forecast.hasPassed()
                       ? ForecastWidget(
@@ -71,9 +68,9 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
 
                   return const SizedBox.shrink();
                 },
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     );
@@ -93,15 +90,25 @@ class _MonthWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
-            flex: 5,
-            child: Center(
-              child: Text(
-                DateFormat.MMMM(Localizations.localeOf(context).languageCode)
-                    .format(
-                  forecast.circulationClosingDate,
-                ),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            child: Divider(
+              thickness: 1.5,
+              color: Theme.of(context).colorScheme.inverseSurface,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              DateFormat.yMMMM(Localizations.localeOf(context).languageCode)
+                  .format(
+                forecast.circulationClosingDate,
               ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Flexible(
+            child: Divider(
+              thickness: 1.5,
+              color: Theme.of(context).colorScheme.inverseSurface,
             ),
           ),
         ],

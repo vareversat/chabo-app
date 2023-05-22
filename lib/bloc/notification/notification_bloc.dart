@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chabo/bloc/chabo_event.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/time_slot.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
                 Const.notificationClosingEnabledDefaultValue,
             timeSlotsEnabledForNotifications:
                 Const.notificationFavoriteSlotsEnabledDefaultValue,
-            timeSlotsValue: Const.notificationFavoriteSlotsDefaultValue,
             notificationEnabled: false,
           ),
         ) {
@@ -84,15 +83,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       _onEnabledTimeSlotEvent,
       transformer: sequential(),
     );
-    on<ValueTimeSlotEvent>(
-      _onTimeSlotsEventValue,
-      transformer: sequential(),
-    );
     on<ComputeNotificationEvent>(
       _onComputeNotificationEvent,
       transformer: sequential(),
     );
-    on<AppEvent>(
+    on<NotificationAppEvent>(
       _onAppEvent,
       transformer: sequential(),
     );
@@ -262,25 +257,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     ));
   }
 
-  Future<void> _onTimeSlotsEventValue(
-    ValueTimeSlotEvent event,
-    Emitter<NotificationState> emit,
-  ) async {
-    final timeSlots = List<TimeSlot>.from(state.timeSlotsValue);
-    timeSlots[event.index] = event.timeSlot;
-    await storageService.saveTimeSlots(
-      Const.notificationFavoriteSlotsValueKey,
-      timeSlots,
-    );
-    HapticFeedback.lightImpact();
-
-    emit(
-      state.copyWith(
-        timeSlotsValue: timeSlots,
-      ),
-    );
-  }
-
   Future<void> _onComputeNotificationEvent(
     ComputeNotificationEvent event,
     Emitter<NotificationState> emit,
@@ -288,12 +264,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     await notificationService.computeNotifications(
       event.forecasts,
       state,
+      event.timeSlotsState,
       event.context,
     );
   }
 
   void _onAppEvent(
-    AppEvent event,
+    NotificationAppEvent event,
     Emitter<NotificationState> emit,
   ) async {
     final durationNotificationEnabled =
@@ -332,10 +309,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         storageService.readBool(Const.notificationClosingEnabledKey) ??
             Const.notificationClosingEnabledDefaultValue;
 
-    final timeSlots =
-        storageService.readTimeSlots(Const.notificationFavoriteSlotsValueKey) ??
-            Const.notificationFavoriteSlotsDefaultValue;
-
     final enabledForNotifications =
         storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
             Const.notificationFavoriteSlotsEnabledDefaultValue;
@@ -353,7 +326,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         dayNotificationTimeValue: dayNotificationTimeValue,
         openingNotificationEnabled: openingNotificationEnabled,
         closingNotificationEnabled: closingNotificationEnabled,
-        timeSlotsValue: timeSlots,
         timeSlotsEnabledForNotifications: enabledForNotifications,
         notificationEnabled: enabled,
       ),

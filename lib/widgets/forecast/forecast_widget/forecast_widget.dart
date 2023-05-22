@@ -1,23 +1,22 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/forecast_information_dialog.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
+import 'package:chabo/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 part 'closing_info_widget.dart';
-
+part 'day_widget.dart';
 part 'duration_widget.dart';
-
 part 'leading_icon_widget.dart';
-
 part 'opening_info_widget.dart';
-
 part 'time_slot_warning_widget.dart';
 
 class ForecastWidget extends StatelessWidget {
@@ -59,7 +58,10 @@ class ForecastWidget extends StatelessWidget {
                           color: backgroundColor ??
                               forecast.getColor(context, false),
                         )
-                      : BorderSide.none,
+                      : BorderSide(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.surfaceVariant,
+                        ),
                 ),
               ),
               padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
@@ -70,70 +72,93 @@ class ForecastWidget extends StatelessWidget {
             ),
             onPressed: onTap ??
                 () async => {
-                      await showGeneralDialog(
+                      await showModalBottomSheet(
+                        useSafeArea: false,
+                        barrierColor: Colors.black.withOpacity(0.65),
+                        constraints: BoxConstraints(
+                          maxWidth: DeviceHelper.isPortrait(context)
+                              ? double.infinity
+                              : MediaQuery.of(context).size.width / 2.5,
+                        ),
+                        enableDrag: true,
                         context: context,
-                        pageBuilder: (BuildContext context, _, __) {
-                          return const SizedBox.shrink();
-                        },
-                        barrierDismissible: true,
-                        transitionBuilder: (context, a1, a2, widget) {
-                          return FadeTransition(
-                            opacity:
-                                Tween<double>(begin: 0.0, end: 1.0).animate(a1),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                sigmaX: CustomProperties.blurSigmaX,
-                                sigmaY: CustomProperties.blurSigmaY,
-                              ),
-                              child: ForecastInformationDialog(
-                                forecast: forecast,
-                              ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(
+                              CustomProperties.borderRadius * 2,
                             ),
+                          ),
+                        ),
+                        builder: (context) {
+                          return ForecastInformationBottomSheet(
+                            forecast: forecast,
                           );
                         },
-                        barrierLabel: MaterialLocalizations.of(context)
-                            .modalBarrierDismissLabel,
-                        transitionDuration: const Duration(
-                          milliseconds: 300,
-                        ),
                       ),
                     },
             child: SizedBox(
-              height: 60,
+              height: 80,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _LeadingIconWidget(
-                    forecast: forecast,
-                    backgroundColor: backgroundColor ??
-                        forecast.getColor(
-                          context,
-                          false,
+                  Flexible(
+                    flex: 5,
+                    child: _LeadingIconWidget(
+                      forecast: forecast,
+                      backgroundColor: backgroundColor ??
+                          forecast.getColor(
+                            context,
+                            false,
+                          ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 8,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: _DayWidget(
+                                  forecast: forecast,
+                                ),
+                              ),
+
+                              /// Display a warning sign if the schedule interferes with timeslots
+                              timeSlots.isNotEmpty
+                                  ? const _TimeSlotWarningWidget()
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
                         ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _ClosingInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: _DurationWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _OpeningInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  timeSlots.isNotEmpty
-                      ? const _TimeSlotWarningWidget()
-                      : Container(
-                          width: 15,
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: _ClosingInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  child: _OpeningInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            _DurationWidget(
+                              forecast: forecast,
+                            ),
+                          ],
                         ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -8,4 +8,6 @@ Hay varios tipos de notificaciones disponibles:
 
 ¡También tienes la opción de introducir franjas horarias para que solo te avisen de los eventos que te afectan!
 
-Descargo de responsabilidad: Chabo utiliza los servicios web proporcionados por Bordeaux Métropole. No representa ninguna entidad gubernamental ni la aglomeración de Burdeos.
+Fuente de datos utilizados (proporcionada por Bordeaux Métropole opendata): https://opendata.bordeaux-metropole.es/explore/dataset/previsions_pont_chaban/api/
+
+Descargo de responsabilidad: Chabo no representa a ninguna entidad gubernamental ni a la aglomeración metropolitana de Burdeos.

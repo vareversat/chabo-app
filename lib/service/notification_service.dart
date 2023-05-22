@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/const.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
@@ -100,16 +101,19 @@ class NotificationService {
   Future<void> computeNotifications(
     List<AbstractForecast> forecasts,
     NotificationState notificationSate,
+    TimeSlotsState timeSlotsState,
     BuildContext context,
   ) async {
     tz.initializeTimeZones();
     int index = 0;
-    localNotifications.cancelAll();
+    await localNotifications.cancelAll();
     List<DateTime> weekSeparatedForecast = [];
+
+    /// Make sure that the user enable the notification
     if (await _requestPermissions()) {
       for (final forecast in forecasts) {
         /// Compute the slot time linked to a forecast before starting the notification computation
-        forecast.computeSlotInterference(notificationSate.timeSlotsValue);
+        forecast.computeSlotInterference(timeSlotsState);
         final hasTimeSlots = forecast.interferingTimeSlots.isNotEmpty;
         if ((notificationSate.openingNotificationEnabled &&
                 !notificationSate.timeSlotsEnabledForNotifications) ||
@@ -312,7 +316,8 @@ class NotificationService {
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
       ongoing: false,
-      fullScreenIntent: true,
+      autoCancel: true,
+      fullScreenIntent: false,
       styleInformation: const BigTextStyleInformation(''),
       ticker: Const.androidTicket,
     );
@@ -327,7 +332,7 @@ class NotificationService {
     DateTime notificationScheduleTime,
     NotificationDetails notificationDetails,
   ) async {
-    /// Prevent from creating notification in the past AND make sure that the user enable the notification
+    /// Prevent from creating notification in the past
     if (notificationScheduleTime.isAfter(DateTime.now())) {
       developer.log(
         'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',

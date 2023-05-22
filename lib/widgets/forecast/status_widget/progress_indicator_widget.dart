@@ -32,7 +32,7 @@ class _ProgressIndicatorWidget extends StatelessWidget {
               ? Text(
                   statusState.timeMessagePrefix,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontSize: 20,
+                        fontSize: 18,
                       ),
                 )
               : const SizedBox.shrink(),
@@ -41,7 +41,7 @@ class _ProgressIndicatorWidget extends StatelessWidget {
             ? Text(
                 statusState.durationUntilNextEvent.durationToString(context),
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
               )
