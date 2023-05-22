@@ -1,13 +1,13 @@
 part of 'notification_screen.dart';
 
 class _FavoriteSlotsWidget extends StatefulWidget {
-  final NotificationState notificationState;
   final bool highlightTimeSlots;
+  final bool timeSlotsEnabledForNotifications;
 
   const _FavoriteSlotsWidget({
     Key? key,
-    required this.notificationState,
     required this.highlightTimeSlots,
+    required this.timeSlotsEnabledForNotifications,
   }) : super(key: key);
 
   @override
@@ -54,78 +54,118 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
       ),
     )..addListener(
         () {
-          /// Trigger le rebuild of the widget
+          /// Trigger the rebuild of the widget
           // ignore: no-empty-block
           setState(() {});
         },
       );
 
-    return Column(
-      children: [
-        _CustomListTileWidget(
-          onChanged: (bool value) => {
-            BlocProvider.of<NotificationBloc>(context).add(
-              EnabledTimeSlotEvent(
-                enabled: value,
-              ),
-            ),
-            if (value)
-              {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 7),
-                    showCloseIcon: true,
-                    backgroundColor: Theme.of(context).colorScheme.warningColor,
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .favoriteTimeSlotEnabledWarning,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+    return BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            _CustomListTileWidget(
+              onChanged: (bool value) => {
+                BlocProvider.of<NotificationBloc>(context).add(
+                  EnabledTimeSlotEvent(
+                    enabled: value,
                   ),
                 ),
-              }
-            else
-              {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar(
-                  reason: SnackBarClosedReason.action,
-                ),
+                if (value)
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: const Duration(seconds: 7),
+                        showCloseIcon: true,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.warningColor,
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .favoriteTimeSlotEnabledWarning,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  }
+                else
+                  {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar(
+                      reason: SnackBarClosedReason.action,
+                    ),
+                  },
               },
-          },
-          enabled: widget.notificationState.timeSlotsEnabledForNotifications,
-          title: AppLocalizations.of(context)!.favoriteSlots,
-          subtitle: AppLocalizations.of(context)!.favoriteSlotsDescription,
-          leadingIcon: Icons.warning_rounded,
-          iconColor: Theme.of(context).colorScheme.warningColor,
-          constrainedBySlots: false,
-        ),
-        Container(
-          color:
-              widget.highlightTimeSlots ? _animation.value : Colors.transparent,
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              for (var i = 0;
-                  i < widget.notificationState.timeSlotsValue.length;
-                  i++) ...[
-                TimeSlotWidget(
-                  timeSlot: widget.notificationState.timeSlotsValue[i],
-                  index: i,
-                ),
-              ],
-            ],
-          ),
-        ),
-      ],
+              enabled: widget.timeSlotsEnabledForNotifications,
+              title: AppLocalizations.of(context)!.favoriteSlots,
+              subtitle: AppLocalizations.of(context)!.favoriteSlotsDescription,
+              leadingIcon: Icons.warning_rounded,
+              iconColor: Theme.of(context).colorScheme.warningColor,
+              constrainedBySlots: false,
+            ),
+            Container(
+              color: widget.highlightTimeSlots
+                  ? _animation.value
+                  : Colors.transparent,
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      for (var i = 0; i < state.timeSlots.length; i++) ...[
+                        TimeSlotWidget(
+                          timeSlot: state.timeSlots[i],
+                          index: i,
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            CustomProperties.borderRadius,
+                          ),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: CustomProperties.blurSigmaX,
+                              sigmaY: CustomProperties.blurSigmaY,
+                            ),
+                            child: const FavoriteSlotsDayPickerDialog(),
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.calendar_view_week),
+                    label: Text(
+                      AppLocalizations.of(context)!.favoriteSlotsChooseDay,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

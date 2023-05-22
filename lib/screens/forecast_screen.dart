@@ -2,6 +2,7 @@ import 'package:chabo/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo/bloc/notification/notification_bloc.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/status/status_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
@@ -90,7 +91,8 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                         ),
                         BlocListener<NotificationBloc, NotificationState>(
                           listener: (context, state) {
-                            /// If the NotificationState changes, update the durationNotificationValue to get the right color of the current status widget
+                            /// If the NotificationState changes, update the durationNotificationValue
+                            /// to get the right color of the current status widget
                             BlocProvider.of<StatusBloc>(context).add(
                               StatusDurationChanged(
                                 duration: state.durationNotificationValue,
@@ -104,8 +106,32 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                   context,
                                 ).state.forecasts,
                                 context: context,
+                                timeSlotsState:
+                                    BlocProvider.of<TimeSlotsBloc>(context)
+                                        .state,
                               ),
                             );
+                          },
+                        ),
+                        BlocListener<TimeSlotsBloc, TimeSlotsState>(
+                          listener: (context, state) {
+                            /// If the TimeSlotsState changes and the timeSlotsEnabledForNotifications is enabled,
+                            /// re-compute all notifications
+                            if (BlocProvider.of<NotificationBloc>(context)
+                                .state
+                                .timeSlotsEnabledForNotifications) {
+                              BlocProvider.of<NotificationBloc>(context).add(
+                                ComputeNotificationEvent(
+                                  forecasts: BlocProvider.of<ForecastBloc>(
+                                    context,
+                                  ).state.forecasts,
+                                  context: context,
+                                  timeSlotsState:
+                                      BlocProvider.of<TimeSlotsBloc>(context)
+                                          .state,
+                                ),
+                              );
+                            }
                           },
                         ),
                       ],

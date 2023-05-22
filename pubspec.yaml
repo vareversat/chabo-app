@@ -3,10 +3,10 @@ description: Mobile app to get the closing and opening schedules of the Chaban D
 
 publish_to: 'none'
 
-version: 1.8.1
+version: 1.9.1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
   flutter: '3.10.0'
 
 dependencies:
@@ -15,7 +15,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   enum_to_string: ^2.0.1
-  file: ^6.1.4 # Prevent build errors (https://stackoverflow.com/questions/73561012/flutter-the-method-file-create-has-fewer-named-arguments-than-those-of-overrid)
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
@@ -33,7 +32,6 @@ dependencies:
   stream_transform: ^2.0.0
   timezone: ^0.9.1
   url_launcher: ^6.1.7
-  app_settings: ^4.2.0
 
 
 dev_dependencies:

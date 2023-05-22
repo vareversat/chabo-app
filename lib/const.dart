@@ -77,6 +77,8 @@ class Const {
       'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_ENABLED';
   static const String notificationFavoriteSlotsValueKey =
       'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
+  static const String notificationFavoriteSlotsDaysValueKey =
+      'NOTIFICATION_FAVORITE_SLOTS_DAYS_SETTINGS_VALUE';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -111,6 +113,13 @@ class Const {
         minute: 30,
       ),
     ),
+  ];
+  static List<Day> notificationFavoriteSlotsDaysDefaultValue = [
+    Day.monday,
+    Day.tuesday,
+    Day.wednesday,
+    Day.thursday,
+    Day.friday,
   ];
 
   /// UI

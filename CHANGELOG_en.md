@@ -1,3 +1,17 @@
+# **v1.9.1** :
+
+- *Fix*:
+  - Rollback Gradle Update
+***
+# **v1.9.0** :
+
+- *Features*:
+   - It is now possible to add days of the week to time slots
+- *Interface*:
+   - Minor fixes and additions
+- *Core*:
+   - Updated to Gradle 8
+***
 # **v1.8.1**:
 
 - *Fix*:

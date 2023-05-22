@@ -111,6 +111,9 @@ class ForecastInformationDialog extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

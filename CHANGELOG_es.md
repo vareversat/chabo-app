@@ -1,3 +1,17 @@
+# **v1.9.1** :
+
+- *Fix*:
+  - Actualización revertida de Gradle
+***
+# **v1.9.0** :
+
+- *Características*:
+   - Ahora es posible agregar días de la semana a las franjas horarias
+- *Interfaz*:
+   - Correcciones menores y adiciones.
+- *Centro*:
+   - Actualizado a Gradle 8
+***
 # **v1.8.1**:
 
 - *Fix*:
