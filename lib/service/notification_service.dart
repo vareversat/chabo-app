@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
@@ -11,7 +12,6 @@ import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/service/storage_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -20,64 +20,19 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   final StorageService storageService;
+  final FlutterLocalNotificationsPlugin notificationsPlugin;
 
-  static FlutterLocalNotificationsPlugin localNotifications =
-      FlutterLocalNotificationsPlugin();
+  NotificationService({
+    required this.storageService,
+    required this.notificationsPlugin,
+  });
 
-  NotificationService._({required this.storageService});
 
-  static Future<NotificationService> create({
-    required StorageService storageService,
-  }) async {
-    var notificationService =
-        NotificationService._(storageService: storageService);
-
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings(Const.androidAppLogoPath);
-
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-
-    /// Initialize the notification plugin
-    await localNotifications.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: _onDidReceiveLocalNotification,
-      onDidReceiveBackgroundNotificationResponse:
-          _onDidReceiveBackgroundNotificationResponse,
-    );
-    developer.log(
-      'Notification plugin initialized',
-      name: 'notification-service.on.ctor',
-    );
-
-    /// Wip out all existing notifications
-    if (!kIsWeb) {
-      await localNotifications.cancelAll();
-      developer.log(
-        'Previous existing notifications cleaned',
-        name: 'notification-service.on.ctor',
-      );
-    }
-
-    return notificationService;
-  }
-
-  static _onDidReceiveBackgroundNotificationResponse(
-    NotificationResponse notificationResponse,
-    // ignore: avoid-unused-parameters
-  ) {} // ignore: no-empty-block
-
-  static _onDidReceiveLocalNotification(
-    NotificationResponse notificationResponse,
-    // ignore: avoid-unused-parameters
-  ) {} // ignore: no-empty-block
 
   Future<bool> _requestPermissions() async {
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          localNotifications.resolvePlatformSpecificImplementation<
+          notificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
 
       return await androidImplementation?.requestPermission() ?? false;
@@ -89,7 +44,7 @@ class NotificationService {
   Future<bool> areNotificationsEnabled() async {
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          localNotifications.resolvePlatformSpecificImplementation<
+          notificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
 
       return await androidImplementation?.areNotificationsEnabled() ?? false;
@@ -106,7 +61,7 @@ class NotificationService {
   ) async {
     tz.initializeTimeZones();
     int index = 0;
-    await localNotifications.cancelAll();
+    await notificationsPlugin.cancelAll();
     List<DateTime> weekSeparatedForecast = [];
     if (await _requestPermissions()) {
       for (final forecast in forecasts) {
@@ -335,7 +290,7 @@ class NotificationService {
         'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',
         name: 'notification-service.on.scheduleNotification',
       );
-      await localNotifications.zonedSchedule(
+      await notificationsPlugin.zonedSchedule(
         notificationId,
         notificationTitle,
         notificationMessage,
@@ -347,6 +302,8 @@ class NotificationService {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
+        payload:
+            Platform.isAndroid ? notificationDetails.android!.channelId : null,
       );
     }
   }

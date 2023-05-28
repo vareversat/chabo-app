@@ -34,7 +34,7 @@ class Chabo extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         /// Bloc intended to manage the theme of the App
-        BlocProvider(
+        BlocProvider<ThemeBloc>(
           create: (_) => ThemeBloc(
             storageService: storageService,
           )..add(
@@ -43,15 +43,18 @@ class Chabo extends StatelessWidget {
         ),
 
         /// Bloc intended to manage the FloatingActions
-        BlocProvider(
+        BlocProvider<FloatingActionsCubit>(
           create: (_) => FloatingActionsCubit(
             storageService,
-            const FloatingActionsState(isMenuOpen: false, isRightHanded: true),
+            const FloatingActionsState(
+              isMenuOpen: false,
+              isRightHanded: true,
+            ),
           )..init(),
         ),
 
         /// Bloc intended to manage the forecast displayed
-        BlocProvider(
+        BlocProvider<ForecastBloc>(
           create: (_) => ForecastBloc(
             httpClient: http.Client(),
           )..add(
@@ -60,19 +63,19 @@ class Chabo extends StatelessWidget {
         ),
 
         /// Bloc intended to manage the status
-        BlocProvider(
+        BlocProvider<StatusBloc>(
           create: (_) => StatusBloc(),
         ),
 
         /// Bloc intended to manage scroll to status to display (or not) the current status
-        BlocProvider(
+        BlocProvider<ScrollStatusBloc>(
           create: (_) => ScrollStatusBloc(
             scrollController: ScrollController(),
           ),
         ),
 
         /// Bloc intended to manage all Notifications
-        BlocProvider(
+        BlocProvider<NotificationBloc>(
           create: (_) => NotificationBloc(
             storageService: storageService,
             notificationService: notificationService,
@@ -82,7 +85,7 @@ class Chabo extends StatelessWidget {
         ),
 
         /// Bloc intended to manage all TimeSlots
-        BlocProvider(
+        BlocProvider<TimeSlotsBloc>(
           create: (_) => TimeSlotsBloc(
             storageService: storageService,
           )..add(
