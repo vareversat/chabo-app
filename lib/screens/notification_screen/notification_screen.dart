@@ -133,7 +133,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
-                          initialEntryMode: TimePickerEntryMode.dialOnly,
+                          initialEntryMode: TimePickerEntryMode.dial,
                           context: context,
                           initialTime: notificationState
                               .durationNotificationValue
@@ -186,7 +186,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                     _CustomListTileWidget(
                       onTap: () {
                         showTimePicker(
-                          initialEntryMode: TimePickerEntryMode.dialOnly,
+                          initialEntryMode: TimePickerEntryMode.dial,
                           context: context,
                           initialTime: notificationState.timeNotificationValue,
                           builder: (BuildContext context, Widget? child) {

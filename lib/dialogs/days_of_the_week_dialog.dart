@@ -66,7 +66,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   showTimePicker(
-                    initialEntryMode: TimePickerEntryMode.dialOnly,
+                    initialEntryMode: TimePickerEntryMode.dial,
                     context: context,
                     initialTime: state.dayNotificationTimeValue,
                     builder: (BuildContext context, Widget? child) {
