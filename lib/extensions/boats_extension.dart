@@ -46,74 +46,11 @@ extension BoatsExtension on List<Boat> {
               .notificationTimeBoatDeparture(this[index].name)
           : AppLocalizations.of(context)!
               .notificationTimeBoatArrival(this[index].name);
-      if (length - index > 2) {
-        finalString += ', ';
-      } else if (index + 1 != length) {
+      if (index + 1 != length) {
         finalString += ' ${AppLocalizations.of(context)!.and} ';
       }
     }
 
     return finalString;
-  }
-
-  List<TextSpan> toLocalizedMoonHarborStatus(BuildContext context) {
-    final finalTextSpan = <TextSpan>[];
-    var boatCount = 0;
-    for (var index = 0; index < length; index++) {
-      if (!this[index].isLeaving) {
-        if (boatCount != 0) {
-          finalTextSpan.add(
-            TextSpan(
-              text: ' ${AppLocalizations.of(context)!.and} ',
-            ),
-          );
-        }
-        boatCount += 1;
-        finalTextSpan.add(
-          TextSpan(
-            text: AppLocalizations.of(context)!
-                .the(this[index].name.startsWithVowel().toString())
-                .capitalize(),
-          ),
-        );
-        finalTextSpan.add(
-          this[index].toLocalizedTextSpan(context, true),
-        );
-      }
-    }
-
-    finalTextSpan.add(
-      TextSpan(
-        text: ' ${AppLocalizations.of(context)!.moonHarborStatus(boatCount)}',
-      ),
-    );
-
-    return finalTextSpan;
-  }
-
-  bool oneIsArriving() {
-    var oneIsArriving = false;
-    for (var index = 0; index < length; index++) {
-      if (!this[index].isLeaving) {
-        oneIsArriving = true;
-      }
-    }
-
-    return oneIsArriving;
-  }
-
-  int getArrivingCount() {
-    var arriving = 0;
-    for (var index = 0; index < length; index++) {
-      if (!this[index].isLeaving) {
-        arriving += 1;
-      }
-    }
-
-    return arriving;
-  }
-
-  bool isWineFestival() {
-    return length == 1 && this[0].isWineFestivalSailBoats;
   }
 }
