@@ -93,82 +93,84 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Divider(
-                          height: 5,
-                          indent: 25,
-                          endIndent: 25,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _CustomListTileWidget(
-                          onChanged: (bool value) =>
-                              BlocProvider.of<NotificationBloc>(context).add(
-                            OpeningNotificationStateEvent(
-                              enabled: value,
-                            ),
-                          ),
-                          enabled: notificationState.openingNotificationEnabled,
-                          title: AppLocalizations.of(context)!
-                              .openingNotificationTitle,
-                          subtitle: AppLocalizations.of(context)!
-                              .openingNotificationExplanation,
-                          leadingIcon: Icons.check_circle,
-                          iconColor: Colors.green,
-                          constrainedBySlots: notificationState
-                              .timeSlotsEnabledForNotifications,
-                        ),
-                        _CustomListTileWidget(
-                          onChanged: (bool value) =>
-                              BlocProvider.of<NotificationBloc>(context).add(
-                            ClosingNotificationStateEvent(
-                              enabled: value,
-                            ),
-                          ),
-                          enabled: notificationState.closingNotificationEnabled,
-                          title: AppLocalizations.of(context)!
-                              .closingNotificationTitle,
-                          subtitle: AppLocalizations.of(context)!
-                              .closingNotificationExplanation,
-                          leadingIcon: Icons.block_rounded,
-                          iconColor: Colors.red,
-                          constrainedBySlots: notificationState
-                              .timeSlotsEnabledForNotifications,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        _CustomListTileWidget(
-                          onTap: () {
-                            showTimePicker(
-                              initialEntryMode: TimePickerEntryMode.dial,
-                              context: context,
-                              initialTime: notificationState
-                                  .durationNotificationValue
-                                  .durationToTimeOfDay(),
-                              builder: (BuildContext context, Widget? child) {
-                                return MediaQuery(
-                                  data: MediaQuery.of(context).copyWith(
-                                    alwaysUse24HourFormat: true,
-                                  ),
-                                  child: child!,
-                                );
-                              },
-                            ).then(
-                              (value) => {
-                                if (value != null)
-                                  {
-                                    BlocProvider.of<NotificationBloc>(context)
-                                        .add(
-                                      DurationNotificationValueEvent(
-                                        duration: Duration(
-                                          hours: value.hour,
-                                          minutes: value.minute,
-                                        ),
-                                      ),
+                      ),
+                      enabled: notificationState.closingNotificationEnabled,
+                      title: AppLocalizations.of(context)!
+                          .closingNotificationTitle,
+                      subtitle: AppLocalizations.of(context)!
+                          .closingNotificationExplanation,
+                      leadingIcon: Icons.block_rounded,
+                      iconColor: Colors.red,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _CustomListTileWidget(
+                      onTap: () {
+                        showTimePicker(
+                          initialEntryMode: TimePickerEntryMode.dial,
+                          context: context,
+                          initialTime: notificationState
+                              .durationNotificationValue
+                              .durationToTimeOfDay(),
+                          builder: (BuildContext context, Widget? child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(
+                                alwaysUse24HourFormat: true,
+                              ),
+                              child: child!,
+                            );
+                          },
+                        ).then(
+                          (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DurationNotificationValueEvent(
+                                    duration: Duration(
+                                      hours: value.hour,
+                                      minutes: value.minute,
                                     ),
                                   },
                               },
+                          },
+                        );
+                      },
+                      onChanged: (bool value) =>
+                          BlocProvider.of<NotificationBloc>(context).add(
+                        DurationNotificationStateEvent(
+                          enabled: value,
+                        ),
+                      ),
+                      enabled: notificationState.durationNotificationEnabled,
+                      title: AppLocalizations.of(context)!
+                          .durationNotificationTitle(
+                        notificationState.durationNotificationValue
+                            .durationToString(context),
+                      ),
+                      subtitle: AppLocalizations.of(context)!
+                          .durationNotificationExplanation(
+                        notificationState.durationNotificationValue
+                            .durationToString(context),
+                      ),
+                      leadingIcon: Icons.timer_outlined,
+                      constrainedBySlots:
+                          notificationState.timeSlotsEnabledForNotifications,
+                    ),
+                    _CustomListTileWidget(
+                      onTap: () {
+                        showTimePicker(
+                          initialEntryMode: TimePickerEntryMode.dial,
+                          context: context,
+                          initialTime: notificationState.timeNotificationValue,
+                          builder: (BuildContext context, Widget? child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(
+                                alwaysUse24HourFormat: false,
+                              ),
+                              child: child!,
                             );
                           },
                           onChanged: (bool value) =>

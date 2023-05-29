@@ -63,33 +63,22 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    ' ${AppLocalizations.of(context)!.dayNotificationAt} ',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      showTimePicker(
-                        initialEntryMode: TimePickerEntryMode.dial,
-                        context: context,
-                        initialTime: state.dayNotificationTimeValue,
-                        builder: (BuildContext context, Widget? child) {
-                          return MediaQuery(
-                            data: MediaQuery.of(context),
-                            child: child!,
-                          );
-                        },
-                      ).then(
-                        (value) => {
-                          if (value != null)
-                            {
-                              BlocProvider.of<NotificationBloc>(context).add(
-                                DayNotificationTimeValueEvent(
-                                  time: value,
-                                ),
-                              ),
-                            },
-                        },
+                ),
+              ),
+              Text(
+                ' ${AppLocalizations.of(context)!.dayNotificationAt} ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  showTimePicker(
+                    initialEntryMode: TimePickerEntryMode.dial,
+                    context: context,
+                    initialTime: state.dayNotificationTimeValue,
+                    builder: (BuildContext context, Widget? child) {
+                      return MediaQuery(
+                        data: MediaQuery.of(context),
+                        child: child!,
                       );
                     },
                     child: Text(
