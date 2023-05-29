@@ -108,6 +108,8 @@ class NotificationService {
     int index = 0;
     await localNotifications.cancelAll();
     List<DateTime> weekSeparatedForecast = [];
+
+    /// Make sure that the user enable the notification
     if (await _requestPermissions()) {
       for (final forecast in forecasts) {
         /// Compute the slot time linked to a forecast before starting the notification computation
@@ -314,7 +316,8 @@ class NotificationService {
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
       ongoing: false,
-      fullScreenIntent: true,
+      autoCancel: true,
+      fullScreenIntent: false,
       styleInformation: const BigTextStyleInformation(''),
       ticker: Const.androidTicket,
     );
@@ -329,7 +332,7 @@ class NotificationService {
     DateTime notificationScheduleTime,
     NotificationDetails notificationDetails,
   ) async {
-    /// Prevent from creating notification in the past AND make sure that the user enable the notification
+    /// Prevent from creating notification in the past
     if (notificationScheduleTime.isAfter(DateTime.now())) {
       developer.log(
         'Creating a notification on channel ${notificationDetails.android!.channelId} with ID $notificationId scheduled at $notificationScheduleTime',
