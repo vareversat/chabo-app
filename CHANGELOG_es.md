@@ -1,3 +1,11 @@
+# **v1.9.2** :
+
+- *Fijado*:
+  - Las notificaciones ahora se cierran automáticamente en la pantalla bloqueada
+- *Características*:
+  - Modificación del texto de las notificaciones para enriquecerlas en información
+  - Las notificaciones que solicitan una hora del usuario se pueden cambiar directamente a través del teclado
+***
 # **v1.9.1** :
 
 - *Fix*:

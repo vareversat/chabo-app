@@ -1,3 +1,11 @@
+# **v1.9.2** :
+
+- *Fix*:
+  - Notifications now close automatically on locked screen
+- *Features*:
+  - Modification of the text of the notifications to make them richer in information
+  - Notifications requesting a time from the user can be changed directly through the keyboard
+***
 # **v1.9.1** :
 
 - *Fix*:
