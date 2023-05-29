@@ -84,7 +84,7 @@
   "closingNotificationExplanation": "Recevoir une notification quand le pont ferme à la circulation",
   "notificationClosingChannelName": "Fermeture",
   "notificationClosingTitle": "Le pont Chaban est fermé ⛔",
-  "notificationClosingBoatMessage": "Le pont Chaban vient de fermer pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "notificationClosingBoatMessage": "Le pont Chaban vient de fermer pour {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationClosingBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -110,7 +110,7 @@
   "saturday": "Samedi",
   "sunday": "Dimanche",
   "notificationDurationTitle": "Fermeture imminante ⚠️",
-  "notificationDurationBoatMessage": "Le pont Chaban fermera dans {timeLeft} pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "notificationDurationBoatMessage": "Le pont Chaban fermera dans {timeLeft} pour {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -127,12 +127,24 @@
   },
   "notificationDurationChannelName": "Fermetures imminentes",
   "notificationTimeTitle": "\uD83D\uDDD3 Fermeture prévue pour demain",
-  "notificationTimeBoatMessage": "Le pont Chaban fermera demain à {time} pour le passage du {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "notificationTimeBoatMessage": "Le pont Chaban fermera demain à {time} pour {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
       "time": {},
       "duration": {}
+    }
+  },
+  "notificationTimeBoatArrival": "l'arrivée du {boat}",
+  "@notificationTimeBoatArrival": {
+    "placeholders": {
+      "boat": {}
+    }
+  },
+  "notificationTimeBoatDeparture": "le départ du {boat}",
+  "@notificationTimeBoatDeparture": {
+    "placeholders": {
+      "boat": {}
     }
   },
   "notificationTimeMaintenanceMessage": "Le pont Chaban fermera demain à {time} pour maintenance \uD83D\uDEE0. Il restera fermé pendant {duration} \uD83C\uDF09",
