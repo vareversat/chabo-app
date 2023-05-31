@@ -1,3 +1,11 @@
+# **v1.9.2** :
+
+- *Fix*:
+  - Les notifications se ferment maintenant automatiquement sur écran vérouilé
+- *Fonctionnalités*:
+  - Modification du texte des notifications pour les rendre plus riches en informations
+  - Les notifications demandant une heure à l'utilisateur peuvent être modifiées directement via le clavier
+***
 # **v1.9.1** :
 
 - *Fix*:

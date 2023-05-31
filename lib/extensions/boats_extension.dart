@@ -23,18 +23,18 @@ extension BoatsExtension on List<Boat> {
   }
 
   String toLocalizedString(BuildContext context) {
-    if (length == 1) {
-      return this[0].name;
-    } else {
-      var finalString = '';
-      for (var index = 0; index < length; index++) {
-        finalString += this[index].name;
-        if (index + 1 != length) {
-          finalString += ' ${AppLocalizations.of(context)!.and} ';
-        }
+    var finalString = '';
+    for (var index = 0; index < length; index++) {
+      finalString += this[index].isLeaving
+          ? AppLocalizations.of(context)!
+              .notificationTimeBoatDeparture(this[index].name)
+          : AppLocalizations.of(context)!
+              .notificationTimeBoatArrival(this[index].name);
+      if (index + 1 != length) {
+        finalString += ' ${AppLocalizations.of(context)!.and} ';
       }
-
-      return finalString;
     }
+
+    return finalString;
   }
 }

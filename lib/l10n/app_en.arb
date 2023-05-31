@@ -84,7 +84,7 @@
   "closingNotificationExplanation": "Receive a notification when the bridge closes",
   "notificationClosingChannelName": "Closing",
   "notificationClosingTitle": "The Chaban bridge has closed ⛔",
-  "notificationClosingBoatMessage": "The Chaban bridge has just closed for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationClosingBoatMessage": "The Chaban bridge has just closed for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationClosingBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -110,7 +110,7 @@
   "saturday": "Saturday",
   "sunday": "Sunday",
   "notificationDurationTitle": "Imminent closure ⚠️",
-  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationDurationBoatMessage": "The Chaban bridge will close in {timeLeft} for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -127,12 +127,24 @@
   },
   "notificationDurationChannelName": "Imminent closures",
   "notificationTimeTitle": "\uD83D\uDDD3 Closing scheduled for tomorrow",
-  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for the crossing of the {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "notificationTimeBoatMessage": "The Chaban bridge will close tomorrow at {time} for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
       "time": {},
       "duration": {}
+    }
+  },
+  "notificationTimeBoatArrival": "the arrival of the {boat}",
+  "@notificationTimeBoatArrival": {
+    "placeholders": {
+      "boat": {}
+    }
+  },
+  "notificationTimeBoatDeparture": "the departure of the {boat}",
+  "@notificationTimeBoatDeparture": {
+    "placeholders": {
+      "boat": {}
     }
   },
   "notificationTimeMaintenanceMessage": "The Chaban Bridge will close tomorrow at {time} for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
