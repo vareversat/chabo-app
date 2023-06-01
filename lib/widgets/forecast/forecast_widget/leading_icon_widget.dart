@@ -14,7 +14,7 @@ class _LeadingIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 55,
-      height: 60,
+      height: 80,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(
