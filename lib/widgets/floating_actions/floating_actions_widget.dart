@@ -6,6 +6,8 @@ import 'package:chabo/dialogs/chabo_about_dialog/chabo_about_dialog.dart';
 import 'package:chabo/helpers/custom_page_routes.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
+import 'package:chabo/widgets/ad_banner_widget.dart';
+import 'package:chabo/widgets/floating_actions/current_docked_boat_item.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,51 @@ class FloatingActionsWidget extends StatefulWidget {
 
 class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
     with SingleTickerProviderStateMixin {
+  List<Widget> _stickyItems(FloatingActionsState state) {
+    return [
+      const Flexible(
+        flex: 2,
+        child: CurrentDockedBoatItem(),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: FloatingActionsItem(
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            context.read<FloatingActionsCubit>().openFloatingActions();
+          },
+          isRightHanded: state.isRightHanded,
+          content: [
+            AnimatedSize(
+              curve: Curves.easeIn,
+              duration: const Duration(
+                milliseconds: CustomProperties.shortAnimationDurationMs,
+              ),
+              reverseDuration: const Duration(
+                milliseconds: 0,
+              ),
+              child: state.isMenuOpen
+                  ? Text(
+                      AppLocalizations.of(context)!.settingsTitle,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.start,
+                    )
+                  : const SizedBox.shrink(),
+            ),
+            state.isMenuOpen
+                ? const Icon(
+                    Icons.close,
+                  )
+                : const Icon(
+                    Icons.settings,
+                  ),
+          ],
+          isSpaced: state.isMenuOpen,
+        ),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
@@ -189,38 +236,35 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
             const SizedBox(
               height: 25,
             ),
-            FloatingActionsItem(
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                context.read<FloatingActionsCubit>().openFloatingActions();
-              },
-              isRightHanded: state.isRightHanded,
-              content: [
-                AnimatedSize(
-                  curve: Curves.easeIn,
-                  duration: const Duration(
-                    milliseconds: CustomProperties.shortAnimationDurationMs,
-                  ),
-                  reverseDuration: const Duration(
-                    milliseconds: 0,
-                  ),
-                  child: state.isMenuOpen
-                      ? Text(
-                          AppLocalizations.of(context)!.settingsTitle,
-                          style: Theme.of(context).textTheme.titleMedium,
-                          textAlign: TextAlign.start,
-                        )
-                      : const SizedBox.shrink(),
+            ClipRRect(
+
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(
+                  CustomProperties.borderRadius,
                 ),
-                state.isMenuOpen
-                    ? const Icon(
-                        Icons.close,
-                      )
-                    : const Icon(
-                        Icons.settings,
-                      ),
-              ],
-              isSpaced: state.isMenuOpen,
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: CustomProperties.blurSigmaX,
+                  sigmaY: CustomProperties.blurSigmaY,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: (state.isRightHanded
+                              ? _stickyItems(state)
+                              : _stickyItems(state).reversed)
+                          .toList(),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: AdBannerWidget(),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         );

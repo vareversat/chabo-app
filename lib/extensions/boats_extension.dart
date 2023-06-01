@@ -4,22 +4,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension BoatsExtension on List<Boat> {
   TextSpan toLocalizedTextSpan(BuildContext context) {
-    if (length == 1) {
-      return this[0].toLocalizedString(context);
-    } else {
-      final finalTextSpan = <TextSpan>[];
-      for (var index = 0; index < length; index++) {
-        finalTextSpan.add(this[index].toLocalizedString(context));
-        if (index + 1 != length) {
-          finalTextSpan
-              .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
-        }
-      }
-
-      return TextSpan(
-        children: finalTextSpan,
+    final finalTextSpan = <TextSpan>[];
+    for (var index = 0; index < length; index++) {
+      finalTextSpan.add(
+        this[index].toLocalizedStatusTextSpan(
+          context,
+          true,
+        ),
       );
+      if (index + 1 != length) {
+        finalTextSpan
+            .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
+      }
     }
+
+    return TextSpan(
+      children: finalTextSpan,
+    );
   }
 
   String toLocalizedString(BuildContext context) {
@@ -36,5 +37,25 @@ extension BoatsExtension on List<Boat> {
     }
 
     return finalString;
+  }
+
+  String toLocalizedMoonHarborStatus(BuildContext context) {
+    var finalString = '';
+    var boatCount = 0;
+    for (var index = 0; index < length; index++) {
+      if (!this[index].isLeaving) {
+        boatCount += 1;
+        finalString += this[index].name;
+      }
+      if (index + 1 != length) {
+        finalString += ' ${AppLocalizations.of(context)!.and} ';
+      }
+    }
+
+    /// If no boats previously entered into the Moon Harbor, return nothing
+    return boatCount == 0
+        ? ''
+        : AppLocalizations.of(context)!
+            .moonHarborStatus(finalString, boatCount);
   }
 }

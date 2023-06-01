@@ -188,5 +188,12 @@
   },
   "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots",
   "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots",
-  "favoriteSlotsChooseDay": "Choose the days of the week"
+  "favoriteSlotsChooseDay": "Choose the days of the week",
+  "moonHarborStatus": "Info: the {boat} {count, plural, =1 {is} other {are}} currently docked in the 'Moon Harbor'",
+  "@moonHarborStatus": {
+    "placeholders": {
+      "boat": {},
+      "count": {}
+    }
+  }
 }

@@ -188,5 +188,12 @@
   },
   "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux",
   "favoriteTimeSlotEnabledWarning": "Attention, en activant ce paramètres vous allez uniquement recevoir les notifications lorsqu'un évèmenent se produit durant l'un de vos créneaux",
-  "favoriteSlotsChooseDay": "Choisir les jours de la semaine"
+  "favoriteSlotsChooseDay": "Choisir les jours de la semaine",
+  "moonHarborStatus": "Info : le {boat} {count, plural, =1 {est actuellement amarré} other {sont actuellement amarrés}} dans le 'Port de la Lune'",
+  "@moonHarborStatus": {
+    "placeholders": {
+      "boat": {},
+      "count": {}
+    }
+  }
 }
