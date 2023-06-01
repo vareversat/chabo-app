@@ -10,30 +10,43 @@ class _ClosingInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(
-            CustomProperties.borderRadius,
+    final textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: Center(
+            child: Text(
+              forecast.circulationClosingDateString(
+                context,
+              ),
+              style: textTheme.headlineMedium,
+            ),
           ),
         ),
-        color: Theme.of(context).colorScheme.error,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0).copyWith(left: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            RichText(
-              text: forecast.circulationClosingDate.toLocalizedTextSpan(
-                context,
-                Theme.of(context).colorScheme.onError,
+        Container(
+          height: 32,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.error,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(
+                CustomProperties.borderRadius / 2,
               ),
             ),
-          ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 8),
+            child: Text(
+              'Fermeture',
+              style: textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onError,
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

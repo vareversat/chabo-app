@@ -12,9 +12,19 @@ class _LeadingIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
+    return Container(
+      width: 55,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(
+            CustomProperties.borderRadius,
+          ),
+          bottomLeft: Radius.circular(
+            CustomProperties.borderRadius,
+          ),
+        ),
+        color: backgroundColor,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
