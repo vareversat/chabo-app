@@ -14,12 +14,10 @@ class _DurationWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          forecast.closedDuration.durationToString(context),
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.timeColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
+          DateFormat.MMMEd().format(
+            forecast.circulationClosingDate,
           ),
+          style: Theme.of(context).textTheme.bodySmall,
         ),
         const Icon(
           FontAwesomeIcons.arrowRightLong,

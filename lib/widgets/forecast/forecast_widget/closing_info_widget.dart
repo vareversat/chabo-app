@@ -13,27 +13,36 @@ class _ClosingInfoWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Icon(
-              Icons.block_rounded,
-              size: 18,
-              color: Colors.red,
-            ),
-            Text(
-              MaterialLocalizations.of(context).formatMediumDate(
-                forecast.circulationClosingDate,
+        Expanded(
+          child: Center(
+            child: Text(
+              forecast.circulationClosingDateString(
+                context,
               ),
-              style: textTheme.bodySmall,
+              style: textTheme.headlineMedium,
             ),
-          ],
-        ),
-        Text(
-          forecast.circulationClosingDateString(
-            context,
           ),
-          style: textTheme.headlineSmall,
+        ),
+        Container(
+          height: 32,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.error,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(
+                CustomProperties.borderRadius / 2,
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 8),
+            child: Text(
+              'Fermeture',
+              style: textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onError,
+              ),
+            ),
+          ),
         ),
       ],
     );

@@ -7,7 +7,7 @@ class _TimeSlotWarningWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 30,
-      height: 60,
+      height: 80,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(
