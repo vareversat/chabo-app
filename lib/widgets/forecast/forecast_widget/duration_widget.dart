@@ -10,20 +10,23 @@ class _DurationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          DateFormat.MMMEd().format(
-            forecast.circulationClosingDate,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            CustomProperties.borderRadius,
           ),
-          style: Theme.of(context).textTheme.bodySmall,
         ),
-        const Icon(
-          FontAwesomeIcons.arrowRightLong,
-          size: 20,
+        color: Theme.of(context).buttonTheme.colorScheme?.background,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Text(
+          forecast.closedDuration.durationToString(context),
+          style: Theme.of(context).textTheme.labelSmall,
+          textAlign: TextAlign.center,
         ),
-      ],
+      ),
     );
   }
 }

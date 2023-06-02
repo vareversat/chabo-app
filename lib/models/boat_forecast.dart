@@ -205,15 +205,15 @@ class BoatForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed) {
+  Widget getIconWidget(BuildContext context, bool reversed, double size) {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Icon(
             Icons.directions_boat_rounded,
             color: getColor(context, reversed),
-            size: 25,
+            size: size,
           ),
         ),
         Positioned(
@@ -251,5 +251,10 @@ class BoatForecast extends AbstractForecast {
     return reversed
         ? Theme.of(context).dialogBackgroundColor
         : Theme.of(context).colorScheme.boatColor;
+  }
+
+  @override
+  String getClosingReason(BuildContext context) {
+    return boats.getNames(context);
   }
 }

@@ -58,7 +58,7 @@ abstract class AbstractForecast extends Equatable {
 
   Widget getInformationWidget(BuildContext context);
 
-  Widget getIconWidget(BuildContext context, bool reversed);
+  Widget getIconWidget(BuildContext context, bool reversed, double size);
 
   String getNotificationDurationMessage(
     BuildContext context,
@@ -68,6 +68,8 @@ abstract class AbstractForecast extends Equatable {
   String getNotificationTimeMessage(BuildContext context);
 
   String getNotificationClosingMessage(BuildContext context);
+
+  String getClosingReason(BuildContext context);
 
   Color getColor(BuildContext context, bool reversed);
 

@@ -170,11 +170,11 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed) {
+  Widget getIconWidget(BuildContext context, bool reversed, double size) {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),
-      size: 25,
+      size: size,
     );
   }
 
@@ -183,5 +183,12 @@ class MaintenanceForecast extends AbstractForecast {
     return reversed
         ? Theme.of(context).dialogBackgroundColor
         : Theme.of(context).colorScheme.maintenanceColor;
+  }
+
+  @override
+  String getClosingReason(BuildContext context) {
+    return AppLocalizations.of(context)!
+        .dialogInformationContentBridge_closed_maintenance
+        .toUpperCase();
   }
 }

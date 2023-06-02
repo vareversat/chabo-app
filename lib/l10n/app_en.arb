@@ -24,7 +24,7 @@
   "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
   "dialogInformationContentBridgeDeparture": "the departure of the",
   "dialogInformationContentBridgeArrival": "the arrival of the",
-  "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
+  "dialogInformationContentBridge_closed_maintenance": "maintenance",
   "dialogInformationContentClosing_time": "closing time",
   "dialogInformationContentTime_of_crossing": "estimated time of crossing",
   "errorScreenContentError": "Error",
