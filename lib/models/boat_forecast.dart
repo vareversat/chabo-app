@@ -57,7 +57,7 @@ class BoatForecast extends AbstractForecast {
     List<Boat> boats = [];
     bool isLeaving = false;
     final rawBoatName = json['fields']['bateau'] as String;
-    final boatNames = rawBoatName.split(RegExp(r'/'));
+    final boatNames = rawBoatName.split(RegExp('/'));
     for (final boatName in boatNames) {
       final trimmedBoatName = boatName.trim();
       isLeaving = allBoatNames.contains(trimmedBoatName);
