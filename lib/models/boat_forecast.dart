@@ -156,32 +156,16 @@ class BoatForecast extends AbstractForecast {
     );
   }
 
-  List<Widget> _computeIconWidget(
-    BuildContext context,
-    IconData iconData,
-    bool reversed,
-    double size,
-  ) {
-    var icons = <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Icon(
-          iconData,
-          color: getColor(context, reversed),
-          size: size,
-        ),
-      ),
-    ];
-    for (int i = 0; i < boats.length; i++) {
-      icons.add(Positioned(
-        right: boats[i].isLeaving ? 0 : 45,
-        top: boats.length == 1 ? 4 : i * 15,
-        child: RotatedBox(
-          quarterTurns: boats[i].isLeaving ? 0 : 2,
+  @override
+  Widget getIconWidget(BuildContext context, bool reversed, double size) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Icon(
             Icons.double_arrow_rounded,
             color: getColor(context, reversed),
-            size: boats.length == 1 ? 19 : 15,
+            size: size,
           ),
         ),
       ));
@@ -228,18 +212,6 @@ class BoatForecast extends AbstractForecast {
 
   @override
   String getClosingReason(BuildContext context) {
-    return boats.isWineFestival()
-        ? AppLocalizations.of(context)!.wineFestivalSailBoats
-        : boats.getNames(context);
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    var json = super.toJson();
-    json.addAll({
-      'boats': boats.map((e) => e.toJson()).toList(),
-    });
-
-    return json;
+    return boats.getNames(context);
   }
 }

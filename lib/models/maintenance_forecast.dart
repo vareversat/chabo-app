@@ -115,12 +115,7 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(
-    BuildContext context,
-    bool reversed,
-    double size,
-    bool isLight,
-  ) {
+  Widget getIconWidget(BuildContext context, bool reversed, double size) {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),

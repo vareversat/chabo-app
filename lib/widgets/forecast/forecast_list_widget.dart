@@ -90,17 +90,14 @@ class _MonthWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
-            child: Divider(
-              thickness: 1.5,
-              color: Theme.of(context).colorScheme.inverseSurface,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              DateFormat.yMMMM(Localizations.localeOf(context).languageCode)
-                  .format(
-                forecast.circulationClosingDate,
+            flex: 5,
+            child: Center(
+              child: Text(
+                DateFormat.yMMM(Localizations.localeOf(context).languageCode)
+                    .format(
+                  forecast.circulationClosingDate,
+                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),

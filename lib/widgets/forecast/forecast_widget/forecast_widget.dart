@@ -2,18 +2,25 @@ import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/forecast_information_dialog.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 part 'closing_info_widget.dart';
+
+part 'day_widget.dart';
+
 part 'duration_widget.dart';
+
 part 'leading_icon_widget.dart';
+
 part 'opening_info_widget.dart';
+
 part 'time_slot_warning_widget.dart';
 
 class ForecastWidget extends StatelessWidget {
@@ -110,48 +117,47 @@ class ForecastWidget extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 8,
+                    flex: 12,
                     child: Column(
                       children: [
                         Expanded(
-                          child: Row(
+                          child: Stack(
+                            alignment: Alignment.topRight,
                             children: [
-                              Expanded(
+                              Center(
                                 child: _DayWidget(
                                   forecast: forecast,
                                 ),
                               ),
-
-                              /// Display a warning sign if the schedule interferes with timeslots
                               timeSlots.isNotEmpty
                                   ? const _TimeSlotWarningWidget()
                                   : const SizedBox.shrink(),
                             ],
                           ),
                         ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _ClosingInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _DurationWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _OpeningInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  timeSlots.isNotEmpty
-                      ? const _TimeSlotWarningWidget()
-                      : Container(
-                          width: 30,
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: _ClosingInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  child: _OpeningInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            _DurationWidget(
+                              forecast: forecast,
+                            ),
+                          ],
                         ),
                       ],
                     ),

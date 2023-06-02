@@ -15,7 +15,7 @@ class _DayWidget extends StatelessWidget {
     return Text(
       forecast.circulationClosingDate.day ==
               forecast.circulationReOpeningDate.day
-          ? DateFormat.MMMMEEEEd(local).format(
+          ? DateFormat.MMMEd(local).format(
               forecast.circulationClosingDate,
             )
           : '${DateFormat.MMMEd(local).format(

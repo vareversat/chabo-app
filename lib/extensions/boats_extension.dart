@@ -38,6 +38,20 @@ extension BoatsExtension on List<Boat> {
     return finalString;
   }
 
+  String getNames(BuildContext context) {
+    var finalString = '';
+    for (var index = 0; index < length; index++) {
+      finalString += this[index].name;
+      if (length - index > 2) {
+        finalString += ', ';
+      } else if (index + 1 != length) {
+        finalString += ' ${AppLocalizations.of(context)!.and} ';
+      }
+    }
+
+    return finalString;
+  }
+
   String toLocalizedString(BuildContext context) {
     var finalString = '';
     for (var index = 0; index < length; index++) {
@@ -46,7 +60,9 @@ extension BoatsExtension on List<Boat> {
               .notificationTimeBoatDeparture(this[index].name)
           : AppLocalizations.of(context)!
               .notificationTimeBoatArrival(this[index].name);
-      if (index + 1 != length) {
+      if (length - index > 2) {
+        finalString += ', ';
+      } else if (index + 1 != length) {
         finalString += ' ${AppLocalizations.of(context)!.and} ';
       }
     }

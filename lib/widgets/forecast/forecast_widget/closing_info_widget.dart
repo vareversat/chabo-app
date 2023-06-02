@@ -12,41 +12,27 @@ class _ClosingInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-          child: Center(
-            child: Text(
-              forecast.circulationClosingDateString(
-                context,
-              ),
-              style: textTheme.headlineMedium,
-            ),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(
+            CustomProperties.borderRadius,
           ),
         ),
-        Container(
-          height: 32,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.error,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(
-                CustomProperties.borderRadius / 2,
-              ),
-            ),
+        color: Theme.of(context).colorScheme.errorContainer,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0).copyWith(left: 12),
+        child: Text(
+          forecast.circulationClosingDateString(
+            context,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 8),
-            child: Text(
-              'Fermeture',
-              style: textTheme.labelSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onError,
-              ),
-            ),
-          ),
+          textAlign: TextAlign.left,
+          style: textTheme.headlineSmall
+              ?.copyWith(color: Theme.of(context).colorScheme.onErrorContainer),
         ),
-      ],
+      ),
     );
   }
 }

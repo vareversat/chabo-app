@@ -10,14 +10,12 @@ class _DurationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          DateFormat.MMMEd().format(
-            forecast.circulationClosingDate,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            CustomProperties.borderRadius,
           ),
-          style: Theme.of(context).textTheme.bodySmall,
         ),
         color: Theme.of(context).buttonTheme.colorScheme?.background,
       ),
