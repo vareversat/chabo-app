@@ -5,24 +5,13 @@ class _TimeSlotWarningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 30,
-      height: 80,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
-          bottomRight: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
-        ),
-        color: Theme.of(context).colorScheme.primary,
-      ),
+    return SizedBox(
+      width: 45,
+      height: double.infinity,
       child: Icon(
         Icons.warning_rounded,
         size: 20,
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).colorScheme.warningColor,
       ),
     );
   }

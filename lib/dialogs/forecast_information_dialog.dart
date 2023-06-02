@@ -50,7 +50,7 @@ class ForecastInformationDialog extends StatelessWidget {
         ),
         child: Row(
           children: [
-            forecast.getIconWidget(context, true),
+            forecast.getIconWidget(context, true, 30),
             const SizedBox(width: 20),
             Text(
               AppLocalizations.of(context)!.information,

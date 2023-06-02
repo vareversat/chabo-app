@@ -10,41 +10,26 @@ class _OpeningInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-          child: Center(
-            child: Text(
-              forecast.circulationReOpeningDateString(
-                context,
-              ),
-              style: textTheme.headlineMedium,
-            ),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          bottomRight: Radius.circular(
+            CustomProperties.borderRadius,
           ),
         ),
-        Container(
-          height: 32,
-          decoration: const BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(
-                CustomProperties.borderRadius / 2,
-              ),
-            ),
+        color: Theme.of(context).colorScheme.okColor,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0).copyWith(right: 12),
+        child: Text(
+          forecast.circulationReOpeningDateString(
+            context,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
-            child: Text(
-              'Ouverture',
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
+          textAlign: TextAlign.right,
+          style: textTheme.headlineSmall,
         ),
-      ],
+      ),
     );
   }
 }

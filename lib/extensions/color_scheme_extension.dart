@@ -16,4 +16,8 @@ extension ColorSchemeExtension on ColorScheme {
   MaterialColor get maintenanceColor {
     return brightness == Brightness.light ? Colors.brown : Colors.grey;
   }
+
+  Color get okColor {
+    return brightness == Brightness.light ? const Color(0xFF81C784) : Colors.green;
+  }
 }

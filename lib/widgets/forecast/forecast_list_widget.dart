@@ -93,7 +93,7 @@ class _MonthWidget extends StatelessWidget {
             flex: 5,
             child: Center(
               child: Text(
-                DateFormat.MMMM(Localizations.localeOf(context).languageCode)
+                DateFormat.yMMM(Localizations.localeOf(context).languageCode)
                     .format(
                   forecast.circulationClosingDate,
                 ),

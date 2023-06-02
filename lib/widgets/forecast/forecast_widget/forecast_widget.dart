@@ -2,17 +2,24 @@ import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/forecast_information_dialog.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 part 'closing_info_widget.dart';
+
+part 'day_widget.dart';
+
 part 'duration_widget.dart';
+
 part 'leading_icon_widget.dart';
+
 part 'opening_info_widget.dart';
+
 part 'time_slot_warning_widget.dart';
 
 class ForecastWidget extends StatelessWidget {
@@ -54,7 +61,10 @@ class ForecastWidget extends StatelessWidget {
                           color: backgroundColor ??
                               forecast.getColor(context, false),
                         )
-                      : BorderSide.none,
+                      : BorderSide(
+                          width: 2,
+                          color: Theme.of(context).colorScheme.surfaceVariant,
+                        ),
                 ),
               ),
               padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
@@ -98,37 +108,63 @@ class ForecastWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _LeadingIconWidget(
-                    forecast: forecast,
-                    backgroundColor: backgroundColor ??
-                        forecast.getColor(
-                          context,
-                          false,
+                  Flexible(
+                    flex: 5,
+                    child: _LeadingIconWidget(
+                      forecast: forecast,
+                      backgroundColor: backgroundColor ??
+                          forecast.getColor(
+                            context,
+                            false,
+                          ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 12,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              Center(
+                                child: _DayWidget(
+                                  forecast: forecast,
+                                ),
+                              ),
+                              timeSlots.isNotEmpty
+                                  ? const _TimeSlotWarningWidget()
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
                         ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _ClosingInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _DurationWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: _OpeningInfoWidget(
-                      forecast: forecast,
-                    ),
-                  ),
-                  timeSlots.isNotEmpty
-                      ? const _TimeSlotWarningWidget()
-                      : Container(
-                          width: 30,
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: _ClosingInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  child: _OpeningInfoWidget(
+                                    forecast: forecast,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            _DurationWidget(
+                              forecast: forecast,
+                            ),
+                          ],
                         ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
