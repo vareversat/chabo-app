@@ -142,55 +142,26 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
 
                           return true;
                         },
-                        child: DeviceHelper.isPortrait(context)
-                            ? CustomScrollView(
-                                physics: const BouncingScrollPhysics(),
-                                slivers: [
-                                  SliverAppBar(
-                                    pinned: true,
-                                    snap: false,
-                                    stretch: true,
-                                    collapsedHeight: 200,
-                                    expandedHeight: 200,
-                                    shadowColor: Colors.black,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .surfaceVariant,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        bottom: Radius.circular(
-                                          CustomProperties.borderRadius * 2,
-                                        ),
-                                      ),
-                                    ),
-                                    flexibleSpace: const FlexibleSpaceBar(
-                                      titlePadding: EdgeInsets.zero,
-                                      centerTitle: true,
-                                      expandedTitleScale: 1,
-                                      title: StatusWidget(),
-                                    ),
-                                  ),
-                                  const ForecastListWidget(),
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  Flexible(
-                                    flex:
-                                        !DeviceHelper.isMobile(context) ? 3 : 1,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .surfaceVariant,
-                                            borderRadius:
-                                                const BorderRadius.vertical(
-                                              bottom: Radius.circular(
-                                                CustomProperties.borderRadius *
-                                                    2,
-                                              ),
+                        child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
+                          builder: (context, state) {
+                            return DeviceHelper.isPortrait(context)
+                                ? CustomScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    slivers: [
+                                      SliverAppBar(
+                                        pinned: true,
+                                        snap: false,
+                                        stretch: true,
+                                        collapsedHeight: 275,
+                                        expandedHeight: 275,
+                                        shadowColor: Colors.black,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .surfaceVariant,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            bottom: Radius.circular(
+                                              CustomProperties.borderRadius * 2,
                                             ),
                                           ),
                                           constraints: BoxConstraints(

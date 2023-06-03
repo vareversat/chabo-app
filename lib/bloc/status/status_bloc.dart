@@ -126,7 +126,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
       return isOpen ||
               state.durationUntilNextEvent.inMinutes <
                   state.durationForCloseClosing.inMinutes
-          ? colorScheme.onBackground
+          ? colorScheme.background
           : colorScheme.onError;
     } else {
       return state.foregroundColor;
