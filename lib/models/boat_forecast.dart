@@ -111,18 +111,7 @@ class BoatForecast extends AbstractForecast {
           boats.toLocalizedTextSpan(context),
           TextSpan(
             text:
-                '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
-          ),
-          TextSpan(
-            text: '${closedDuration.durationToString(context).trim()}\n',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.timeColor,
-            ),
-          ),
-          TextSpan(
-            text:
-                '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
+                '\n\n${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
           ),
           TextSpan(
             text: scheduleString,

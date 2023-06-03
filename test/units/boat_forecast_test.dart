@@ -93,7 +93,7 @@ void main() {
                     forecast.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nClosing time : 1h\nEstimated time of crossing : 3:30 PM',
+                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nEstimated time of crossing : 3:30 PM',
                 );
 
                 return const Placeholder();
@@ -115,7 +115,7 @@ void main() {
                     forecast2.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nClosing time : 6h\nEstimated time of crossing : Mon, May 15 at 2:00 AM',
+                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nEstimated time of crossing : Mon, May 15 at 2:00 AM',
                 );
 
                 return const Placeholder();

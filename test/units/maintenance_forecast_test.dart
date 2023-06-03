@@ -55,7 +55,7 @@ void main() {
                     forecast.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for maintenance\n\nClosing time : 1h',
+                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for maintenance',
                 );
 
                 return const Placeholder();
@@ -77,7 +77,7 @@ void main() {
                     forecast2.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for maintenance\n\nClosing time : 6h',
+                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for maintenance',
                 );
 
                 return const Placeholder();
