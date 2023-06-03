@@ -146,8 +146,8 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                     pinned: true,
                                     snap: false,
                                     stretch: true,
-                                    collapsedHeight: 250,
-                                    expandedHeight: 250,
+                                    collapsedHeight: 275,
+                                    expandedHeight: 275,
                                     shadowColor: Colors.black,
                                     backgroundColor: Theme.of(context)
                                         .colorScheme
