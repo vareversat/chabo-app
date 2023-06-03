@@ -40,7 +40,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
 
                   return !forecast.hasPassed()
                       ? ForecastWidget(
-                          key: GlobalObjectKey(forecast.hashCode),
+                          key: GlobalObjectKey('forecast-$index'),
                           isCurrent: forecast == forecastState.currentForecast,
                           hasPassed: forecast.hasPassed(),
                           forecast: forecast,

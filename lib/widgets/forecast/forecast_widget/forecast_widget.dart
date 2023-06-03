@@ -40,6 +40,7 @@ class ForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(index);
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Stack(

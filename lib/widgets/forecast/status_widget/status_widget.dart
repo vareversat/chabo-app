@@ -56,6 +56,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
     return BlocBuilder<StatusBloc, StatusState>(
       builder: (context, state) {
         return AnimatedSwitcher(
+          key: const ValueKey<String>('statusWidget'),
           duration: const Duration(seconds: 1),
           reverseDuration: const Duration(
             milliseconds: CustomProperties.shortAnimationDurationMs,
