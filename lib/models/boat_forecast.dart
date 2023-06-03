@@ -87,76 +87,34 @@ class BoatForecast extends AbstractForecast {
       ];
 
   @override
-  Widget getInformationWidget(BuildContext context) {
+  RichText getInformationWidget(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     var schedule = circulationClosingDate
         .add(Duration(microseconds: closedDuration.inMicroseconds ~/ 2));
     var scheduleString =
         DateFormat.jm(Localizations.localeOf(context).languageCode)
             .format(schedule);
-    var infoFromString =
-        AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
-    var infoToString =
-        ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
-    var infoToString2 =
-        ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
-    var circulationReOpeningDateString =
-        DateFormat.jm(Localizations.localeOf(context).languageCode)
-            .format(circulationReOpeningDate);
-    if (DateFormat('dd').format(circulationClosingDate) !=
-        DateFormat('dd').format(circulationReOpeningDate)) {
+    if (isDuringTwoDays) {
       scheduleString =
           '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(schedule)}';
-      infoFromString = AppLocalizations.of(context)!
-          .dialogInformationContentThe2
-          .capitalize();
-      infoToString =
-          ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ';
-      infoToString2 = ', ';
-      circulationReOpeningDateString =
-          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
     }
 
-    return Text.rich(
-      TextSpan(
+    return RichText(
+      text: TextSpan(
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
         children: [
-          TextSpan(text: infoFromString),
-          TextSpan(
-            text: MaterialLocalizations.of(context)
-                .formatFullDate(circulationClosingDate),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(text: infoToString),
-          TextSpan(
-            text: DateFormat.jm(Localizations.localeOf(context).languageCode)
-                .format(circulationClosingDate),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(text: infoToString2),
-          TextSpan(
-            text: circulationReOpeningDateString,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text:
-                ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
-          ),
+          ...getCoreInformationWidget(context),
           boats.toLocalizedTextSpan(context),
           TextSpan(
             text:
                 '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
-            text: '${closedDuration.durationToString(context)}\n',
+            text: '${closedDuration.durationToString(context).trim()}\n',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.timeColor,
+              color: colorScheme.timeColor,
             ),
           ),
           TextSpan(
@@ -167,7 +125,7 @@ class BoatForecast extends AbstractForecast {
             text: scheduleString,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.timeColor,
+              color: colorScheme.timeColor,
             ),
           ),
         ],
@@ -205,45 +163,61 @@ class BoatForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed, double size) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Icon(
-            Icons.directions_boat_rounded,
-            color: getColor(context, reversed),
-            size: size,
-          ),
+  Widget getIconWidget(
+    BuildContext context,
+    bool reversed,
+    double size,
+    bool isLight,
+  ) {
+    if (isLight) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Icon(
+          Icons.directions_boat_rounded,
+          color: getColor(context, reversed),
+          size: size,
         ),
-        Positioned(
-          right: 0,
-          top: -3,
-          child: RotatedBox(
-            quarterTurns: boats[0].isLeaving ? 0 : 2,
+      );
+    } else {
+      return Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Icon(
-              Icons.double_arrow_rounded,
+              Icons.directions_boat_rounded,
               color: getColor(context, reversed),
-              size: 15,
+              size: size,
             ),
           ),
-        ),
-        boats.length == 2
-            ? Positioned(
-                right: 0,
-                top: 10,
-                child: RotatedBox(
-                  quarterTurns: boats[1].isLeaving ? 0 : 2,
-                  child: Icon(
-                    Icons.double_arrow_rounded,
-                    color: getColor(context, reversed),
-                    size: 15,
+          Positioned(
+            right: 0,
+            top: -3,
+            child: RotatedBox(
+              quarterTurns: boats[0].isLeaving ? 0 : 2,
+              child: Icon(
+                Icons.double_arrow_rounded,
+                color: getColor(context, reversed),
+                size: 15,
+              ),
+            ),
+          ),
+          boats.length == 2
+              ? Positioned(
+                  right: 0,
+                  top: 10,
+                  child: RotatedBox(
+                    quarterTurns: boats[1].isLeaving ? 0 : 2,
+                    child: Icon(
+                      Icons.double_arrow_rounded,
+                      color: getColor(context, reversed),
+                      size: 15,
+                    ),
                   ),
-                ),
-              )
-            : const SizedBox.shrink(),
-      ],
-    );
+                )
+              : const SizedBox.shrink(),
+        ],
+      );
+    }
   }
 
   @override
