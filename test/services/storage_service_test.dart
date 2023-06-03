@@ -110,14 +110,4 @@ void main() {
     expect(saveResult, true);
     expect(readResult, days);
   });
-
-  test('Save & Read TimeFormat', () async {
-    final saveResult = await storageService.saveTimeFormat(
-      'KEY_TIMEFORMAT',
-      TimeFormat.twentyFourHours,
-    );
-    final readResult = storageService.readTimeFormat('KEY_TIMEFORMAT');
-    expect(saveResult, true);
-    expect(readResult, TimeFormat.twentyFourHours);
-  });
 }

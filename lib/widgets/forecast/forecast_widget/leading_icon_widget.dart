@@ -18,11 +18,7 @@ class _LeadingIconWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
-            child: forecast.getIconWidget(
-              context,
-              false,
-              25,
-            ),
+            child: forecast.getIconWidget(context, false, 25, false),
           ),
           Center(
             child: Text(

@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/forecast_information_dialog.dart';
+import 'package:chabo/widgets/forecast_information_bottom_sheet.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
@@ -80,9 +81,9 @@ class ForecastWidget extends StatelessWidget {
                         useSafeArea: false,
                         barrierColor: Colors.black.withOpacity(0.65),
                         constraints: BoxConstraints(
-                          maxWidth: DeviceHelper.isPortrait(context)
+                          minWidth: DeviceHelper.isPortrait(context)
                               ? double.infinity
-                              : MediaQuery.of(context).size.width / 1.8,
+                              : MediaQuery.of(context).size.width / 3,
                         ),
                         enableDrag: true,
                         context: context,

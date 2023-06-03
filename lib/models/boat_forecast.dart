@@ -91,17 +91,16 @@ class BoatForecast extends AbstractForecast {
 
   @override
   RichText getInformationWidget(BuildContext context) {
-    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final colorScheme = Theme.of(context).colorScheme;
 
     var schedule = circulationClosingDate
         .add(Duration(microseconds: closedDuration.inMicroseconds ~/ 2));
-    var scheduleString = DateFormat(
-            timeFormat.icuName, Localizations.localeOf(context).languageCode)
-        .format(schedule);
+    var scheduleString =
+        DateFormat.jm(Localizations.localeOf(context).languageCode)
+            .format(schedule);
     if (isDuringTwoDays) {
       scheduleString =
-          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
+          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(schedule)}';
     }
 
     return RichText(
@@ -112,7 +111,18 @@ class BoatForecast extends AbstractForecast {
           boats.toLocalizedTextSpan(context),
           TextSpan(
             text:
-                '\n\n${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
+                '\n\n${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
+          ),
+          TextSpan(
+            text: '${closedDuration.durationToString(context).trim()}\n',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: colorScheme.timeColor,
+            ),
+          ),
+          TextSpan(
+            text:
+                '${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
           ),
           TextSpan(
             text: scheduleString,
@@ -157,44 +167,61 @@ class BoatForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed, double size) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Icon(
-            Icons.double_arrow_rounded,
-            color: getColor(context, reversed),
-            size: size,
-          ),
-        ),
-      ));
-    }
-
-    return icons;
-  }
-
-  @override
   Widget getIconWidget(
     BuildContext context,
     bool reversed,
     double size,
     bool isLight,
   ) {
-    var iconData = boats.isWineFestival()
-        ? Icons.wine_bar_outlined
-        : Icons.directions_boat_filled_outlined;
-
-    return isLight
-        ? Icon(iconData, color: getColor(context, reversed), size: size)
-        : Stack(
-            children: _computeIconWidget(
-              context,
-              iconData,
-              reversed,
-              size,
+    if (isLight) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Icon(
+          Icons.directions_boat_rounded,
+          color: getColor(context, reversed),
+          size: size,
+        ),
+      );
+    } else {
+      return Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Icon(
+              Icons.directions_boat_rounded,
+              color: getColor(context, reversed),
+              size: size,
             ),
-          );
+          ),
+          Positioned(
+            right: 0,
+            top: -3,
+            child: RotatedBox(
+              quarterTurns: boats[0].isLeaving ? 0 : 2,
+              child: Icon(
+                Icons.double_arrow_rounded,
+                color: getColor(context, reversed),
+                size: 15,
+              ),
+            ),
+          ),
+          boats.length == 2
+              ? Positioned(
+                  right: 0,
+                  top: 10,
+                  child: RotatedBox(
+                    quarterTurns: boats[1].isLeaving ? 0 : 2,
+                    child: Icon(
+                      Icons.double_arrow_rounded,
+                      color: getColor(context, reversed),
+                      size: 15,
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ],
+      );
+    }
   }
 
   @override

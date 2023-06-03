@@ -61,7 +61,99 @@ abstract class AbstractForecast extends Equatable {
 
   RichText getInformationWidget(BuildContext context);
 
-  Widget getIconWidget(BuildContext context, bool reversed, double size);
+  List<InlineSpan> getCoreInformationWidget(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    var infoFromString =
+        AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
+    var infoToString =
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
+    var infoToString2 =
+        ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
+    var circulationReOpeningDateString =
+        DateFormat.jm(Localizations.localeOf(context).languageCode)
+            .format(circulationReOpeningDate);
+    if (isDuringTwoDays) {
+      infoFromString = AppLocalizations.of(context)!
+          .dialogInformationContentThe2
+          .capitalize();
+      infoToString = ' ';
+      infoToString2 =
+          ', ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)} ';
+    }
+
+    return [
+      TextSpan(text: infoFromString),
+      TextSpan(
+        text: MaterialLocalizations.of(context).formatFullDate(
+          circulationClosingDate,
+        ),
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      TextSpan(text: infoToString),
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
+            vertical: 3,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                CustomProperties.borderRadius,
+              ),
+            ),
+            color: colorScheme.errorContainer,
+          ),
+          child: Text(
+            DateFormat.jm(Localizations.localeOf(context).languageCode)
+                .format(circulationClosingDate),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      TextSpan(text: infoToString2),
+      WidgetSpan(
+        alignment: PlaceholderAlignment.middle,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 5,
+            vertical: 3,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                CustomProperties.borderRadius,
+              ),
+            ),
+            color: colorScheme.okColor,
+          ),
+          child: Text(
+            circulationReOpeningDateString,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+      TextSpan(
+        text:
+            ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
+      ),
+    ];
+  }
+
+  Widget getIconWidget(
+    BuildContext context,
+    bool reversed,
+    double size,
+    bool isLight,
+  );
 
   String getNotificationDurationMessage(
     BuildContext context,

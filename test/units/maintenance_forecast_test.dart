@@ -5,7 +5,7 @@ import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../localized_testable_widget.dart';
+import 'localized_testable_widget.dart';
 
 void main() {
   final forecast = MaintenanceForecast(
@@ -48,14 +48,14 @@ void main() {
       'Display info TextSpan (same day)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          await localizedTestableWidgetEN(
+          localizedTestableWidget(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
                     forecast.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for maintenance',
+                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for maintenance\n\nClosing time : 1h',
                 );
 
                 return const Placeholder();
@@ -70,14 +70,14 @@ void main() {
       'Display info TextSpan (tow days)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          await localizedTestableWidgetEN(
+          localizedTestableWidget(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
                     forecast2.getInformationWidget(context);
                 expect(
                   richText.text.toPlainText(),
-                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for maintenance',
+                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for maintenance\n\nClosing time : 6h',
                 );
 
                 return const Placeholder();

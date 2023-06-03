@@ -102,11 +102,22 @@ class MaintenanceForecast extends AbstractForecast {
         children: [
           ...getCoreInformationWidget(context),
           TextSpan(
-            text: AppLocalizations.of(context)!
-                .dialogInformationContentBridge_closed_maintenance,
+            text:
+                '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
             style: TextStyle(
               color: colorScheme.maintenanceColor,
               fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text:
+                '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
+          ),
+          TextSpan(
+            text: closedDuration.durationToString(context).trim(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: colorScheme.timeColor,
             ),
           ),
         ],
@@ -115,7 +126,12 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed, double size) {
+  Widget getIconWidget(
+    BuildContext context,
+    bool reversed,
+    double size,
+    bool isLight,
+  ) {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),
