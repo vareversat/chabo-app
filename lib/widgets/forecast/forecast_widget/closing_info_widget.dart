@@ -27,8 +27,7 @@ class _ClosingInfoWidget extends StatelessWidget {
             context,
           ),
           textAlign: TextAlign.left,
-          style: textTheme.headlineSmall
-              ?.copyWith(color: Theme.of(context).colorScheme.onErrorContainer),
+          style: textTheme.headlineSmall,
         ),
       ),
     );

@@ -82,7 +82,8 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var names = boats2.toLocalizedString(context);
-              expect(names, 'the arrival of the TEST_BOAT and the departure of the TEST_BOAT_2');
+              expect(names,
+                  'the arrival of the TEST_BOAT and the departure of the TEST_BOAT_2');
 
               return const Placeholder();
             },
@@ -97,7 +98,8 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var names = boats3.toLocalizedString(context);
-              expect(names, 'the arrival of the TEST_BOAT, the departure of the TEST_BOAT_2 and the arrival of the TEST_BOAT_3');
+              expect(names,
+                  'the arrival of the TEST_BOAT, the departure of the TEST_BOAT_2 and the arrival of the TEST_BOAT_3');
 
               return const Placeholder();
             },

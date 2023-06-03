@@ -90,66 +90,19 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getInformationWidget(BuildContext context) {
-    var infoFromString =
-        AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
-    var infoToString =
-        ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
-    var infoToString2 =
-        ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
-    var circulationReOpeningDateString =
-        DateFormat.jm(Localizations.localeOf(context).languageCode)
-            .format(circulationReOpeningDate);
-    if (DateFormat('dd').format(circulationClosingDate) !=
-        DateFormat('dd').format(circulationReOpeningDate)) {
-      infoFromString = AppLocalizations.of(context)!
-          .dialogInformationContentThe2
-          .capitalize();
-      infoToString =
-          ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ';
-      infoToString2 = ', ';
-      circulationReOpeningDateString =
-          '${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)}, '
-          '${DateFormat.jm(Localizations.localeOf(context).languageCode).format(circulationReOpeningDate)}';
-    }
+  RichText getInformationWidget(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return Text.rich(
-      TextSpan(
+    return RichText(
+      text: TextSpan(
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
         children: [
-          TextSpan(text: infoFromString),
-          TextSpan(
-            text: MaterialLocalizations.of(context).formatFullDate(
-              circulationClosingDate,
-            ),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(text: infoToString2),
-          TextSpan(
-            text: DateFormat.jm(Localizations.localeOf(context).languageCode)
-                .format(circulationClosingDate),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(text: infoToString),
-          TextSpan(
-            text: circulationReOpeningDateString,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text:
-                ', ${AppLocalizations.of(context)!.dialogInformationContentBridge_closed} ',
-          ),
+          ...getCoreInformationWidget(context),
           TextSpan(
             text:
                 '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.maintenanceColor,
+              color: colorScheme.maintenanceColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -158,10 +111,10 @@ class MaintenanceForecast extends AbstractForecast {
                 '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
           ),
           TextSpan(
-            text: closedDuration.durationToString(context),
+            text: closedDuration.durationToString(context).trim(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.timeColor,
+              color: colorScheme.timeColor,
             ),
           ),
         ],
@@ -170,7 +123,12 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getIconWidget(BuildContext context, bool reversed, double size) {
+  Widget getIconWidget(
+    BuildContext context,
+    bool reversed,
+    double size,
+    bool isLight,
+  ) {
     return Icon(
       Icons.construction_rounded,
       color: getColor(context, reversed),

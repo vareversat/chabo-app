@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/forecast_information_dialog.dart';
+import 'package:chabo/widgets/forecast_information_bottom_sheet.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
+import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
@@ -75,32 +76,28 @@ class ForecastWidget extends StatelessWidget {
             ),
             onPressed: onTap ??
                 () async => {
-                      await showGeneralDialog(
+                      await showModalBottomSheet(
+                        useSafeArea: false,
+                        barrierColor: Colors.black.withOpacity(0.65),
+                        constraints: BoxConstraints(
+                          minWidth: DeviceHelper.isPortrait(context)
+                              ? double.infinity
+                              : MediaQuery.of(context).size.width / 3,
+                        ),
+                        enableDrag: true,
                         context: context,
-                        pageBuilder: (BuildContext context, _, __) {
-                          return const SizedBox.shrink();
-                        },
-                        barrierDismissible: true,
-                        transitionBuilder: (context, a1, a2, widget) {
-                          return FadeTransition(
-                            opacity:
-                                Tween<double>(begin: 0.0, end: 1.0).animate(a1),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                sigmaX: CustomProperties.blurSigmaX,
-                                sigmaY: CustomProperties.blurSigmaY,
-                              ),
-                              child: ForecastInformationDialog(
-                                forecast: forecast,
-                              ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(
+                              CustomProperties.borderRadius * 2,
                             ),
+                          ),
+                        ),
+                        builder: (context) {
+                          return ForecastInformationBottomSheet(
+                            forecast: forecast,
                           );
                         },
-                        barrierLabel: MaterialLocalizations.of(context)
-                            .modalBarrierDismissLabel,
-                        transitionDuration: const Duration(
-                          milliseconds: 300,
-                        ),
                       ),
                     },
             child: SizedBox(
