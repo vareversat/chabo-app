@@ -1,6 +1,5 @@
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/enums/forecast_closing_reason.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
@@ -99,22 +98,11 @@ class MaintenanceForecast extends AbstractForecast {
         children: [
           ...getCoreInformationWidget(context),
           TextSpan(
-            text:
-                '${AppLocalizations.of(context)!.dialogInformationContentBridge_closed_maintenance}\n\n',
+            text: AppLocalizations.of(context)!
+                .dialogInformationContentBridge_closed_maintenance,
             style: TextStyle(
               color: colorScheme.maintenanceColor,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text:
-                '${AppLocalizations.of(context)!.dialogInformationContentClosing_time.capitalize()} : ',
-          ),
-          TextSpan(
-            text: closedDuration.durationToString(context).trim(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.timeColor,
             ),
           ),
         ],
