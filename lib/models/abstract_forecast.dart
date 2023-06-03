@@ -1,11 +1,15 @@
 import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo/custom_properties.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
+import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/forecast_closing_reason.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 abstract class AbstractForecast extends Equatable {
@@ -25,21 +29,20 @@ abstract class AbstractForecast extends Equatable {
     required DateTime circulationReOpeningDate,
     required this.closingType,
   }) {
-    _circulationClosingDate = circulationClosingDate;
+    _circulationClosingDate = circulationClosingDate.toLocal();
 
     var tmpCirculationReOpeningDate = circulationReOpeningDate.toLocal();
-    var tmpDuration = tmpCirculationReOpeningDate
-        .difference(_circulationClosingDate.toLocal());
-    var tmpIsDuringTwoDays = false;
+    var tmpDuration =
+        tmpCirculationReOpeningDate.difference(_circulationClosingDate);
 
     if (tmpDuration.isNegative) {
-      tmpIsDuringTwoDays = true;
       tmpCirculationReOpeningDate =
           tmpCirculationReOpeningDate.add(const Duration(days: 1));
       tmpDuration =
           tmpCirculationReOpeningDate.difference(_circulationClosingDate);
     }
-    isDuringTwoDays = tmpIsDuringTwoDays;
+    isDuringTwoDays =
+        tmpCirculationReOpeningDate.day != _circulationClosingDate.day;
     _circulationReOpeningDate = tmpCirculationReOpeningDate;
     closedDuration = tmpDuration;
   }
