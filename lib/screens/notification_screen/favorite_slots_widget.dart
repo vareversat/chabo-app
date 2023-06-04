@@ -45,7 +45,7 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
   @override
   Widget build(BuildContext context) {
     _animation = ColorTween(
-      begin: Theme.of(context).colorScheme.primary,
+      begin: Theme.of(context).colorScheme.warningColor,
       end: Theme.of(context).colorScheme.background,
     ).animate(
       CurvedAnimation(
