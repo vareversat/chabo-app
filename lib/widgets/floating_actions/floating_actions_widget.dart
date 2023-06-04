@@ -237,7 +237,6 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               height: 25,
             ),
             ClipRRect(
-
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(
                   CustomProperties.borderRadius,

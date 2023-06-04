@@ -34,7 +34,8 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
         },
         onAdFailedToLoad: (ad, error) {
           developer.log(
-            'Enable to load the ad : ${error.message}', level: 50,
+            'Enable to load the ad : ${error.message}',
+            level: 50,
             name: 'banner-widget.on.adLoaded',
           );
           _ad?.dispose();

@@ -19,8 +19,7 @@ class Boat extends Equatable {
   TextSpan toLocalizedTextSpan(BuildContext context, bool colored) {
     return TextSpan(
       recognizer: TapGestureRecognizer()
-        ..onTap = () =>
-            _launchURL(
+        ..onTap = () => _launchURL(
               Const.vesselFinderLink.replaceAll(
                 Const.vesselFinderLinkPlaceholder,
                 name,
@@ -29,18 +28,15 @@ class Boat extends Equatable {
       text: name,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        color: colored ? Theme
-            .of(context)
-            .colorScheme
-            .boatColor : Theme
-            .of(context)
-            .dialogBackgroundColor,
+        color: colored
+            ? Theme.of(context).colorScheme.boatColor
+            : Theme.of(context).dialogBackgroundColor,
         decoration: TextDecoration.underline,
       ),
     );
   }
-  TextSpan toLocalizedStatusTextSpan(BuildContext context, bool colored) {
 
+  TextSpan toLocalizedStatusTextSpan(BuildContext context, bool colored) {
     return isLeaving
         ? TextSpan(
             children: [
