@@ -18,7 +18,7 @@ class _ClosingInfoWidget extends StatelessWidget {
             CustomProperties.borderRadius,
           ),
         ),
-        color: Theme.of(context).colorScheme.errorContainer,
+        color: Theme.of(context).colorScheme.error,
       ),
       child: Padding(
         padding: const EdgeInsets.all(4.0).copyWith(left: 12),
@@ -27,7 +27,8 @@ class _ClosingInfoWidget extends StatelessWidget {
             context,
           ),
           textAlign: TextAlign.left,
-          style: textTheme.headlineSmall,
+          style: textTheme.headlineSmall
+              ?.copyWith(color: Theme.of(context).colorScheme.onError),
         ),
       ),
     );

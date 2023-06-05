@@ -116,6 +116,14 @@ class _ForecastInformationBottomSheetState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      Icon(
+                        Icons.warning_rounded,
+                        size: 25,
+                        color: Theme.of(context).cardColor,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       Flexible(
                         child: Text(
                           AppLocalizations.of(context)!

@@ -1,6 +1,14 @@
 {
   "at": "à",
   "and": "et",
+  "the": "{startWithVowel, select, true{l'} other{le }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "fermeture",
   "circulationReOpening": "réouverture",
   "closed": "fermé à la circulation",
@@ -163,7 +171,7 @@
   },
   "day": "Jour",
   "notificationDayTitle": "\uD83D\uDD2E Fermetures prévues",
-  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera a {count} reprises}}",
+  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera à {count} reprises}}",
   "@notificationDayMessage": {
     "placeholders": {
       "count": {}
@@ -188,10 +196,15 @@
   "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux",
   "favoriteTimeSlotEnabledWarning": "Attention, en activant ce paramètres vous allez uniquement recevoir les notifications lorsqu'un évèmenent se produit durant l'un de vos créneaux",
   "favoriteSlotsChooseDay": "Choisir les jours de la semaine",
-  "moonHarborStatus": "Info : le {boat} {count, plural, =1 {est actuellement amarré} other {sont actuellement amarrés}} dans le 'Port de la Lune'",
+  "moonHarborStatus": "{count, plural, =1 {est actuellement amarré} other {sont actuellement amarrés}} au 'Port de la Lune'",
   "@moonHarborStatus": {
     "placeholders": {
-      "boat": {},
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {navire est actuellement} other {navires sont actuellement}} à Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
       "count": {}
     }
   }

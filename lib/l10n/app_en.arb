@@ -1,6 +1,14 @@
 {
   "at": "at",
   "and": "and",
+  "the": "{startWithVowel, select, true{the } other{the }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "closing",
   "circulationReOpening": "re opening",
   "closed": "closed to traffic",
@@ -188,10 +196,15 @@
   "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots",
   "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots",
   "favoriteSlotsChooseDay": "Choose the days of the week",
-  "moonHarborStatus": "Info: the {boat} {count, plural, =1 {is} other {are}} currently docked in the 'Moon Harbor'",
+  "moonHarborStatus": "{count, plural, =1 {is} other {are}} currently docked in the 'Moon Harbor'",
   "@moonHarborStatus": {
     "placeholders": {
-      "boat": {},
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {ship is} other {ships are}} currently in Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
       "count": {}
     }
   }

@@ -1,3 +1,4 @@
+import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/boat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -55,23 +56,49 @@ extension BoatsExtension on List<Boat> {
     return finalString;
   }
 
-  String toLocalizedMoonHarborStatus(BuildContext context) {
-    var finalString = '';
+  List<TextSpan> toLocalizedMoonHarborStatus(BuildContext context) {
+    final finalTextSpan = <TextSpan>[];
     var boatCount = 0;
     for (var index = 0; index < length; index++) {
       if (!this[index].isLeaving) {
+        if (boatCount != 0) {
+          finalTextSpan.add(
+            TextSpan(
+              text: ' ${AppLocalizations.of(context)!.and} ',
+            ),
+          );
+        }
         boatCount += 1;
-        finalString += this[index].name;
-      }
-      if (index + 1 != length) {
-        finalString += ' ${AppLocalizations.of(context)!.and} ';
+        finalTextSpan.add(
+          TextSpan(
+            text: AppLocalizations.of(context)!
+                .the(this[index].name.startsWithVowel().toString())
+                .capitalize(),
+          ),
+        );
+        finalTextSpan.add(
+          this[index].toLocalizedTextSpan(context, true),
+        );
       }
     }
 
-    /// If no boats previously entered into the Moon Harbor, return nothing
-    return boatCount == 0
-        ? ''
-        : AppLocalizations.of(context)!
-            .moonHarborStatus(finalString, boatCount);
+    finalTextSpan.add(
+      TextSpan(
+        text: ' ${AppLocalizations.of(context)!.moonHarborStatus(boatCount)}',
+      ),
+    );
+
+    return finalTextSpan;
+  }
+
+  bool oneIsArriving() {
+    var oneIsArriving = false;
+    for (var index = 0; index < length; index++) {
+      if (!this[index].isLeaving) {
+        oneIsArriving = true;
+      }
+    }
+
+    return oneIsArriving;
   }
 }

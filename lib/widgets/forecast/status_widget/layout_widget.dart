@@ -25,6 +25,7 @@ class _LayoutWidget extends StatelessWidget {
         _CurrentStatusWidget(
           statusState: statusState,
         ),
+        _CurrentDockedBoatButton(statusState: statusState),
       ],
     );
   }

@@ -1,6 +1,14 @@
 {
   "at": "a las",
   "and": "y",
+  "the": "{startWithVowel, select, true{el } other{el }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "cerrado",
   "circulationReOpening": "reapertura",
   "closed": "cerrado al tráfico",
@@ -188,10 +196,15 @@
   "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o más intervalos de tiempo",
   "favoriteTimeSlotEnabledWarning": "Atención, al activar este parámetro solo recibirás notificaciones cuando ocurra un evento durante una de tus franjas horarias",
   "favoriteSlotsChooseDay": "Elegir los días de la semana",
-  "moonHarborStatus": "Info: el {boat} {count, plural, =1 {está actualmente amarrado} other {están actualmente amarrados}} en el 'Puerto de la Luna'",
+  "moonHarborStatus": "{count, plural, =1 {está actualmente amarrado} other {están actualmente amarrados}} en el 'Puerto de la Luna'",
   "@moonHarborStatus": {
     "placeholders": {
-      "boat": {},
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {barco está actualmente} other {buques están actualmente}} en Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
       "count": {}
     }
   }
