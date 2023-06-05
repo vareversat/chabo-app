@@ -1,6 +1,7 @@
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -46,6 +47,23 @@ void main() {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       final previousMonday = dateTime.previous(day.weekPosition);
       expect(previousMonday, DateTime(2023, 5, 6, 0, 0));
+    });
+
+    test('applied', () {
+      final dateTime = DateTime(2023, 5, 11, 15, 0);
+      final timeOfDayApplied = dateTime.applied(
+        const TimeOfDay(
+          hour: 2,
+          minute: 0,
+        ),
+      );
+      expect(timeOfDayApplied, DateTime(2023, 5, 11, 2, 0));
+    });
+
+    test('getDayOfTheWeek', () {
+      final dateTime = DateTime(2023, 5, 11, 15, 0);
+      final day = dateTime.getDayOfTheWeek();
+      expect(day, Day.thursday);
     });
   });
 }
