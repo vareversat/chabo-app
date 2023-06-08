@@ -4,6 +4,8 @@ import 'package:chabo/models/enums/day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../localized_testable_widget.dart';
+
 void main() {
   group('string_extension', () {
     test('capitalize', () {
@@ -64,6 +66,48 @@ void main() {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       final day = dateTime.getDayOfTheWeek();
       expect(day, Day.thursday);
+    });
+
+    testWidgets('toLocalizedTextSpan - EN', (WidgetTester tester) async {
+      final dateTime = DateTime(2023, 5, 11, 15, 0);
+      await tester.pumpWidget(
+        localizedTestableWidgetEN(
+          child: Builder(
+            builder: (BuildContext context) {
+              var richText = RichText(
+                  text: dateTime.toLocalizedTextSpan(context, Colors.black));
+
+              expect(
+                richText.text.toPlainText(),
+                '3:00 PM',
+              );
+
+              return const Placeholder();
+            },
+          ),
+        ),
+      );
+    });
+
+    testWidgets('toLocalizedTextSpan - FR', (WidgetTester tester) async {
+      final dateTime = DateTime(2023, 5, 11, 15, 0);
+      await tester.pumpWidget(
+        localizedTestableWidgetFR(
+          child: Builder(
+            builder: (BuildContext context) {
+              var richText = RichText(
+                  text: dateTime.toLocalizedTextSpan(context, Colors.black));
+
+              expect(
+                richText.text.toPlainText(),
+                '15:00',
+              );
+
+              return const Placeholder();
+            },
+          ),
+        ),
+      );
     });
   });
 }

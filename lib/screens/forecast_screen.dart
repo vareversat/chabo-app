@@ -148,7 +148,11 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                         pinned: true,
                                         snap: false,
                                         stretch: true,
-                                        collapsedHeight: state.statusWidgetDimension == StatusWidgetDimension.small ? 225 : 270,
+                                        collapsedHeight:
+                                            state.statusWidgetDimension ==
+                                                    StatusWidgetDimension.small
+                                                ? 225
+                                                : 270,
                                         expandedHeight: 245,
                                         shadowColor: Colors.black,
                                         backgroundColor: Theme.of(context)

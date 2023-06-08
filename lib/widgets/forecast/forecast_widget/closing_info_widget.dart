@@ -8,8 +8,6 @@ class _ClosingInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -22,13 +20,16 @@ class _ClosingInfoWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(4.0).copyWith(left: 12),
-        child: Text(
-          forecast.circulationClosingDateString(
-            context,
-          ),
-          textAlign: TextAlign.left,
-          style: textTheme.headlineSmall
-              ?.copyWith(color: Theme.of(context).colorScheme.onError),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            RichText(
+              text: forecast.circulationClosingDate.toLocalizedTextSpan(
+                context,
+                Theme.of(context).colorScheme.onError,
+              ),
+            ),
+          ],
         ),
       ),
     );

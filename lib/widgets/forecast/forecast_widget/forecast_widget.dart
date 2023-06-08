@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
@@ -112,7 +113,7 @@ class ForecastWidget extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 12,
+                    flex: 8,
                     child: Column(
                       children: [
                         Expanded(

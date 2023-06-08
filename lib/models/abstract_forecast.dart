@@ -169,16 +169,6 @@ abstract class AbstractForecast extends Equatable {
 
   Color getColor(BuildContext context, bool reversed);
 
-  String circulationClosingDateString(BuildContext context) {
-    return DateFormat.jm(Localizations.localeOf(context).languageCode)
-        .format(circulationClosingDate);
-  }
-
-  String circulationReOpeningDateString(BuildContext context) {
-    return DateFormat.jm(Localizations.localeOf(context).languageCode)
-        .format(circulationReOpeningDate);
-  }
-
   void computeSlotInterference(TimeSlotsState timeSlotsState) {
     interferingTimeSlots.clear();
     for (var timeSlot in timeSlotsState.timeSlots) {
