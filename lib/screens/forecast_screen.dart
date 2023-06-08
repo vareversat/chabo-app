@@ -1,18 +1,18 @@
-import 'package:chabo_app/bloc/forecast/forecast_bloc.dart';
-import 'package:chabo_app/bloc/notification/notification_bloc.dart';
-import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
-import 'package:chabo_app/bloc/status/status_bloc.dart';
-import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
-import 'package:chabo_app/cubits/floating_actions_cubit.dart';
-import 'package:chabo_app/custom_properties.dart';
-import 'package:chabo_app/custom_widget_state.dart';
-import 'package:chabo_app/helpers/device_helper.dart';
-import 'package:chabo_app/misc/no_scaling_animation.dart';
-import 'package:chabo_app/screens/error_screen.dart';
-import 'package:chabo_app/widgets/floating_actions/floating_actions_widget.dart';
-import 'package:chabo_app/widgets/forecast/forecast_list_widget.dart';
-import 'package:chabo_app/widgets/forecast/status_widget/status_widget.dart';
-import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:chabo/bloc/forecast/forecast_bloc.dart';
+import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
+import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:chabo/custom_properties.dart';
+import 'package:chabo/custom_widget_state.dart';
+import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/misc/no_scaling_animation.dart';
+import 'package:chabo/screens/error_screen.dart';
+import 'package:chabo/widgets/floating_actions/floating_actions_widget.dart';
+import 'package:chabo/widgets/forecast/forecast_list_widget.dart';
+import 'package:chabo/widgets/forecast/status_widget/status_widget.dart';
+import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -142,18 +142,22 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
 
                           return true;
                         },
-                        child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
-                          builder: (context, state) {
-                            return DeviceHelper.isPortrait(context)
-                                ? CustomScrollView(
-                                    physics: const BouncingScrollPhysics(),
-                                    slivers: [
-                                      SliverAppBar(
+                        child: DeviceHelper.isPortrait(context)
+                            ? CustomScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                slivers: [
+                                  BlocBuilder<StatusBloc, StatusState>(
+                                    builder: (context, state) {
+                                      return SliverAppBar(
                                         pinned: true,
                                         snap: false,
                                         stretch: true,
-                                        collapsedHeight: 275,
-                                        expandedHeight: 275,
+                                        collapsedHeight:
+                                            state.statusWidgetDimension ==
+                                                    StatusWidgetDimension.small
+                                                ? 225
+                                                : 270,
+                                        expandedHeight: 245,
                                         shadowColor: Colors.black,
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
@@ -176,13 +180,49 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                         const SizedBox(
                                           height: 50,
                                         ),
-                                      ],
-                                    ),
+                                      );
+                                    },
                                   ),
+                                  const ForecastListWidget(),
+                                ],
+                              )
+                            : Row(
+                                children: [
                                   Flexible(
                                     flex:
                                         !DeviceHelper.isMobile(context) ? 2 : 1,
-                                    child: const CustomScrollView(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surfaceVariant,
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                              bottom: Radius.circular(
+                                                CustomProperties.borderRadius *
+                                                    2,
+                                              ),
+                                            ),
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minHeight: DeviceHelper.isMobile(
+                                              context,
+                                            )
+                                                ? 270
+                                                : 380,
+                                          ),
+                                          child: const StatusWidget(),
+                                        ),
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Flexible(
+                                    child: CustomScrollView(
                                       physics: BouncingScrollPhysics(),
                                       slivers: [
                                         ForecastListWidget(),

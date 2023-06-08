@@ -57,7 +57,7 @@ class BoatForecast extends AbstractForecast {
     List<Boat> boats = [];
     bool isLeaving = false;
     final rawBoatName = json['fields']['bateau'] as String;
-    final boatNames = rawBoatName.split(RegExp('/'));
+    final boatNames = rawBoatName.split(RegExp(r'/'));
     for (final boatName in boatNames) {
       final trimmedBoatName = boatName.trim();
       isLeaving = allBoatNames.contains(trimmedBoatName);
@@ -163,13 +163,10 @@ class BoatForecast extends AbstractForecast {
     bool isLight,
   ) {
     if (isLight) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Icon(
-          Icons.directions_boat_rounded,
-          color: getColor(context, reversed),
-          size: size,
-        ),
+      return Icon(
+        Icons.directions_boat_rounded,
+        color: getColor(context, reversed),
+        size: size,
       );
     } else {
       return Stack(

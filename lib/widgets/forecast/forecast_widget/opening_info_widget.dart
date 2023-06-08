@@ -10,8 +10,6 @@ class _OpeningInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -24,12 +22,16 @@ class _OpeningInfoWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(4.0).copyWith(right: 12),
-        child: Text(
-          forecast.circulationReOpeningDateString(
-            context,
-          ),
-          textAlign: TextAlign.right,
-          style: textTheme.headlineSmall,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            RichText(
+              text: forecast.circulationReOpeningDate.toLocalizedTextSpan(
+                context,
+                Theme.of(context).cardColor,
+              ),
+            ),
+          ],
         ),
       ),
     );

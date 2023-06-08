@@ -1,4 +1,4 @@
-import 'package:chabo_app/const.dart';
+import 'package:chabo/const.dart';
 
 extension StringExtension on String {
   String capitalize() {

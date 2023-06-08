@@ -40,9 +40,8 @@ extension DateTimeExtension on DateTime {
   }
 
   TextSpan toLocalizedTextSpan(BuildContext context, Color foregroundColor) {
-    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final languageCode = Localizations.localeOf(context).languageCode;
-    var stringDate = DateFormat(timeFormat.icuName, languageCode).format(
+    var stringDate = DateFormat.jm(languageCode).format(
       this,
     );
     var timeMarker = '';

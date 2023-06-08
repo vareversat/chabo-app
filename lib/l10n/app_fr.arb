@@ -217,9 +217,5 @@
     "placeholders": {
       "count": {}
     }
-  },
-  "wineFestivalSailBoats": "Voiliers de la fête du vin",
-  "externalLinks": "Liens externes",
-  "rate": "Noter",
-  "timeFormatSubTitle": "Format d'affichage des heures"
+  }
 }

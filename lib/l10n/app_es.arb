@@ -217,9 +217,5 @@
     "placeholders": {
       "count": {}
     }
-  },
-  "wineFestivalSailBoats": "Veleros de la Fiesta del Vino",
-  "externalLinks": "Enlaces externos",
-  "rate": "Califica",
-  "timeFormatSubTitle": "Formato de hora"
+  }
 }

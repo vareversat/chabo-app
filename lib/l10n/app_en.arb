@@ -20,7 +20,7 @@
   "isOpen": "open to traffic",
   "scheduledToOpen": "scheduled to open in",
   "theBridgeIsCurrently": "the Chaban bridge is",
-  "aboutToClose": "will close to traffic soon",
+  "aboutToClose": "will soon close to traffic",
   "settingsTitle": "Settings",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -207,9 +207,5 @@
     "placeholders": {
       "count": {}
     }
-  },
-  "wineFestivalSailBoats": "Wine Festival Sailboats",
-  "externalLinks": "External links",
-  "rate": "Rate",
-  "timeFormatSubTitle": "Time format"
+  }
 }

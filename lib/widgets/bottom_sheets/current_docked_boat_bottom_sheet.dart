@@ -1,7 +1,7 @@
-import 'package:chabo_app/bloc/status/status_bloc.dart';
-import 'package:chabo_app/extensions/boats_extension.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
-import 'package:chabo_app/models/boat_forecast.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
+import 'package:chabo/extensions/boats_extension.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/models/boat_forecast.dart';
 import 'package:flutter/material.dart';
 
 class CurrentDockedBoatBottomSheet extends StatefulWidget {

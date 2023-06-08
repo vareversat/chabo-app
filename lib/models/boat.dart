@@ -1,5 +1,5 @@
-import 'package:chabo_app/const.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo/const.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,25 +11,13 @@ class Boat extends Equatable {
   final bool isLeaving;
   late final bool isWineFestivalSailBoats;
 
-  Boat({
-    required this.name,
-    required this.isLeaving,
-  }) {
-    isWineFestivalSailBoats = name == Const.specialWineFestivalBoatsEvent;
-  }
+  const Boat({required this.name, required this.isLeaving});
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 
   TextSpan toLocalizedTextSpan(BuildContext context, bool colored) {
-    final baseURL = isWineFestivalSailBoats
-        ? Const.bordeauxWineFestivalSailingShipLink
-        : Const.vesselFinderLink;
-    final text = isWineFestivalSailBoats
-        ? AppLocalizations.of(context)!.wineFestivalSailBoats
-        : name;
-
     return TextSpan(
       recognizer: TapGestureRecognizer()
         ..onTap = () => _launchURL(
@@ -42,9 +30,7 @@ class Boat extends Equatable {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: colored
-            ? isWineFestivalSailBoats
-                ? Theme.of(context).colorScheme.bordeauxColor
-                : Theme.of(context).colorScheme.boatColor
+            ? Theme.of(context).colorScheme.boatColor
             : Theme.of(context).dialogBackgroundColor,
         decoration: TextDecoration.underline,
       ),
@@ -71,13 +57,6 @@ class Boat extends Equatable {
               toLocalizedTextSpan(context, colored),
             ],
           );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'is_living': isLeaving,
-    };
   }
 
   @override

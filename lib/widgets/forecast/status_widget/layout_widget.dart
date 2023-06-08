@@ -35,7 +35,17 @@ class _LayoutWidget extends StatelessWidget {
             ],
           ),
         ),
-      ),
+        _ProgressIndicatorWidget(
+          statusState: statusState,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        _CurrentStatusWidget(
+          statusState: statusState,
+        ),
+        _CurrentDockedBoatButton(statusState: statusState),
+      ],
     );
   }
 }

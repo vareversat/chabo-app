@@ -10,8 +10,6 @@ class _ClosingInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -20,16 +18,20 @@ class _ClosingInfoWidget extends StatelessWidget {
             CustomProperties.borderRadius,
           ),
         ),
-        color: Theme.of(context).colorScheme.errorContainer,
+        color: Theme.of(context).colorScheme.error,
       ),
       child: Padding(
         padding: const EdgeInsets.all(4.0).copyWith(left: 12),
-        child: Text(
-          forecast.circulationClosingDateString(
-            context,
-          ),
-          textAlign: TextAlign.left,
-          style: textTheme.headlineSmall,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            RichText(
+              text: forecast.circulationClosingDate.toLocalizedTextSpan(
+                context,
+                Theme.of(context).colorScheme.onError,
+              ),
+            ),
+          ],
         ),
       ),
     );
