@@ -1,25 +1,27 @@
+import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/boat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension BoatsExtension on List<Boat> {
   TextSpan toLocalizedTextSpan(BuildContext context) {
-    if (length == 1) {
-      return this[0].toLocalizedString(context);
-    } else {
-      final finalTextSpan = <TextSpan>[];
-      for (var index = 0; index < length; index++) {
-        finalTextSpan.add(this[index].toLocalizedString(context));
-        if (index + 1 != length) {
-          finalTextSpan
-              .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
-        }
-      }
-
-      return TextSpan(
-        children: finalTextSpan,
+    final finalTextSpan = <TextSpan>[];
+    for (var index = 0; index < length; index++) {
+      finalTextSpan.add(
+        this[index].toLocalizedStatusTextSpan(
+          context,
+          true,
+        ),
       );
+      if (index + 1 != length) {
+        finalTextSpan
+            .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
+      }
     }
+
+    return TextSpan(
+      children: finalTextSpan,
+    );
   }
 
   String getNames(BuildContext context) {
@@ -52,5 +54,51 @@ extension BoatsExtension on List<Boat> {
     }
 
     return finalString;
+  }
+
+  List<TextSpan> toLocalizedMoonHarborStatus(BuildContext context) {
+    final finalTextSpan = <TextSpan>[];
+    var boatCount = 0;
+    for (var index = 0; index < length; index++) {
+      if (!this[index].isLeaving) {
+        if (boatCount != 0) {
+          finalTextSpan.add(
+            TextSpan(
+              text: ' ${AppLocalizations.of(context)!.and} ',
+            ),
+          );
+        }
+        boatCount += 1;
+        finalTextSpan.add(
+          TextSpan(
+            text: AppLocalizations.of(context)!
+                .the(this[index].name.startsWithVowel().toString())
+                .capitalize(),
+          ),
+        );
+        finalTextSpan.add(
+          this[index].toLocalizedTextSpan(context, true),
+        );
+      }
+    }
+
+    finalTextSpan.add(
+      TextSpan(
+        text: ' ${AppLocalizations.of(context)!.moonHarborStatus(boatCount)}',
+      ),
+    );
+
+    return finalTextSpan;
+  }
+
+  bool oneIsArriving() {
+    var oneIsArriving = false;
+    for (var index = 0; index < length; index++) {
+      if (!this[index].isLeaving) {
+        oneIsArriving = true;
+      }
+    }
+
+    return oneIsArriving;
   }
 }

@@ -9,7 +9,6 @@ import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/misc/no_scaling_animation.dart';
 import 'package:chabo/screens/error_screen.dart';
-import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/floating_actions/floating_actions_widget.dart';
 import 'package:chabo/widgets/forecast/forecast_list_widget.dart';
 import 'package:chabo/widgets/forecast/status_widget/status_widget.dart';
@@ -33,31 +32,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: Column(
-            crossAxisAlignment: state.isRightHanded
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.start,
-            children: [
-              const Expanded(
-                child: FloatingActionsWidget(),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: state.isRightHanded ? 32 : 0,
-                      right: state.isRightHanded ? 0 : 32,
-                      top: 5,
-                    ),
-                    child: const AdBannerWidget(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          floatingActionButtonLocation: state.isRightHanded
-              ? FloatingActionButtonLocation.endFloat
-              : FloatingActionButtonLocation.startFloat,
+          floatingActionButton: const FloatingActionsWidget(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           floatingActionButtonAnimator: NoScalingAnimation(),
           body: SafeArea(
             top: false,
@@ -161,18 +138,22 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
 
                           return true;
                         },
-                        child: BlocBuilder<ScrollStatusBloc, ScrollStatusState>(
-                          builder: (context, state) {
-                            return DeviceHelper.isPortrait(context)
-                                ? CustomScrollView(
-                                    physics: const BouncingScrollPhysics(),
-                                    slivers: [
-                                      SliverAppBar(
+                        child: DeviceHelper.isPortrait(context)
+                            ? CustomScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                slivers: [
+                                  BlocBuilder<StatusBloc, StatusState>(
+                                    builder: (context, state) {
+                                      return SliverAppBar(
                                         pinned: true,
                                         snap: false,
                                         stretch: true,
-                                        collapsedHeight: 275,
-                                        expandedHeight: 275,
+                                        collapsedHeight:
+                                            state.statusWidgetDimension ==
+                                                    StatusWidgetDimension.small
+                                                ? 225
+                                                : 270,
+                                        expandedHeight: 245,
                                         shadowColor: Colors.black,
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
@@ -190,60 +171,57 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                           expandedTitleScale: 1,
                                           title: StatusWidget(),
                                         ),
-                                      ),
-                                      const ForecastListWidget(),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      Flexible(
-                                        flex: !DeviceHelper.isMobile(context)
-                                            ? 2
-                                            : 1,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surfaceVariant,
-                                                borderRadius:
-                                                    const BorderRadius.vertical(
-                                                  bottom: Radius.circular(
-                                                    CustomProperties
-                                                            .borderRadius *
-                                                        2,
-                                                  ),
-                                                ),
+                                      );
+                                    },
+                                  ),
+                                  const ForecastListWidget(),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Flexible(
+                                    flex:
+                                        !DeviceHelper.isMobile(context) ? 2 : 1,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surfaceVariant,
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                              bottom: Radius.circular(
+                                                CustomProperties.borderRadius *
+                                                    2,
                                               ),
-                                              constraints: BoxConstraints(
-                                                minHeight:
-                                                    DeviceHelper.isMobile(
-                                                  context,
-                                                )
-                                                        ? 270
-                                                        : 380,
-                                              ),
-                                              child: const StatusWidget(),
                                             ),
-                                            const SizedBox(
-                                              height: 50,
-                                            ),
-                                          ],
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minHeight: DeviceHelper.isMobile(
+                                              context,
+                                            )
+                                                ? 270
+                                                : 380,
+                                          ),
+                                          child: const StatusWidget(),
                                         ),
-                                      ),
-                                      const Flexible(
-                                        child: CustomScrollView(
-                                          physics: BouncingScrollPhysics(),
-                                          slivers: [
-                                            ForecastListWidget(),
-                                          ],
+                                        const SizedBox(
+                                          height: 50,
                                         ),
-                                      ),
-                                    ],
-                                  );
-                          },
-                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Flexible(
+                                    child: CustomScrollView(
+                                      physics: BouncingScrollPhysics(),
+                                      slivers: [
+                                        ForecastListWidget(),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                       ),
                     );
                   default:

@@ -138,4 +138,7 @@ class Const {
       'ca-app-pub-4365376442391282/2675286687';
   static const String androidNativeBanner =
       'ca-app-pub-4365376442391282/5786413607';
+
+  /// Misc
+  static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
 }

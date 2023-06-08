@@ -17,7 +17,7 @@ class _TextWidget extends StatelessWidget {
       ),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         decoration: BoxDecoration(
           color: statusState.backgroundColor,
           borderRadius: const BorderRadius.all(
@@ -54,7 +54,7 @@ class _TextWidget extends StatelessWidget {
                     color: statusState.foregroundColor,
                     fontWeight: FontWeight.bold,
                     fontSize: DeviceHelper.isMobile(context)
-                        ? 30
+                        ? 28
                         : DeviceHelper.isPortrait(context)
                             ? 30
                             : 55,

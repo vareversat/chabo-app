@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/time_slot.dart';
-import 'package:chabo/widgets/forecast_information_bottom_sheet.dart';
+import 'package:chabo/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -112,7 +113,7 @@ class ForecastWidget extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 12,
+                    flex: 8,
                     child: Column(
                       children: [
                         Expanded(
@@ -124,6 +125,8 @@ class ForecastWidget extends StatelessWidget {
                                   forecast: forecast,
                                 ),
                               ),
+
+                              /// Display a warning sign if the schedule interferes with timeslots
                               timeSlots.isNotEmpty
                                   ? const _TimeSlotWarningWidget()
                                   : const SizedBox.shrink(),

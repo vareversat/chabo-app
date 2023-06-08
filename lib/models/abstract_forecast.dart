@@ -106,13 +106,14 @@ abstract class AbstractForecast extends Equatable {
                 CustomProperties.borderRadius,
               ),
             ),
-            color: colorScheme.errorContainer,
+            color: colorScheme.error,
           ),
           child: Text(
             DateFormat.jm(Localizations.localeOf(context).languageCode)
                 .format(circulationClosingDate),
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: colorScheme.onError,
             ),
           ),
         ),
@@ -167,16 +168,6 @@ abstract class AbstractForecast extends Equatable {
   String getClosingReason(BuildContext context);
 
   Color getColor(BuildContext context, bool reversed);
-
-  String circulationClosingDateString(BuildContext context) {
-    return DateFormat.jm(Localizations.localeOf(context).languageCode)
-        .format(circulationClosingDate);
-  }
-
-  String circulationReOpeningDateString(BuildContext context) {
-    return DateFormat.jm(Localizations.localeOf(context).languageCode)
-        .format(circulationReOpeningDate);
-  }
 
   void computeSlotInterference(TimeSlotsState timeSlotsState) {
     interferingTimeSlots.clear();

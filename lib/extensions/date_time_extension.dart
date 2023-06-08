@@ -35,4 +35,39 @@ extension DateTimeExtension on DateTime {
 
     return value;
   }
+
+  TextSpan toLocalizedTextSpan(BuildContext context, Color foregroundColor) {
+    final languageCode = Localizations.localeOf(context).languageCode;
+    var stringDate = DateFormat.jm(languageCode).format(
+      this,
+    );
+    var timeMarker = '';
+
+    /// Try to fetch the time marker (us based local). If it exists, indexOfTimeMarker != -1
+    /// Then rewrite the date by removing the time marker
+    final indexOfTimeMarker = stringDate.indexOf(' ');
+    if (indexOfTimeMarker != -1) {
+      timeMarker = stringDate.substring(indexOfTimeMarker, stringDate.length);
+      stringDate = stringDate.substring(0, indexOfTimeMarker);
+    }
+
+    return TextSpan(
+      children: [
+        TextSpan(
+          text: stringDate,
+        ),
+        TextSpan(
+          text: timeMarker,
+          style: Theme.of(context)
+              .textTheme
+              .labelMedium
+              ?.copyWith(color: foregroundColor),
+        ),
+      ],
+      style: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: foregroundColor),
+    );
+  }
 }

@@ -16,12 +16,15 @@ class FloatingActionsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      heroTag: null,
-      onPressed: onPressed,
-      label: Wrap(
-        spacing: isSpaced ? 10 : 0,
-        children: isRightHanded ? content : content.reversed.toList(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: FloatingActionButton.extended(
+        heroTag: null,
+        onPressed: onPressed,
+        label: Wrap(
+          spacing: isSpaced ? 10 : 0,
+          children: isRightHanded ? content : content.reversed.toList(),
+        ),
       ),
     );
   }

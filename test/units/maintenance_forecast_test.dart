@@ -5,7 +5,7 @@ import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'localized_testable_widget.dart';
+import '../localized_testable_widget.dart';
 
 void main() {
   final forecast = MaintenanceForecast(
@@ -48,7 +48,7 @@ void main() {
       'Display info TextSpan (same day)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidget(
+          localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
@@ -70,7 +70,7 @@ void main() {
       'Display info TextSpan (tow days)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidget(
+          localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
