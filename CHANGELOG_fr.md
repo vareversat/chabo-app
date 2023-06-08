@@ -1,3 +1,12 @@
+# **v2.0.0** :
+
+- *Fix*:
+  - La détection des évènements multi bateaux fonctionne maintenant correctement
+  - Les évènements sur deux jours sont maintenant correctement détectés
+- *Interface*:
+  - L'affichage des évènements a été complètement revu
+  - Il est maintenant affiché les bateaux actuellement amarrés au Port de la Lune
+***
 # **v1.9.2** :
 
 - *Fix*:

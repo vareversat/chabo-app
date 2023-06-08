@@ -1,3 +1,12 @@
+# **v2.0.0** :
+
+- *Fix*:
+  - Detection of multi-vessel events is now working properly
+  - Two-day events are now correctly detected
+- *Interface*:
+  - Events display has been completely revised
+  - The ships currently moored in the Port of the Moon are now displayed
+***
 # **v1.9.2** :
 
 - *Fix*:
