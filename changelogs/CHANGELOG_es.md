@@ -1,3 +1,12 @@
+# **v2.0.0** :
+
+- *Fix*:
+  - La detección de eventos multibarco funciona ahora correctamente
+  - Los eventos en dos díasahora se detectan correctamente
+- *Interfaz*:
+  - La visualización de los eventos ha sido completamente revisada
+  - Ahora se muestran los barcos actualmente amarrados en el Puerto de la Luna
+***
 # **v1.9.2** :
 
 - *Fijado*:
