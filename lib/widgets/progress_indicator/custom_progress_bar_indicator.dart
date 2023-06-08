@@ -32,7 +32,7 @@ class CustomProgressBarIndicator extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Theme.of(context).colorScheme.inverseSurface,
-                  width: 2,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),
