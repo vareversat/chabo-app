@@ -142,29 +142,33 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                             ? CustomScrollView(
                                 physics: const BouncingScrollPhysics(),
                                 slivers: [
-                                  SliverAppBar(
-                                    pinned: true,
-                                    snap: false,
-                                    stretch: true,
-                                    collapsedHeight: 275,
-                                    expandedHeight: 275,
-                                    shadowColor: Colors.black,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .surfaceVariant,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                        bottom: Radius.circular(
-                                          CustomProperties.borderRadius * 2,
+                                  BlocBuilder<StatusBloc, StatusState>(
+                                    builder: (context, state) {
+                                      return SliverAppBar(
+                                        pinned: true,
+                                        snap: false,
+                                        stretch: true,
+                                        collapsedHeight: state.statusWidgetDimension == StatusWidgetDimension.small ? 225 : 270,
+                                        expandedHeight: 245,
+                                        shadowColor: Colors.black,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .surfaceVariant,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            bottom: Radius.circular(
+                                              CustomProperties.borderRadius * 2,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    flexibleSpace: const FlexibleSpaceBar(
-                                      titlePadding: EdgeInsets.zero,
-                                      centerTitle: true,
-                                      expandedTitleScale: 1,
-                                      title: StatusWidget(),
-                                    ),
+                                        flexibleSpace: const FlexibleSpaceBar(
+                                          titlePadding: EdgeInsets.zero,
+                                          centerTitle: true,
+                                          expandedTitleScale: 1,
+                                          title: StatusWidget(),
+                                        ),
+                                      );
+                                    },
                                   ),
                                   const ForecastListWidget(),
                                 ],
