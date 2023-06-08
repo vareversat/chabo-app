@@ -106,13 +106,14 @@ abstract class AbstractForecast extends Equatable {
                 CustomProperties.borderRadius,
               ),
             ),
-            color: colorScheme.errorContainer,
+            color: colorScheme.error,
           ),
           child: Text(
             DateFormat.jm(Localizations.localeOf(context).languageCode)
                 .format(circulationClosingDate),
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: colorScheme.onError,
             ),
           ),
         ),
