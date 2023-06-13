@@ -117,10 +117,9 @@ class ForecastWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Stack(
-                            alignment: Alignment.topRight,
+                          child: Row(
                             children: [
-                              Center(
+                              Expanded(
                                 child: _DayWidget(
                                   forecast: forecast,
                                 ),
