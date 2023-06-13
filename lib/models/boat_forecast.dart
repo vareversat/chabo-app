@@ -155,6 +155,40 @@ class BoatForecast extends AbstractForecast {
     );
   }
 
+  List<Widget> _computeIconWidget(
+    BuildContext context,
+    IconData iconData,
+    bool reversed,
+    double size,
+  ) {
+    var icons = <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Icon(
+          iconData,
+          color: getColor(context, reversed),
+          size: size,
+        ),
+      ),
+    ];
+    for (int i = 0; i < boats.length; i++) {
+      icons.add(Positioned(
+        right: boats[i].isLeaving ? 0 : 45,
+        top: boats.length == 1 ? 4 : i * 15,
+        child: RotatedBox(
+          quarterTurns: boats[i].isLeaving ? 0 : 2,
+          child: Icon(
+            Icons.double_arrow_rounded,
+            color: getColor(context, reversed),
+            size: boats.length == 1 ? 19 : 15,
+          ),
+        ),
+      ));
+    }
+
+    return icons;
+  }
+
   @override
   Widget getIconWidget(
     BuildContext context,
@@ -162,52 +196,18 @@ class BoatForecast extends AbstractForecast {
     double size,
     bool isLight,
   ) {
-    if (isLight) {
-      return Icon(
-        Icons.directions_boat_rounded,
-        color: getColor(context, reversed),
-        size: size,
-      );
-    } else {
-      return Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Icon(
-              Icons.directions_boat_rounded,
-              color: getColor(context, reversed),
-              size: size,
+    const iconData = Icons.directions_boat_filled_outlined;
+
+    return isLight
+        ? Icon(iconData, color: getColor(context, reversed), size: size)
+        : Stack(
+            children: _computeIconWidget(
+              context,
+              iconData,
+              reversed,
+              size,
             ),
-          ),
-          Positioned(
-            right: 0,
-            top: -3,
-            child: RotatedBox(
-              quarterTurns: boats[0].isLeaving ? 0 : 2,
-              child: Icon(
-                Icons.double_arrow_rounded,
-                color: getColor(context, reversed),
-                size: 15,
-              ),
-            ),
-          ),
-          boats.length == 2
-              ? Positioned(
-                  right: 0,
-                  top: 10,
-                  child: RotatedBox(
-                    quarterTurns: boats[1].isLeaving ? 0 : 2,
-                    child: Icon(
-                      Icons.double_arrow_rounded,
-                      color: getColor(context, reversed),
-                      size: 15,
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ],
-      );
-    }
+          );
   }
 
   @override

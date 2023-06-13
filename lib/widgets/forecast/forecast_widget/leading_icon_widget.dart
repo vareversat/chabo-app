@@ -22,7 +22,7 @@ class _LeadingIconWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4),
             child: Center(
-              child: forecast.getIconWidget(context, false, 25, false),
+              child: forecast.getIconWidget(context, false, 30, false),
             ),
           ),
           Center(

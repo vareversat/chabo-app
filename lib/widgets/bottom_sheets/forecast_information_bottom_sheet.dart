@@ -74,7 +74,7 @@ class _ForecastInformationBottomSheetState
                 child: CircleAvatar(
                   radius: 35,
                   backgroundColor: widget.forecast.getColor(context, false),
-                  child: widget.forecast.getIconWidget(context, true, 30, true),
+                  child: widget.forecast.getIconWidget(context, true, 33, true),
                 ),
               ),
               const SizedBox(
