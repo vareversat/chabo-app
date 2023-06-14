@@ -5,9 +5,9 @@ CHANGELOG_PATH_FR="$GITHUB_WORKSPACE"/android/fastlane/metadata/android/fr-FR/ch
 CHANGELOG_PATH_ES="$GITHUB_WORKSPACE"/android/fastlane/metadata/android/es-ES/changelogs/"$BUILD_NUMBER".txt
 CHANGELOG_PATH_EN_US="$GITHUB_WORKSPACE"/android/fastlane/metadata/android/en-US/changelogs/"$BUILD_NUMBER".txt
 CHANGELOG_PATH_EN_GB="$GITHUB_WORKSPACE"/android/fastlane/metadata/android/en-GB/changelogs/"$BUILD_NUMBER".txt
-CHANGELOG_FR=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/CHANGELOG_fr.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
-CHANGELOG_ES=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/CHANGELOG_es.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
-CHANGELOG_EN=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/CHANGELOG_en.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
+CHANGELOG_FR=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/changelogs/CHANGELOG_fr.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
+CHANGELOG_ES=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/changelogs/CHANGELOG_es.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
+CHANGELOG_EN=$(sed '/\*\*\*/q' "$GITHUB_WORKSPACE"/changelogs/CHANGELOG_en.md | sed 's/\*//g' | sed 's/#//g' | sed '$d')
 
 # Add path to the Github envs
 echo "CHANGELOG_PATH_FR=$CHANGELOG_PATH_FR" >> $GITHUB_ENV

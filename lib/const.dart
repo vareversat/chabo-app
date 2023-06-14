@@ -14,7 +14,8 @@ class Const {
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';
-  static const String changelogPath = 'CHANGELOG_$changelogPlaceholder.md';
+  static const String changelogPath =
+      'changelogs/CHANGELOG_$changelogPlaceholder.md';
   static const String appLogoPath = 'assets/images/chabo_icon.png';
 
   /// Link

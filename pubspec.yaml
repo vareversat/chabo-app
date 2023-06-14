@@ -48,9 +48,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/chabo_icon.png
-    - CHANGELOG_en.md
-    - CHANGELOG_fr.md
-    - CHANGELOG_es.md
+    - changelogs/
 
 flutter_icons:
   android: true
