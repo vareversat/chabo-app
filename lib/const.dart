@@ -17,6 +17,7 @@ class Const {
   static const String changelogPath =
       'changelogs/CHANGELOG_$changelogPlaceholder.md';
   static const String appLogoPath = 'assets/images/chabo_icon.png';
+  static const String oflLicensePath = 'assets/licenses/OFL.txt';
 
   /// Link
   static const String vesselFinderLinkPlaceholder = ':boatName:';
@@ -142,4 +143,5 @@ class Const {
 
   /// Misc
   static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
+  static const String oflLicenseEntryName = 'google_fonts';
 }
