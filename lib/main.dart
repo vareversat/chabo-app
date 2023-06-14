@@ -1,10 +1,7 @@
-import 'dart:developer' as developer;
-
-import 'package:chabo_app/chabo.dart';
-import 'package:chabo_app/const.dart';
-import 'package:chabo_app/service/consent_form_service.dart';
-import 'package:chabo_app/service/notification_service.dart';
-import 'package:chabo_app/service/storage_service.dart';
+import 'package:chabo/chabo.dart';
+import 'package:chabo/const.dart';
+import 'package:chabo/service/notification_service.dart';
+import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,43 +26,15 @@ void main() async {
   /// Initialize the Google Ads SDK
   MobileAds.instance.initialize();
 
-  /// Show consent dialog using the User Messaging Platform (UPM)
-  consentFormService.showConsentForm();
-
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString(Const.oflLicensePath);
     yield LicenseEntryWithLineBreaks([Const.oflLicenseEntryName], license);
   });
 
-  /// Fetch app release to inject them into Sentry
-  final appRelease = await PackageInfo.fromPlatform();
-  final formattedRelease =
-      '${appRelease.packageName}@${appRelease.version}+${appRelease.buildNumber}'
-          .toLowerCase();
-
-  /// Fetch running env
-  const env =
-      String.fromEnvironment(Const.envKey, defaultValue: Const.defaultEnv);
-
-  developer.log(
-    '##### HI ! Starting $formattedRelease in $env mode #####',
-    name: 'chabo.main',
-  );
-
-  await SentryFlutter.init(
-    (options) {
-      options.dsn = const String.fromEnvironment(Const.sentryDSNEnvKey);
-      options.tracesSampleRate = 0.5;
-      options.release = formattedRelease;
-      options.environment = env;
-    },
-    appRunner: () => runApp(
-      SentryUserInteractionWidget(
-        child: Chabo(
-          storageService: storageService,
-          notificationService: notificationService,
-        ),
-      ),
+  runApp(
+    Chabo(
+      storageService: storageService,
+      notificationService: notificationService,
     ),
   );
 }

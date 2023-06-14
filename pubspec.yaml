@@ -33,8 +33,6 @@ dependencies:
   timezone: ^0.9.1
   url_launcher: ^6.1.7
   auto_size_text: ^3.0.0
-  sentry_flutter: ^7.8.0
-  in_app_review: ^2.0.6
 
 
 dev_dependencies:
@@ -49,7 +47,8 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/chabo_icon.png
+    - assets/images/
+    - assets/licenses/
     - changelogs/
 
 flutter_icons:

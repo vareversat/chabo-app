@@ -148,4 +148,5 @@ class Const {
 
   /// Misc
   static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
+  static const String oflLicenseEntryName = 'google_fonts';
 }
