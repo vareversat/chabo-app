@@ -49,8 +49,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/
-    - assets/licenses/
+    - assets/images/chabo_icon.png
     - changelogs/
 
 flutter_icons:
