@@ -44,7 +44,7 @@ class _TextWidget extends StatelessWidget {
                 child: child,
               );
             },
-            child: Text(
+            child: AutoSizeText(
               key: ValueKey<String>(
                 statusState.statusWidgetDimension.toString(),
               ),
@@ -53,11 +53,6 @@ class _TextWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     color: statusState.foregroundColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: DeviceHelper.isMobile(context)
-                        ? 28
-                        : DeviceHelper.isPortrait(context)
-                            ? 30
-                            : 55,
                   ),
             ),
           ),
