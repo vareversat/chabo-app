@@ -56,7 +56,7 @@
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statur actuel",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statut actuel",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
