@@ -80,7 +80,7 @@ class CurrentDockedBoatButton extends StatelessWidget {
                     AppLocalizations.of(context)!.moonHarborShortStatus(
                       (statusState.previousForecast as BoatForecast)
                           .boats
-                          .length,
+                          .getArrivingCount(),
                     ),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: Theme.of(context).cardColor,
