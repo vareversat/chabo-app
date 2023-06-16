@@ -22,7 +22,7 @@ class Const {
   /// Link
   static const String vesselFinderLinkPlaceholder = ':boatName:';
   static const String vesselFinderLink =
-      'https://www.vesselfinder.com/fr/vessels?name=$vesselFinderLinkPlaceholder&type=301';
+      'https://www.myshiptracking.com/vessels?side=false&name=$vesselFinderLinkPlaceholder';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
 
