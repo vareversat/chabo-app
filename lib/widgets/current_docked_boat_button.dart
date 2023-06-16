@@ -1,10 +1,10 @@
-import 'package:chabo_app/bloc/status/status_bloc.dart';
-import 'package:chabo_app/custom_properties.dart';
-import 'package:chabo_app/extensions/boats_extension.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
-import 'package:chabo_app/helpers/device_helper.dart';
-import 'package:chabo_app/models/boat_forecast.dart';
-import 'package:chabo_app/widgets/bottom_sheets/current_docked_boat_bottom_sheet.dart';
+import 'package:chabo/bloc/status/status_bloc.dart';
+import 'package:chabo/custom_properties.dart';
+import 'package:chabo/extensions/boats_extension.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/models/boat_forecast.dart';
+import 'package:chabo/widgets/bottom_sheets/current_docked_boat_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -80,7 +80,7 @@ class CurrentDockedBoatButton extends StatelessWidget {
                     AppLocalizations.of(context)!.moonHarborShortStatus(
                       (statusState.previousForecast as BoatForecast)
                           .boats
-                          .getArrivingCount(),
+                          .length,
                     ),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: Theme.of(context).cardColor,

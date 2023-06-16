@@ -7,7 +7,7 @@ import 'package:chabo/helpers/custom_page_routes.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
-import 'package:chabo/widgets/floating_actions/floating_actions_item.dart';
+import 'package:chabo/widgets/current_docked_boat_button.dart';
 import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,7 +61,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               },
               child: state.isMenuOpen
                   ? BackdropFilter(
-                      filter: ImageFilter.blur(
+                filter: ImageFilter.blur(
                         sigmaX: CustomProperties.blurSigmaX,
                         sigmaY: CustomProperties.blurSigmaY,
                       ),
@@ -117,7 +117,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                     ),
                                   ),
                                   builder: (context) {
-                                    return const SettingsModalBottomSheet();
+                                    return const ThemeSwitcherWidget();
                                   },
                                 );
                                 context
@@ -126,10 +126,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                               },
                               content: [
                                 Text(
-                                  AppLocalizations.of(context)!.openSetting,
+                                  AppLocalizations.of(context)!.themeSetting,
                                 ),
                                 const Icon(
-                                  Icons.settings,
+                                  Icons.format_paint_rounded,
                                 ),
                               ],
                               isRightHanded: state.isRightHanded,
@@ -140,9 +140,8 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                 Navigator.of(context).push(
                                   BottomToTopPageRoute(
                                     builder: (context) =>
-                                        const NotificationScreen(),
-                                    settings: const RouteSettings(
-                                      name: NotificationScreen.routeName,
+                                        const NotificationScreen(
+                                      highlightTimeSlots: false,
                                     ),
                                   ),
                                 );
@@ -164,13 +163,17 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             ),
                             _FloatingActionsItem(
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  BottomToTopPageRoute(
-                                    builder: (context) => ChaboAboutScreen(),
-                                    settings: const RouteSettings(
-                                      name: ChaboAboutScreen.routeName,
-                                    ),
-                                  ),
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                        sigmaX: CustomProperties.blurSigmaX,
+                                        sigmaY: CustomProperties.blurSigmaY,
+                                      ),
+                                      child: ChaboAboutDialog(),
+                                    );
+                                  },
                                 );
                                 context
                                     .read<FloatingActionsCubit>()
@@ -207,63 +210,29 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                   sigmaX: CustomProperties.blurSigmaX,
                   sigmaY: CustomProperties.blurSigmaY,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: state.isRightHanded
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: FloatingActionsItem(
-                            onPressed: () {
-                              HapticFeedback.lightImpact();
-                              context
-                                  .read<FloatingActionsCubit>()
-                                  .openFloatingActions();
-                            },
-                            isRightHanded: state.isRightHanded,
-                            content: [
-                              AnimatedSize(
-                                curve: Curves.easeIn,
-                                duration: const Duration(
-                                  milliseconds:
-                                      CustomProperties.shortAnimationDurationMs,
-                                ),
-                                reverseDuration: const Duration(
-                                  milliseconds: 0,
-                                ),
-                                child: state.isMenuOpen
-                                    ? Text(
-                                        AppLocalizations.of(context)!
-                                            .settingsTitle,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                        textAlign: TextAlign.start,
-                                      )
-                                    : const SizedBox.shrink(),
-                              ),
-                              state.isMenuOpen
-                                  ? const Icon(
-                                      Icons.close,
-                                    )
-                                  : const Icon(
-                                      Icons.settings,
-                                    ),
-                            ],
-                            isSpaced: state.isMenuOpen,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: AdBannerWidget(),
-                    ),
-                  ],
+                child: Padding(
+                  padding: DeviceHelper.isPortrait(context)
+                      ? const EdgeInsets.all(8)
+                      : const EdgeInsets.symmetric(vertical: 8),
+                  child: Wrap(
+                    spacing: 5,
+                    textDirection: TextDirection.rtl,
+                    alignment: WrapAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisSize: DeviceHelper.isPortrait(context)
+                            ? MainAxisSize.max
+                            : MainAxisSize.min,
+                        mainAxisAlignment: state.isRightHanded
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.start,
+                        children: state.isRightHanded
+                            ? _buildRow(state).reversed.toList()
+                            : _buildRow(state),
+                      ),
+                      const AdBannerWidget(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -292,7 +261,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
             ),
             child: state.isMenuOpen
                 ? Text(
-                    AppLocalizations.of(context)!.settingsClose,
+                    AppLocalizations.of(context)!.settingsTitle,
                     style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.start,
                   )
@@ -300,10 +269,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
           ),
           state.isMenuOpen
               ? const Icon(
-                  Icons.expand_more,
+                  Icons.close,
                 )
               : const Icon(
-                  Icons.expand_less_outlined,
+                  Icons.settings,
                 ),
         ],
         isSpaced: state.isMenuOpen,
