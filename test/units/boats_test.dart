@@ -214,4 +214,13 @@ void main() {
       );
     });
   });
+
+  group('getArrivingCount', () {
+    test('2 Boats - 1 arriving', () {
+      expect(
+        boats2.getArrivingCount(),
+        1,
+      );
+    });
+  });
 }

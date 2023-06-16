@@ -101,4 +101,15 @@ extension BoatsExtension on List<Boat> {
 
     return oneIsArriving;
   }
+
+  int getArrivingCount() {
+    var arriving = 0;
+    for (var index = 0; index < length; index++) {
+      if (!this[index].isLeaving) {
+        arriving += 1;
+      }
+    }
+
+    return arriving;
+  }
 }
