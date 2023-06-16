@@ -61,7 +61,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
               },
               child: state.isMenuOpen
                   ? BackdropFilter(
-                filter: ImageFilter.blur(
+                      filter: ImageFilter.blur(
                         sigmaX: CustomProperties.blurSigmaX,
                         sigmaY: CustomProperties.blurSigmaY,
                       ),
