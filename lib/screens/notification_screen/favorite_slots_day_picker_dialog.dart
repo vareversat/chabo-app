@@ -21,8 +21,9 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
               return FilterChip(
                 avatar: state.days.contains(day)
                     ? null
-                    : const Icon(
+                    : Icon(
                         Icons.close,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                 label: Text(
                   day.localizedName(context),
