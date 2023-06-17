@@ -1,3 +1,11 @@
+# **v2.1.0** :
+
+- *Fix*:
+  - Corrección de varios errores
+- *Interfaz*:
+  - Nuevo icono para los pasos de buques
+  - Mejoras para una mejor legibilidad
+***
 # **v2.0.0** :
 
 - *Fix*:

@@ -1,3 +1,11 @@
+# **v2.1.0** :
+
+- *Fix*:
+  - Correction de bugs divers
+- *Interface*:
+  - Nouvelle icône pour les passages de navires
+  - Améliorations pour une meilleure lisibilité
+***
 # **v2.0.0** :
 
 - *Fix*:

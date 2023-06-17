@@ -1,3 +1,11 @@
+# **v2.1.0** :
+
+- *Fix*:
+  - Miscellaneous bug fixes;
+- *Interface*:
+  - New icon for ship crossings
+  - Improvements for better readability
+***
 # **v2.0.0** :
 
 - *Fix*:
