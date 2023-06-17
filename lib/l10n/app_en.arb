@@ -32,8 +32,18 @@
   "dialogInformationContentFromEnd": "to",
   "dialogInformationContentFromEnd2": "to",
   "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
-  "dialogInformationContentBridgeDeparture": "the departure of the",
-  "dialogInformationContentBridgeArrival": "the arrival of the",
+  "dialogInformationContentBridgeDeparture": "the departure of the {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeDeparture": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridgeArrival": "the arrival of {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeArrival": {
+    "placeholders": {
+      "count": {}
+    }
+  },
   "dialogInformationContentBridge_closed_maintenance": "maintenance",
   "dialogInformationContentTime_of_crossing": "estimated time of crossing",
   "errorScreenContentError": "Error",
@@ -209,5 +219,6 @@
     "placeholders": {
       "count": {}
     }
-  }
+  },
+  "wineFestivalSailBoats": "Wine Festival Sailboats"
 }

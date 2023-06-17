@@ -22,4 +22,10 @@ extension ColorSchemeExtension on ColorScheme {
         ? const Color(0xFF81C784)
         : Colors.green;
   }
+
+  Color get bordeauxColor {
+    return brightness == Brightness.light
+        ? const Color.fromRGBO(123, 31, 48, 1)
+        : const Color.fromRGBO(167, 106, 117, 1);
+  }
 }

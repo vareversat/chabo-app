@@ -196,7 +196,9 @@ class BoatForecast extends AbstractForecast {
     double size,
     bool isLight,
   ) {
-    const iconData = Icons.directions_boat_filled_outlined;
+    var iconData = boats.isWineFestival()
+        ? Icons.wine_bar_outlined
+        : Icons.directions_boat_filled_outlined;
 
     return isLight
         ? Icon(iconData, color: getColor(context, reversed), size: size)
@@ -225,6 +227,8 @@ class BoatForecast extends AbstractForecast {
 
   @override
   String getClosingReason(BuildContext context) {
-    return boats.getNames(context);
+    return boats.isWineFestival()
+        ? AppLocalizations.of(context)!.wineFestivalSailBoats
+        : boats.getNames(context);
   }
 }

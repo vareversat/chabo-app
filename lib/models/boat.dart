@@ -11,13 +11,25 @@ class Boat extends Equatable {
   final bool isLeaving;
   late final bool isWineFestivalSailBoats;
 
-  const Boat({required this.name, required this.isLeaving});
+  Boat({
+    required this.name,
+    required this.isLeaving,
+  }) {
+    isWineFestivalSailBoats = name == Const.specialWineFestivalBoatsEvent;
+  }
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 
   TextSpan toLocalizedTextSpan(BuildContext context, bool colored) {
+    final baseURL = isWineFestivalSailBoats
+        ? Const.bordeauxWineFestivalSailingShipLink
+        : Const.vesselFinderLink;
+    final text = isWineFestivalSailBoats
+        ? AppLocalizations.of(context)!.wineFestivalSailBoats
+        : name;
+
     return TextSpan(
       recognizer: TapGestureRecognizer()
         ..onTap = () => _launchURL(
@@ -30,7 +42,9 @@ class Boat extends Equatable {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: colored
-            ? Theme.of(context).colorScheme.boatColor
+            ? isWineFestivalSailBoats
+                ? Theme.of(context).colorScheme.bordeauxColor
+                : Theme.of(context).colorScheme.boatColor
             : Theme.of(context).dialogBackgroundColor,
         decoration: TextDecoration.underline,
       ),
