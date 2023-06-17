@@ -151,18 +151,18 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         state.durationUntilNextEvent.inMinutes >=
             state.durationForCloseClosing.inMinutes) {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridge} ${AppLocalizations.of(context)!.isOpen}'
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}'
           : AppLocalizations.of(context)!.isOpen.capitalize();
     } else if (currentForecast != null &&
         !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes <
             state.durationForCloseClosing.inMinutes) {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridge} ${AppLocalizations.of(context)!.willSoonClose}'
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeWillSoonClose}'
           : AppLocalizations.of(context)!.willSoonClose.capitalize();
     } else {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridge} ${AppLocalizations.of(context)!.isClosed}'
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}'
           : AppLocalizations.of(context)!.isClosed.capitalize();
     }
   }
