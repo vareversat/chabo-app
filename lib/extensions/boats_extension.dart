@@ -112,4 +112,8 @@ extension BoatsExtension on List<Boat> {
 
     return arriving;
   }
+
+  bool isWineFestival() {
+    return length == 1 && this[0].isWineFestivalSailBoats;
+  }
 }

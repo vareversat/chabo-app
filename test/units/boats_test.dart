@@ -1,3 +1,4 @@
+import 'package:chabo/const.dart';
 import 'package:chabo/extensions/boats_extension.dart';
 import 'package:chabo/models/boat.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +7,18 @@ import 'package:flutter_test/flutter_test.dart';
 import '../localized_testable_widget.dart';
 
 void main() {
-  final boats1 = [const Boat(name: 'TEST_BOAT', isLeaving: false)];
-  final boats2 = [...boats1, const Boat(name: 'TEST_BOAT_2', isLeaving: true)];
+  final boats1 = [Boat(name: 'TEST_BOAT', isLeaving: false)];
+  final boats2 = [...boats1, Boat(name: 'TEST_BOAT_2', isLeaving: true)];
   final boats3 = [
     ...boats2,
-    const Boat(name: 'TEST_BOAT_3', isLeaving: false),
+    Boat(name: 'TEST_BOAT_3', isLeaving: false),
   ];
   final boats4 = [
     ...boats3,
-    const Boat(name: 'TEST_BOAT_4', isLeaving: false),
+    Boat(name: 'TEST_BOAT_4', isLeaving: false),
+  ];
+  final boats5 = [
+    Boat(name: Const.specialWineFestivalBoatsEvent, isLeaving: false),
   ];
 
   group('toNames', () {
@@ -220,6 +224,22 @@ void main() {
       expect(
         boats2.getArrivingCount(),
         1,
+      );
+    });
+  });
+
+  group('isWineFestival', () {
+    test('2 Boats', () {
+      expect(
+        boats2.isWineFestival(),
+        false,
+      );
+    });
+
+    test('1 Boat', () {
+      expect(
+        boats5.isWineFestival(),
+        true,
       );
     });
   });

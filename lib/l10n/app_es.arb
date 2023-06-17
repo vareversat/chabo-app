@@ -32,8 +32,18 @@
   "dialogInformationContentFromEnd": "hasta",
   "dialogInformationContentFromEnd2": "a",
   "dialogInformationContentBridge_closed": "el puente Chaban estará cerrado por",
-  "dialogInformationContentBridgeDeparture": "la salida del ",
-  "dialogInformationContentBridgeArrival": "la llegada del ",
+  "dialogInformationContentBridgeDeparture": "la salida {count, plural, =1 {del} other {de los}}",
+  "@dialogInformationContentBridgeDeparture": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridgeArrival": "la llegada {count, plural, =1 {del} other {de los}}",
+  "@dialogInformationContentBridgeArrival": {
+    "placeholders": {
+      "count": {}
+    }
+  },
   "dialogInformationContentBridge_closed_maintenance": "mantenimiento",
   "dialogInformationContentTime_of_crossing": "hora estimada de cruce",
   "errorScreenContentError": "Error",
@@ -209,5 +219,6 @@
     "placeholders": {
       "count": {}
     }
-  }
+  },
+  "wineFestivalSailBoats": "Veleros de la Fiesta del Vino"
 }

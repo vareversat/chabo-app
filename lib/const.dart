@@ -25,6 +25,8 @@ class Const {
       'https://www.myshiptracking.com/vessels?side=false&name=$vesselFinderLinkPlaceholder';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
+  static const String bordeauxWineFestivalSailingShipLink =
+      'https://www.bordeaux-fete-le-vin.com/la-fete-sur-les-quais/grands-voiliers.html';
 
   static List<WebLinkIcon> usefulLinks = [
     WebLinkIcon(
@@ -144,4 +146,5 @@ class Const {
   /// Misc
   static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
   static const String oflLicenseEntryName = 'google_fonts';
+  static const String specialWineFestivalBoatsEvent = 'Bateaux fete du vin';
 }
