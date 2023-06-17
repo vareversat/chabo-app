@@ -1,3 +1,14 @@
+# **v2.1.0** :
+
+- *Fonctionnalités*:
+  - Prise en charge de la Fête du Vin
+  - Changement de la page WEB affichant les informations des navires
+- *Fix*:
+  - Correction de bugs divers
+- *Interface*:
+  - Nouvelle icône pour les passages de navires
+  - Améliorations pour une meilleure lisibilité
+***
 # **v2.0.0** :
 
 - *Fix*:

@@ -1,3 +1,14 @@
+# **v2.1.0** :
+
+- *Features*:
+  - Management of the Wine Festival
+  - Change of WEB page displaying ship information
+- *Fix*:
+  - Miscellaneous bug fixes;
+- *Interface*:
+  - New icon for ship crossings
+  - Improvements for better readability
+***
 # **v2.0.0** :
 
 - *Fix*:

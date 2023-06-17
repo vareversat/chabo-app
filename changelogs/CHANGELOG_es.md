@@ -1,3 +1,14 @@
+# **v2.1.0** :
+
+- *Funcionalidades*:
+  - Apoyo a la Fiesta del Vino
+  - Cambio de la página WEB que muestra la información de los buques
+- *Fix*:
+  - Corrección de varios errores
+- *Interfaz*:
+  - Nuevo icono para los pasos de buques
+  - Mejoras para una mejor legibilidad
+***
 # **v2.0.0** :
 
 - *Fix*:
