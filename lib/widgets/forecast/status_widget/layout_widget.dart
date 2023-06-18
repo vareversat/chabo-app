@@ -10,22 +10,32 @@ class _LayoutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _TextWidget(
-          statusState: statusState,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: _TextWidget(
+                  statusState: statusState,
+                ),
+              ),
+              _ProgressIndicatorWidget(
+                statusState: statusState,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              _CurrentStatusWidget(
+                statusState: statusState,
+              ),
+            ],
+          ),
         ),
-        _ProgressIndicatorWidget(
-          statusState: statusState,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        _CurrentStatusWidget(
-          statusState: statusState,
-        ),
-      ],
+      ),
     );
   }
 }

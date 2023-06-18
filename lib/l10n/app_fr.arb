@@ -1,18 +1,28 @@
 {
   "at": "à",
   "and": "et",
+  "the": "{startWithVowel, select, true{l'} other{le }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "fermeture",
   "circulationReOpening": "réouverture",
-  "closed": "fermé à la circulation",
+  "isClosed": "fermé à la circulation",
   "daySmall": "j",
   "goodAfternoon": "bonne après-midi",
   "goodEvening": "bonsoir",
   "goodMorning": "bonjour",
   "nextClosingScheduled": "prochaine fermeture prévue dans",
-  "open": "ouvert à la circulation",
+  "isOpen": "ouvert à la circulation",
   "scheduledToOpen": "ouverture prévue dans",
-  "theBridgeIsCurrently": "le pont Chaban est",
-  "aboutToClose": "sur le point de fermer à la circulation",
+  "theChabanBridgeIsOpen": "le pont Chaban est ouvert à la circulation",
+  "theChabanBridgeIsClosed": "le pont Chaban est fermé à la circulation",
+  "theChabanBridgeWillSoonClose": "le pont Chaban ferme bientôt à la circulation",
+  "willSoonClose": "ferme bientôt à la circulation",
   "settingsTitle": "Paramètres",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -22,10 +32,19 @@
   "dialogInformationContentFromEnd": "à",
   "dialogInformationContentFromEnd2": "au",
   "dialogInformationContentBridge_closed": "le pont Chaban sera fermé pour",
-  "dialogInformationContentBridgeDeparture": "le départ du",
-  "dialogInformationContentBridgeArrival": "l'arrivée du",
+  "dialogInformationContentBridgeDeparture": "le départ {count, plural, =1 {du} other {des}}",
+  "@dialogInformationContentBridgeDeparture": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridgeArrival": "l'arrivée {count, plural, =1 {du} other {des}}",
+  "@dialogInformationContentBridgeArrival": {
+    "placeholders": {
+      "count": {}
+    }
+  },
   "dialogInformationContentBridge_closed_maintenance": "maintenance",
-  "dialogInformationContentClosing_time": "durée de fermeture",
   "dialogInformationContentTime_of_crossing": "heure de passage estimée",
   "errorScreenContentError": "Erreur",
   "errorScreenContentMessage": "Une erreur est survenue lors de l'ouverture de cette page. Veuillez trouver les informations techniques ci-dessous",
@@ -49,7 +68,7 @@
       "duration": {}
     }
   },
-  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statur actuel",
+  "durationNotificationExplanation": "Recevoir une notification {duration}avant la prochaine fermeture. Cette valeur gère aussi le changement de couleur du statut actuel",
   "@durationNotificationExplanation": {
     "placeholders": {
       "duration": {}
@@ -164,7 +183,7 @@
   },
   "day": "Jour",
   "notificationDayTitle": "\uD83D\uDD2E Fermetures prévues",
-  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera a {count} reprises}}",
+  "notificationDayMessage": "{count, plural, =0{Aucune fermetures de prévue pour la semaine prochaine} =1{La semaine prochaine, le pont Chaban Delmas ne fermera qu'une seul fois} other{La semaine prochaine, le pont Chaban Delmas fermera à {count} reprises}}",
   "@notificationDayMessage": {
     "placeholders": {
       "count": {}
@@ -188,5 +207,18 @@
   },
   "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux",
   "favoriteTimeSlotEnabledWarning": "Attention, en activant ce paramètres vous allez uniquement recevoir les notifications lorsqu'un évèmenent se produit durant l'un de vos créneaux",
-  "favoriteSlotsChooseDay": "Choisir les jours de la semaine"
+  "favoriteSlotsChooseDay": "Choisir les jours de la semaine",
+  "moonHarborStatus": "{count, plural, =1 {est actuellement amarré} other {sont actuellement amarrés}} au 'Port de la Lune'",
+  "@moonHarborStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {navire est actuellement} other {navires sont actuellement}} à Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "wineFestivalSailBoats": "Voiliers de la fête du vin"
 }

@@ -35,7 +35,8 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
         onAdFailedToLoad: (ad, error) {
           developer.log(
             'Enable to load the ad : ${error.message}',
-            name: 'banner-widget',
+            level: 50,
+            name: 'banner-widget.on.adLoaded',
           );
           _ad?.dispose();
         },
@@ -67,7 +68,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
               constraints: BoxConstraints(
                 maxHeight: 55,
                 maxWidth: DeviceHelper.isPortrait(context)
-                    ? screenWidth / 1.11
+                    ? screenWidth
                     //ignore: avoid-nested-conditional-expressions
                     : !DeviceHelper.isMobile(context)
                         ? screenWidth / 1.55

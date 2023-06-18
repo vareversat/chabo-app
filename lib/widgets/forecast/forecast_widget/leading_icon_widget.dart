@@ -12,25 +12,32 @@ class _LeadingIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 55,
-      height: 60,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
-          bottomLeft: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
-        ),
-        color: backgroundColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
       ),
-      child: Center(
-        child: forecast.getIconWidget(
-          context,
-          true,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(4),
+            child: Center(
+              child: forecast.getIconWidget(context, false, 30, false),
+            ),
+          ),
+          Center(
+            child: Text(
+              forecast.getClosingReason(context),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
+        ],
       ),
     );
   }

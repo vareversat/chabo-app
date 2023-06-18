@@ -14,15 +14,19 @@ class Const {
 
   /// Paths
   static const String changelogPlaceholder = ':lang:';
-  static const String changelogPath = 'CHANGELOG_$changelogPlaceholder.md';
+  static const String changelogPath =
+      'changelogs/CHANGELOG_$changelogPlaceholder.md';
   static const String appLogoPath = 'assets/images/chabo_icon.png';
+  static const String oflLicensePath = 'assets/licenses/OFL.txt';
 
   /// Link
   static const String vesselFinderLinkPlaceholder = ':boatName:';
   static const String vesselFinderLink =
-      'https://www.vesselfinder.com/fr/vessels?name=$vesselFinderLinkPlaceholder&type=301';
+      'https://www.myshiptracking.com/vessels?side=false&name=$vesselFinderLinkPlaceholder';
   static const String githubLink = 'https://github.com/vareversat/chabo';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
+  static const String bordeauxWineFestivalSailingShipLink =
+      'https://www.bordeaux-fete-le-vin.com/la-fete-sur-les-quais/grands-voiliers.html';
 
   static List<WebLinkIcon> usefulLinks = [
     WebLinkIcon(
@@ -138,4 +142,9 @@ class Const {
       'ca-app-pub-4365376442391282/2675286687';
   static const String androidNativeBanner =
       'ca-app-pub-4365376442391282/5786413607';
+
+  /// Misc
+  static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
+  static const String oflLicenseEntryName = 'google_fonts';
+  static const String specialWineFestivalBoatsEvent = 'Bateaux fete du vin';
 }

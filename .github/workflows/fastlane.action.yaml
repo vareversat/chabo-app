@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout source code'
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.5.3
         with:
           fetch-depth: 0
       - name: 'Decrypt secret configuration'
@@ -34,7 +34,7 @@ jobs:
       - name: 'Generate changelog'
         run: ./.github/scripts/generate_changelog.sh
       - name: 'Setup Ruby'
-        uses: ruby/setup-ruby@v1.150.0
+        uses: ruby/setup-ruby@v1.151.0
         with:
           ruby-version: '3.0'
           bundler-cache: true

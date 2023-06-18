@@ -1,3 +1,23 @@
+# **v2.1.0** :
+
+- *Funcionalidades*:
+  - Apoyo a la Fiesta del Vino
+  - Cambio de la página WEB que muestra la información de los buques
+- *Fix*:
+  - Corrección de varios errores
+- *Interfaz*:
+  - Nuevo icono para los pasos de buques
+  - Mejoras para una mejor legibilidad
+***
+# **v2.0.0** :
+
+- *Fix*:
+  - La detección de eventos multibarco funciona ahora correctamente
+  - Los eventos en dos díasahora se detectan correctamente
+- *Interfaz*:
+  - La visualización de los eventos ha sido completamente revisada
+  - Ahora se muestran los barcos actualmente amarrados en el Puerto de la Luna
+***
 # **v1.9.2** :
 
 - *Fijado*:

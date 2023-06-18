@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/custom_widget_state.dart';
 import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:chabo/widgets/progress_indicator/custom_progress_bar_indicator.dart';
@@ -15,11 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'current_status_widget.dart';
-
 part 'layout_widget.dart';
-
 part 'progress_indicator_widget.dart';
-
 part 'text_widget.dart';
 
 class StatusWidget extends StatefulWidget {

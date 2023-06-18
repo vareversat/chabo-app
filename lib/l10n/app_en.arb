@@ -1,18 +1,28 @@
 {
   "at": "at",
   "and": "and",
+  "the": "{startWithVowel, select, true{the } other{the }}",
+  "@the": {
+    "placeholders": {
+      "startWithVowel": {
+        "type": "String"
+      }
+    }
+  },
   "circulationClosing": "closing",
   "circulationReOpening": "re opening",
-  "closed": "closed to traffic",
+  "isClosed": "closed to traffic",
   "daySmall": "d",
   "goodAfternoon": "good afternoon",
   "goodEvening": "good evening",
   "goodMorning": "good morning",
   "nextClosingScheduled": "next closing scheduled in",
-  "open": "open to traffic",
+  "isOpen": "open to traffic",
   "scheduledToOpen": "scheduled to open in",
-  "theBridgeIsCurrently": "the Chaban bridge is",
-  "aboutToClose": "about to close to traffic",
+  "theChabanBridgeIsOpen": "the Chaban bridge is open to traffic",
+  "theChabanBridgeIsClosed": "the Chaban bridge is closed to traffic",
+  "theChabanBridgeWillSoonClose": "the Chaban bridge will soon close to traffic",
+  "willSoonClose": "close to traffic soon",
   "settingsTitle": "Settings",
   "notificationsTitle": "Notifications",
   "information": "Information",
@@ -22,10 +32,19 @@
   "dialogInformationContentFromEnd": "to",
   "dialogInformationContentFromEnd2": "to",
   "dialogInformationContentBridge_closed": "the Chaban bridge will be closed for",
-  "dialogInformationContentBridgeDeparture": "the departure of the",
-  "dialogInformationContentBridgeArrival": "the arrival of the",
-  "dialogInformationContentBridge_closed_maintenance": "maintenance purposes",
-  "dialogInformationContentClosing_time": "closing time",
+  "dialogInformationContentBridgeDeparture": "the departure of the {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeDeparture": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridgeArrival": "the arrival of {count, plural, =1 {the} other {the}}",
+  "@dialogInformationContentBridgeArrival": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "dialogInformationContentBridge_closed_maintenance": "maintenance",
   "dialogInformationContentTime_of_crossing": "estimated time of crossing",
   "errorScreenContentError": "Error",
   "errorScreenContentMessage": "An error occurred while opening this page. Please find technical information below",
@@ -188,5 +207,18 @@
   },
   "favoriteSlotsInterferenceWarning": "This schedule interferes with one or more time slots",
   "favoriteTimeSlotEnabledWarning": "Attention, by activating this parameter you will only receive notifications when an event occurs during one of your time slots",
-  "favoriteSlotsChooseDay": "Choose the days of the week"
+  "favoriteSlotsChooseDay": "Choose the days of the week",
+  "moonHarborStatus": "{count, plural, =1 {is} other {are}} currently docked in the 'Moon Harbor'",
+  "@moonHarborStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "moonHarborShortStatus": "{count} {count, plural, =1 {ship is} other {ships are}} currently in Bordeaux",
+  "@moonHarborShortStatus": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "wineFestivalSailBoats": "Wine Festival Sailboats"
 }

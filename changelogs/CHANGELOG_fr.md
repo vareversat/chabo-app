@@ -1,3 +1,23 @@
+# **v2.1.0** :
+
+- *Fonctionnalités*:
+  - Prise en charge de la Fête du Vin
+  - Changement de la page WEB affichant les informations des navires
+- *Fix*:
+  - Correction de bugs divers
+- *Interface*:
+  - Nouvelle icône pour les passages de navires
+  - Améliorations pour une meilleure lisibilité
+***
+# **v2.0.0** :
+
+- *Fix*:
+  - La détection des évènements multi bateaux fonctionne maintenant correctement
+  - Les évènements sur deux jours sont maintenant correctement détectés
+- *Interface*:
+  - L'affichage des évènements a été complètement revu
+  - Il est maintenant affiché les bateaux actuellement amarrés au Port de la Lune
+***
 # **v1.9.2** :
 
 - *Fix*:

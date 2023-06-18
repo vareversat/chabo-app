@@ -8,34 +8,30 @@ class _ClosingInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(
+            CustomProperties.borderRadius,
+          ),
+        ),
+        color: Theme.of(context).colorScheme.error,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0).copyWith(left: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Icon(
-              Icons.block_rounded,
-              size: 18,
-              color: Colors.red,
-            ),
-            Text(
-              MaterialLocalizations.of(context).formatMediumDate(
-                forecast.circulationClosingDate,
+            RichText(
+              text: forecast.circulationClosingDate.toLocalizedTextSpan(
+                context,
+                Theme.of(context).colorScheme.onError,
               ),
-              style: textTheme.bodySmall,
             ),
           ],
         ),
-        Text(
-          forecast.circulationClosingDateString(
-            context,
-          ),
-          style: textTheme.headlineSmall,
-        ),
-      ],
+      ),
     );
   }
 }

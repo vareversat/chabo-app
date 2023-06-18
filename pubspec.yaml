@@ -3,7 +3,7 @@ description: Mobile app to get the closing and opening schedules of the Chaban D
 
 publish_to: 'none'
 
-version: 1.9.2
+version: 2.1.0
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -32,6 +32,7 @@ dependencies:
   stream_transform: ^2.0.0
   timezone: ^0.9.1
   url_launcher: ^6.1.7
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:
@@ -47,10 +48,9 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/chabo_icon.png
-    - CHANGELOG_en.md
-    - CHANGELOG_fr.md
-    - CHANGELOG_es.md
+    - assets/images/
+    - assets/licenses/
+    - changelogs/
 
 flutter_icons:
   android: true

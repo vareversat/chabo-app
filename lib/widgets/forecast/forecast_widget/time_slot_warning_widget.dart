@@ -6,19 +6,19 @@ class _TimeSlotWarningWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 30,
-      height: 60,
+      width: 40,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(
             CustomProperties.borderRadius,
           ),
-          bottomRight: Radius.circular(
+          bottomLeft: Radius.circular(
             CustomProperties.borderRadius,
           ),
         ),
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.warningColor,
       ),
+      height: double.infinity,
       child: Icon(
         Icons.warning_rounded,
         size: 20,

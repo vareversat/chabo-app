@@ -10,7 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 part 'status_event.dart';
-
 part 'status_state.dart';
 
 class StatusBloc extends Bloc<StatusEvent, StatusState> {
@@ -109,7 +108,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
               state.durationForCloseClosing.inMinutes) {
         return Theme.of(context).colorScheme.warningColor;
       } else if (isOpen) {
-        return Colors.green;
+        return Theme.of(context).colorScheme.okColor;
       } else {
         return Theme.of(context).colorScheme.error;
       }
@@ -152,19 +151,19 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         state.durationUntilNextEvent.inMinutes >=
             state.durationForCloseClosing.inMinutes) {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.open}'
-          : AppLocalizations.of(context)!.open.capitalize();
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}'
+          : AppLocalizations.of(context)!.isOpen.capitalize();
     } else if (currentForecast != null &&
         !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes <
             state.durationForCloseClosing.inMinutes) {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.aboutToClose}'
-          : AppLocalizations.of(context)!.aboutToClose.capitalize();
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeWillSoonClose}'
+          : AppLocalizations.of(context)!.willSoonClose.capitalize();
     } else {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theBridgeIsCurrently} ${AppLocalizations.of(context)!.closed}'
-          : AppLocalizations.of(context)!.closed.capitalize();
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}'
+          : AppLocalizations.of(context)!.isClosed.capitalize();
     }
   }
 
