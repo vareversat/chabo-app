@@ -52,8 +52,8 @@ void main() async {
     appRunner: () => runApp(
       Chabo(
         storageService: storageService,
-            notificationService: notificationService,
-          ),
-        ),
+        notificationService: notificationService,
+      ),
+    ),
   );
 }
