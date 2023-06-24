@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:http/http.dart' as http;
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class Chabo extends StatelessWidget {
@@ -115,15 +116,8 @@ class Chabo extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
-            navigatorObservers: [
-              SentryNavigatorObserver(
-                setRouteNameAsTransaction: true,
-              ),
-            ],
-            initialRoute: ForecastScreen.routeName,
-            routes: {
-              ForecastScreen.routeName: (context) => const ForecastScreen(),
-            },
+            home: const ForecastScreen(),
+            navigatorObservers: [SentryNavigatorObserver()],
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
