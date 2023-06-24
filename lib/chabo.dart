@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class Chabo extends StatelessWidget {
   final StorageService storageService;
@@ -106,6 +107,7 @@ class Chabo extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
             home: const ForecastScreen(),
+            navigatorObservers: [SentryNavigatorObserver()],
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
