@@ -2,6 +2,7 @@ import 'dart:developer' as developer;
 
 import 'package:chabo/chabo.dart';
 import 'package:chabo/const.dart';
+import 'package:chabo/service/consent_form_service.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
@@ -27,6 +28,9 @@ void main() async {
 
   /// Initialize the Google Ads SDK
   MobileAds.instance.initialize();
+
+  /// Show consent dialog using the User Messaging Platform (UPM)
+  consentFormService.showConsentForm();
 
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString(Const.oflLicensePath);
