@@ -8,13 +8,13 @@ import 'package:chabo/models/boat_forecast.dart';
 import 'package:chabo/models/maintenance_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'forecast_event.dart';
 part 'forecast_state.dart';
 
 class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
-  final http.Client httpClient;
+  final SentryHttpClient httpClient;
 
   ForecastBloc({required this.httpClient}) : super(const ForecastState()) {
     Timer.periodic(const Duration(seconds: 1), _onRefreshCurrentStatus);

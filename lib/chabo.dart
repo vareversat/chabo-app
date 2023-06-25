@@ -15,7 +15,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:http/http.dart' as http;
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class Chabo extends StatelessWidget {
@@ -54,7 +53,7 @@ class Chabo extends StatelessWidget {
         /// Bloc intended to manage the forecast displayed
         BlocProvider(
           create: (_) => ForecastBloc(
-            httpClient: http.Client(),
+            httpClient: SentryHttpClient(),
           )..add(
               ForecastFetched(),
             ),
