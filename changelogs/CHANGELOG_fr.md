@@ -1,3 +1,7 @@
+# **v2.2.0** :
+
+- Corrections de bugs et améliorations des performances
+***
 # **v2.1.0** :
 
 - *Fonctionnalités*:

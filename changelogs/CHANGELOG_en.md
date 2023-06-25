@@ -1,3 +1,7 @@
+# **v2.2.0** :
+
+- Bug fixes and performance improvements
+***
 # **v2.1.0** :
 
 - *Features*:
