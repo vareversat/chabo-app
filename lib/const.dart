@@ -149,4 +149,5 @@ class Const {
   static const String specialWineFestivalBoatsEvent = 'Bateaux fete du vin';
   static const String sentryDSNEnvKey = 'SENTRY_DSN';
   static const String envKey = 'ENV';
+  static const String defaultEnv = 'dev';
 }

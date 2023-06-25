@@ -44,7 +44,8 @@ void main() async {
           .toLowerCase();
 
   /// Fetch running env
-  const env = String.fromEnvironment(Const.envKey, defaultValue: 'dev');
+  const env =
+      String.fromEnvironment(Const.envKey, defaultValue: Const.defaultEnv);
 
   developer.log(
     '##### HI ! Starting $formattedRelease in $env mode #####',

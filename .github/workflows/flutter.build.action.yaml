@@ -11,6 +11,10 @@ on:
         description: 'Android build file type output (apk or abb)'
         required: true
         type: string
+      env:
+        description: 'Environment in which the application will be build'
+        required: true
+        type: string
     secrets:
       passphrase:
         description: 'The passphrase to decrypt the configuration'
