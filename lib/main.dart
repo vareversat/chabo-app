@@ -40,7 +40,7 @@ void main() async {
   /// Fetch app release to inject them into Sentry
   final appRelease = await PackageInfo.fromPlatform();
   final formattedRelease =
-      '${appRelease.appName}@${appRelease.version}+${appRelease.buildNumber}'
+      '${appRelease.packageName}@${appRelease.version}+${appRelease.buildNumber}'
           .toLowerCase();
 
   /// Fetch running env
@@ -54,14 +54,16 @@ void main() async {
   await SentryFlutter.init(
     (options) {
       options.dsn = const String.fromEnvironment(Const.sentryDSNEnvKey);
-      options.tracesSampleRate = 1.0;
+      options.tracesSampleRate = 0.5;
       options.release = formattedRelease;
       options.environment = env;
     },
     appRunner: () => runApp(
-      Chabo(
-        storageService: storageService,
-        notificationService: notificationService,
+      SentryUserInteractionWidget(
+        child: Chabo(
+          storageService: storageService,
+          notificationService: notificationService,
+        ),
       ),
     ),
   );
