@@ -67,7 +67,7 @@ jobs:
           echo "This build is tagged as $BUILD_NUMBER on $GITHUB_REF"
       - name: 'Build Android App Bundle'
         if: ${{ inputs.android_output == 'aab' }}
-        run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define SENTRY_DNS="$SENTRY_DSN" --dart-define ENV="$ENV"
+        run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define SENTRY_DSN="$SENTRY_DSN" --dart-define ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
           PASSPHRASE: ${{ secrets.SENTRY_DSN }}
