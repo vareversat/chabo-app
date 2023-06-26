@@ -55,8 +55,6 @@ class _ForecastInformationBottomSheetState
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    print(widget.forecast.toJson());
-
     Sentry.addBreadcrumb(
       Breadcrumb(
         message: 'Open ForecastInformationBottomSheet',
