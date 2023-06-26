@@ -149,7 +149,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                              (value) => {
+                          (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
@@ -200,7 +200,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                              (value) => {
+                          (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
@@ -250,7 +250,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                              (value) => {
+                          (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
