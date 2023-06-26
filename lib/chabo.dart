@@ -105,8 +105,15 @@ class Chabo extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
-            home: const ForecastScreen(),
-            navigatorObservers: [SentryNavigatorObserver()],
+            navigatorObservers: [
+              SentryNavigatorObserver(
+                setRouteNameAsTransaction: true,
+              ),
+            ],
+            initialRoute: ForecastScreen.routeName,
+            routes: {
+              ForecastScreen.routeName: (context) => const ForecastScreen(),
+            },
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

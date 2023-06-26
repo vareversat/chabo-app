@@ -29,6 +29,8 @@ class StatusWidget extends StatefulWidget {
 }
 
 class StatusWidgetState extends CustomWidgetState<StatusWidget> {
+  StatusWidgetState() : super(screenName: 'status-widget');
+
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback(

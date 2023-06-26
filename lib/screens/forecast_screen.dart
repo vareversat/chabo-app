@@ -18,6 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForecastScreen extends StatefulWidget {
+  static const routeName = '/forecast-screen';
+
   const ForecastScreen({Key? key}) : super(key: key);
 
   @override
@@ -27,6 +29,8 @@ class ForecastScreen extends StatefulWidget {
 }
 
 class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
+  _ForecastScreenState() : super(screenName: 'forecast-screen');
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(

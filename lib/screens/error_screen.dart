@@ -14,6 +14,8 @@ class ErrorScreen extends StatefulWidget {
 }
 
 class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
+  _ErrorScreenState() : super(screenName: 'error-screen');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

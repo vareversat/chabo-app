@@ -269,6 +269,18 @@ abstract class AbstractForecast extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'total_closing': totalClosing,
+      'is_during_dwo_days': isDuringTwoDays,
+      'closing_reason': closingReason.name,
+      'closed_duration': closedDuration.toString(),
+      'closing_type': closingType.name,
+      'circulation_closing_date': circulationClosingDate,
+      'circulation_re_opening_date': circulationReOpeningDate,
+    };
+  }
+
   @override
   List<Object?> get props => [
         totalClosing,

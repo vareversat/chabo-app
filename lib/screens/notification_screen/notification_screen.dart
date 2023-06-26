@@ -14,19 +14,19 @@ import 'package:chabo/widgets/time_slot_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'custom_list_tile_widget.dart';
-
 part 'favorite_slots_day_picker_dialog.dart';
-
 part 'favorite_slots_widget.dart';
 
 class NotificationScreen extends StatefulWidget {
-  final bool highlightTimeSlots;
+  final bool? highlightTimeSlots;
+  static const routeName = '/notification-screen';
 
   const NotificationScreen({
     Key? key,
-    required this.highlightTimeSlots,
+    this.highlightTimeSlots,
   }) : super(key: key);
 
   @override
@@ -34,6 +34,8 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
+  _NotificationScreenState() : super(screenName: 'notification-screen');
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
@@ -78,7 +80,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                 return Column(
                   children: [
                     _FavoriteSlotsWidget(
-                      highlightTimeSlots: widget.highlightTimeSlots,
+                      highlightTimeSlots: widget.highlightTimeSlots ?? false,
                       timeSlotsEnabledForNotifications:
                           notificationState.timeSlotsEnabledForNotifications,
                     ),
@@ -147,7 +149,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                          (value) => {
+                              (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
@@ -198,7 +200,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                          (value) => {
+                              (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
@@ -248,7 +250,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                          (value) => {
+                              (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
