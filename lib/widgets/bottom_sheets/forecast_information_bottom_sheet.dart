@@ -6,6 +6,7 @@ import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class ForecastInformationBottomSheet extends StatefulWidget {
   final AbstractForecast forecast;
@@ -53,6 +54,18 @@ class _ForecastInformationBottomSheetState
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
+    print(widget.forecast.toJson());
+
+    Sentry.addBreadcrumb(
+      Breadcrumb(
+        message: 'Open ForecastInformationBottomSheet',
+        level: SentryLevel.info,
+        category: 'screen.open',
+        type: 'Screen',
+        data: widget.forecast.toJson(),
+      ),
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -150,6 +163,9 @@ class _ForecastInformationBottomSheetState
                             BottomToTopPageRoute(
                               builder: (context) => const NotificationScreen(
                                 highlightTimeSlots: true,
+                              ),
+                              settings: const RouteSettings(
+                                name: NotificationScreen.routeName,
                               ),
                             ),
                           ),

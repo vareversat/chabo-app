@@ -140,8 +140,9 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                 Navigator.of(context).push(
                                   BottomToTopPageRoute(
                                     builder: (context) =>
-                                        const NotificationScreen(
-                                      highlightTimeSlots: false,
+                                        const NotificationScreen(),
+                                    settings: const RouteSettings(
+                                      name: NotificationScreen.routeName,
                                     ),
                                   ),
                                 );

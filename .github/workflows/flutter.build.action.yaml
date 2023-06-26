@@ -70,7 +70,7 @@ jobs:
         run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define SENTRY_DSN="$SENTRY_DSN" --dart-define ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
-          PASSPHRASE: ${{ secrets.SENTRY_DSN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           ENV: ${{ inputs.env }}
       - name: 'Save AAB'
         if: ${{ inputs.android_output == 'aab' }}

@@ -80,15 +80,29 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
             ),
             child: BlocBuilder<NotificationBloc, NotificationState>(
               builder: (context, notificationState) {
-                return BlocBuilder<TimeFormatCubit, TimeFormatState>(
-                  builder: (context, timeFormatState) {
-                    return Column(
-                      children: [
-                        _FavoriteSlotsWidget(
-                          highlightTimeSlots:
-                              widget.highlightTimeSlots ?? false,
-                          timeSlotsEnabledForNotifications: notificationState
-                              .timeSlotsEnabledForNotifications,
+                return Column(
+                  children: [
+                    _FavoriteSlotsWidget(
+                      highlightTimeSlots: widget.highlightTimeSlots ?? false,
+                      timeSlotsEnabledForNotifications:
+                          notificationState.timeSlotsEnabledForNotifications,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Divider(
+                      height: 5,
+                      indent: 25,
+                      endIndent: 25,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _CustomListTileWidget(
+                      onChanged: (bool value) =>
+                          BlocProvider.of<NotificationBloc>(context).add(
+                        OpeningNotificationStateEvent(
+                          enabled: value,
                         ),
                         const SizedBox(
                           height: 10,
@@ -124,7 +138,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             );
                           },
                         ).then(
-                          (value) => {
+                              (value) => {
                             if (value != null)
                               {
                                 BlocProvider.of<NotificationBloc>(context).add(
@@ -173,27 +187,26 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               child: child!,
                             );
                           },
-                          onChanged: (bool value) =>
-                              BlocProvider.of<NotificationBloc>(context).add(
-                            DurationNotificationStateEvent(
-                              enabled: value,
-                            ),
-                          ),
-                          enabled:
-                              notificationState.durationNotificationEnabled,
-                          title: AppLocalizations.of(context)!
-                              .durationNotificationTitle(
-                            notificationState.durationNotificationValue
-                                .durationToString(context),
-                          ),
-                          subtitle: AppLocalizations.of(context)!
-                              .durationNotificationExplanation(
-                            notificationState.durationNotificationValue
-                                .durationToString(context),
-                          ),
-                          leadingIcon: Icons.timer_outlined,
-                          constrainedBySlots: notificationState
-                              .timeSlotsEnabledForNotifications,
+                        ).then(
+                              (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  TimeNotificationValueEvent(
+                                    time: TimeOfDay(
+                                      hour: value.hour,
+                                      minute: value.minute,
+                                    ),
+                                  ),
+                                ),
+                              },
+                          },
+                        );
+                      },
+                      onChanged: (bool value) =>
+                          BlocProvider.of<NotificationBloc>(context).add(
+                        TimeNotificationStateEvent(
+                          enabled: value,
                         ),
                         _CustomListTileWidget(
                           onTap: () {
@@ -229,38 +242,13 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               },
                             );
                           },
-                          onChanged: (bool value) =>
-                              BlocProvider.of<NotificationBloc>(context).add(
-                            TimeNotificationStateEvent(
-                              enabled: value,
-                            ),
-                          ),
-                          enabled: notificationState.timeNotificationEnabled,
-                          title: AppLocalizations.of(context)!
-                              .timeNotificationTitle(
-                            notificationState.timeNotificationValue
-                                .toFormattedString(timeFormatState.timeFormat),
-                          ),
-                          subtitle: AppLocalizations.of(context)!
-                              .timeNotificationExplanation(
-                            notificationState.timeNotificationValue
-                                .toFormattedString(timeFormatState.timeFormat),
-                          ),
-                          leadingIcon: Icons.plus_one_outlined,
-                          constrainedBySlots: notificationState
-                              .timeSlotsEnabledForNotifications,
-                        ),
-                        _CustomListTileWidget(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (
-                                BuildContext context,
-                              ) {
-                                return BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                    sigmaX: CustomProperties.blurSigmaX,
-                                    sigmaY: CustomProperties.blurSigmaY,
+                        ).then(
+                              (value) => {
+                            if (value != null)
+                              {
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DayNotificationValueEvent(
+                                    day: value,
                                   ),
                                   child: const DaysOfTheWeekDialog(),
                                 );

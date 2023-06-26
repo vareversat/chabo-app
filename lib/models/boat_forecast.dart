@@ -231,4 +231,14 @@ class BoatForecast extends AbstractForecast {
         ? AppLocalizations.of(context)!.wineFestivalSailBoats
         : boats.getNames(context);
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    var json = super.toJson();
+    json.addAll({
+      'boats': boats.map((e) => e.toJson()).toList(),
+    });
+
+    return json;
+  }
 }
