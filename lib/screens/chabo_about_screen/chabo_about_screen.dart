@@ -13,9 +13,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 part 'page_links_widget.dart';
-
 part 'store_rate_widget.dart';
-
 part 'web_links_widget.dart';
 
 class ChaboAboutScreen extends StatelessWidget {
@@ -224,9 +222,12 @@ class ChaboAboutScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 25,
+                                height: 10,
                               ),
-                              const _WebLinksWidget(),
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 50.0),
+                                child: _WebLinksWidget(),
+                              ),
                             ],
                           ),
                         ),

@@ -14,8 +14,8 @@ class _PageLinksWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Wrap(
+      spacing: 10,
       children: [
         ElevatedButton(
           style: ButtonStyle(
