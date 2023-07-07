@@ -1,4 +1,4 @@
-part of 'chabo_about_dialog.dart';
+part of 'chabo_about_screen.dart';
 
 class _PageLinksWidget extends StatelessWidget {
   final PackageInfo packageInfo;
@@ -14,10 +14,8 @@ class _PageLinksWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Wrap(
-      spacing: 10,
-      runSpacing: 5,
-      alignment: WrapAlignment.center,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
           style: ButtonStyle(

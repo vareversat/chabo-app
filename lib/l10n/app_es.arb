@@ -175,7 +175,7 @@
   },
   "notificationTimeChannelName": "Cierres del próximo día",
   "passedClosure": "Cierre pasado",
-  "selectAboutDialog": "{choice, select, source_code {Código\nfuente} privacy_policy {Política de\nprivacidad} yuhliet_instagram {Instagram de\nYuhliet's} city_of_bordeaux {Ciudad de\nBordeaux} bordeaux_open_data {Bordeaux\nOpen Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
+  "selectAboutDialog": "{choice, select, source_code {Código fuente} privacy_policy {Política de privacidad} yuhliet_instagram {Instagram de Yuhliet's} city_of_bordeaux {Ciudad de Bordeaux} bordeaux_open_data {Bordeaux Open Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
   "@selectAboutDialog": {
     "placeholders": {
       "choice": {}
@@ -220,5 +220,7 @@
       "count": {}
     }
   },
-  "wineFestivalSailBoats": "Veleros de la Fiesta del Vino"
+  "wineFestivalSailBoats": "Veleros de la Fiesta del Vino",
+  "externalLinks": "Enlaces externos",
+  "rate": "Califica"
 }
