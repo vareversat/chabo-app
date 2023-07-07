@@ -50,7 +50,7 @@ class Const {
       'source_code',
     ),
     WebLinkIcon(
-      'https://chabo.vareversat.fr/privacy',
+      'https://chabo.vareversat.fr/%privacy',
       Icons.privacy_tip_rounded,
       'privacy_policy',
     ),

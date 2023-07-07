@@ -8,7 +8,13 @@ class WebLinkIcon {
 
   WebLinkIcon(this.link, this.iconData, this.translationKey);
 
-  void launchURL() async {
-    await launchUrlString(link, mode: LaunchMode.externalApplication);
+  void launchURL(String regionCode) async {
+    await launchUrlString(
+      link.replaceAll(
+        '%',
+        regionCode,
+      ),
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
