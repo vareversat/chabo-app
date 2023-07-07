@@ -1,10 +1,10 @@
-import 'package:chabo_app/const.dart';
-import 'package:chabo_app/cubits/floating_actions_cubit.dart';
-import 'package:chabo_app/custom_properties.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
-import 'package:chabo_app/helpers/device_helper.dart';
-import 'package:chabo_app/misc/no_scaling_animation.dart';
-import 'package:chabo_app/screens/changelog_screen.dart';
+import 'package:chabo/const.dart';
+import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:chabo/custom_properties.dart';
+import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/misc/no_scaling_animation.dart';
+import 'package:chabo/screens/changelog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,7 +13,9 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 part 'page_links_widget.dart';
+
 part 'store_rate_widget.dart';
+
 part 'web_links_widget.dart';
 
 class ChaboAboutScreen extends StatelessWidget {
@@ -179,7 +181,7 @@ class ChaboAboutScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(25.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Column(
                                   children: [
                                     Text(
@@ -222,12 +224,9 @@ class ChaboAboutScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 25,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 80.0),
-                                child: _WebLinksWidget(),
-                              ),
+                              const _WebLinksWidget(),
                             ],
                           ),
                         ),

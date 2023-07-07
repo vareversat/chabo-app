@@ -3,12 +3,6 @@ part of 'chabo_about_screen.dart';
 class _WebLinksWidget extends StatelessWidget {
   const _WebLinksWidget({Key? key}) : super(key: key);
 
-  String _getRegionCode(BuildContext context) {
-    final regionCode = Localizations.localeOf(context).languageCode;
-
-    return regionCode == 'fr' ? '' : '$regionCode/';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +35,7 @@ class _WebLinksWidget extends StatelessWidget {
                   ),
                   child: ListTile(
                     dense: true,
-                    onTap: () => link.launchURL(_getRegionCode(context)),
+                    onTap: () => link.launchURL(),
                     leading: Icon(
                       link.iconData,
                       size: 20,

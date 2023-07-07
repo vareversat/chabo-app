@@ -30,7 +30,9 @@ class _StoreRateWidgetState extends State<_StoreRateWidget>
   }
 
   Future<void> _openRating() async {
-    return await inAppReview.openStoreListing();
+    return await inAppReview.isAvailable()
+        ? inAppReview.requestReview()
+        : inAppReview.openStoreListing();
   }
 
   List<Widget> _computeIconWidgets() {
