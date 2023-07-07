@@ -1,3 +1,7 @@
+# **v2.3.0** :
+
+- Reelaboración de la página 'Acerca de'
+***
 # **v2.2.0** :
 
 - Bug fixes and performance improvements

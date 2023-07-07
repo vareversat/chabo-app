@@ -1,3 +1,6 @@
+# **v2.3.0** :
+
+- Refonte de la page 'A propos'
 # **v2.2.0** :
 
 - Correcciones de errores y mejoras de rendimiento
