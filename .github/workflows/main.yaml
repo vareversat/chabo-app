@@ -21,6 +21,7 @@ jobs:
       env: 'prd'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
+      sentry_dsn: ${{ secrets.SENTRY_DSN }}
   fastlane:
     needs: [flutter-build]
     uses: ./.github/workflows/fastlane.action.yaml
@@ -28,4 +29,3 @@ jobs:
       lane: 'prd'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
-      sentry_dsn: ${{ secrets.SENTRY_DSN }}

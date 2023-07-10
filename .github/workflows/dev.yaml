@@ -23,6 +23,7 @@ jobs:
       env: 'dev'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
+      sentry_dsn: ${{ secrets.SENTRY_DSN }}
   fastlane-dry-run:
     needs: [ flutter-build ]
     uses: ./.github/workflows/fastlane.action.yaml
@@ -30,4 +31,3 @@ jobs:
       lane: 'dry_run'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
-      sentry_dsn: ${{ secrets.SENTRY_DSN }}
