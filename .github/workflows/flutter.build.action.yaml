@@ -19,6 +19,9 @@ on:
       passphrase:
         description: 'The passphrase to decrypt the configuration'
         required: true
+      sentry_dsn:
+        description: 'Secret URL to send live info to sentry tenant'
+        required: true
 
 
 jobs:
@@ -67,7 +70,7 @@ jobs:
         run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_DSN: ${{ secrets.sentry_dsn }}
           ENV: ${{ inputs.env }}
       - name: 'Save AAB'
         if: ${{ inputs.android_output == 'aab' }}

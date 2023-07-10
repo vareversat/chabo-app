@@ -30,3 +30,4 @@ jobs:
       lane: 'dry_run'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
+      sentry_dsn: ${{ secrets.SENTRY_DSN }}
