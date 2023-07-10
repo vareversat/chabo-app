@@ -25,7 +25,7 @@ jobs:
     needs: [flutter-build]
     uses: ./.github/workflows/fastlane.action.yaml
     with:
-      lane: 'production'
+      lane: 'prd'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
       sentry_dsn: ${{ secrets.SENTRY_DSN }}
