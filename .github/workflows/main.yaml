@@ -29,4 +29,3 @@ jobs:
       lane: 'prd'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
-      sentry_dsn: ${{ secrets.SENTRY_DSN }}
