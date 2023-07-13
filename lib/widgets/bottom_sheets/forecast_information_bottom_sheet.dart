@@ -1,7 +1,6 @@
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/helpers/custom_page_routes.dart';
-import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -92,18 +91,7 @@ class _ForecastInformationBottomSheetState
                 width: 10,
               ),
               Expanded(
-                child: Container(
-                  constraints: DeviceHelper.isMobile(context)
-                      ? DeviceHelper.isPortrait(context)
-                          ? null
-                          : BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width * 0.5,
-                            )
-                      : BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.5,
-                        ),
-                  child: widget.forecast.getInformationWidget(context),
-                ),
+                child: widget.forecast.getInformationWidget(context),
               ),
             ],
           ),
@@ -111,9 +99,9 @@ class _ForecastInformationBottomSheetState
         if (widget.forecast.interferingTimeSlots.isNotEmpty)
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: Container(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(

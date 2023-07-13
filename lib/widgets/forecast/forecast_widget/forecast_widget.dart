@@ -79,7 +79,7 @@ class ForecastWidget extends StatelessWidget {
                         constraints: BoxConstraints(
                           maxWidth: DeviceHelper.isPortrait(context)
                               ? double.infinity
-                              : MediaQuery.of(context).size.width / 2.5,
+                              : MediaQuery.of(context).size.width / 1.8,
                         ),
                         enableDrag: true,
                         context: context,
