@@ -179,7 +179,7 @@ class ChaboAboutScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(25.0),
                                 child: Column(
                                   children: [
                                     Text(
@@ -225,7 +225,7 @@ class ChaboAboutScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               const Padding(
-                                padding: EdgeInsets.only(bottom: 50.0),
+                                padding: EdgeInsets.only(bottom: 80.0),
                                 child: _WebLinksWidget(),
                               ),
                             ],
