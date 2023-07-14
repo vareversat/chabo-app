@@ -1,3 +1,15 @@
+# **v2.3.1** :
+
+- Correcciones de errores y mejoras de rendimiento
+***
+# **v2.3.0** :
+
+- Rediseño de la página 'Acerca de'
+***
+# **v2.2.0** :
+
+- Correcciones de errores y mejoras de rendimiento
+***
 # **v2.1.0** :
 
 - *Funcionalidades*:

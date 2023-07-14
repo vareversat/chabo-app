@@ -20,8 +20,10 @@ jobs:
     with:
       flutter_version: '3.10.0'
       android_output: 'aab'
+      env: 'dev'
     secrets:
       passphrase: ${{ secrets.PASSPHRASE }}
+      sentry_dsn: ${{ secrets.SENTRY_DSN }}
   fastlane-dry-run:
     needs: [ flutter-build ]
     uses: ./.github/workflows/fastlane.action.yaml

@@ -7,6 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChangeLogScreen extends StatefulWidget {
+  static const routeName = '/changelog-screen';
+
   const ChangeLogScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,6 +18,8 @@ class ChangeLogScreen extends StatefulWidget {
 }
 
 class _ChangeLogScreenState extends CustomWidgetState<ChangeLogScreen> {
+  _ChangeLogScreenState() : super(screenName: 'changelog-screen');
+
   String _getChangelogPath(BuildContext context) {
     return Const.changelogPath.replaceAll(
       Const.changelogPlaceholder,

@@ -11,9 +11,16 @@ on:
         description: 'Android build file type output (apk or abb)'
         required: true
         type: string
+      env:
+        description: 'Environment in which the application will be build'
+        required: true
+        type: string
     secrets:
       passphrase:
         description: 'The passphrase to decrypt the configuration'
+        required: true
+      sentry_dsn:
+        description: 'Secret URL to send live info to sentry tenant'
         required: true
 
 
@@ -60,9 +67,11 @@ jobs:
           echo "This build is tagged as $BUILD_NUMBER on $GITHUB_REF"
       - name: 'Build Android App Bundle'
         if: ${{ inputs.android_output == 'aab' }}
-        run: flutter build appbundle --build-number="$BUILD_NUMBER"
+        run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
+          SENTRY_DSN: ${{ secrets.sentry_dsn }}
+          ENV: ${{ inputs.env }}
       - name: 'Save AAB'
         if: ${{ inputs.android_output == 'aab' }}
         uses: actions/upload-artifact@v3

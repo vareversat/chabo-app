@@ -3,14 +3,14 @@ description: Mobile app to get the closing and opening schedules of the Chaban D
 
 publish_to: 'none'
 
-version: 2.1.0
+version: 2.3.1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
   flutter: '3.10.0'
 
 dependencies:
-  animated_toggle_switch: ^0.6.2
+  animated_toggle_switch: ^0.7.0
   bloc_concurrency: ^0.2.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
@@ -20,7 +20,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   flutter_localizations:
     sdk: flutter
-  flutter_local_notifications: ^14.0.0
+  flutter_local_notifications: ^15.0.0
   flutter_markdown: ^0.6.14
   font_awesome_flutter: ^10.1.0
   google_fonts: ^4.0.0
@@ -33,6 +33,8 @@ dependencies:
   timezone: ^0.9.1
   url_launcher: ^6.1.7
   auto_size_text: ^3.0.0
+  sentry_flutter: ^7.8.0
+  in_app_review: ^2.0.6
 
 
 dev_dependencies:

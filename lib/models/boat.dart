@@ -73,6 +73,13 @@ class Boat extends Equatable {
           );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'is_living': isLeaving,
+    };
+  }
+
   @override
   List<Object?> get props => [name, isLeaving];
 }

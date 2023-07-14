@@ -1,11 +1,11 @@
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/helpers/custom_page_routes.dart';
-import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class ForecastInformationBottomSheet extends StatefulWidget {
   final AbstractForecast forecast;
@@ -54,6 +54,16 @@ class _ForecastInformationBottomSheetState
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
+    Sentry.addBreadcrumb(
+      Breadcrumb(
+        message: 'Open ForecastInformationBottomSheet',
+        level: SentryLevel.info,
+        category: 'screen.open',
+        type: 'Screen',
+        data: widget.forecast.toJson(),
+      ),
+    );
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -81,18 +91,7 @@ class _ForecastInformationBottomSheetState
                 width: 10,
               ),
               Expanded(
-                child: Container(
-                  constraints: DeviceHelper.isMobile(context)
-                      ? DeviceHelper.isPortrait(context)
-                          ? null
-                          : BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width * 0.5,
-                            )
-                      : BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width * 0.5,
-                        ),
-                  child: widget.forecast.getInformationWidget(context),
-                ),
+                child: widget.forecast.getInformationWidget(context),
               ),
             ],
           ),
@@ -100,9 +99,9 @@ class _ForecastInformationBottomSheetState
         if (widget.forecast.interferingTimeSlots.isNotEmpty)
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: Container(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(
@@ -150,6 +149,9 @@ class _ForecastInformationBottomSheetState
                             BottomToTopPageRoute(
                               builder: (context) => const NotificationScreen(
                                 highlightTimeSlots: true,
+                              ),
+                              settings: const RouteSettings(
+                                name: NotificationScreen.routeName,
                               ),
                             ),
                           ),

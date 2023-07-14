@@ -1,4 +1,4 @@
-part of 'chabo_about_dialog.dart';
+part of 'chabo_about_screen.dart';
 
 class _PageLinksWidget extends StatelessWidget {
   final PackageInfo packageInfo;
@@ -16,8 +16,6 @@ class _PageLinksWidget extends StatelessWidget {
 
     return Wrap(
       spacing: 10,
-      runSpacing: 5,
-      alignment: WrapAlignment.center,
       children: [
         ElevatedButton(
           style: ButtonStyle(
@@ -28,10 +26,12 @@ class _PageLinksWidget extends StatelessWidget {
               colorScheme.onSecondaryContainer,
             ),
           ),
-          onPressed: () => Navigator.push(
-            context,
+          onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const ChangeLogScreen(),
+              settings: const RouteSettings(
+                name: ChangeLogScreen.routeName,
+              ),
             ),
           ),
           child: Row(
@@ -50,6 +50,7 @@ class _PageLinksWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.selectAboutDialog(
                     'changelog',
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

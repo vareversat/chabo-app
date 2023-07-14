@@ -50,7 +50,7 @@ class Const {
       'source_code',
     ),
     WebLinkIcon(
-      'https://chabo.vareversat.fr/privacy',
+      'https://chabo.vareversat.fr/%privacy',
       Icons.privacy_tip_rounded,
       'privacy_policy',
     ),
@@ -147,4 +147,7 @@ class Const {
   static const List<String> vowelList = ['a', 'e', 'i', 'o', 'u', 'y'];
   static const String oflLicenseEntryName = 'google_fonts';
   static const String specialWineFestivalBoatsEvent = 'Bateaux fete du vin';
+  static const String sentryDSNEnvKey = 'SENTRY_DSN';
+  static const String envKey = 'ENV';
+  static const String defaultEnv = 'dev';
 }

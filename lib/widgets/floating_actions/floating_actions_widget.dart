@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:chabo/cubits/floating_actions_cubit.dart';
 import 'package:chabo/custom_properties.dart';
-import 'package:chabo/dialogs/chabo_about_dialog/chabo_about_dialog.dart';
 import 'package:chabo/helpers/custom_page_routes.dart';
 import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/screens/chabo_about_screen/chabo_about_screen.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
 import 'package:chabo/widgets/current_docked_boat_button.dart';
@@ -140,8 +140,9 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                 Navigator.of(context).push(
                                   BottomToTopPageRoute(
                                     builder: (context) =>
-                                        const NotificationScreen(
-                                      highlightTimeSlots: false,
+                                        const NotificationScreen(),
+                                    settings: const RouteSettings(
+                                      name: NotificationScreen.routeName,
                                     ),
                                   ),
                                 );
@@ -163,17 +164,13 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                             ),
                             _FloatingActionsItem(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                        sigmaX: CustomProperties.blurSigmaX,
-                                        sigmaY: CustomProperties.blurSigmaY,
-                                      ),
-                                      child: ChaboAboutDialog(),
-                                    );
-                                  },
+                                Navigator.of(context).push(
+                                  BottomToTopPageRoute(
+                                    builder: (context) => ChaboAboutScreen(),
+                                    settings: const RouteSettings(
+                                      name: ChaboAboutScreen.routeName,
+                                    ),
+                                  ),
                                 );
                                 context
                                     .read<FloatingActionsCubit>()

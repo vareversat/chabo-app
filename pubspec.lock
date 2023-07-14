@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: animated_toggle_switch
-      sha256: "3c6d98dcd53cb93253a9418b888b3fcd9452a55fe1a7a390bd48c0a410a41634"
+      sha256: d2c7a477dc2799645089838a9bfebcbfd7f829ea07909cd9dbdae2e857939746
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.2"
+    version: "0.7.0"
   ansicolor:
     dependency: transitive
     description:
@@ -338,10 +338,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: "812791d43ccfc1b443a0d39fa02a206fc228c597e28ff9337e09e3ca8d370391"
+      sha256: "0b4b849ae9c0e564cd749b74e31e134bdbb009bea2458e093926864e11a8613f"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.1"
+    version: "15.0.0"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -461,6 +461,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.17"
+  in_app_review:
+    dependency: "direct main"
+    description:
+      name: in_app_review
+      sha256: "16328b8202d36522322b95804ae5d975577aa9f584d634985849ba1099645850"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.6"
+  in_app_review_platform_interface:
+    dependency: transitive
+    description:
+      name: in_app_review_platform_interface
+      sha256: b12ec9aaf6b34d3a72aa95895eb252b381896246bdad4ef378d444affe8410ef
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.4"
   intl:
     dependency: "direct main"
     description:
@@ -733,6 +749,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  sentry:
+    dependency: transitive
+    description:
+      name: sentry
+      sha256: "8f4f1d3ef3ca1801aa3138392bbf0851b39eff703008111765b265f76c8f0190"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.8.0"
+  sentry_flutter:
+    dependency: "direct main"
+    description:
+      name: sentry_flutter
+      sha256: bbc1048558cf8ae65c1e27b1249357298cfca50e5843ad0367387f5c873b8e42
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.8.0"
   shared_preferences:
     dependency: "direct main"
     description:

@@ -1,3 +1,15 @@
+# **v2.3.1** :
+
+- Bug fixes and performance improvements
+***
+# **v2.3.0** :
+
+- Redesign of the 'About' page
+***
+# **v2.2.0** :
+
+- Bug fixes and performance improvements
+***
 # **v2.1.0** :
 
 - *Features*:

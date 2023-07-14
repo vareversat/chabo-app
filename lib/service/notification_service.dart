@@ -15,11 +15,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   final StorageService storageService;
+
+  static final transaction =
+      Sentry.startTransaction('openNotification()', 'NotificationService');
 
   static FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
@@ -67,12 +71,20 @@ class NotificationService {
   static _onDidReceiveBackgroundNotificationResponse(
     NotificationResponse notificationResponse,
     // ignore: avoid-unused-parameters
-  ) {} // ignore: no-empty-block
+  ) {
+    transaction.setData('action', 'background-open');
+    transaction.setTag('notification', '${notificationResponse.actionId}');
+    transaction.finish();
+  }
 
   static _onDidReceiveLocalNotification(
     NotificationResponse notificationResponse,
     // ignore: avoid-unused-parameters
-  ) {} // ignore: no-empty-block
+  ) {
+    transaction.setData('action', 'open');
+    transaction.setTag('notification', '${notificationResponse.actionId}');
+    transaction.finish();
+  }
 
   Future<bool> _requestPermissions() async {
     if (Platform.isAndroid) {

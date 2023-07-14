@@ -94,7 +94,21 @@ class _CustomListTileWidget extends StatelessWidget {
           Switch.adaptive(
             thumbIcon: thumbIcon,
             value: enabled,
-            onChanged: onChanged,
+            onChanged: (value) {
+              Sentry.addBreadcrumb(
+                Breadcrumb(
+                  message: 'Change "$title" state',
+                  level: SentryLevel.info,
+                  category: 'notification.change-state',
+                  type: 'Notification',
+                  data: {
+                    'old-state': !value,
+                    'new-state': value,
+                  },
+                ),
+              );
+              onChanged(value);
+            },
           ),
         ],
       ),
