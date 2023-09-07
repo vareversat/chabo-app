@@ -36,12 +36,14 @@ class ThemeSwitcherWidget extends StatelessWidget {
                   ThemeStateStatus.dark,
                   ThemeStateStatus.system,
                 ],
-                indicatorColor: colorScheme.primary,
-                innerColor: colorScheme.surface,
-                borderColor: colorScheme.inverseSurface,
+                style: ToggleStyle(
+                  backgroundColor: colorScheme.surface,
+                  indicatorColor: colorScheme.primary,
+                  borderColor: colorScheme.inverseSurface,
+                ),
                 borderWidth: 1.5,
                 indicatorSize: const Size.fromWidth(65),
-                iconBuilder: (value, size) {
+                iconBuilder: (value) {
                   return Icon(
                     value.icon,
                     color: state.status == value
