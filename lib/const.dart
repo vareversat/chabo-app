@@ -23,7 +23,7 @@ class Const {
   static const String vesselFinderLinkPlaceholder = ':boatName:';
   static const String vesselFinderLink =
       'https://www.myshiptracking.com/vessels?side=false&name=$vesselFinderLinkPlaceholder';
-  static const String githubLink = 'https://github.com/vareversat/chabo';
+  static const String githubLink = 'https://github.com/vareversat/chabo-app';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
   static const String bordeauxWineFestivalSailingShipLink =
       'https://www.bordeaux-fete-le-vin.com/la-fete-sur-les-quais/grands-voiliers.html';
@@ -45,7 +45,7 @@ class Const {
       'bordeaux_open_data',
     ),
     WebLinkIcon(
-      'https://github.com/vareversat/chabo',
+      'https://github.com/vareversat/chabo-app',
       FontAwesomeIcons.github,
       'source_code',
     ),
