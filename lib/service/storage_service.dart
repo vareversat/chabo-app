@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
-import 'package:chabo_app/models/enums/day.dart';
-import 'package:chabo_app/models/enums/theme_state_status.dart';
-import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:chabo_app/models/time_slot.dart';
+import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/enums/theme_state_status.dart';
+import 'package:chabo/models/enums/time_format.dart';
+import 'package:chabo/models/time_slot.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

@@ -86,7 +86,7 @@ void main() {
       'Same day',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
@@ -108,7 +108,7 @@ void main() {
       'During tow days',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =

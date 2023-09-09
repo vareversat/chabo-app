@@ -23,7 +23,7 @@
   "theChabanBridgeIsClosed": "the Chaban bridge is closed to traffic",
   "theChabanBridgeWillSoonClose": "the Chaban bridge will soon close to traffic",
   "willSoonClose": "close to traffic soon",
-  "settingsTitle": "Settings",
+  "settingsClose": "Close",
   "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "",
@@ -222,5 +222,6 @@
   },
   "wineFestivalSailBoats": "Wine Festival Sailboats",
   "externalLinks": "External links",
-  "rate": "Rate"
+  "rate": "Rate",
+  "timeFormatSubTitle": "Time format"
 }

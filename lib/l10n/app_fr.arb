@@ -23,7 +23,7 @@
   "theChabanBridgeIsClosed": "le pont Chaban est fermé à la circulation",
   "theChabanBridgeWillSoonClose": "le pont Chaban ferme bientôt à la circulation",
   "willSoonClose": "ferme bientôt à la circulation",
-  "settingsTitle": "Paramètres",
+  "settingsClose": "Fermer",
   "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "le ",
@@ -222,5 +222,6 @@
   },
   "wineFestivalSailBoats": "Voiliers de la fête du vin",
   "externalLinks": "Liens externes",
-  "rate": "Noter"
+  "rate": "Noter",
+  "timeFormatSubTitle": "Format d'affichage des heures"
 }

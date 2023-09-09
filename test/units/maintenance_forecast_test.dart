@@ -48,7 +48,7 @@ void main() {
       'Display info TextSpan (same day)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
@@ -70,7 +70,7 @@ void main() {
       'Display info TextSpan (tow days)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =

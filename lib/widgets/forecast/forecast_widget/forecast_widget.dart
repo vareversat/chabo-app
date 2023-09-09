@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:chabo/cubits/time_format_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
 import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/models/abstract_forecast.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:chabo/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -136,21 +138,25 @@ class ForecastWidget extends StatelessWidget {
                         Stack(
                           alignment: Alignment.center,
                           children: [
-                            Row(
-                              children: [
-                                Flexible(
-                                  flex: 2,
-                                  child: _ClosingInfoWidget(
-                                    forecast: forecast,
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: _OpeningInfoWidget(
-                                    forecast: forecast,
-                                  ),
-                                ),
-                              ],
+                            BlocBuilder<TimeFormatCubit, TimeFormatState>(
+                              builder: (context, state) {
+                                return Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 2,
+                                      child: _ClosingInfoWidget(
+                                          forecast: forecast,
+                                          timeFormat: state.timeFormat),
+                                    ),
+                                    Flexible(
+                                      flex: 2,
+                                      child: _OpeningInfoWidget(
+                                          forecast: forecast,
+                                          timeFormat: state.timeFormat),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                             _DurationWidget(
                               forecast: forecast,
