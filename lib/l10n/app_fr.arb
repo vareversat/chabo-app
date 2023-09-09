@@ -23,7 +23,7 @@
   "theChabanBridgeIsClosed": "le pont Chaban est fermé à la circulation",
   "theChabanBridgeWillSoonClose": "le pont Chaban ferme bientôt à la circulation",
   "willSoonClose": "ferme bientôt à la circulation",
-  "settingsTitle": "Paramètres",
+  "settingsClose": "Fermer",
   "notificationsTitle": "Notifications",
   "information": "Information",
   "dialogInformationContentThe": "le ",
@@ -55,8 +55,8 @@
   "informationAboutTheApp": "Informations concernant l'application",
   "about": "À propos",
   "disclaimer": "Avis de non-responsabilité : fermetures provisoires. Sous réserve de confirmation de la Capitainerie.",
-  "themeSetting": "Thème",
-  "themeSettingSubtitle": "Choisir le thème de l'application",
+  "openSetting": "Paramètres",
+  "themeSettingSubtitle": "Thème de l'application",
   "lightTheme": "Thème clair",
   "darkTheme": "Thème sombre",
   "systemTheme": "Thème système",
@@ -222,5 +222,6 @@
   },
   "wineFestivalSailBoats": "Voiliers de la fête du vin",
   "externalLinks": "Liens externes",
-  "rate": "Noter"
+  "rate": "Noter",
+  "timeFormatSubTitle": "Format d'affichage des heures"
 }

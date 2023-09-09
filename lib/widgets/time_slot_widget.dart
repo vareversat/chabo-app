@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:chabo/bloc/notification/notification_bloc.dart';
+import 'package:chabo/cubits/time_format_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/dialogs/time_slot_dialog.dart';
+import 'package:chabo/extensions/time_of_day_extension.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,20 +49,24 @@ class TimeSlotWidget extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text(
-              timeSlot.name != ''
-                  ? timeSlot.name
-                  : AppLocalizations.of(context)!
-                      .favoriteTimeSlotDefaultName(index + 1),
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            Text(
-              '${timeSlot.from.format(context)} - ${timeSlot.to.format(context)}',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
+        child: BlocBuilder<TimeFormatCubit, TimeFormatState>(
+          builder: (context, timeFormatState) {
+            return Column(
+              children: [
+                Text(
+                  timeSlot.name != ''
+                      ? timeSlot.name
+                      : AppLocalizations.of(context)!
+                          .favoriteTimeSlotDefaultName(index + 1),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  '${timeSlot.from.toFormattedString(timeFormatState.timeFormat)} - ${timeSlot.to.toFormattedString(timeFormatState.timeFormat)}',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/theme_state_status.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,12 @@ class StorageService {
     );
 
     return await sharedPreferences.setString(key, jsonEncode(timeSlots));
+  }
+
+  Future<bool> saveTimeFormat(String key, TimeFormat value) async {
+    developer.log('{$key: $value}', name: 'storage-service.on.saveTimeFormat');
+
+    return await sharedPreferences.setString(key, value.name);
   }
 
   String? readString(String key) {
@@ -170,6 +177,19 @@ class StorageService {
       );
 
       return timeSlotList;
+    }
+  }
+
+  TimeFormat? readTimeFormat(String key) {
+    final stringValue = sharedPreferences.getString(key);
+    if (stringValue == null) {
+      return null;
+    } else {
+      final value = EnumToString.fromString(TimeFormat.values, stringValue);
+      developer.log('{$key: $value}',
+          name: 'storage-service.on.readTimeFormat');
+
+      return value;
     }
   }
 }
