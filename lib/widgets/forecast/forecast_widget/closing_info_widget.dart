@@ -2,8 +2,10 @@ part of 'forecast_widget.dart';
 
 class _ClosingInfoWidget extends StatelessWidget {
   final AbstractForecast forecast;
+  final TimeFormat timeFormat;
 
-  const _ClosingInfoWidget({Key? key, required this.forecast})
+  const _ClosingInfoWidget(
+      {Key? key, required this.forecast, required this.timeFormat})
       : super(key: key);
 
   @override

@@ -7,8 +7,8 @@ import 'package:chabo/helpers/device_helper.dart';
 import 'package:chabo/screens/chabo_about_screen/chabo_about_screen.dart';
 import 'package:chabo/screens/notification_screen/notification_screen.dart';
 import 'package:chabo/widgets/ad_banner_widget.dart';
+import 'package:chabo/widgets/bottom_sheets/settings_modal_bottom_sheet.dart';
 import 'package:chabo/widgets/current_docked_boat_button.dart';
-import 'package:chabo/widgets/theme_switcher_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -117,7 +117,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                     ),
                                   ),
                                   builder: (context) {
-                                    return const ThemeSwitcherWidget();
+                                    return const SettingsModalBottomSheet();
                                   },
                                 );
                                 context
@@ -126,10 +126,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                               },
                               content: [
                                 Text(
-                                  AppLocalizations.of(context)!.themeSetting,
+                                  AppLocalizations.of(context)!.openSetting,
                                 ),
                                 const Icon(
-                                  Icons.format_paint_rounded,
+                                  Icons.settings,
                                 ),
                               ],
                               isRightHanded: state.isRightHanded,
@@ -258,7 +258,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
             ),
             child: state.isMenuOpen
                 ? Text(
-                    AppLocalizations.of(context)!.settingsTitle,
+                    AppLocalizations.of(context)!.settingsClose,
                     style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.start,
                   )
@@ -266,10 +266,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
           ),
           state.isMenuOpen
               ? const Icon(
-                  Icons.close,
+                  Icons.expand_more,
                 )
               : const Icon(
-                  Icons.settings,
+                  Icons.expand_less_outlined,
                 ),
         ],
         isSpaced: state.isMenuOpen,

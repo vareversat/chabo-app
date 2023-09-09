@@ -1,4 +1,5 @@
 import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo/cubits/time_format_cubit.dart';
 import 'package:chabo/custom_properties.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/date_time_extension.dart';
@@ -6,9 +7,11 @@ import 'package:chabo/extensions/string_extension.dart';
 import 'package:chabo/models/enums/day.dart';
 import 'package:chabo/models/enums/forecast_closing_reason.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -63,6 +66,7 @@ abstract class AbstractForecast extends Equatable {
 
   List<InlineSpan> getCoreInformationWidget(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
 
     var infoFromString =
         AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
@@ -70,9 +74,9 @@ abstract class AbstractForecast extends Equatable {
         ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
     var infoToString2 =
         ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
-    var circulationReOpeningDateString =
-        DateFormat.jm(Localizations.localeOf(context).languageCode)
-            .format(circulationReOpeningDate);
+    var circulationReOpeningDateString = DateFormat(
+            timeFormat.icuName, Localizations.localeOf(context).languageCode)
+        .format(circulationReOpeningDate);
     if (isDuringTwoDays) {
       infoFromString = AppLocalizations.of(context)!
           .dialogInformationContentThe2
@@ -109,7 +113,8 @@ abstract class AbstractForecast extends Equatable {
             color: colorScheme.error,
           ),
           child: Text(
-            DateFormat.jm(Localizations.localeOf(context).languageCode)
+            DateFormat(timeFormat.icuName,
+                    Localizations.localeOf(context).languageCode)
                 .format(circulationClosingDate),
             style: TextStyle(
               fontWeight: FontWeight.bold,

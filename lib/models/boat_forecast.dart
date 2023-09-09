@@ -1,3 +1,4 @@
+import 'package:chabo/cubits/time_format_cubit.dart';
 import 'package:chabo/extensions/boats_extension.dart';
 import 'package:chabo/extensions/color_scheme_extension.dart';
 import 'package:chabo/extensions/duration_extension.dart';
@@ -6,7 +7,9 @@ import 'package:chabo/models/abstract_forecast.dart';
 import 'package:chabo/models/boat.dart';
 import 'package:chabo/models/enums/forecast_closing_reason.dart';
 import 'package:chabo/models/enums/forecast_closing_type.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -88,16 +91,17 @@ class BoatForecast extends AbstractForecast {
 
   @override
   RichText getInformationWidget(BuildContext context) {
+    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final colorScheme = Theme.of(context).colorScheme;
 
     var schedule = circulationClosingDate
         .add(Duration(microseconds: closedDuration.inMicroseconds ~/ 2));
-    var scheduleString =
-        DateFormat.jm(Localizations.localeOf(context).languageCode)
-            .format(schedule);
+    var scheduleString = DateFormat(
+            timeFormat.icuName, Localizations.localeOf(context).languageCode)
+        .format(schedule);
     if (isDuringTwoDays) {
       scheduleString =
-          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat.jm(Localizations.localeOf(context).languageCode).format(schedule)}';
+          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
     }
 
     return RichText(
@@ -136,9 +140,10 @@ class BoatForecast extends AbstractForecast {
 
   @override
   String getNotificationTimeMessage(BuildContext context) {
+    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
       boats.toLocalizedString(context),
-      DateFormat.Hm().format(circulationClosingDate),
+      DateFormat(timeFormat.icuName).format(circulationClosingDate),
       closedDuration.durationToString(context),
     );
   }

@@ -12,10 +12,4 @@ class ThemeState {
       themeData: themeData ?? this.themeData,
     );
   }
-
-  IconData getIconData() {
-    return themeData == AppTheme.lightTheme
-        ? Icons.brightness_low
-        : Icons.dark_mode_outlined;
-  }
 }

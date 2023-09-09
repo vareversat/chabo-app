@@ -1,4 +1,5 @@
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:chabo/models/time_slot.dart';
 import 'package:chabo/models/web_link_icon.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,7 @@ class Const {
       'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
   static const String notificationFavoriteSlotsDaysValueKey =
       'NOTIFICATION_FAVORITE_SLOTS_DAYS_SETTINGS_VALUE';
+  static const String timeFormatKey = 'TIME_FORMAT';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -128,6 +130,7 @@ class Const {
 
   /// UI
   static const bool isRightHandedDefaultValue = true;
+  static const TimeFormat timeFormatDefaultValue = TimeFormat.twentyFourHours;
 
   /// Android Notifications
   static const String androidTicket = 'ticker';

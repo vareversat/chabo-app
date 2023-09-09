@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'scroll_status_event.dart';
-
 part 'scroll_status_state.dart';
 
 class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {

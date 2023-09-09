@@ -6,7 +6,9 @@ import 'package:chabo/bloc/status/status_bloc.dart';
 import 'package:chabo/bloc/theme/theme_bloc.dart';
 import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo/cubits/floating_actions_cubit.dart';
+import 'package:chabo/cubits/time_format_cubit.dart';
 import 'package:chabo/helpers/device_helper.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:chabo/screens/forecast_screen.dart';
 import 'package:chabo/service/notification_service.dart';
 import 'package:chabo/service/storage_service.dart';
@@ -47,6 +49,14 @@ class Chabo extends StatelessWidget {
           create: (_) => FloatingActionsCubit(
             storageService,
             const FloatingActionsState(isMenuOpen: false, isRightHanded: true),
+          )..init(),
+        ),
+
+        /// Bloc intended to manage the displayed time format
+        BlocProvider(
+          create: (_) => TimeFormatCubit(
+            storageService,
+            const TimeFormatState(timeFormat: TimeFormat.twentyFourHours),
           )..init(),
         ),
 

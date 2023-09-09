@@ -71,7 +71,7 @@ void main() {
     testWidgets('toLocalizedTextSpan - EN', (WidgetTester tester) async {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
@@ -92,7 +92,7 @@ void main() {
     testWidgets('toLocalizedTextSpan - FR', (WidgetTester tester) async {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       await tester.pumpWidget(
-        localizedTestableWidgetFR(
+        await localizedTestableWidgetFR(
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
