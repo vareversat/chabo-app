@@ -1,6 +1,8 @@
 import 'package:chabo/extensions/date_time_extension.dart';
 import 'package:chabo/extensions/string_extension.dart';
+import 'package:chabo/extensions/time_of_day_extension.dart';
 import 'package:chabo/models/enums/day.dart';
+import 'package:chabo/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -108,6 +110,23 @@ void main() {
           ),
         ),
       );
+    });
+
+    group('time_of_date', () {
+      test('toFormattedString - 12h', () {
+        const tod = TimeOfDay(
+          hour: 15,
+          minute: 0,
+        );
+        expect(tod.toFormattedString(TimeFormat.twelveHours), '3:00 PM');
+      });
+      test('toFormattedString - 24h', () {
+        const tod = TimeOfDay(
+          hour: 15,
+          minute: 0,
+        );
+        expect(tod.toFormattedString(TimeFormat.twentyFourHours), '15:00');
+      });
     });
   });
 }
