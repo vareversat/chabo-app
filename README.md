@@ -2,9 +2,9 @@
 
 <p align="center">
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/flutter-blue?logo=flutter&style=for-the-badge"></a> 
-  <a href="https://github.com/vareversat/chabo/actions"><img src="https://img.shields.io/github/actions/workflow/status/vareversat/chabo/dev.yaml?logo=github&style=for-the-badge"></a>
-  <a href="https://github.com/vareversat/chabo/releases"><img src="https://img.shields.io/github/v/tag/vareversat/chabo?label=version&logo=git&logoColor=white&style=for-the-badge"></a>
-  <a href="https://codecov.io/gh/vareversat/chabo/"><img src="https://img.shields.io/codecov/c/github/vareversat/chabo?logo=codecov&style=for-the-badge&token=VJCS172J1T"></a>
+  <a href="https://github.com/vareversat/chabo-app/actions"><img src="https://img.shields.io/github/actions/workflow/status/vareversat/chabo-app/dev.yaml?logo=github&style=for-the-badge"></a>
+  <a href="https://github.com/vareversat/chab-app/releases"><img src="https://img.shields.io/github/v/tag/vareversat/chabo-app?label=version&logo=git&logoColor=white&style=for-the-badge"></a>
+  <a href="https://codecov.io/gh/vareversat/chabo-app/"><img src="https://img.shields.io/codecov/c/github/vareversat/chabo-app?logo=codecov&style=for-the-badge&token=VJCS172J1T"></a>
 </p>
 
 Mobile app to track the schedules of the [Chaban Delmas bridge](https://fr.wikipedia.org/wiki/Pont_Jacques-Chaban-Delmas) located in Bordeaux, France.

@@ -1,9 +1,12 @@
-import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/models/enums/forecast_closing_reason.dart';
-import 'package:chabo/models/enums/forecast_closing_type.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
+import 'package:chabo_app/models/enums/forecast_closing_type.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -73,8 +76,9 @@ class MaintenanceForecast extends AbstractForecast {
 
   @override
   String getNotificationTimeMessage(BuildContext context) {
+    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     return AppLocalizations.of(context)!.notificationTimeMaintenanceMessage(
-      DateFormat.Hm().format(circulationClosingDate),
+      DateFormat(timeFormat.icuName).format(circulationClosingDate),
       closedDuration.durationToString(context),
     );
   }

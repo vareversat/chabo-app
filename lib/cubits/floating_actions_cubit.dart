@@ -1,5 +1,5 @@
-import 'package:chabo/const.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

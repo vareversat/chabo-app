@@ -1,8 +1,8 @@
-import 'package:chabo/models/boat.dart';
-import 'package:chabo/models/boat_forecast.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/enums/forecast_closing_type.dart';
-import 'package:chabo/models/time_slot.dart';
+import 'package:chabo_app/models/boat.dart';
+import 'package:chabo_app/models/boat_forecast.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/forecast_closing_type.dart';
+import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -86,7 +86,7 @@ void main() {
       'Same day',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
@@ -108,7 +108,7 @@ void main() {
       'During tow days',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =

@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:chabo/bloc/chabo_event.dart';
-import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/service/notification_service.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/bloc/chabo_event.dart';
+import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/service/notification_service.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

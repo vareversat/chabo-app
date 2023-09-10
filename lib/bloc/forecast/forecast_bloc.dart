@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:chabo/bloc/chabo_event.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/models/boat_forecast.dart';
-import 'package:chabo/models/maintenance_forecast.dart';
+import 'package:chabo_app/bloc/chabo_event.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/models/boat_forecast.dart';
+import 'package:chabo_app/models/maintenance_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';

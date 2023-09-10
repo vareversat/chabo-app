@@ -1,8 +1,8 @@
-import 'package:chabo/app_theme.dart';
-import 'package:chabo/bloc/chabo_event.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/models/enums/theme_state_status.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/app_theme.dart';
+import 'package:chabo_app/bloc/chabo_event.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/models/enums/theme_state_status.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,6 +1,7 @@
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/time_slot.dart';
-import 'package:chabo/models/web_link_icon.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
+import 'package:chabo_app/models/time_slot.dart';
+import 'package:chabo_app/models/web_link_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,7 +24,7 @@ class Const {
   static const String vesselFinderLinkPlaceholder = ':boatName:';
   static const String vesselFinderLink =
       'https://www.myshiptracking.com/vessels?side=false&name=$vesselFinderLinkPlaceholder';
-  static const String githubLink = 'https://github.com/vareversat/chabo';
+  static const String githubLink = 'https://github.com/vareversat/chabo-app';
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
   static const String bordeauxWineFestivalSailingShipLink =
       'https://www.bordeaux-fete-le-vin.com/la-fete-sur-les-quais/grands-voiliers.html';
@@ -45,7 +46,7 @@ class Const {
       'bordeaux_open_data',
     ),
     WebLinkIcon(
-      'https://github.com/vareversat/chabo',
+      'https://github.com/vareversat/chabo-app',
       FontAwesomeIcons.github,
       'source_code',
     ),
@@ -83,6 +84,7 @@ class Const {
       'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
   static const String notificationFavoriteSlotsDaysValueKey =
       'NOTIFICATION_FAVORITE_SLOTS_DAYS_SETTINGS_VALUE';
+  static const String timeFormatKey = 'TIME_FORMAT';
 
   /// Notifications
   static const String androidAppLogoPath =
@@ -128,6 +130,7 @@ class Const {
 
   /// UI
   static const bool isRightHandedDefaultValue = true;
+  static const TimeFormat timeFormatDefaultValue = TimeFormat.twentyFourHours;
 
   /// Android Notifications
   static const String androidTicket = 'ticker';

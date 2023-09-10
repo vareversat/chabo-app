@@ -1,6 +1,8 @@
-import 'package:chabo/extensions/date_time_extension.dart';
-import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/models/enums/day.dart';
+import 'package:chabo_app/extensions/date_time_extension.dart';
+import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/extensions/time_of_day_extension.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -71,7 +73,7 @@ void main() {
     testWidgets('toLocalizedTextSpan - EN', (WidgetTester tester) async {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
@@ -92,7 +94,7 @@ void main() {
     testWidgets('toLocalizedTextSpan - FR', (WidgetTester tester) async {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       await tester.pumpWidget(
-        localizedTestableWidgetFR(
+        await localizedTestableWidgetFR(
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
@@ -108,6 +110,23 @@ void main() {
           ),
         ),
       );
+    });
+
+    group('time_of_date', () {
+      test('toFormattedString - 12h', () {
+        const tod = TimeOfDay(
+          hour: 15,
+          minute: 0,
+        );
+        expect(tod.toFormattedString(TimeFormat.twelveHours), '3:00 PM');
+      });
+      test('toFormattedString - 24h', () {
+        const tod = TimeOfDay(
+          hour: 15,
+          minute: 0,
+        );
+        expect(tod.toFormattedString(TimeFormat.twentyFourHours), '15:00');
+      });
     });
   });
 }

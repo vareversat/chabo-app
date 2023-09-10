@@ -1,4 +1,4 @@
-import 'package:chabo/custom_properties.dart';
+import 'package:chabo_app/custom_properties.dart';
 import 'package:flutter/material.dart';
 
 class CustomProgressBarIndicator extends StatelessWidget {

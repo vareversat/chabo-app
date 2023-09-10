@@ -1,8 +1,8 @@
-import 'package:chabo/bloc/chabo_event.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/models/abstract_forecast.dart';
+import 'package:chabo_app/bloc/chabo_event.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

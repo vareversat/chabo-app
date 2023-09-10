@@ -1,8 +1,8 @@
-import 'package:chabo/bloc/forecast/forecast_bloc.dart';
-import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
-import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
+import 'package:chabo_app/bloc/forecast/forecast_bloc.dart';
+import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

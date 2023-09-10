@@ -1,6 +1,6 @@
-import 'package:chabo/const.dart';
-import 'package:chabo/extensions/boats_extension.dart';
-import 'package:chabo/models/boat.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/extensions/boats_extension.dart';
+import 'package:chabo_app/models/boat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,7 +24,7 @@ void main() {
   group('toNames', () {
     testWidgets('1 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats1.getNames(context);
@@ -39,7 +39,7 @@ void main() {
 
     testWidgets('2 Boats', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats2.getNames(context);
@@ -54,7 +54,7 @@ void main() {
 
     testWidgets('3 Boats', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats3.getNames(context);
@@ -71,7 +71,7 @@ void main() {
   group('toLocalizedString', () {
     testWidgets('1 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats1.toLocalizedString(context);
@@ -86,7 +86,7 @@ void main() {
 
     testWidgets('2 Boats', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats2.toLocalizedString(context);
@@ -104,7 +104,7 @@ void main() {
 
     testWidgets('3 Boats', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               var names = boats3.toLocalizedString(context);
@@ -124,7 +124,7 @@ void main() {
   group('toLocalizedMoonHarborStatus', () {
     testWidgets('1 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               final RichText richText = RichText(
@@ -148,7 +148,7 @@ void main() {
 
     testWidgets('2 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               final RichText richText = RichText(
@@ -172,7 +172,7 @@ void main() {
 
     testWidgets('3 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               final RichText richText = RichText(
@@ -196,7 +196,7 @@ void main() {
 
     testWidgets('4 Boat', (WidgetTester tester) async {
       await tester.pumpWidget(
-        localizedTestableWidgetEN(
+        await localizedTestableWidgetEN(
           child: Builder(
             builder: (BuildContext context) {
               final RichText richText = RichText(

@@ -1,4 +1,4 @@
-import 'package:chabo/bloc/theme/theme_bloc.dart';
+import 'package:chabo_app/bloc/theme/theme_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';

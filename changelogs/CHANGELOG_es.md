@@ -1,3 +1,9 @@
+# **v2.4.0** :
+
+- El usuario ahora puede elegir el formato de hora de las horas mostradas.
+- Actualice a Flutter 3.13.3
+- Actualización de bibliotecas
+***
 # **v2.3.1** :
 
 - Correcciones de errores y mejoras de rendimiento

@@ -1,7 +1,7 @@
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/enums/forecast_closing_type.dart';
-import 'package:chabo/models/maintenance_forecast.dart';
-import 'package:chabo/models/time_slot.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/forecast_closing_type.dart';
+import 'package:chabo_app/models/maintenance_forecast.dart';
+import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -48,7 +48,7 @@ void main() {
       'Display info TextSpan (same day)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
@@ -70,7 +70,7 @@ void main() {
       'Display info TextSpan (tow days)',
       (WidgetTester tester) async {
         await tester.pumpWidget(
-          localizedTestableWidgetEN(
+          await localizedTestableWidgetEN(
             child: Builder(
               builder: (BuildContext context) {
                 final RichText richText =
