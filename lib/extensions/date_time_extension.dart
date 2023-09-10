@@ -1,6 +1,6 @@
-import 'package:chabo/cubits/time_format_cubit.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/enums/time_format.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

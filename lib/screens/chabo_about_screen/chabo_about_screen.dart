@@ -1,10 +1,10 @@
-import 'package:chabo/const.dart';
-import 'package:chabo/cubits/floating_actions_cubit.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/helpers/device_helper.dart';
-import 'package:chabo/misc/no_scaling_animation.dart';
-import 'package:chabo/screens/changelog_screen.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/cubits/floating_actions_cubit.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/misc/no_scaling_animation.dart';
+import 'package:chabo_app/screens/changelog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

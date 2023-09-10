@@ -1,7 +1,7 @@
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/enums/time_format.dart';
-import 'package:chabo/models/time_slot.dart';
-import 'package:chabo/models/web_link_icon.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
+import 'package:chabo_app/models/time_slot.dart';
+import 'package:chabo_app/models/web_link_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

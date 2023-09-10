@@ -1,10 +1,10 @@
 import 'dart:developer' as developer;
 
-import 'package:chabo/chabo.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/service/consent_form_service.dart';
-import 'package:chabo/service/notification_service.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/chabo.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/service/consent_form_service.dart';
+import 'package:chabo_app/service/notification_service.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

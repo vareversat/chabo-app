@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:chabo/bloc/scroll_status/scroll_status_bloc.dart';
-import 'package:chabo/bloc/status/status_bloc.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/custom_widget_state.dart';
-import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/widgets/forecast/forecast_widget/forecast_widget.dart';
-import 'package:chabo/widgets/progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:chabo/widgets/progress_indicator/custom_progress_bar_indicator.dart';
+import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
+import 'package:chabo_app/bloc/status/status_bloc.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/custom_widget_state.dart';
+import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/widgets/forecast/forecast_widget/forecast_widget.dart';
+import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
+import 'package:chabo_app/widgets/progress_indicator/custom_progress_bar_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

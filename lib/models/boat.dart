@@ -1,5 +1,5 @@
-import 'package:chabo/const.dart';
-import 'package:chabo/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

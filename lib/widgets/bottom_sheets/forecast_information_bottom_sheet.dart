@@ -1,8 +1,8 @@
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/helpers/custom_page_routes.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/screens/notification_screen/notification_screen.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/helpers/custom_page_routes.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';

@@ -1,8 +1,8 @@
-import 'package:chabo/bloc/notification/notification_bloc.dart';
-import 'package:chabo/cubits/time_format_cubit.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/extensions/time_of_day_extension.dart';
-import 'package:chabo/models/enums/day.dart';
+import 'package:chabo_app/bloc/notification/notification_bloc.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/extensions/time_of_day_extension.dart';
+import 'package:chabo_app/models/enums/day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

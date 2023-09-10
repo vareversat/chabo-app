@@ -1,8 +1,8 @@
-import 'package:chabo/extensions/date_time_extension.dart';
-import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/extensions/time_of_day_extension.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/enums/time_format.dart';
+import 'package:chabo_app/extensions/date_time_extension.dart';
+import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/extensions/time_of_day_extension.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

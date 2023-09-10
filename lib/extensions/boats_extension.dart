@@ -1,5 +1,5 @@
-import 'package:chabo/extensions/string_extension.dart';
-import 'package:chabo/models/boat.dart';
+import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/models/boat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
