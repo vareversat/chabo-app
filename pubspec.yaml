@@ -1,4 +1,4 @@
-name: chabo
+name: chabo_app
 description: Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France
 
 publish_to: 'none'

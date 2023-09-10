@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:chabo/cubits/floating_actions_cubit.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/helpers/custom_page_routes.dart';
-import 'package:chabo/helpers/device_helper.dart';
-import 'package:chabo/screens/chabo_about_screen/chabo_about_screen.dart';
-import 'package:chabo/screens/notification_screen/notification_screen.dart';
-import 'package:chabo/widgets/ad_banner_widget.dart';
-import 'package:chabo/widgets/bottom_sheets/settings_modal_bottom_sheet.dart';
-import 'package:chabo/widgets/current_docked_boat_button.dart';
+import 'package:chabo_app/cubits/floating_actions_cubit.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/helpers/custom_page_routes.dart';
+import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/screens/chabo_about_screen/chabo_about_screen.dart';
+import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
+import 'package:chabo_app/widgets/ad_banner_widget.dart';
+import 'package:chabo_app/widgets/bottom_sheets/settings_modal_bottom_sheet.dart';
+import 'package:chabo_app/widgets/current_docked_boat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

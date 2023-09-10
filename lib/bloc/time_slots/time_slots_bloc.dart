@@ -1,8 +1,8 @@
-import 'package:chabo/bloc/chabo_event.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/models/time_slot.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/bloc/chabo_event.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/models/time_slot.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

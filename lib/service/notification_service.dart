@@ -3,14 +3,14 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 
-import 'package:chabo/bloc/notification/notification_bloc.dart';
-import 'package:chabo/bloc/time_slots/time_slots_bloc.dart';
-import 'package:chabo/const.dart';
-import 'package:chabo/extensions/date_time_extension.dart';
-import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/models/enums/day.dart';
-import 'package:chabo/service/storage_service.dart';
+import 'package:chabo_app/bloc/notification/notification_bloc.dart';
+import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
+import 'package:chabo_app/const.dart';
+import 'package:chabo_app/extensions/date_time_extension.dart';
+import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/models/enums/day.dart';
+import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,9 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:chabo/bloc/theme/theme_bloc.dart';
-import 'package:chabo/cubits/time_format_cubit.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/models/enums/theme_state_status.dart';
-import 'package:chabo/models/enums/time_format.dart';
+import 'package:chabo_app/bloc/theme/theme_bloc.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/models/enums/theme_state_status.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

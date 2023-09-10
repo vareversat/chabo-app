@@ -1,15 +1,15 @@
 import 'dart:ui';
 
-import 'package:chabo/cubits/time_format_cubit.dart';
-import 'package:chabo/custom_properties.dart';
-import 'package:chabo/extensions/color_scheme_extension.dart';
-import 'package:chabo/extensions/date_time_extension.dart';
-import 'package:chabo/extensions/duration_extension.dart';
-import 'package:chabo/helpers/device_helper.dart';
-import 'package:chabo/models/abstract_forecast.dart';
-import 'package:chabo/models/enums/time_format.dart';
-import 'package:chabo/models/time_slot.dart';
-import 'package:chabo/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
+import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/extensions/color_scheme_extension.dart';
+import 'package:chabo_app/extensions/date_time_extension.dart';
+import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/models/abstract_forecast.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
+import 'package:chabo_app/models/time_slot.dart';
+import 'package:chabo_app/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

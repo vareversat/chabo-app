@@ -1,4 +1,4 @@
-import 'package:chabo/models/enums/time_format.dart';
+import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

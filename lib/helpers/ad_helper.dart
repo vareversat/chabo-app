@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chabo/const.dart';
+import 'package:chabo_app/const.dart';
 
 class AdHelper {
   static String inlineBannerAdUnitId() {
