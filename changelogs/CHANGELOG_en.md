@@ -1,3 +1,9 @@
+# **v2.4.0** :
+
+- The user can now choose the time format of the displayed hours
+- Upgrade to Flutter 3.13.3
+- Libs upgrade
+***
 # **v2.3.1** :
 
 - Bug fixes and performance improvements
