@@ -4,6 +4,7 @@ import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo_app/cubits/floating_actions_cubit.dart';
+import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/custom_widget_state.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
@@ -34,7 +35,7 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FloatingActionsCubit, FloatingActionsState>(
-      builder: (context, state) {
+      builder: (context, floatingActionsState) {
         return Scaffold(
           floatingActionButton: const FloatingActionsWidget(),
           floatingActionButtonLocation:
@@ -43,12 +44,12 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
           body: SafeArea(
             top: false,
             child: BlocBuilder<ForecastBloc, ForecastState>(
-              builder: (context, state) {
-                switch (state.status) {
+              builder: (context, forecastState) {
+                switch (forecastState.status) {
                   case ForecastStatus.failure:
-                    return ErrorScreen(errorMessage: state.message);
+                    return ErrorScreen(errorMessage: forecastState.message);
                   case ForecastStatus.success:
-                    if (state.forecasts.isEmpty) {
+                    if (forecastState.forecasts.isEmpty) {
                       return const ErrorScreen(errorMessage: 'Empty return');
                     }
 
@@ -113,6 +114,22 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                 ),
                               );
                             }
+                          },
+                        ),
+                        BlocListener<TimeFormatCubit, TimeFormatState>(
+                          listener: (context, state) {
+                            /// If the TimeFormatState changes, re compute all notifications
+                            BlocProvider.of<NotificationBloc>(context).add(
+                              ComputeNotificationEvent(
+                                forecasts: BlocProvider.of<ForecastBloc>(
+                                  context,
+                                ).state.forecasts,
+                                context: context,
+                                timeSlotsState:
+                                    BlocProvider.of<TimeSlotsBloc>(context)
+                                        .state,
+                              ),
+                            );
                           },
                         ),
                       ],
