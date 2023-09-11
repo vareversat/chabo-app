@@ -2,6 +2,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:chabo_app/bloc/theme/theme_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
+import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/models/enums/theme_state_status.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,12 @@ class SettingsModalBottomSheet extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: Wrap(
+          direction: DeviceHelper.isPortrait(context)
+              ? Axis.horizontal
+              : Axis.vertical,
+          alignment: WrapAlignment.center,
+          runSpacing: DeviceHelper.isPortrait(context) ? 0 : 50,
           children: [
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
@@ -99,10 +104,13 @@ class SettingsModalBottomSheet extends StatelessWidget {
                 );
               },
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-              child: Divider(),
-            ),
+            DeviceHelper.isPortrait(context)
+                ? const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                    child: Divider(),
+                  )
+                : const SizedBox.shrink(),
             BlocBuilder<TimeFormatCubit, TimeFormatState>(
               builder: (context, state) {
                 return Wrap(
