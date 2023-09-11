@@ -211,10 +211,11 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                   padding: DeviceHelper.isPortrait(context)
                       ? const EdgeInsets.all(8)
                       : const EdgeInsets.symmetric(vertical: 8),
-                  child: Wrap(
-                    spacing: 5,
-                    textDirection: TextDirection.rtl,
-                    alignment: WrapAlignment.end,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: state.isRightHanded
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisSize: DeviceHelper.isPortrait(context)
