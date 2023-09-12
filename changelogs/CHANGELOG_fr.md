@@ -1,3 +1,11 @@
+# **v2.4.1** :
+
+- *Fix*:
+  - Correction d'un bug qui n'affichait pas le bon formattage des heures dans les notifications
+  - Correction d'un bug qui empêchait la fenêtre des réglages de correctement s'afficher en mode paysage
+- *UI*:
+  - La fenêtre "A propos" à maintenant un mode paysage
+***
 # **v2.4.0** :
 
 - L'utilisateur peut désormais choisir le format horaire des heures affichées

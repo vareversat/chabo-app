@@ -1,3 +1,11 @@
+# **v2.4.1** :
+
+- *Fix*:
+   - Fixed a bug that did not display the correct formatting of times in notifications
+   - Fixed a bug that prevented the settings window from displaying correctly in landscape mode
+- *UI*:
+   - The "About" window now has a landscape mode
+***
 # **v2.4.0** :
 
 - The user can now choose the time format of the displayed hours

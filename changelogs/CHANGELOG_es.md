@@ -1,3 +1,11 @@
+# **v2.4.1** :
+
+- *Arreglar*:
+   - Se corrigió un error que no mostraba el formato correcto de los tiempos en las notificaciones.
+   - Se corrigió un error que impedía que la ventana de configuración se mostrara correctamente en modo horizontal.
+- *UI*:
+   - La ventana "Acerca de" ahora tiene un modo horizontal
+***
 # **v2.4.0** :
 
 - El usuario ahora puede elegir el formato de hora de las horas mostradas.
