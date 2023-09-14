@@ -99,72 +99,73 @@ class ChaboAboutScreen extends StatelessWidget {
                       titlePadding: EdgeInsets.zero,
                       expandedTitleScale: 1,
                       title: Padding(
-                        padding: const EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 50.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Flexible(
                               child: IconTheme(
                                 data: Theme.of(context).iconTheme,
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        CustomProperties.borderRadius,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            CustomProperties.borderRadius,
+                                          ),
+                                        ),
+                                      ),
+                                      child: _iconWidget,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Row(
+                                            children: [
+                                              Text(
+                                                snapshot.data!.appName,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall!
+                                                    .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 30,
+                                                    ),
+                                              ),
+                                              Text(
+                                                ' | v${snapshot.data!.version} (${snapshot.data!.buildNumber})',
+                                                style: textTheme.bodyMedium,
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            Const.legalLease,
+                                            style:
+                                                textTheme.bodySmall!.copyWith(),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ),
-                                  child: _iconWidget,
+                                  ],
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Row(
-                                    children: [
-                                      Text(
-                                        snapshot.data!.appName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 30,
-                                            ),
-                                      ),
-                                      Text(
-                                        ' | v${snapshot.data!.version} (${snapshot.data!.buildNumber})',
-                                        style: textTheme.bodyMedium,
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    Const.legalLease,
-                                    style: textTheme.bodySmall!.copyWith(),
-                                  ),
-                                ],
                               ),
                             ),
                             DeviceHelper.isPortrait(context)
                                 ? const SizedBox.shrink()
                                 : Flexible(
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      runSpacing: 20,
-                                      children: [
-                                        _PageLinksWidget(
-                                          packageInfo: snapshot.data!,
-                                          iconWidget: _iconWidget,
-                                        ),
-                                        const _StoreRateWidget(),
-                                      ],
+                                    child: _PageLinksWidget(
+                                      packageInfo: snapshot.data!,
+                                      iconWidget: _iconWidget,
                                     ),
                                   ),
                           ],
@@ -220,16 +221,9 @@ class ChaboAboutScreen extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 35.0,
                                             ),
-                                            child: Wrap(
-                                              alignment: WrapAlignment.center,
-                                              runSpacing: 20,
-                                              children: [
-                                                _PageLinksWidget(
-                                                  packageInfo: snapshot.data!,
-                                                  iconWidget: _iconWidget,
-                                                ),
-                                                const _StoreRateWidget(),
-                                              ],
+                                            child: _PageLinksWidget(
+                                              packageInfo: snapshot.data!,
+                                              iconWidget: _iconWidget,
                                             ),
                                           )
                                         : const SizedBox.shrink(),
