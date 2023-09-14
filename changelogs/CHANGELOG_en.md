@@ -1,3 +1,8 @@
+# **v2.4.2** :
+
+- *Fix*:
+  - Fixed a bug that caused the display of the "About" page to crash in landscape mode
+***
 # **v2.4.1** :
 
 - *Fix*:

@@ -1,3 +1,8 @@
+# **v2.4.2** :
+
+- *Fix*:
+  - Se corrigió un error que causaba que la visualización de la página "Acerca de" fallara en modo horizontal
+***
 # **v2.4.1** :
 
 - *Arreglar*:

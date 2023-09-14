@@ -1,3 +1,8 @@
+# **v2.4.2** :
+
+- *Fix*:
+  - Correction d'un bug qui faisait planter l'affichage de la page "A propos" en mode paysage
+***
 # **v2.4.1** :
 
 - *Fix*:
