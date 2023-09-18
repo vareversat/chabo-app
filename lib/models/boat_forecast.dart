@@ -1,3 +1,4 @@
+import 'package:chabo_app/const.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
@@ -58,7 +59,10 @@ class BoatForecast extends AbstractForecast {
     bool isLeaving = false;
     final rawBoatName = json['fields']['bateau'] as String;
     final boatNames = rawBoatName.split(RegExp(r'/'));
-    for (final boatName in boatNames) {
+    for (var boatName in boatNames) {
+      if (rawBoatName == Const.specialKingCharlesBoats) {
+        boatName = '👑 $boatName 👑';
+      }
       final trimmedBoatName = boatName.trim();
       isLeaving = allBoatNames.contains(trimmedBoatName);
       boats.add(Boat(name: trimmedBoatName, isLeaving: isLeaving));
