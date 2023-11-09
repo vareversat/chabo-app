@@ -3,6 +3,7 @@ import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/widgets/forecast/forecast_widget/forecast_widget.dart';
+import 'package:chabo_app/widgets/forecast/no_more_forecasts_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +25,10 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
         return SliverToBoxAdapter(
           child: BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
             builder: (context, timeSlotState) {
+              // Check if the last forecast is before today
+              if (forecastState.noMoreForecasts) {
+                return const NoMoreForecastsWidget();
+              }
               return ListView.separated(
                 shrinkWrap: true,
                 cacheExtent: 5000,

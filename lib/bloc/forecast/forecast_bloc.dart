@@ -85,7 +85,7 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
     return [];
   }
 
-  AbstractForecast _getCurrentStatus(
+  AbstractForecast? _getCurrentStatus(
     List<AbstractForecast> forecast,
   ) {
     int middle = forecast.length ~/ 2;
@@ -94,10 +94,16 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
       return forecast[middle];
     }
     if (forecast.length == 2) {
-      return forecast[1].circulationClosingDate.isAfter(DateTime.now()) &&
-              forecast[0].circulationReOpeningDate.isBefore(DateTime.now())
-          ? forecast[1]
-          : forecast[0];
+      if (forecast[1].circulationClosingDate.isAfter(DateTime.now()) &&
+          forecast[0].circulationReOpeningDate.isBefore(DateTime.now())) {
+        return forecast[1];
+      } else {
+        if (!forecast[0].circulationReOpeningDate.isBefore(DateTime.now())) {
+          return forecast[0];
+        } else {
+          return null;
+        }
+      }
     } else if (forecast[middle]
         .circulationClosingDate
         .isAfter(DateTime.now())) {
@@ -109,8 +115,11 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
 
   AbstractForecast? _getPreviousStatus(
     List<AbstractForecast> forecasts,
-    AbstractForecast currentStatus,
+    AbstractForecast? currentStatus,
   ) {
+    if (currentStatus == null) {
+      return null;
+    }
     return forecasts.indexOf(currentStatus) == 0
         ? null
         : forecasts.elementAt(forecasts.indexOf(currentStatus) - 1);
@@ -125,11 +134,13 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
       if (state.status == ForecastStatus.initial) {
         final forecasts = await _fetchForecasts(state.offset);
         final currentStatus = _getCurrentStatus(forecasts);
+        final noMoreForecasts = currentStatus == null;
         emit(state.copyWith(
           status: ForecastStatus.success,
           forecasts: forecasts,
           currentForecast: currentStatus,
           previousForecast: _getPreviousStatus(forecasts, currentStatus),
+          noMoreForecasts: noMoreForecasts,
           hasReachedMax: false,
           offset: state.offset + Const.forecastLimit,
         ));
