@@ -1,3 +1,11 @@
+# **v2.5.0** :
+
+- *Dev*:
+  - Flutter Update
+  - Update dependencies
+- *UI*:
+  - A message is now posted to indicate that the planned bridge is no longer closed
+***
 # **v2.4.2** :
 
 - *Fix*:

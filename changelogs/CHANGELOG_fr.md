@@ -1,3 +1,11 @@
+# **v2.5.0** :
+
+- *Dev*:
+  - Mise à jour de Flutter
+  - Mise à jour des dépendances
+- *UI*:
+  - Un message est maintenant affiché pour signaler qu'il n'y a plus de fermeture du pont de prévu
+***
 # **v2.4.2** :
 
 - *Fix*:

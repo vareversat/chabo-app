@@ -1,3 +1,11 @@
+# **v2.5.0** :
+
+- *Dev*:
+  - Actualización de Flutter Series
+  - Actualización de las dependencias
+- *UI*:
+  - Ahora se muestra un mensaje para indicar que ya no hay cierre del puente previsto
+***
 # **v2.4.2** :
 
 - *Fix*:
