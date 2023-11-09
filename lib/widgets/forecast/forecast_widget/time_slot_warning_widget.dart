@@ -1,7 +1,7 @@
 part of 'forecast_widget.dart';
 
 class _TimeSlotWarningWidget extends StatelessWidget {
-  const _TimeSlotWarningWidget({Key? key}) : super(key: key);
+  const _TimeSlotWarningWidget();
 
   @override
   Widget build(BuildContext context) {

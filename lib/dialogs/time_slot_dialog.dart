@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class TimeSlotDialog extends StatelessWidget {
   final int index;
 
-  const TimeSlotDialog({Key? key, required this.index}) : super(key: key);
+  const TimeSlotDialog({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {

@@ -32,7 +32,7 @@ class ForecastWidget extends StatelessWidget {
   final Color? backgroundColor;
 
   const ForecastWidget({
-    Key? key,
+    super.key,
     required this.forecast,
     required this.index,
     required this.hasPassed,
@@ -40,7 +40,7 @@ class ForecastWidget extends StatelessWidget {
     this.onTap,
     required this.timeSlots,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ForecastScreen extends StatefulWidget {
   static const routeName = '/forecast-screen';
 
-  const ForecastScreen({Key? key}) : super(key: key);
+  const ForecastScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {

@@ -28,7 +28,7 @@ class ChaboAboutScreen extends StatelessWidget {
     ),
   );
 
-  ChaboAboutScreen({Key? key}) : super(key: key);
+  ChaboAboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

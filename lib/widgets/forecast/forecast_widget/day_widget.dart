@@ -4,9 +4,8 @@ class _DayWidget extends StatelessWidget {
   final AbstractForecast forecast;
 
   const _DayWidget({
-    Key? key,
     required this.forecast,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

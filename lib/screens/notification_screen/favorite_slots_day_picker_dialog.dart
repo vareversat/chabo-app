@@ -1,7 +1,7 @@
 part of 'notification_screen.dart';
 
 class FavoriteSlotsDayPickerDialog extends StatelessWidget {
-  const FavoriteSlotsDayPickerDialog({Key? key}) : super(key: key);
+  const FavoriteSlotsDayPickerDialog({super.key});
 
   @override
   Widget build(BuildContext context) {

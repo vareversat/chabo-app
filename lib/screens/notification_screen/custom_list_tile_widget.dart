@@ -20,7 +20,6 @@ class _CustomListTileWidget extends StatelessWidget {
   });
 
   _CustomListTileWidget({
-    Key? key,
     required this.enabled,
     this.onTap,
     this.iconColor,
@@ -29,7 +28,7 @@ class _CustomListTileWidget extends StatelessWidget {
     required this.leadingIcon,
     required this.onChanged,
     required this.constrainedBySlots,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

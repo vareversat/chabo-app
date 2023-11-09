@@ -9,7 +9,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class ChangeLogScreen extends StatefulWidget {
   static const routeName = '/changelog-screen';
 
-  const ChangeLogScreen({Key? key}) : super(key: key);
+  const ChangeLogScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {

@@ -17,7 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 part 'floating_actions_item.dart';
 
 class FloatingActionsWidget extends StatefulWidget {
-  const FloatingActionsWidget({Key? key}) : super(key: key);
+  const FloatingActionsWidget({super.key});
 
   @override
   State<StatefulWidget> createState() {

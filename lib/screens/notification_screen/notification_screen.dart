@@ -28,9 +28,9 @@ class NotificationScreen extends StatefulWidget {
   static const routeName = '/notification-screen';
 
   const NotificationScreen({
-    Key? key,
+    super.key,
     this.highlightTimeSlots,
-  }) : super(key: key);
+  });
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();

@@ -5,10 +5,9 @@ class _PageLinksWidget extends StatelessWidget {
   final Widget iconWidget;
 
   const _PageLinksWidget({
-    Key? key,
     required this.packageInfo,
     required this.iconWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

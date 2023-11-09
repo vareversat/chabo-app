@@ -4,9 +4,7 @@ class _OpeningInfoWidget extends StatelessWidget {
   final AbstractForecast forecast;
   final TimeFormat timeFormat;
 
-  const _OpeningInfoWidget(
-      {Key? key, required this.forecast, required this.timeFormat})
-      : super(key: key);
+  const _OpeningInfoWidget({required this.forecast, required this.timeFormat});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 part of 'chabo_about_screen.dart';
 
 class _WebLinksWidget extends StatelessWidget {
-  const _WebLinksWidget({Key? key}) : super(key: key);
+  const _WebLinksWidget();
 
   String _getRegionCode(BuildContext context) {
     final regionCode = Localizations.localeOf(context).languageCode;

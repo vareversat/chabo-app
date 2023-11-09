@@ -14,8 +14,8 @@ class TimeSlotWidget extends StatelessWidget {
   final TimeSlot timeSlot;
   final int index;
 
-  const TimeSlotWidget({Key? key, required this.timeSlot, required this.index})
-      : super(key: key);
+  const TimeSlotWidget(
+      {super.key, required this.timeSlot, required this.index});
 
   @override
   Widget build(BuildContext context) {

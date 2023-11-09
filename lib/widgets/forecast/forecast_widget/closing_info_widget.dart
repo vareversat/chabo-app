@@ -4,9 +4,7 @@ class _ClosingInfoWidget extends StatelessWidget {
   final AbstractForecast forecast;
   final TimeFormat timeFormat;
 
-  const _ClosingInfoWidget(
-      {Key? key, required this.forecast, required this.timeFormat})
-      : super(key: key);
+  const _ClosingInfoWidget({required this.forecast, required this.timeFormat});
 
   @override
   Widget build(BuildContext context) {

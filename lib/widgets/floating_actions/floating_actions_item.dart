@@ -7,12 +7,11 @@ class _FloatingActionsItem extends StatelessWidget {
   final Function() onPressed;
 
   const _FloatingActionsItem({
-    Key? key,
     required this.isRightHanded,
     required this.onPressed,
     required this.content,
     required this.isSpaced,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -4,9 +4,8 @@ class _LayoutWidget extends StatelessWidget {
   final StatusState statusState;
 
   const _LayoutWidget({
-    Key? key,
     required this.statusState,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

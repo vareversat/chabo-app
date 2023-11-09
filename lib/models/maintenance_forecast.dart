@@ -12,16 +12,12 @@ import 'package:intl/intl.dart';
 
 class MaintenanceForecast extends AbstractForecast {
   MaintenanceForecast({
-    required bool totalClosing,
-    required DateTime circulationClosingDate,
-    required DateTime circulationReOpeningDate,
-    required ForecastClosingType closingType,
+    required super.totalClosing,
+    required super.circulationClosingDate,
+    required super.circulationReOpeningDate,
+    required super.closingType,
   }) : super(
-          circulationClosingDate: circulationClosingDate,
-          circulationReOpeningDate: circulationReOpeningDate,
           closingReason: ForecastClosingReason.maintenance,
-          closingType: closingType,
-          totalClosing: totalClosing,
         );
 
   factory MaintenanceForecast.fromJSON(Map<String, dynamic> json) {

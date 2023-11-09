@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 //ignore: prefer-match-file-name
 class BottomToTopPageRoute<T> extends MaterialPageRoute<T> {
   BottomToTopPageRoute({
-    required WidgetBuilder builder,
-    RouteSettings? settings,
-  }) : super(builder: builder, settings: settings);
+    required super.builder,
+    super.settings,
+  });
 
   @override
   Widget buildTransitions(

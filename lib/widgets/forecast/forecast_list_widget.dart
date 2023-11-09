@@ -80,7 +80,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
 class _MonthWidget extends StatelessWidget {
   final AbstractForecast forecast;
 
-  const _MonthWidget({Key? key, required this.forecast}) : super(key: key);
+  const _MonthWidget({required this.forecast});
 
   @override
   Widget build(BuildContext context) {

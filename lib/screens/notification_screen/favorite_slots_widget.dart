@@ -5,10 +5,9 @@ class _FavoriteSlotsWidget extends StatefulWidget {
   final bool timeSlotsEnabledForNotifications;
 
   const _FavoriteSlotsWidget({
-    Key? key,
     required this.highlightTimeSlots,
     required this.timeSlotsEnabledForNotifications,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {

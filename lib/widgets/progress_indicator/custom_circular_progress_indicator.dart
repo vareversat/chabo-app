@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class CustomCircularProgressIndicator extends StatelessWidget {
   final String message;
 
-  const CustomCircularProgressIndicator({Key? key, required this.message})
-      : super(key: key);
+  const CustomCircularProgressIndicator({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

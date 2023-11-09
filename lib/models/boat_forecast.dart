@@ -19,18 +19,14 @@ class BoatForecast extends AbstractForecast {
   static final List<String> allBoatNames = [];
 
   BoatForecast({
-    required bool totalClosing,
-    required DateTime circulationClosingDate,
-    required DateTime circulationReOpeningDate,
+    required super.totalClosing,
+    required super.circulationClosingDate,
+    required super.circulationReOpeningDate,
     required this.boats,
-    required ForecastClosingType closingType,
+    required super.closingType,
   })  : assert(boats.isNotEmpty),
         super(
-          circulationClosingDate: circulationClosingDate,
-          circulationReOpeningDate: circulationReOpeningDate,
           closingReason: ForecastClosingReason.boat,
-          closingType: closingType,
-          totalClosing: totalClosing,
         );
 
   factory BoatForecast.fromJSON(Map<String, dynamic> json) {

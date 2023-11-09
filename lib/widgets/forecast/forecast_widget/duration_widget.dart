@@ -4,9 +4,8 @@ class _DurationWidget extends StatelessWidget {
   final AbstractForecast forecast;
 
   const _DurationWidget({
-    Key? key,
     required this.forecast,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

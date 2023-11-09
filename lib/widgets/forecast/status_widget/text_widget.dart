@@ -4,9 +4,8 @@ class _TextWidget extends StatelessWidget {
   final StatusState statusState;
 
   const _TextWidget({
-    Key? key,
     required this.statusState,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

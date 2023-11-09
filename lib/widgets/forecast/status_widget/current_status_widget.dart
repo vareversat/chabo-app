@@ -3,8 +3,7 @@ part of 'status_widget.dart';
 class _CurrentStatusWidget extends StatelessWidget {
   final StatusState statusState;
 
-  const _CurrentStatusWidget({Key? key, required this.statusState})
-      : super(key: key);
+  const _CurrentStatusWidget({required this.statusState});
 
   @override
   Widget build(BuildContext context) {

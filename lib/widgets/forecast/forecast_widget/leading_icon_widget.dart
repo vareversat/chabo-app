@@ -5,10 +5,9 @@ class _LeadingIconWidget extends StatelessWidget {
   final Color? backgroundColor;
 
   const _LeadingIconWidget({
-    Key? key,
     required this.forecast,
     required this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

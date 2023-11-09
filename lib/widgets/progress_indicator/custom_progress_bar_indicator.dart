@@ -7,11 +7,11 @@ class CustomProgressBarIndicator extends StatelessWidget {
   final Color color;
 
   const CustomProgressBarIndicator({
-    Key? key,
+    super.key,
     required this.max,
     required this.current,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

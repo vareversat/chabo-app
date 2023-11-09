@@ -4,9 +4,8 @@ class _ProgressIndicatorWidget extends StatelessWidget {
   final StatusState statusState;
 
   const _ProgressIndicatorWidget({
-    Key? key,
     required this.statusState,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -24,10 +24,10 @@ class Chabo extends StatelessWidget {
   final NotificationService notificationService;
 
   const Chabo({
-    Key? key,
+    super.key,
     required this.storageService,
     required this.notificationService,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
