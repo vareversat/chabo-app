@@ -5,6 +5,7 @@ class ForecastState extends Equatable {
   final List<AbstractForecast> forecasts;
   final AbstractForecast? currentForecast;
   final AbstractForecast? previousForecast;
+  final bool noMoreForecasts;
   final bool hasReachedMax;
   final int offset;
   final String message;
@@ -17,6 +18,7 @@ class ForecastState extends Equatable {
     this.hasReachedMax = false,
     this.offset = 0,
     this.message = 'OK',
+    this.noMoreForecasts = false,
   });
 
   ForecastState copyWith({
@@ -24,6 +26,7 @@ class ForecastState extends Equatable {
     List<AbstractForecast>? forecasts,
     AbstractForecast? currentForecast,
     AbstractForecast? previousForecast,
+    bool? noMoreForecasts,
     bool? hasReachedMax,
     int? offset,
     String? message,
@@ -33,6 +36,7 @@ class ForecastState extends Equatable {
       forecasts: forecasts ?? this.forecasts,
       currentForecast: currentForecast ?? this.currentForecast,
       previousForecast: previousForecast ?? this.previousForecast,
+      noMoreForecasts: noMoreForecasts ?? this.noMoreForecasts,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       offset: offset ?? this.offset,
       message: message ?? this.message,

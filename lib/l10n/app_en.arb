@@ -223,5 +223,7 @@
   "wineFestivalSailBoats": "Wine Festival Sailboats",
   "externalLinks": "External links",
   "rate": "Rate",
-  "timeFormatSubTitle": "Time format"
+  "timeFormatSubTitle": "Time format",
+  "noMoreForecastsTitle": "No upcoming events",
+  "noMoreForecastsMessage": "Bordeaux Métropole has not communicated any closure of the Chaban-Delmas Bridge for the coming weeks.\nStay informed of upcoming closures by returning here regularly"
 }

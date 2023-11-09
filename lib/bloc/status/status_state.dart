@@ -89,7 +89,7 @@ class StatusStateInitial extends StatusState {
           durationUntilNextEvent: Duration.zero,
           durationBetweenPreviousAndNextEvent: null,
           durationForCloseClosing: Const.notificationDurationValueDefaultValue,
-          statusLifecycle: StatusLifecycle.empty,
+          statusLifecycle: StatusLifecycle.loading,
           completionPercentage: 0,
           mainMessageStatus: '',
           timeMessagePrefix: '',
@@ -99,6 +99,6 @@ class StatusStateInitial extends StatusState {
         );
 }
 
-enum StatusLifecycle { empty, populated }
+enum StatusLifecycle { empty, populated, loading }
 
 enum StatusWidgetDimension { small, large }

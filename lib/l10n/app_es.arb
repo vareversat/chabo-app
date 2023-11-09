@@ -223,5 +223,7 @@
   "wineFestivalSailBoats": "Veleros de la Fiesta del Vino",
   "externalLinks": "Enlaces externos",
   "rate": "Califica",
-  "timeFormatSubTitle": "Formato de hora"
+  "timeFormatSubTitle": "Formato de hora",
+  "noMoreForecastsTitle": "Ningún acontecimiento por venir",
+  "noMoreForecastsMessage": "Bordeaux Métropole no ha comunicado ningún cierre del Puente Chaban-Delmas para las próximas semanas.\nManténgase informado de los próximos cierres volviendo aquí regularmente"
 }

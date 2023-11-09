@@ -65,7 +65,7 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
               child: child,
             );
           },
-          child: state.statusLifecycle == StatusLifecycle.empty
+          child: state.statusLifecycle == StatusLifecycle.loading
               ? CustomCircularProgressIndicator(
                   message: AppLocalizations.of(context)!.statusLoadMessage,
                 )

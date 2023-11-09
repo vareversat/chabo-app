@@ -20,6 +20,14 @@ class MaintenanceForecast extends AbstractForecast {
           closingReason: ForecastClosingReason.maintenance,
         );
 
+  factory MaintenanceForecast.fake() {
+    return MaintenanceForecast(
+        totalClosing: true,
+        circulationClosingDate: DateTime.now(),
+        circulationReOpeningDate: DateTime.now(),
+        closingType: ForecastClosingType.complete);
+  }
+
   factory MaintenanceForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone = AbstractForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractForecast.parseFieldDate(

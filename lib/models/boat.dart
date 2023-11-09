@@ -18,6 +18,10 @@ class Boat extends Equatable {
     isWineFestivalSailBoats = name == Const.specialWineFestivalBoatsEvent;
   }
 
+  factory Boat.fake() {
+    return Boat(name: 'fake', isLeaving: true);
+  }
+
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }

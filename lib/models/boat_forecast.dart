@@ -29,6 +29,15 @@ class BoatForecast extends AbstractForecast {
           closingReason: ForecastClosingReason.boat,
         );
 
+  factory BoatForecast.fake() {
+    return BoatForecast(
+        totalClosing: true,
+        circulationClosingDate: DateTime.now(),
+        circulationReOpeningDate: DateTime.now(),
+        boats: [Boat.fake()],
+        closingType: ForecastClosingType.complete);
+  }
+
   factory BoatForecast.fromJSON(Map<String, dynamic> json) {
     var apiTimezone = AbstractForecast.getApiTimeZone(json['record_timestamp']);
     var closingDate = AbstractForecast.parseFieldDate(

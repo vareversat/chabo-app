@@ -22,9 +22,10 @@ class _LayoutWidget extends StatelessWidget {
                   statusState: statusState,
                 ),
               ),
-              _ProgressIndicatorWidget(
-                statusState: statusState,
-              ),
+              if (statusState.currentForecast != null)
+                _ProgressIndicatorWidget(
+                  statusState: statusState,
+                ),
               const SizedBox(
                 height: 10,
               ),

@@ -113,7 +113,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         return Theme.of(context).colorScheme.error;
       }
     } else {
-      return state.backgroundColor;
+      return Theme.of(context).colorScheme.okColor;
     }
   }
 
@@ -129,7 +129,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
           ? colorScheme.background
           : colorScheme.onError;
     } else {
-      return state.foregroundColor;
+      return Theme.of(context).colorScheme.background;
     }
   }
 
@@ -140,7 +140,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
           ? '${AppLocalizations.of(context)!.scheduledToOpen.capitalize()} '
           : '${AppLocalizations.of(context)!.nextClosingScheduled.capitalize()} ';
     } else {
-      return 'NO_TIME';
+      return '';
     }
   }
 
@@ -162,7 +162,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
           : AppLocalizations.of(context)!.willSoonClose.capitalize();
     } else {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}'
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}'
           : AppLocalizations.of(context)!.isClosed.capitalize();
     }
   }
