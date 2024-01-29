@@ -1,3 +1,8 @@
+# **v2.5.1** :
+
+- *Fix*:
+  - Las notificaciones ahora se muestran correctamente.
+***
 # **v2.5.0** :
 
 - *Dev*:

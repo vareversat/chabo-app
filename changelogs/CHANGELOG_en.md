@@ -1,3 +1,8 @@
+# **v2.5.1** :
+
+- *Fix*:
+  - Notifications are now displayed correctly.
+***
 # **v2.5.0** :
 
 - *Dev*:
