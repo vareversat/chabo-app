@@ -31,7 +31,7 @@ platform :android do
     end
 
     desc "Upload to Play Store : Promote track"
-    lane :track_promotion do
+    lane :track_promotion do |options|
         upload_to_play_store(
             track: options[:origin_track],
             track_promote_to: options[:destination_track]
