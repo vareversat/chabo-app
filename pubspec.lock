@@ -377,10 +377,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_mobile_ads
-      sha256: "7b8915f0ad358f49ba7d547b5187204cfe72ca668fb83aa303f96a2eacdc4033"
+      sha256: d2ef5ec1e1f31137fc241bdeab3037c31062d387dd221fd884fb1160444c788b
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "4.0.0"
   http:
     dependency: "direct main"
     description:
@@ -409,10 +409,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "004a2e90ce080f8627b5a04aecb4cdfac87d2c3f3b520aa291260be5a32c033d"
+      sha256: "49a0d4b0c12402853d3f227fe7c315601b238d126aa4caa5dbb2dcf99421aa4a"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.4"
+    version: "4.1.6"
   in_app_review:
     dependency: "direct main"
     description:
@@ -689,18 +689,18 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "5686ed515bb620dc52b4ae99a6586fe720d443591183cf1f620ec5d1f0eec100"
+      sha256: a7946f4a90b0feb47214981d881b98149e05f6c576da9f2a2f33945bf561de25
       url: "https://pub.dev"
     source: hosted
-    version: "7.15.0"
+    version: "7.16.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "505dec3b6810562785d2c34ae871c73ff2cba6cf436c32c188f0464df226ba8f"
+      sha256: "6db7fa1b076faf2f5dd77d8cc9ef206171f32a290cc638842d78e5d62b441a27"
       url: "https://pub.dev"
     source: hosted
-    version: "7.15.0"
+    version: "7.16.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -994,14 +994,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  visibility_detector:
-    dependency: transitive
-    description:
-      name: visibility_detector
-      sha256: dd5cc11e13494f432d15939c3aa8ae76844c42b723398643ce9addb88a5ed420
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0+2"
   vm_service:
     dependency: transitive
     description:
@@ -1046,10 +1038,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter
-      sha256: "71e1bfaef41016c8d5954291df5e9f8c6172f1f6ff3af01b5656456ddb11f94c"
+      sha256: d81b68e88cc353e546afb93fb38958e3717282c5ac6e5d3be4a4aef9fc3c1413
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.4"
+    version: "4.5.0"
   webview_flutter_android:
     dependency: transitive
     description:
