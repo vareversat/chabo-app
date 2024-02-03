@@ -23,10 +23,14 @@ jobs:
     name: 'Play Store'
     runs-on: ubuntu-latest
     steps:
+      - name: 'Checkout source code'
+        uses: actions/checkout@v4
       - name: 'Decrypt secret configuration'
         run: ./.github/scripts/decrypt_secret.sh
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      - name: 'Check secret configuration'
+        run: ./.github/scripts/check_secrets_decryption.sh
       - name: 'Fastlane promote ${{ inputs.origin_track }} to ${{ inputs.destination_track }}'
         uses: maierj/fastlane-action@v3.0.0
         with:
