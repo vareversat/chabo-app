@@ -29,4 +29,12 @@ platform :android do
             aab: "#{root_path}/app-release.aab"
         )
     end
+
+    desc "Upload to Play Store : Promote track"
+    lane :track_promotion do
+        upload_to_play_store(
+            track: options[:origin_track],
+            track_promote_to: options[:destination_track]
+        )
+    end
 end
