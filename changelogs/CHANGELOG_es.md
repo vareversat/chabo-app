@@ -1,3 +1,8 @@
+# **v2.5.2** :
+
+- *Fix*:
+  - Notifications are now displayed correctly (de verdad).
+***
 # **v2.5.1** :
 
 - *Fix*:
