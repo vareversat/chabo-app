@@ -1,0 +1,37 @@
+name: Fastlane - Track promotion
+
+on:
+  workflow_dispatch:
+    inputs:
+      origin_track:
+        description: 'Origin track of the promotion'
+        required: true
+        default: 'beta'
+        type: choice
+        options:
+          - beta
+      destination_track:
+        description: 'Destination track of the promotion'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+
+jobs:
+  play_store:
+    name: 'Play Store'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Decrypt secret configuration'
+        run: ./.github/scripts/decrypt_secret.sh
+        env:
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      - name: 'Fastlane promote ${{ inputs.origin_track }} to ${{ inputs.destination_track }}'
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: track_promotion
+          options: '{ "origin_track": "${{ inputs.origin_track }}", "destination_track": "${{ inputs.destination_track }}" }'
+          subdirectory: 'android'
+        env:
+          SUPPLY_UPLOAD_MAX_RETRIES: 5
