@@ -39,7 +39,7 @@ jobs:
         env:
           BUNDLE_GEMFILE: 'android/Gemfile'
       - name: 'Fastlane promote ${{ inputs.origin_track }} to ${{ inputs.destination_track }}'
-        uses: maierj/fastlane-action@v3.0.0
+        uses: maierj/fastlane-action@v3.1.0
         with:
           lane: track_promotion
           options: '{ "origin_track": "${{ inputs.origin_track }}", "destination_track": "${{ inputs.destination_track }}" }'
