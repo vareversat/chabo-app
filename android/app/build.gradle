@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "fr.vareversat.chabo"
 
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     lintOptions {
         disable 'InvalidPackage'
@@ -50,7 +50,7 @@ android {
         multiDexEnabled true // https://pub.dev/packages/flutter_local_notifications/
         applicationId "fr.vareversat.chabo"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
