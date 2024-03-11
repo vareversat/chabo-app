@@ -65,7 +65,7 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
       );
     }
 
-    // ignore: use_build_context_synchronously
+    if (!targetContext.mounted) return;
     Scrollable.ensureVisible(
       targetContext,
       duration: const Duration(seconds: 1),
