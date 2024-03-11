@@ -10,8 +10,7 @@ jobs:
     uses: ./.github/workflows/flutter.analyze-test.action.yaml
     with:
       flutter_version: '3.19.3'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
+    secrets: inherit
   flutter-build:
     needs: [flutter-test-analyze]
     uses: ./.github/workflows/flutter.build.action.yaml
@@ -19,13 +18,10 @@ jobs:
       flutter_version: '3.19.3'
       android_output: 'aab'
       env: 'beta'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
-      sentry_dsn: ${{ secrets.SENTRY_DSN }}
+    secrets: inherit
   fastlane:
     needs: [flutter-build]
     uses: ./.github/workflows/fastlane.action.yaml
     with:
       lane: 'beta'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
+    secrets: inherit
