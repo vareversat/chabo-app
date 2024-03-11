@@ -10,8 +10,7 @@ jobs:
     uses: ./.github/workflows/flutter.analyze-test.action.yaml
     with:
       flutter_version: '3.19.3'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
+    secrets: inherit
   page:
     uses: ./.github/workflows/pages.deploy.yaml
   flutter-build:
@@ -21,13 +20,10 @@ jobs:
       flutter_version: '3.19.3'
       android_output: 'aab'
       env: 'dev'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
-      sentry_dsn: ${{ secrets.SENTRY_DSN }}
+    secrets: inherit
   fastlane-dry-run:
     needs: [ flutter-build ]
     uses: ./.github/workflows/fastlane.action.yaml
     with:
       lane: 'dry_run'
-    secrets:
-      passphrase: ${{ secrets.PASSPHRASE }}
+    secrets: inherit

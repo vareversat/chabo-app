@@ -15,13 +15,6 @@ on:
         description: 'Environment in which the application will be build'
         required: true
         type: string
-    secrets:
-      passphrase:
-        description: 'The passphrase to decrypt the configuration'
-        required: true
-      sentry_dsn:
-        description: 'Secret URL to send live info to sentry tenant'
-        required: true
 
 
 jobs:
@@ -36,7 +29,7 @@ jobs:
       - name: 'Decrypt secret configuration'
         run: ./.github/scripts/decrypt_secret.sh
         env:
-          PASSPHRASE: ${{ secrets.passphrase }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: 'Check secret configuration'
         run: ./.github/scripts/check_secrets_decryption.sh
       - name: 'Set up JAVA'
@@ -70,7 +63,7 @@ jobs:
         run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
-          SENTRY_DSN: ${{ secrets.sentry_dsn }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           ENV: ${{ inputs.env }}
       - name: 'Save AAB'
         if: ${{ inputs.android_output == 'aab' }}
@@ -87,7 +80,7 @@ jobs:
       - name: 'Decrypt secret configuration'
         run: ./.github/scripts/decrypt_secret.sh
         env:
-          PASSPHRASE: ${{ secrets.passphrase }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: 'Check secret configuration'
         run: ./.github/scripts/check_secrets_decryption.sh
       - name: '🥺'
@@ -101,7 +94,7 @@ jobs:
       - name: 'Decrypt secret configuration'
         run: ./.github/scripts/decrypt_secret.sh
         env:
-          PASSPHRASE: ${{ secrets.passphrase }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: 'Check secret configuration'
         run: ./.github/scripts/check_secrets_decryption.sh
       - name: '🥺'
