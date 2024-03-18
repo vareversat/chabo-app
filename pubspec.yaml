@@ -51,7 +51,6 @@ flutter:
   assets:
     - assets/images/
     - assets/licenses/
-    - changelogs/
 
 flutter_icons:
   android: true
