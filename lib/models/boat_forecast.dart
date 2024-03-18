@@ -178,18 +178,17 @@ class BoatForecast extends AbstractForecast {
       ),
     ];
     for (int i = 0; i < boats.length; i++) {
-      icons.add(Positioned(
-        right: boats[i].isLeaving ? 0 : 45,
-        top: boats.length == 1 ? 4 : i * 15,
-        child: RotatedBox(
-          quarterTurns: boats[i].isLeaving ? 0 : 2,
+      icons.add(
+        Positioned(
+          right: boats[i].isLeaving ? 0 : 45,
+          top: boats.length == 1 ? 4 : i * 15,
           child: Icon(
             Icons.double_arrow_rounded,
             color: getColor(context, reversed),
             size: boats.length == 1 ? 19 : 15,
           ),
         ),
-      ));
+      );
     }
 
     return icons;
