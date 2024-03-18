@@ -27,8 +27,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: 'aab-build'
-      - name: 'Generate changelog'
-        run: ./.github/scripts/generate_changelog.sh
       - name: 'Setup Ruby'
         uses: ruby/setup-ruby@v1.172.0
         with:
@@ -43,9 +41,3 @@ jobs:
           subdirectory: 'android'
         env:
           SUPPLY_UPLOAD_MAX_RETRIES: 5
-      - name: 'Generate Github release'
-        # Only run on new tag
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          body_path: ${{ env.CHANGELOG_PATH_EN_US }}

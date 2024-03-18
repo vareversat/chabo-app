@@ -25,14 +25,12 @@ class _PageLinksWidget extends StatelessWidget {
               colorScheme.onSecondaryContainer,
             ),
           ),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ChangeLogScreen(),
-              settings: const RouteSettings(
-                name: ChangeLogScreen.routeName,
-              ),
-            ),
-          ),
+          onPressed: () => {
+            launchUrlString(
+              Const.releaseUrl.replaceAll('%', packageInfo.version),
+              mode: LaunchMode.externalApplication,
+            )
+          },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

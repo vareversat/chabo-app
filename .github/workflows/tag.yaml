@@ -19,6 +19,9 @@ jobs:
       android_output: 'aab'
       env: 'beta'
     secrets: inherit
+  release:
+    needs: [ flutter-build ]
+    uses: ./.github/workflows/action.release.yaml
   fastlane:
     needs: [flutter-build]
     uses: ./.github/workflows/fastlane.action.yaml
