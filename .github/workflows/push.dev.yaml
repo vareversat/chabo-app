@@ -7,15 +7,15 @@ on:
 
 jobs:
   flutter-test-analyze:
-    uses: ./.github/workflows/flutter.analyze-test.action.yaml
+    uses: ./.github/workflows/action.flutter.analyze-test.yaml
     with:
       flutter_version: '3.19.3'
     secrets: inherit
   page:
-    uses: ./.github/workflows/pages.deploy.yaml
+    uses: ./.github/workflows/action.pages.deploy.yaml
   flutter-build:
-    needs: [flutter-test-analyze]
-    uses: ./.github/workflows/flutter.build.action.yaml
+    needs: [ flutter-test-analyze ]
+    uses: ./.github/workflows/action.flutter.build.yaml
     with:
       flutter_version: '3.19.3'
       android_output: 'aab'
@@ -23,7 +23,7 @@ jobs:
     secrets: inherit
   fastlane-dry-run:
     needs: [ flutter-build ]
-    uses: ./.github/workflows/fastlane.action.yaml
+    uses: ./.github/workflows/action.fastlane.yaml
     with:
       lane: 'dry_run'
     secrets: inherit
