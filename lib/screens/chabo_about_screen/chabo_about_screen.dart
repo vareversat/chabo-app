@@ -4,13 +4,13 @@ import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/misc/no_scaling_animation.dart';
-import 'package:chabo_app/screens/changelog_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 part 'page_links_widget.dart';
 part 'store_rate_widget.dart';
