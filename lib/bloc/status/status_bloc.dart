@@ -162,7 +162,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
           : AppLocalizations.of(context)!.willSoonClose.capitalize();
     } else {
       return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}'
+          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}'
           : AppLocalizations.of(context)!.isClosed.capitalize();
     }
   }
