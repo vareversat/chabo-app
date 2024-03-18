@@ -14,9 +14,6 @@ class Const {
   static const int forecastLimit = 1000;
 
   /// Paths
-  static const String changelogPlaceholder = ':lang:';
-  static const String changelogPath =
-      'changelogs/CHANGELOG_$changelogPlaceholder.md';
   static const String appLogoPath = 'assets/images/chabo_icon.png';
   static const String oflLicensePath = 'assets/licenses/OFL.txt';
 
@@ -28,6 +25,8 @@ class Const {
   static const String privacyInfoLink = 'https://chabo.vareversat.fr/privacy';
   static const String bordeauxWineFestivalSailingShipLink =
       'https://www.bordeaux-fete-le-vin.com/la-fete-sur-les-quais/grands-voiliers.html';
+  static const String releaseUrl =
+      'https://github.com/vareversat/chabo-app/releases/tag/v%';
 
   static List<WebLinkIcon> usefulLinks = [
     WebLinkIcon(
