@@ -46,4 +46,4 @@ jobs:
           name: '${{ github.ref_name }} 🚀'
           body_path: CHANGELOG.md
           files: |
-            *.abb
+            *.aab
