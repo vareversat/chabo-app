@@ -43,7 +43,7 @@ jobs:
       - name: 'Generate Github release'
         uses: softprops/action-gh-release@v2
         with:
-          name: '${{ github.ref_name }}) 🚀'
-          body_path: changelog/CHANGELOG.md
+          name: '${{ github.ref_name }} 🚀'
+          body_path: CHANGELOG.md
           files: |
-            aab-build/*
+            *.abb
