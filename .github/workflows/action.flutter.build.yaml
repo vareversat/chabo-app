@@ -44,7 +44,7 @@ jobs:
       - name: 'Generate build number'
         run: |
           BUILD_NUMBER=$(git rev-list --all --count)
-          BUILD_NAME=$(git describe --abbrev=0)
+          BUILD_NAME=$(git describe --abbrev=0 --tags)
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
           echo "This build is tagged as $BUILD_NAME+$BUILD_NUMBER on $GITHUB_REF"
