@@ -27,7 +27,7 @@ dependencies:
   google_mobile_ads: ^5.0.0
   http: ^1.0.0
   intl: ^0.18.0
-  package_info_plus: ^5.0.0
+  package_info_plus: ^7.0.0
   shared_preferences: ^2.0.17
   stream_transform: ^2.0.0
   timezone: ^0.9.1
