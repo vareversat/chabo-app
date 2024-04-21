@@ -1,4 +1,4 @@
-name: Main workflow
+name: Production Tag workflow
 
 on:
   push:

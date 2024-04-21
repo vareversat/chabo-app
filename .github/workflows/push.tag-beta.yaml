@@ -1,4 +1,4 @@
-name: Tag workflow
+name: Beta Tag workflow
 
 on:
   push:
