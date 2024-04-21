@@ -18,7 +18,7 @@ on:
 
 
 jobs:
-  build_android:
+  Android:
     name: 'Android (${{ inputs.android_output }})'
     runs-on: ubuntu-latest
     steps:
@@ -41,28 +41,32 @@ jobs:
         uses: subosito/flutter-action@v2.16.0
         with:
           flutter-version: ${{ inputs.flutter_version }}
+      - name: 'Generate build number'
+        run: |
+          BUILD_NUMBER=$(git rev-list --all --count)
+          BUILD_NAME=$(git describe --abbrev=0)
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+          echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
+          echo "This build is tagged as $BUILD_NAME+$BUILD_NUMBER on $GITHUB_REF"
       - name: 'Build Android APK'
         if: ${{ inputs.android_output == 'apk' }}
-        # Build APK version of the app
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --build-name="$BUILD_NAME" --build-number="$BUILD_NUMBER" --split-per-abi
+        env:
+          BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
+          BUILD_NAME: ${{ env.BUILD_NAME }}
+          ENV: ${{ inputs.env }}
       - name: 'Save APK'
         if: ${{ inputs.android_output == 'apk' }}
         uses: actions/upload-artifact@v4
         with:
           name: 'apk-build'
           path: build/app/outputs/apk/release/app-arm64-v8a-release.apk
-      - name: 'Generate build number'
-        if: ${{ inputs.android_output == 'aab' }}
-        # Build App Bundle version of the app
-        run: |
-          BUILD_NUMBER=$(git rev-list --all --count)
-          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
-          echo "This build is tagged as $BUILD_NUMBER on $GITHUB_REF"
       - name: 'Build Android App Bundle'
         if: ${{ inputs.android_output == 'aab' }}
-        run: flutter build appbundle --build-number="$BUILD_NUMBER" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=ENV="$ENV"
+        run: flutter build appbundle --build-name="$BUILD_NAME" --build-number="$BUILD_NUMBER" --dart-define=SENTRY_DSN="$SENTRY_DSN" --dart-define=ENV="$ENV"
         env:
           BUILD_NUMBER: ${{ env.BUILD_NUMBER }}
+          BUILD_NAME: ${{ env.BUILD_NAME }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           ENV: ${{ inputs.env }}
       - name: 'Save AAB'
