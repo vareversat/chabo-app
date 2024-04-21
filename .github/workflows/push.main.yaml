@@ -15,17 +15,19 @@ jobs:
     with:
       flutter_version: '3.19.3'
     secrets: inherit
+  page:
+    uses: ./.github/workflows/action.pages.deploy.yaml
   flutter-build:
     needs: [ flutter-test-analyze ]
     uses: ./.github/workflows/action.flutter.build.yaml
     with:
       flutter_version: '3.19.3'
       android_output: 'aab'
-      env: 'prd'
+      env: 'dev'
     secrets: inherit
-  fastlane:
+  fastlane-dry-run:
     needs: [ flutter-build ]
     uses: ./.github/workflows/action.fastlane.yaml
     with:
-      lane: 'prd'
+      lane: 'dry_run'
     secrets: inherit

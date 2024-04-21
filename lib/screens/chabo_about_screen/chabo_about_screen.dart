@@ -30,6 +30,14 @@ class ChaboAboutScreen extends StatelessWidget {
 
   ChaboAboutScreen({super.key});
 
+  String _formatBetaVersion(String versionCode) {
+    if (versionCode.contains('beta')) {
+      return "${versionCode.split('-')[0]}-β";
+    } else {
+      return versionCode;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -143,7 +151,7 @@ class ChaboAboutScreen extends StatelessWidget {
                                                     ),
                                               ),
                                               Text(
-                                                ' | v${snapshot.data!.version} (${snapshot.data!.buildNumber})',
+                                                ' | v${_formatBetaVersion(snapshot.data!.version)} (${snapshot.data!.buildNumber})',
                                                 style: textTheme.bodyMedium,
                                               ),
                                             ],
