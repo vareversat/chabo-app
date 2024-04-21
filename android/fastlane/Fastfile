@@ -23,7 +23,7 @@ platform :android do
     end
 
     desc "Upload to Play Store : Production track"
-    lane :prd do
+    lane :production do
         upload_to_play_store(
             track: 'production',
             aab: "#{root_path}/app-release.aab"

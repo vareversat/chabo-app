@@ -21,7 +21,7 @@ jobs:
     with:
       flutter_version: '3.19.3'
       android_output: 'aab'
-      env: 'prd'
+      env: 'production'
     secrets: inherit
   release:
     needs: [ flutter-build ]
@@ -32,5 +32,5 @@ jobs:
     needs: [ flutter-build ]
     uses: ./.github/workflows/action.fastlane.yaml
     with:
-      lane: 'prd'
+      lane: 'production'
     secrets: inherit
