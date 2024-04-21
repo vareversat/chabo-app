@@ -151,7 +151,7 @@ class ChaboAboutScreen extends StatelessWidget {
                                                     ),
                                               ),
                                               Text(
-                                                ' | v${_formatBetaVersion(snapshot.data!.version)} (${snapshot.data!.buildNumber})',
+                                                ' | ${_formatBetaVersion(snapshot.data!.version)} (${snapshot.data!.buildNumber})',
                                                 style: textTheme.bodyMedium,
                                               ),
                                             ],
