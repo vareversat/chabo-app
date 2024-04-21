@@ -2,6 +2,11 @@ name: Action - Release
 
 on:
   workflow_call:
+    inputs:
+      is_a_prerelease:
+        description: 'Specify if this need to be tagged as a pre-release version'
+        required: true
+        type: boolean
 
 jobs:
   changelog:
@@ -43,6 +48,7 @@ jobs:
       - name: 'Generate Github release'
         uses: softprops/action-gh-release@v2
         with:
+          prerelease: ${{ inputs.is_a_prerelease }}
           name: '${{ github.ref_name }} 🚀'
           body_path: CHANGELOG.md
           files: |

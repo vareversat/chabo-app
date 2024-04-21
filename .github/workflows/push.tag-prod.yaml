@@ -1,13 +1,9 @@
-name: Dev workflow
+name: Main workflow
 
 on:
   push:
-    branches:
-      - dev
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+$'
 
 jobs:
   flutter-test-analyze:
@@ -15,19 +11,22 @@ jobs:
     with:
       flutter_version: '3.19.3'
     secrets: inherit
-  page:
-    uses: ./.github/workflows/action.pages.deploy.yaml
   flutter-build:
     needs: [ flutter-test-analyze ]
     uses: ./.github/workflows/action.flutter.build.yaml
     with:
       flutter_version: '3.19.3'
       android_output: 'aab'
-      env: 'dev'
+      env: 'prd'
     secrets: inherit
-  fastlane-dry-run:
+  release:
+    needs: [ flutter-build ]
+    uses: ./.github/workflows/action.release.yaml
+    with:
+      is_a_prerelease: false
+  fastlane:
     needs: [ flutter-build ]
     uses: ./.github/workflows/action.fastlane.yaml
     with:
-      lane: 'dry_run'
+      lane: 'prd'
     secrets: inherit
