@@ -67,7 +67,7 @@ class _PageLinksWidget extends StatelessWidget {
               context: context,
               applicationName: packageInfo.appName,
               applicationVersion:
-                  'v${packageInfo.version}+${packageInfo.buildNumber}',
+                  '${packageInfo.version}+${packageInfo.buildNumber}',
               applicationIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IconTheme(
