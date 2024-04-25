@@ -43,7 +43,7 @@ jobs:
           flutter-version: ${{ inputs.flutter_version }}
       - name: 'Generate build number'
         run: |
-          BUILD_NUMBER=$(git rev-list --all --count)
+          BUILD_NUMBER=$(date +%s)
           BUILD_NAME=$(git describe --abbrev=0 --tags)
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
