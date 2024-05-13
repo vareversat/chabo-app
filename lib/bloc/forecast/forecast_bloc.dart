@@ -68,7 +68,7 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
       final body = json.decode(response.body);
 
       return (body['records'] as List).map((json) {
-        if (json['fields']['bateau'].toString().toLowerCase() ==
+        if (json['fields']['bateaux'].toString().toLowerCase() ==
             'maintenance') {
           final maintenanceForecast = MaintenanceForecast.fromJSON(json);
 
