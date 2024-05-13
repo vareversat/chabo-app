@@ -40,11 +40,11 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
           );
         }
       }
-    } catch (_) {
+    } catch (e) {
       // ignore: invalid_use_of_visible_for_testing_member
       emit(state.copyWith(
         status: ForecastStatus.failure,
-        message: _.toString(),
+        message: e.toString(),
       ));
     }
   }
@@ -163,10 +163,10 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
                 offset: state.offset + Const.forecastLimit,
               ),
       );
-    } catch (_) {
+    } catch (e) {
       emit(state.copyWith(
         status: ForecastStatus.failure,
-        message: _.toString(),
+        message: e.toString(),
       ));
     }
   }
