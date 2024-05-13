@@ -139,38 +139,7 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           height: 20,
                         ),
                         _CustomListTileWidget(
-                          onTap: () {
-                            showTimePicker(
-                              initialEntryMode: TimePickerEntryMode.dial,
-                              context: context,
-                              initialTime: notificationState
-                                  .durationNotificationValue
-                                  .durationToTimeOfDay(),
-                              builder: (BuildContext context, Widget? child) {
-                                return MediaQuery(
-                                  data: MediaQuery.of(context).copyWith(
-                                    alwaysUse24HourFormat: true,
-                                  ),
-                                  child: child!,
-                                );
-                              },
-                            ).then(
-                              (value) => {
-                                if (value != null)
-                                  {
-                                    BlocProvider.of<NotificationBloc>(context)
-                                        .add(
-                                      DurationNotificationValueEvent(
-                                        duration: Duration(
-                                          hours: value.hour,
-                                          minutes: value.minute,
-                                        ),
-                                      ),
-                                    ),
-                                  },
-                              },
-                            );
-                          },
+                          onTap: null,
                           onChanged: (bool value) =>
                               BlocProvider.of<NotificationBloc>(context).add(
                             DurationNotificationStateEvent(
