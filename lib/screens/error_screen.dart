@@ -48,7 +48,7 @@ class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
             Flexible(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(bottom: 100.0),
                 child: Text(
                   '${AppLocalizations.of(context)!.errorScreenContentTechnical_Info} : ${widget.errorMessage}',
                   textAlign: TextAlign.center,
