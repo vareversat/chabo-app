@@ -49,7 +49,7 @@ void main() {
       'recordid': '82c316d304b1adef7eeef9edc9ab7b257f766086',
       'fields': {
         'fermeture_totale': 'oui',
-        'bateaux': 'MARITE',
+        'bateau': 'MARITE',
         'date_passage': '2023-03-02',
         're_ouverture_a_la_circulation': '16:49',
         'fermeture_a_la_circulation': '15:49',
@@ -62,7 +62,7 @@ void main() {
       'recordid': '82c316d304b1adef7eeef9edc9ab7b257f766086',
       'fields': {
         'fermeture_totale': 'oui',
-        'bateaux': 'MARITE',
+        'bateau': 'MARITE',
         'date_passage': '2023-03-15',
         're_ouverture_a_la_circulation': '16:49',
         'fermeture_a_la_circulation': '15:49',
