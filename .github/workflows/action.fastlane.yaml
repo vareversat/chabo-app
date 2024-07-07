@@ -31,7 +31,7 @@ jobs:
         with:
           name: 'aab-build'
       - name: 'Setup Ruby'
-        uses: ruby/setup-ruby@v1.183.0
+        uses: ruby/setup-ruby@v1.185.0
         with:
           ruby-version: '3.0'
           bundler-cache: true
