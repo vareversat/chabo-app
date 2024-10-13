@@ -14,7 +14,7 @@ jobs:
     name: 'Craft the Changelog'
     steps:
       - name: 'Checkout source code'
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 0
       - name: "Generate CHANGELOG.md"
@@ -34,7 +34,7 @@ jobs:
     needs: [ changelog ]
     steps:
       - name: 'Checkout source code'
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.1
         with:
           fetch-depth: 0
       - name: 'Download binary artifacts'
