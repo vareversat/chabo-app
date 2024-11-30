@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/helpers/ad_helper.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -47,7 +48,9 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
 
   @override
   void initState() {
-    _createBannerAd();
+    if (!kIsWeb) {
+      _createBannerAd();
+    }
     super.initState();
   }
 
