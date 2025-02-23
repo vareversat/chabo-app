@@ -1,0 +1,7 @@
+name: Workflow - Label PR
+on:
+  - pull_request_target
+jobs:
+  release:
+    uses: vareversat/github-actions/.github/workflows/global.labeler.yml@v1.2.3
+    secrets: inherit
