@@ -1,0 +1,13 @@
+# File changes
+doc:
+  - changed-files:
+      - any-glob-to-any-file: '**/*.md'
+# Branch names
+enhancement:
+  - head-branch: ['feat']
+bug:
+  - head-branch: ['fix']
+chore:
+  - head-branch: ['chore']
+ci:
+  - head-branch: ['ci']
