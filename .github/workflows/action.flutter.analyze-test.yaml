@@ -17,7 +17,7 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
       - name: 'Setup flutter action'
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           flutter-version: ${{ inputs.flutter_version }}
       - name: 'Flutter analyze'
@@ -29,7 +29,7 @@ jobs:
       - name: 'Checkout source code'
         uses: actions/checkout@v4
       - name: 'Setup flutter action'
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           flutter-version: ${{ inputs.flutter_version }}
       - name: 'Flutter format'
@@ -47,7 +47,7 @@ jobs:
       - name: 'Check secret configuration'
         run: ./.github/scripts/check_secrets_decryption.sh
       - name: 'Setup flutter action'
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           flutter-version: ${{ inputs.flutter_version }}
       - name: 'Flutter test (with coverage)'
