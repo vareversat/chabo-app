@@ -8,6 +8,7 @@ import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/service/notification_service.dart';
 import 'package:chabo_app/service/storage_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -261,12 +262,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     ComputeNotificationEvent event,
     Emitter<NotificationState> emit,
   ) async {
-    await notificationService.computeNotifications(
-      event.forecasts,
-      state,
-      event.timeSlotsState,
-      event.context,
-    );
+    if (!kIsWeb) {
+      await notificationService.computeNotifications(
+        event.forecasts,
+        state,
+        event.timeSlotsState,
+        event.context,
+      );
+    }
   }
 
   void _onAppEvent(
@@ -313,7 +316,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
             Const.notificationFavoriteSlotsEnabledDefaultValue;
 
-    final enabled = await notificationService.areNotificationsEnabled();
+    //final enabled = await notificationService.areNotificationsEnabled();
 
     emit(
       state.copyWith(
@@ -327,7 +330,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         openingNotificationEnabled: openingNotificationEnabled,
         closingNotificationEnabled: closingNotificationEnabled,
         timeSlotsEnabledForNotifications: enabledForNotifications,
-        notificationEnabled: enabled,
+        notificationEnabled: false,
       ),
     );
   }
