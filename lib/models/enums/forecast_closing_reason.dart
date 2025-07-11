@@ -1,4 +1,1 @@
-enum ForecastClosingReason {
-  boat,
-  maintenance;
-}
+enum ForecastClosingReason { boat, maintenance }

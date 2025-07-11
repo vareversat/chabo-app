@@ -12,9 +12,7 @@ class _OpeningInfoWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          bottomRight: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
+          bottomRight: Radius.circular(CustomProperties.borderRadius),
         ),
         color: Theme.of(context).colorScheme.okColor,
       ),

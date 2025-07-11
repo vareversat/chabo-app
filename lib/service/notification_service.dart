@@ -8,12 +8,12 @@ import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo_app/const.dart';
 import 'package:chabo_app/extensions/date_time_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -22,8 +22,10 @@ import 'package:timezone/timezone.dart' as tz;
 class NotificationService {
   final StorageService storageService;
 
-  static final transaction =
-      Sentry.startTransaction('openNotification()', 'NotificationService');
+  static final transaction = Sentry.startTransaction(
+    'openNotification()',
+    'NotificationService',
+  );
 
   static FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
@@ -33,16 +35,15 @@ class NotificationService {
   static Future<NotificationService> create({
     required StorageService storageService,
   }) async {
-    var notificationService =
-        NotificationService._(storageService: storageService);
+    var notificationService = NotificationService._(
+      storageService: storageService,
+    );
 
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings(Const.androidAppLogoPath);
 
     const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+        InitializationSettings(android: initializationSettingsAndroid);
 
     /// Initialize the notification plugin
     await localNotifications.initialize(
@@ -68,7 +69,7 @@ class NotificationService {
     return notificationService;
   }
 
-  static _onDidReceiveBackgroundNotificationResponse(
+  static void _onDidReceiveBackgroundNotificationResponse(
     NotificationResponse notificationResponse,
     // ignore: avoid-unused-parameters
   ) {
@@ -77,7 +78,7 @@ class NotificationService {
     transaction.finish();
   }
 
-  static _onDidReceiveLocalNotification(
+  static void _onDidReceiveLocalNotification(
     NotificationResponse notificationResponse,
     // ignore: avoid-unused-parameters
   ) {
@@ -89,8 +90,10 @@ class NotificationService {
   Future<bool> _requestPermissions() async {
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          localNotifications.resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+          localNotifications
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >();
 
       return (await androidImplementation?.requestNotificationsPermission() ??
               false) &&
@@ -104,8 +107,10 @@ class NotificationService {
   Future<bool> areNotificationsEnabled() async {
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-          localNotifications.resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+          localNotifications
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >();
 
       return await androidImplementation?.areNotificationsEnabled() ?? false;
     }
@@ -136,11 +141,7 @@ class NotificationService {
                 notificationSate.timeSlotsEnabledForNotifications &&
                 hasTimeSlots)) {
           index += 1;
-          await _createOpeningScheduledNotifications(
-            index,
-            forecast,
-            context,
-          );
+          await _createOpeningScheduledNotifications(index, forecast, context);
         }
         if ((notificationSate.closingNotificationEnabled &&
                 !notificationSate.timeSlotsEnabledForNotifications) ||
@@ -148,11 +149,7 @@ class NotificationService {
                 notificationSate.timeSlotsEnabledForNotifications &&
                 hasTimeSlots)) {
           index += 1;
-          await _createClosingScheduledNotifications(
-            index,
-            forecast,
-            context,
-          );
+          await _createClosingScheduledNotifications(index, forecast, context);
         }
         if ((notificationSate.timeNotificationEnabled &&
                 !notificationSate.timeSlotsEnabledForNotifications) ||
@@ -172,8 +169,9 @@ class NotificationService {
             (notificationSate.dayNotificationEnabled &&
                 notificationSate.timeSlotsEnabledForNotifications &&
                 hasTimeSlots)) {
-          var last = forecast.circulationClosingDate
-              .previous(notificationSate.dayNotificationValue.weekPosition);
+          var last = forecast.circulationClosingDate.previous(
+            notificationSate.dayNotificationValue.weekPosition,
+          );
           if (weekSeparatedForecast.isEmpty ||
               weekSeparatedForecast.last == last) {
             weekSeparatedForecast.add(last);
@@ -201,8 +199,9 @@ class NotificationService {
             forecast,
             context,
             notificationSate.durationNotificationValue,
-            notificationSate.durationNotificationValue
-                .durationToString(context),
+            notificationSate.durationNotificationValue.durationToString(
+              context,
+            ),
           );
         }
       }
@@ -254,11 +253,7 @@ class NotificationService {
     TimeOfDay value,
   ) async {
     final notificationScheduleTime = forecast.circulationClosingDate
-        .subtract(
-          const Duration(
-            days: 1,
-          ),
-        )
+        .subtract(const Duration(days: 1))
         .copyWith(hour: value.hour, minute: value.minute);
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationTimeChannelId,
@@ -280,8 +275,9 @@ class NotificationService {
     Duration durationValue,
     String durationString,
   ) async {
-    final notificationScheduleTime =
-        forecast.circulationClosingDate.subtract(durationValue);
+    final notificationScheduleTime = forecast.circulationClosingDate.subtract(
+      durationValue,
+    );
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationDurationChannelId,
       AppLocalizations.of(context)!.notificationDurationChannelName,
@@ -289,10 +285,7 @@ class NotificationService {
     await _scheduleNotification(
       index,
       AppLocalizations.of(context)!.notificationDurationTitle,
-      forecast.getNotificationDurationMessage(
-        context,
-        durationString,
-      ),
+      forecast.getNotificationDurationMessage(context, durationString),
       notificationScheduleTime,
       notificationDetails,
     );
@@ -305,8 +298,11 @@ class NotificationService {
     TimeOfDay timeOfDay,
     BuildContext context,
   ) async {
-    final notificationScheduleTime =
-        day.copyWith(hour: timeOfDay.hour, minute: timeOfDay.minute, second: 0);
+    final notificationScheduleTime = day.copyWith(
+      hour: timeOfDay.hour,
+      minute: timeOfDay.minute,
+      second: 0,
+    );
     NotificationDetails notificationDetails = _notificationDetails(
       Const.notificationDayChannelId,
       AppLocalizations.of(context)!.notificationDayChannelName,
@@ -326,16 +322,16 @@ class NotificationService {
   ) {
     final AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
-      notificationChannelId,
-      notificationChannelName,
-      importance: Importance.defaultImportance,
-      priority: Priority.defaultPriority,
-      ongoing: false,
-      autoCancel: true,
-      fullScreenIntent: false,
-      styleInformation: const BigTextStyleInformation(''),
-      ticker: Const.androidTicket,
-    );
+          notificationChannelId,
+          notificationChannelName,
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+          ongoing: false,
+          autoCancel: true,
+          fullScreenIntent: false,
+          styleInformation: const BigTextStyleInformation(''),
+          ticker: Const.androidTicket,
+        );
 
     return NotificationDetails(android: androidNotificationDetails);
   }
@@ -357,14 +353,9 @@ class NotificationService {
         notificationId,
         notificationTitle,
         notificationMessage,
-        tz.TZDateTime.from(
-          notificationScheduleTime,
-          tz.local,
-        ),
+        tz.TZDateTime.from(notificationScheduleTime, tz.local),
         notificationDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
       );
     }
   }

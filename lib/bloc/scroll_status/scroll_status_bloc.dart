@@ -13,38 +13,30 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
   final ScrollController scrollController;
 
   ScrollStatusBloc({required this.scrollController})
-      : super(const ScrollStatusState(
+    : super(
+        const ScrollStatusState(
           showCurrentStatus: true,
           status: ScrollStatus.ok,
           currentTarget: null,
-        )) {
-    on<ScrollStatusChanged>(
-      _onScrollChanged,
-      transformer: droppable(),
-    );
-    on<GoTo>(
-      _goTo,
-      transformer: sequential(),
-    );
+        ),
+      ) {
+    on<ScrollStatusChanged>(_onScrollChanged, transformer: droppable());
+    on<GoTo>(_goTo, transformer: sequential());
   }
 
   void _onScrollChanged(
     ScrollStatusChanged event,
     Emitter<ScrollStatusState> emit,
   ) {
-    emit(
-      state.copyWith(
-        showCurrentStatus: true,
-        status: ScrollStatus.ok,
-      ),
-    );
+    emit(state.copyWith(showCurrentStatus: true, status: ScrollStatus.ok));
   }
 
   Future<void> _goTo(GoTo event, Emitter<ScrollStatusState> emit) async {
     var targetContext = GlobalObjectKey(event.goTo.hashCode).currentContext;
     var offset = 0;
     while (targetContext == null) {
-      var pixel = scrollController.position.pixels + offset >=
+      var pixel =
+          scrollController.position.pixels + offset >=
               scrollController.position.maxScrollExtent
           ? scrollController.position.pixels - offset
           : scrollController.position.pixels + offset;
@@ -58,11 +50,7 @@ class ScrollStatusBloc extends Bloc<ScrollStatusEvent, ScrollStatusState> {
       );
       targetContext = GlobalObjectKey(event.goTo.hashCode).currentContext;
       offset += 100;
-      emit(
-        state.copyWith(
-          status: ScrollStatus.error,
-        ),
-      );
+      emit(state.copyWith(status: ScrollStatus.error));
     }
 
     if (!targetContext.mounted) return;

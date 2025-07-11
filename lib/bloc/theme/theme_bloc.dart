@@ -14,13 +14,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   final StorageService storageService;
 
   ThemeBloc({required this.storageService})
-      : super(ThemeState(themeData: AppTheme.lightTheme)) {
-    on<ThemeChanged>(
-      _onThemeChanged,
-    );
-    on<AppStateChanged>(
-      _onAppStateChanged,
-    );
+    : super(ThemeState(themeData: AppTheme.lightTheme)) {
+    on<ThemeChanged>(_onThemeChanged);
+    on<AppStateChanged>(_onAppStateChanged);
   }
 
   ThemeData _getCorrectThemeForSystem() {
@@ -31,10 +27,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     return isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   }
 
-  void _onAppStateChanged(
-    AppStateChanged event,
-    Emitter<ThemeState> emit,
-  ) {
+  void _onAppStateChanged(AppStateChanged event, Emitter<ThemeState> emit) {
     var savedStatus = storageService.readTheme(Const.storageThemeKey);
     if (savedStatus == null) {
       emit(
@@ -73,10 +66,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     ThemeChanged event,
     Emitter<ThemeState> emit,
   ) async {
-    await storageService.saveTheme(
-      Const.storageThemeKey,
-      event.status,
-    );
+    await storageService.saveTheme(Const.storageThemeKey, event.status);
     if (event.status == ThemeStateStatus.light) {
       emit(
         state.copyWith(

@@ -4,10 +4,7 @@ class _PageLinksWidget extends StatelessWidget {
   final PackageInfo packageInfo;
   final Widget iconWidget;
 
-  const _PageLinksWidget({
-    required this.packageInfo,
-    required this.iconWidget,
-  });
+  const _PageLinksWidget({required this.packageInfo, required this.iconWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +15,10 @@ class _PageLinksWidget extends StatelessWidget {
       children: [
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
+            backgroundColor: WidgetStateProperty.all<Color>(
               colorScheme.secondaryContainer,
             ),
-            foregroundColor: MaterialStateProperty.all<Color>(
+            foregroundColor: WidgetStateProperty.all<Color>(
               colorScheme.onSecondaryContainer,
             ),
           ),
@@ -29,24 +26,17 @@ class _PageLinksWidget extends StatelessWidget {
             launchUrlString(
               Const.releaseUrl.replaceAll('%', packageInfo.version),
               mode: LaunchMode.externalApplication,
-            )
+            ),
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                FontAwesomeIcons.codeMerge,
-                size: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              const Icon(FontAwesomeIcons.codeMerge, size: 20),
+              const SizedBox(width: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
-                  AppLocalizations.of(context)!.selectAboutDialog(
-                    'changelog',
-                  ),
+                  AppLocalizations.of(context)!.selectAboutDialog('changelog'),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -55,10 +45,10 @@ class _PageLinksWidget extends StatelessWidget {
         ),
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
+            backgroundColor: WidgetStateProperty.all<Color>(
               colorScheme.secondaryContainer,
             ),
-            foregroundColor: MaterialStateProperty.all<Color>(
+            foregroundColor: WidgetStateProperty.all<Color>(
               colorScheme.onSecondaryContainer,
             ),
           ),
@@ -76,9 +66,7 @@ class _PageLinksWidget extends StatelessWidget {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          CustomProperties.borderRadius,
-                        ),
+                        Radius.circular(CustomProperties.borderRadius),
                       ),
                     ),
                     child: iconWidget,
@@ -91,13 +79,8 @@ class _PageLinksWidget extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                FontAwesomeIcons.fileLines,
-                size: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
+              const Icon(FontAwesomeIcons.fileLines, size: 20),
+              const SizedBox(width: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(

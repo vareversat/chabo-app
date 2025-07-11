@@ -4,6 +4,7 @@ import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/date_time_extension.dart';
 import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
 import 'package:chabo_app/models/enums/forecast_closing_type.dart';
@@ -12,7 +13,6 @@ import 'package:chabo_app/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 abstract class AbstractForecast extends Equatable {
@@ -35,14 +35,17 @@ abstract class AbstractForecast extends Equatable {
     _circulationClosingDate = circulationClosingDate.toLocal();
 
     var tmpCirculationReOpeningDate = circulationReOpeningDate.toLocal();
-    var tmpDuration =
-        tmpCirculationReOpeningDate.difference(_circulationClosingDate);
+    var tmpDuration = tmpCirculationReOpeningDate.difference(
+      _circulationClosingDate,
+    );
 
     if (tmpDuration.isNegative) {
-      tmpCirculationReOpeningDate =
-          tmpCirculationReOpeningDate.add(const Duration(days: 1));
-      tmpDuration =
-          tmpCirculationReOpeningDate.difference(_circulationClosingDate);
+      tmpCirculationReOpeningDate = tmpCirculationReOpeningDate.add(
+        const Duration(days: 1),
+      );
+      tmpDuration = tmpCirculationReOpeningDate.difference(
+        _circulationClosingDate,
+      );
     }
     isDuringTwoDays =
         tmpCirculationReOpeningDate.day != _circulationClosingDate.day;
@@ -68,19 +71,21 @@ abstract class AbstractForecast extends Equatable {
     final colorScheme = Theme.of(context).colorScheme;
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
 
-    var infoFromString =
-        AppLocalizations.of(context)!.dialogInformationContentThe.capitalize();
+    var infoFromString = AppLocalizations.of(
+      context,
+    )!.dialogInformationContentThe.capitalize();
     var infoToString =
         ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
     var infoToString2 =
         ' ${AppLocalizations.of(context)!.dialogInformationContentFromEnd} ';
     var circulationReOpeningDateString = DateFormat(
-            timeFormat.icuName, Localizations.localeOf(context).languageCode)
-        .format(circulationReOpeningDate);
+      timeFormat.icuName,
+      Localizations.localeOf(context).languageCode,
+    ).format(circulationReOpeningDate);
     if (isDuringTwoDays) {
-      infoFromString = AppLocalizations.of(context)!
-          .dialogInformationContentThe2
-          .capitalize();
+      infoFromString = AppLocalizations.of(
+        context,
+      )!.dialogInformationContentThe2.capitalize();
       infoToString = ' ';
       infoToString2 =
           ', ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)} ';
@@ -89,33 +94,27 @@ abstract class AbstractForecast extends Equatable {
     return [
       TextSpan(text: infoFromString),
       TextSpan(
-        text: MaterialLocalizations.of(context).formatFullDate(
-          circulationClosingDate,
-        ),
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
+        text: MaterialLocalizations.of(
+          context,
+        ).formatFullDate(circulationClosingDate),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       TextSpan(text: infoToString),
       WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5,
-            vertical: 3,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
-              Radius.circular(
-                CustomProperties.borderRadius,
-              ),
+              Radius.circular(CustomProperties.borderRadius),
             ),
             color: colorScheme.error,
           ),
           child: Text(
-            DateFormat(timeFormat.icuName,
-                    Localizations.localeOf(context).languageCode)
-                .format(circulationClosingDate),
+            DateFormat(
+              timeFormat.icuName,
+              Localizations.localeOf(context).languageCode,
+            ).format(circulationClosingDate),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: colorScheme.onError,
@@ -127,23 +126,16 @@ abstract class AbstractForecast extends Equatable {
       WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5,
-            vertical: 3,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
-              Radius.circular(
-                CustomProperties.borderRadius,
-              ),
+              Radius.circular(CustomProperties.borderRadius),
             ),
             color: colorScheme.okColor,
           ),
           child: Text(
             circulationReOpeningDateString,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -200,20 +192,14 @@ abstract class AbstractForecast extends Equatable {
     final startDateTime = dateTimeToCompare.applied(timeSlot.from);
     final endDateTime = dateTimeToCompare.applied(timeSlot.to);
 
-    final startIsBeforeClosing = startDateTime.isBefore(
-      circulationClosingDate,
-    );
+    final startIsBeforeClosing = startDateTime.isBefore(circulationClosingDate);
 
-    final endIsBeforeClosing = endDateTime.isBefore(
-      circulationClosingDate,
-    );
+    final endIsBeforeClosing = endDateTime.isBefore(circulationClosingDate);
 
     final startIsBeforeReopening = startDateTime.isBefore(
       circulationReOpeningDate,
     );
-    final endIsBeforeReopening = endDateTime.isBefore(
-      circulationReOpeningDate,
-    );
+    final endIsBeforeReopening = endDateTime.isBefore(circulationReOpeningDate);
 
     return (startIsBeforeClosing &&
             startIsBeforeReopening &&
@@ -244,7 +230,7 @@ abstract class AbstractForecast extends Equatable {
       return !days.contains(cDDay) || !days.contains(cODay)
           ? false
           : _isOverlapping(circulationClosingDate, timeSlot) ||
-              _isOverlapping(circulationReOpeningDate, timeSlot);
+                _isOverlapping(circulationReOpeningDate, timeSlot);
     } else {
       /// First of all, check if the day is one of choose
       return !days.contains(cDDay)
@@ -288,11 +274,11 @@ abstract class AbstractForecast extends Equatable {
 
   @override
   List<Object?> get props => [
-        totalClosing,
-        closingReason,
-        closedDuration,
-        circulationClosingDate,
-        circulationReOpeningDate,
-        closingType,
-      ];
+    totalClosing,
+    closingReason,
+    closedDuration,
+    circulationClosingDate,
+    circulationReOpeningDate,
+    closingType,
+  ];
 }

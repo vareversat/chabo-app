@@ -12,9 +12,7 @@ class _LeadingIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -27,10 +25,9 @@ class _LeadingIconWidget extends StatelessWidget {
           Center(
             child: Text(
               forecast.getClosingReason(context),
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall
-                  ?.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,

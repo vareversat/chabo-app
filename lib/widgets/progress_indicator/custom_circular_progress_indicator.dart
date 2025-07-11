@@ -15,17 +15,15 @@ class CustomCircularProgressIndicator extends StatelessWidget {
           const SizedBox(
             height: 24,
             width: 24,
-            child: CircularProgressIndicator(
-              strokeWidth: 5,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 5),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               message,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ],

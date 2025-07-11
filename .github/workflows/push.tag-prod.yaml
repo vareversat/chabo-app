@@ -13,7 +13,7 @@ jobs:
   flutter-build:
     uses: ./.github/workflows/action.flutter.build.yaml
     with:
-      flutter_version: '3.19.3'
+      flutter_version: '3.32.2'
       android_output: 'aab'
       env: 'production'
     secrets: inherit

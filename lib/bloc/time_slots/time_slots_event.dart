@@ -6,20 +6,14 @@ class TimeSlotChanged extends TimeSlotsEvent {
   final TimeSlot timeSlot;
   final int index;
 
-  TimeSlotChanged({
-    required this.timeSlot,
-    required this.index,
-  }) : super();
+  TimeSlotChanged({required this.timeSlot, required this.index}) : super();
 }
 
 class DaysChanged extends TimeSlotsEvent {
   final Day day;
   final bool isSelected;
 
-  DaysChanged({
-    required this.day,
-    required this.isSelected,
-  }) : super();
+  DaysChanged({required this.day, required this.isSelected}) : super();
 }
 
 class TimeSlotsAppEvent extends TimeSlotsEvent {

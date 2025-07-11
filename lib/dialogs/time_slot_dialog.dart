@@ -2,11 +2,11 @@ import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/time_of_day_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimeSlotDialog extends StatelessWidget {
   final int index;
@@ -20,9 +20,7 @@ class TimeSlotDialog extends StatelessWidget {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          CustomProperties.borderRadius,
-        ),
+        borderRadius: BorderRadius.circular(CustomProperties.borderRadius),
       ),
       content: BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
         builder: (context, timeSlotState) {
@@ -47,15 +45,18 @@ class TimeSlotDialog extends StatelessWidget {
                         builder: (BuildContext context, Widget? child) {
                           return MediaQuery(
                             data: MediaQuery.of(context).copyWith(
-                                alwaysUse24HourFormat:
-                                    timeFormatState.timeFormat ==
-                                        TimeFormat.twentyFourHours),
+                              alwaysUse24HourFormat:
+                                  timeFormatState.timeFormat ==
+                                  TimeFormat.twentyFourHours,
+                            ),
                             child: child!,
                           );
                         },
-                      ).then((value) => {
-                            if (value != null)
-                              {
+                      ).then(
+                        (value) => {
+                          if (value != null)
+                            {
+                              if (context.mounted)
                                 BlocProvider.of<TimeSlotsBloc>(context).add(
                                   TimeSlotChanged(
                                     timeSlot: TimeSlot(
@@ -66,12 +67,14 @@ class TimeSlotDialog extends StatelessWidget {
                                     index: index,
                                   ),
                                 ),
-                              },
-                          });
+                            },
+                        },
+                      );
                     },
                     child: Text(
-                      timeSlotState.timeSlots[index].from
-                          .toFormattedString(timeFormatState.timeFormat),
+                      timeSlotState.timeSlots[index].from.toFormattedString(
+                        timeFormatState.timeFormat,
+                      ),
                       style: textTheme.titleMedium,
                     ),
                   ),
@@ -88,15 +91,18 @@ class TimeSlotDialog extends StatelessWidget {
                         builder: (BuildContext context, Widget? child) {
                           return MediaQuery(
                             data: MediaQuery.of(context).copyWith(
-                                alwaysUse24HourFormat:
-                                    timeFormatState.timeFormat ==
-                                        TimeFormat.twentyFourHours),
+                              alwaysUse24HourFormat:
+                                  timeFormatState.timeFormat ==
+                                  TimeFormat.twentyFourHours,
+                            ),
                             child: child!,
                           );
                         },
-                      ).then((value) => {
-                            if (value != null)
-                              {
+                      ).then(
+                        (value) => {
+                          if (value != null)
+                            {
+                              if (context.mounted)
                                 BlocProvider.of<TimeSlotsBloc>(context).add(
                                   TimeSlotChanged(
                                     timeSlot: TimeSlot(
@@ -107,12 +113,14 @@ class TimeSlotDialog extends StatelessWidget {
                                     index: index,
                                   ),
                                 ),
-                              },
-                          });
+                            },
+                        },
+                      );
                     },
                     child: Text(
-                      timeSlotState.timeSlots[index].to
-                          .toFormattedString(timeFormatState.timeFormat),
+                      timeSlotState.timeSlots[index].to.toFormattedString(
+                        timeFormatState.timeFormat,
+                      ),
                       style: textTheme.titleMedium,
                     ),
                   ),
@@ -127,7 +135,7 @@ class TimeSlotDialog extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton.icon(
             style: ButtonStyle(
-              shape: MaterialStateProperty.all<OutlinedBorder>(
+              shape: WidgetStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     CustomProperties.borderRadius,
@@ -137,9 +145,7 @@ class TimeSlotDialog extends StatelessWidget {
             ),
             onPressed: () => {Navigator.pop(context)},
             icon: const Icon(Icons.check_circle),
-            label: Text(
-              MaterialLocalizations.of(context).okButtonLabel,
-            ),
+            label: Text(MaterialLocalizations.of(context).okButtonLabel),
           ),
         ),
       ],

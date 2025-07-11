@@ -8,6 +8,7 @@ import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/custom_widget_state.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/misc/no_scaling_animation.dart';
 import 'package:chabo_app/screens/error_screen.dart';
 import 'package:chabo_app/widgets/floating_actions/floating_actions_widget.dart';
@@ -16,7 +17,6 @@ import 'package:chabo_app/widgets/forecast/status_widget/status_widget.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForecastScreen extends StatefulWidget {
   static const routeName = '/forecast-screen';
@@ -66,9 +66,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                             );
 
                             /// And scroll to the new one
-                            BlocProvider.of<ScrollStatusBloc>(context).add(
-                              GoTo(goTo: state.currentForecast),
-                            );
+                            BlocProvider.of<ScrollStatusBloc>(
+                              context,
+                            ).add(GoTo(goTo: state.currentForecast));
                           },
                         ),
                         BlocListener<NotificationBloc, NotificationState>(
@@ -88,9 +88,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                   context,
                                 ).state.forecasts,
                                 context: context,
-                                timeSlotsState:
-                                    BlocProvider.of<TimeSlotsBloc>(context)
-                                        .state,
+                                timeSlotsState: BlocProvider.of<TimeSlotsBloc>(
+                                  context,
+                                ).state,
                               ),
                             );
                           },
@@ -99,9 +99,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                           listener: (context, state) {
                             /// If the TimeSlotsState changes and the timeSlotsEnabledForNotifications is enabled,
                             /// re-compute all notifications
-                            if (BlocProvider.of<NotificationBloc>(context)
-                                .state
-                                .timeSlotsEnabledForNotifications) {
+                            if (BlocProvider.of<NotificationBloc>(
+                              context,
+                            ).state.timeSlotsEnabledForNotifications) {
                               BlocProvider.of<NotificationBloc>(context).add(
                                 ComputeNotificationEvent(
                                   forecasts: BlocProvider.of<ForecastBloc>(
@@ -109,8 +109,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                   ).state.forecasts,
                                   context: context,
                                   timeSlotsState:
-                                      BlocProvider.of<TimeSlotsBloc>(context)
-                                          .state,
+                                      BlocProvider.of<TimeSlotsBloc>(
+                                        context,
+                                      ).state,
                                 ),
                               );
                             }
@@ -125,9 +126,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                   context,
                                 ).state.forecasts,
                                 context: context,
-                                timeSlotsState:
-                                    BlocProvider.of<TimeSlotsBloc>(context)
-                                        .state,
+                                timeSlotsState: BlocProvider.of<TimeSlotsBloc>(
+                                  context,
+                                ).state,
                               ),
                             );
                           },
@@ -136,24 +137,26 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                       child: NotificationListener<ScrollNotification>(
                         onNotification: (scrollNotification) {
                           if (scrollNotification is! UserScrollNotification) {
-                            BlocProvider.of<ScrollStatusBloc>(context).add(
-                              ScrollStatusChanged(),
-                            );
+                            BlocProvider.of<ScrollStatusBloc>(
+                              context,
+                            ).add(ScrollStatusChanged());
 
                             /// Scroll reach the top and display the large layout for the status widget
                             if (scrollNotification.metrics.pixels <= 100) {
-                              BlocProvider.of<StatusBloc>(context)
-                                  .add(StatusWidgetDimensionChanged(
-                                context: context,
-                                dimension: StatusWidgetDimension.large,
-                              ));
+                              BlocProvider.of<StatusBloc>(context).add(
+                                StatusWidgetDimensionChanged(
+                                  context: context,
+                                  dimension: StatusWidgetDimension.large,
+                                ),
+                              );
                             } else {
                               /// Else, display the small one
-                              BlocProvider.of<StatusBloc>(context)
-                                  .add(StatusWidgetDimensionChanged(
-                                context: context,
-                                dimension: StatusWidgetDimension.small,
-                              ));
+                              BlocProvider.of<StatusBloc>(context).add(
+                                StatusWidgetDimensionChanged(
+                                  context: context,
+                                  dimension: StatusWidgetDimension.small,
+                                ),
+                              );
                             }
                           }
 
@@ -170,9 +173,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                                     collapsedHeight: 200,
                                     expandedHeight: 200,
                                     shadowColor: Colors.black,
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .surfaceVariant,
+                                    backgroundColor: Theme.of(
+                                      context,
+                                    ).colorScheme.surfaceContainerHighest,
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                         bottom: Radius.circular(
@@ -193,46 +196,44 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                             : Row(
                                 children: [
                                   Flexible(
-                                    flex:
-                                        !DeviceHelper.isMobile(context) ? 3 : 1,
+                                    flex: !DeviceHelper.isMobile(context)
+                                        ? 3
+                                        : 1,
                                     child: Column(
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .surfaceVariant,
+                                                .surfaceContainerHighest,
                                             borderRadius:
                                                 const BorderRadius.vertical(
-                                              bottom: Radius.circular(
-                                                CustomProperties.borderRadius *
-                                                    2,
-                                              ),
-                                            ),
+                                                  bottom: Radius.circular(
+                                                    CustomProperties
+                                                            .borderRadius *
+                                                        2,
+                                                  ),
+                                                ),
                                           ),
                                           constraints: BoxConstraints(
-                                            minHeight: DeviceHelper.isMobile(
-                                              context,
-                                            )
+                                            minHeight:
+                                                DeviceHelper.isMobile(context)
                                                 ? 270
                                                 : 380,
                                           ),
                                           child: const StatusWidget(),
                                         ),
-                                        const SizedBox(
-                                          height: 50,
-                                        ),
+                                        const SizedBox(height: 50),
                                       ],
                                     ),
                                   ),
                                   Flexible(
-                                    flex:
-                                        !DeviceHelper.isMobile(context) ? 2 : 1,
+                                    flex: !DeviceHelper.isMobile(context)
+                                        ? 2
+                                        : 1,
                                     child: const CustomScrollView(
                                       physics: BouncingScrollPhysics(),
-                                      slivers: [
-                                        ForecastListWidget(),
-                                      ],
+                                      slivers: [ForecastListWidget()],
                                     ),
                                   ),
                                 ],

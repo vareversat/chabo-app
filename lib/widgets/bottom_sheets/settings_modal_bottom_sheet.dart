@@ -3,11 +3,11 @@ import 'package:chabo_app/bloc/theme/theme_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/theme_state_status.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsModalBottomSheet extends StatelessWidget {
   const SettingsModalBottomSheet({super.key});
@@ -21,14 +21,14 @@ class SettingsModalBottomSheet extends StatelessWidget {
       child: Wrap(
         direction:
             DeviceHelper.isPortrait(context) || !DeviceHelper.isMobile(context)
-                ? Axis.horizontal
-                : Axis.vertical,
+            ? Axis.horizontal
+            : Axis.vertical,
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.center,
         runSpacing:
             DeviceHelper.isPortrait(context) || !DeviceHelper.isMobile(context)
-                ? 0
-                : 35,
+            ? 0
+            : 35,
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 15,
         children: [
@@ -42,9 +42,7 @@ class SettingsModalBottomSheet extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.themeSettingSubtitle,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   AnimatedToggleSwitch<ThemeStateStatus>.size(
                     current: state.status,
@@ -68,12 +66,9 @@ class SettingsModalBottomSheet extends StatelessWidget {
                             : colorScheme.onSurface,
                       );
                     },
-                    onChanged: (value) =>
-                        BlocProvider.of<ThemeBloc>(context).add(
-                      ThemeChanged(
-                        status: value,
-                      ),
-                    ),
+                    onChanged: (value) => BlocProvider.of<ThemeBloc>(
+                      context,
+                    ).add(ThemeChanged(status: value)),
                   ),
                   AnimatedSwitcher(
                     duration: const Duration(
@@ -84,24 +79,22 @@ class SettingsModalBottomSheet extends StatelessWidget {
                     ),
                     transitionBuilder:
                         (Widget child, Animation<double> animation) {
-                      return SlideTransition(
-                        position: Tween(
-                          begin: const Offset(0.0, 1.0),
-                          end: const Offset(0.0, 0.0),
-                        ).animate(animation),
-                        child: FadeTransition(
-                          opacity: CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeIn,
-                          ),
-                          child: child,
-                        ),
-                      );
-                    },
+                          return SlideTransition(
+                            position: Tween(
+                              begin: const Offset(0.0, 1.0),
+                              end: const Offset(0.0, 0.0),
+                            ).animate(animation),
+                            child: FadeTransition(
+                              opacity: CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeIn,
+                              ),
+                              child: child,
+                            ),
+                          );
+                        },
                     child: Text(
-                      key: ValueKey<String>(
-                        state.status.text(context),
-                      ),
+                      key: ValueKey<String>(state.status.text(context)),
                       state.status.text(context),
                     ),
                   ),
@@ -140,10 +133,11 @@ class SettingsModalBottomSheet extends StatelessWidget {
                       return Text(
                         value.text,
                         style: TextStyle(
-                            color: state.timeFormat == value
-                                ? colorScheme.onPrimary
-                                : colorScheme.onSurface,
-                            fontWeight: FontWeight.bold),
+                          color: state.timeFormat == value
+                              ? colorScheme.onPrimary
+                              : colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                        ),
                       );
                     },
                     onChanged: (value) =>
@@ -151,9 +145,7 @@ class SettingsModalBottomSheet extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)!.timeFormatSubTitle,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               );

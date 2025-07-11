@@ -3,11 +3,11 @@ import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/boat_forecast.dart';
 import 'package:chabo_app/widgets/bottom_sheets/current_docked_boat_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CurrentDockedBoatButton extends StatelessWidget {
   const CurrentDockedBoatButton({super.key});
@@ -17,32 +17,27 @@ class CurrentDockedBoatButton extends StatelessWidget {
     return BlocBuilder<StatusBloc, StatusState>(
       builder: (context, statusState) {
         return AnimatedSwitcher(
-          duration: const Duration(
-            seconds: 1,
-          ),
+          duration: const Duration(seconds: 1),
           reverseDuration: const Duration(milliseconds: 0),
           transitionBuilder: (child, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return FadeTransition(opacity: animation, child: child);
           },
 
           /// Check if previousForecast is not null, if its a BoatForecast and that the string status is not empty
-          child: statusState.previousForecast != null &&
+          child:
+              statusState.previousForecast != null &&
                   statusState.previousForecast is BoatForecast &&
-                  (statusState.previousForecast as BoatForecast)
-                      .boats
+                  (statusState.previousForecast as BoatForecast).boats
                       .oneIsArriving()
               ? ElevatedButton.icon(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       Theme.of(context).colorScheme.boatColor,
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
+                    foregroundColor: WidgetStateProperty.all<Color>(
                       Theme.of(context).cardColor,
                     ),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                    shape: WidgetStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           CustomProperties.borderRadius,
@@ -53,7 +48,7 @@ class CurrentDockedBoatButton extends StatelessWidget {
                   onPressed: () => {
                     showModalBottomSheet(
                       useSafeArea: false,
-                      barrierColor: Colors.black.withOpacity(0.65),
+                      barrierColor: Colors.black.withValues(alpha: 0.65),
                       constraints: BoxConstraints(
                         maxWidth: DeviceHelper.isPortrait(context)
                             ? double.infinity
@@ -78,14 +73,13 @@ class CurrentDockedBoatButton extends StatelessWidget {
                   icon: const Icon(Icons.info),
                   label: Text(
                     AppLocalizations.of(context)!.moonHarborShortStatus(
-                      (statusState.previousForecast as BoatForecast)
-                          .boats
+                      (statusState.previousForecast as BoatForecast).boats
                           .getArrivingCount(),
                     ),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context).cardColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Theme.of(context).cardColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 )

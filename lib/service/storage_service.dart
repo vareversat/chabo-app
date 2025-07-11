@@ -51,8 +51,9 @@ class StorageService {
   Future<bool> saveDays(String key, List<Day> days) async {
     developer.log('{$key: $days}', name: 'storage-service.on.saveDays');
 
-    final stringValue =
-        days.map((e) => EnumToString.convertToString(e)).toList();
+    final stringValue = days
+        .map((e) => EnumToString.convertToString(e))
+        .toList();
 
     return await sharedPreferences.setString(key, json.encode(stringValue));
   }
@@ -97,8 +98,9 @@ class StorageService {
     if (stringValue == null) {
       return null;
     } else {
-      final value =
-          Duration(minutes: int.parse(sharedPreferences.getString(key)!));
+      final value = Duration(
+        minutes: int.parse(sharedPreferences.getString(key)!),
+      );
       developer.log('{$key: $value}', name: 'storage-service.on.readDuration');
 
       return value;
@@ -141,10 +143,7 @@ class StorageService {
           .map<Day?>((item) => EnumToString.fromString(Day.values, item))
           .toList();
       days.removeWhere((element) => element == null);
-      developer.log(
-        '{$key: $days',
-        name: 'storage-service.on.readDays',
-      );
+      developer.log('{$key: $days', name: 'storage-service.on.readDays');
 
       return days.nonNulls.toList();
     }
@@ -155,8 +154,10 @@ class StorageService {
     if (stringValue == null) {
       return null;
     } else {
-      final value =
-          EnumToString.fromString(ThemeStateStatus.values, stringValue);
+      final value = EnumToString.fromString(
+        ThemeStateStatus.values,
+        stringValue,
+      );
       developer.log('{$key: $value}', name: 'storage-service.on.readTheme');
 
       return value;
@@ -169,8 +170,9 @@ class StorageService {
       return null;
     } else {
       final list = json.decode(stringValue);
-      final List<TimeSlot> timeSlotList =
-          list.map<TimeSlot>((item) => TimeSlot.fromJSON(item)).toList();
+      final List<TimeSlot> timeSlotList = list
+          .map<TimeSlot>((item) => TimeSlot.fromJSON(item))
+          .toList();
       developer.log(
         '{$key: $timeSlotList',
         name: 'storage-service.on.readTimeSlots',
@@ -186,8 +188,10 @@ class StorageService {
       return null;
     } else {
       final value = EnumToString.fromString(TimeFormat.values, stringValue);
-      developer.log('{$key: $value}',
-          name: 'storage-service.on.readTimeFormat');
+      developer.log(
+        '{$key: $value}',
+        name: 'storage-service.on.readTimeFormat',
+      );
 
       return value;
     }

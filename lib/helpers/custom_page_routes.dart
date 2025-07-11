@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 //ignore: prefer-match-file-name
 class BottomToTopPageRoute<T> extends MaterialPageRoute<T> {
-  BottomToTopPageRoute({
-    required super.builder,
-    super.settings,
-  });
+  BottomToTopPageRoute({required super.builder, super.settings});
 
   @override
   Widget buildTransitions(
@@ -20,9 +17,6 @@ class BottomToTopPageRoute<T> extends MaterialPageRoute<T> {
 
     var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-    return SlideTransition(
-      position: animation.drive(tween),
-      child: child,
-    );
+    return SlideTransition(position: animation.drive(tween), child: child);
   }
 }

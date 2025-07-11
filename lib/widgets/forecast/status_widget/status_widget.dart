@@ -6,13 +6,13 @@ import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/custom_widget_state.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/widgets/forecast/forecast_widget/forecast_widget.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_progress_bar_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'current_status_widget.dart';
 part 'layout_widget.dart';
@@ -34,21 +34,17 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback(
-      (_) {
-        Timer.periodic(const Duration(seconds: 1), (Timer t) {
-          if (mounted) {
-            BlocProvider.of<StatusBloc>(context).add(
-              StatusRefresh(
-                context: context,
-              ),
-            );
-          } else {
-            t.cancel();
-          }
-        });
-      },
-    );
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Timer.periodic(const Duration(seconds: 1), (Timer t) {
+        if (mounted) {
+          BlocProvider.of<StatusBloc>(
+            context,
+          ).add(StatusRefresh(context: context));
+        } else {
+          t.cancel();
+        }
+      });
+    });
   }
 
   @override
@@ -61,18 +57,13 @@ class StatusWidgetState extends CustomWidgetState<StatusWidget> {
             milliseconds: CustomProperties.shortAnimationDurationMs,
           ),
           transitionBuilder: (child, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
+            return FadeTransition(opacity: animation, child: child);
           },
           child: state.statusLifecycle == StatusLifecycle.loading
               ? CustomCircularProgressIndicator(
                   message: AppLocalizations.of(context)!.statusLoadMessage,
                 )
-              : _LayoutWidget(
-                  statusState: state,
-                ),
+              : _LayoutWidget(statusState: state),
         );
       },
     );

@@ -19,12 +19,11 @@ void main() async {
   final StorageService storageService = StorageService(
     sharedPreferences: await SharedPreferences.getInstance(),
   );
-  final ConsentFormService consentFormService =
-      ConsentFormService(consentRequestParameters: ConsentRequestParameters());
-  final NotificationService notificationService =
-      await NotificationService.create(
-    storageService: storageService,
+  final ConsentFormService consentFormService = ConsentFormService(
+    consentRequestParameters: ConsentRequestParameters(),
   );
+  final NotificationService notificationService =
+      await NotificationService.create(storageService: storageService);
 
   /// Initialize the Google Ads SDK
   MobileAds.instance.initialize();
@@ -44,8 +43,10 @@ void main() async {
           .toLowerCase();
 
   /// Fetch running env
-  const env =
-      String.fromEnvironment(Const.envKey, defaultValue: Const.defaultEnv);
+  const env = String.fromEnvironment(
+    Const.envKey,
+    defaultValue: Const.defaultEnv,
+  );
 
   developer.log(
     '##### HI ! Starting $formattedRelease in $env mode #####',

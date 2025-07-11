@@ -53,7 +53,7 @@ class StatusState extends Equatable {
           durationForCloseClosing ?? this.durationForCloseClosing,
       durationBetweenPreviousAndNextEvent:
           durationBetweenPreviousAndNextEvent ??
-              this.durationBetweenPreviousAndNextEvent,
+          this.durationBetweenPreviousAndNextEvent,
       completionPercentage: completionPercentage ?? this.completionPercentage,
       mainMessageStatus: mainMessageStatus ?? this.mainMessageStatus,
       timeMessagePrefix: timeMessagePrefix ?? this.timeMessagePrefix,
@@ -66,37 +66,37 @@ class StatusState extends Equatable {
 
   @override
   List<Object?> get props => [
-        statusLifecycle,
-        currentForecast,
-        previousForecast,
-        durationUntilNextEvent,
-        durationForCloseClosing,
-        durationBetweenPreviousAndNextEvent,
-        completionPercentage,
-        mainMessageStatus,
-        timeMessagePrefix,
-        foregroundColor,
-        backgroundColor,
-        statusWidgetDimension,
-      ];
+    statusLifecycle,
+    currentForecast,
+    previousForecast,
+    durationUntilNextEvent,
+    durationForCloseClosing,
+    durationBetweenPreviousAndNextEvent,
+    completionPercentage,
+    mainMessageStatus,
+    timeMessagePrefix,
+    foregroundColor,
+    backgroundColor,
+    statusWidgetDimension,
+  ];
 }
 
 class StatusStateInitial extends StatusState {
   const StatusStateInitial()
-      : super(
-          previousForecast: null,
-          currentForecast: null,
-          durationUntilNextEvent: Duration.zero,
-          durationBetweenPreviousAndNextEvent: null,
-          durationForCloseClosing: Const.notificationDurationValueDefaultValue,
-          statusLifecycle: StatusLifecycle.loading,
-          completionPercentage: 0,
-          mainMessageStatus: '',
-          timeMessagePrefix: '',
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.white,
-          statusWidgetDimension: StatusWidgetDimension.large,
-        );
+    : super(
+        previousForecast: null,
+        currentForecast: null,
+        durationUntilNextEvent: Duration.zero,
+        durationBetweenPreviousAndNextEvent: null,
+        durationForCloseClosing: Const.notificationDurationValueDefaultValue,
+        statusLifecycle: StatusLifecycle.loading,
+        completionPercentage: 0,
+        mainMessageStatus: '',
+        timeMessagePrefix: '',
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        statusWidgetDimension: StatusWidgetDimension.large,
+      );
 }
 
 enum StatusLifecycle { empty, populated, loading }

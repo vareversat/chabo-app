@@ -6,34 +6,26 @@ class StatusChanged extends StatusEvent {
   final AbstractForecast? currentForecast;
   final AbstractForecast? previousForecast;
 
-  StatusChanged({
-    required this.currentForecast,
-    required this.previousForecast,
-  }) : super();
+  StatusChanged({required this.currentForecast, required this.previousForecast})
+    : super();
 }
 
 class StatusRefresh extends StatusEvent {
   final BuildContext context;
 
-  StatusRefresh({
-    required this.context,
-  }) : super();
+  StatusRefresh({required this.context}) : super();
 }
 
 class StatusDurationChanged extends StatusEvent {
   final Duration duration;
 
-  StatusDurationChanged({
-    required this.duration,
-  }) : super();
+  StatusDurationChanged({required this.duration}) : super();
 }
 
 class StatusWidgetDimensionChanged extends StatusEvent {
   final StatusWidgetDimension dimension;
   final BuildContext context;
 
-  StatusWidgetDimensionChanged({
-    required this.dimension,
-    required this.context,
-  }) : super();
+  StatusWidgetDimensionChanged({required this.dimension, required this.context})
+    : super();
 }

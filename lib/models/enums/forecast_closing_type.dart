@@ -1,4 +1,1 @@
-enum ForecastClosingType {
-  partial,
-  complete;
-}
+enum ForecastClosingType { partial, complete }

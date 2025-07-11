@@ -13,7 +13,7 @@ jobs:
   flutter-test-analyze:
     uses: ./.github/workflows/action.flutter.analyze-test.yaml
     with:
-      flutter_version: '3.19.3'
+      flutter_version: '3.32.2'
     secrets: inherit
   page:
     uses: ./.github/workflows/action.pages.deploy.yaml
@@ -21,7 +21,7 @@ jobs:
     needs: [ flutter-test-analyze ]
     uses: ./.github/workflows/action.flutter.build.yaml
     with:
-      flutter_version: '3.19.3'
+      flutter_version: '3.32.2'
       android_output: 'aab'
       env: 'dev'
     secrets: inherit

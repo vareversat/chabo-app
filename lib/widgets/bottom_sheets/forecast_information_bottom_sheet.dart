@@ -1,19 +1,16 @@
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/custom_page_routes.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 class ForecastInformationBottomSheet extends StatefulWidget {
   final AbstractForecast forecast;
 
-  const ForecastInformationBottomSheet({
-    super.key,
-    required this.forecast,
-  });
+  const ForecastInformationBottomSheet({super.key, required this.forecast});
 
   @override
   State<StatefulWidget> createState() {
@@ -32,10 +29,7 @@ class _ForecastInformationBottomSheetState
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
-      duration: _duration,
-      vsync: this,
-    );
+    _controller = AnimationController(duration: _duration, vsync: this);
 
     _controller.forward();
   }
@@ -87,12 +81,8 @@ class _ForecastInformationBottomSheetState
                   child: widget.forecast.getIconWidget(context, true, 33, true),
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: widget.forecast.getInformationWidget(context),
-              ),
+              const SizedBox(width: 10),
+              Expanded(child: widget.forecast.getInformationWidget(context)),
             ],
           ),
         ),
@@ -104,9 +94,7 @@ class _ForecastInformationBottomSheetState
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(
-                      CustomProperties.borderRadius,
-                    ),
+                    Radius.circular(CustomProperties.borderRadius),
                   ),
                   color: Theme.of(context).colorScheme.warningColor,
                 ),
@@ -120,26 +108,21 @@ class _ForecastInformationBottomSheetState
                         size: 25,
                         color: Theme.of(context).cardColor,
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       Flexible(
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .favoriteSlotsInterferenceWarning,
+                          AppLocalizations.of(
+                            context,
+                          )!.favoriteSlotsInterferenceWarning,
                           overflow: TextOverflow.clip,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context).cardColor,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: Theme.of(context).cardColor),
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       ElevatedButton(
                         style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(
+                          foregroundColor: WidgetStateProperty.all<Color>(
                             colorScheme.warningColor,
                           ),
                         ),
@@ -161,12 +144,10 @@ class _ForecastInformationBottomSheetState
                           duration: _duration,
                           builder: (context, animation, child) =>
                               Transform.translate(
-                            offset: Offset(20 * shake(animation), 0),
-                            child: child,
-                          ),
-                          child: const Icon(
-                            Icons.notifications_active,
-                          ),
+                                offset: Offset(20 * shake(animation), 0),
+                                child: child,
+                              ),
+                          child: const Icon(Icons.notifications_active),
                         ),
                       ),
                     ],

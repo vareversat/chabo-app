@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 class CurrentDockedBoatBottomSheet extends StatefulWidget {
   final StatusState statusState;
 
-  const CurrentDockedBoatBottomSheet({
-    super.key,
-    required this.statusState,
-  });
+  const CurrentDockedBoatBottomSheet({super.key, required this.statusState});
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +16,8 @@ class CurrentDockedBoatBottomSheet extends StatefulWidget {
 }
 
 class _CurrentDockedBoatBottomSheetState
-    extends State<CurrentDockedBoatBottomSheet> with TickerProviderStateMixin {
+    extends State<CurrentDockedBoatBottomSheet>
+    with TickerProviderStateMixin {
   late AnimationController _mainIconController;
   final Tween<double> _tween = Tween(begin: 0, end: 1);
   final _duration = const Duration(milliseconds: 1000);
@@ -28,10 +26,7 @@ class _CurrentDockedBoatBottomSheetState
   void initState() {
     super.initState();
 
-    _mainIconController = AnimationController(
-      duration: _duration,
-      vsync: this,
-    );
+    _mainIconController = AnimationController(duration: _duration, vsync: this);
 
     _mainIconController.forward();
   }
@@ -75,9 +70,7 @@ class _CurrentDockedBoatBottomSheetState
               ],
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           Flexible(
             flex: 5,
             child: RichText(

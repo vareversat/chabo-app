@@ -9,30 +9,19 @@ class FloatingActionsCubit extends Cubit<FloatingActionsState> {
   FloatingActionsCubit(this.storageService, super.initialState);
 
   void openFloatingActions() {
-    emit(
-      state.copyWith(
-        isMenuOpen: !state.isMenuOpen,
-      ),
-    );
+    emit(state.copyWith(isMenuOpen: !state.isMenuOpen));
   }
 
   void changeFloatingActionsSide() {
     storageService.saveBool(Const.isRightHandedKey, !state.isRightHanded);
-    emit(
-      state.copyWith(
-        isRightHanded: !state.isRightHanded,
-      ),
-    );
+    emit(state.copyWith(isRightHanded: !state.isRightHanded));
   }
 
   void init() {
-    final isRightHanded = storageService.readBool(Const.isRightHandedKey) ??
+    final isRightHanded =
+        storageService.readBool(Const.isRightHandedKey) ??
         Const.isRightHandedDefaultValue;
-    emit(
-      state.copyWith(
-        isRightHanded: isRightHanded,
-      ),
-    );
+    emit(state.copyWith(isRightHanded: isRightHanded));
   }
 }
 

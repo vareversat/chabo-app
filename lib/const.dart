@@ -88,15 +88,20 @@ class Const {
   /// Notifications
   static const String androidAppLogoPath =
       '@mipmap/ic_slice_launcher_adaptive_fore';
-  static const Duration notificationDurationValueDefaultValue =
-      Duration(minutes: 60);
+  static const Duration notificationDurationValueDefaultValue = Duration(
+    minutes: 60,
+  );
   static const bool notificationDurationEnabledDefaultValue = false;
-  static TimeOfDay notificationTimeValueDefaultValue =
-      const TimeOfDay(hour: 6, minute: 0);
+  static TimeOfDay notificationTimeValueDefaultValue = const TimeOfDay(
+    hour: 6,
+    minute: 0,
+  );
   static const bool notificationTimeEnabledDefaultValue = false;
   static const Day notificationDayValueDefaultValue = Day.sunday;
-  static TimeOfDay notificationDayValueDefaultTimeValue =
-      const TimeOfDay(hour: 20, minute: 00);
+  static TimeOfDay notificationDayValueDefaultTimeValue = const TimeOfDay(
+    hour: 20,
+    minute: 00,
+  );
   static const bool notificationDayEnabledDefaultValue = false;
   static const bool notificationOpeningEnabledDefaultValue = false;
   static const bool notificationClosingEnabledDefaultValue = false;
@@ -105,18 +110,12 @@ class Const {
     const TimeSlot(
       name: '',
       from: TimeOfDay(hour: 7, minute: 0),
-      to: TimeOfDay(
-        hour: 9,
-        minute: 30,
-      ),
+      to: TimeOfDay(hour: 9, minute: 30),
     ),
     const TimeSlot(
       name: '',
       from: TimeOfDay(hour: 17, minute: 0),
-      to: TimeOfDay(
-        hour: 19,
-        minute: 30,
-      ),
+      to: TimeOfDay(hour: 19, minute: 30),
     ),
   ];
   static List<Day> notificationFavoriteSlotsDaysDefaultValue = [

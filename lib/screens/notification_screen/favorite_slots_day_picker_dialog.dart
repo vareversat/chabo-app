@@ -8,9 +8,7 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          CustomProperties.borderRadius,
-        ),
+        borderRadius: BorderRadius.circular(CustomProperties.borderRadius),
       ),
       content: BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
         builder: (context, state) {
@@ -31,13 +29,9 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
                 ),
                 selected: state.days.contains(day),
                 shape: const StadiumBorder(side: BorderSide()),
-                onSelected: (bool selected) =>
-                    BlocProvider.of<TimeSlotsBloc>(context).add(
-                  DaysChanged(
-                    day: day,
-                    isSelected: selected,
-                  ),
-                ),
+                onSelected: (bool selected) => BlocProvider.of<TimeSlotsBloc>(
+                  context,
+                ).add(DaysChanged(day: day, isSelected: selected)),
               );
             }).toList(),
           );
@@ -48,7 +42,7 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton.icon(
             style: ButtonStyle(
-              shape: MaterialStateProperty.all<OutlinedBorder>(
+              shape: WidgetStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     CustomProperties.borderRadius,
@@ -58,9 +52,7 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
             ),
             onPressed: () => {Navigator.pop(context)},
             icon: const Icon(Icons.check_circle),
-            label: Text(
-              MaterialLocalizations.of(context).okButtonLabel,
-            ),
+            label: Text(MaterialLocalizations.of(context).okButtonLabel),
           ),
         ),
       ],

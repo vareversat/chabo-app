@@ -4,15 +4,9 @@ class TimeSlotsState extends Equatable {
   final List<TimeSlot> timeSlots;
   final List<Day> days;
 
-  const TimeSlotsState({
-    required this.timeSlots,
-    required this.days,
-  });
+  const TimeSlotsState({required this.timeSlots, required this.days});
 
-  TimeSlotsState copyWith({
-    List<TimeSlot>? timeSlots,
-    List<Day>? days,
-  }) {
+  TimeSlotsState copyWith({List<TimeSlot>? timeSlots, List<Day>? days}) {
     return TimeSlotsState(
       timeSlots: timeSlots ?? this.timeSlots,
       days: days ?? this.days,
@@ -25,8 +19,8 @@ class TimeSlotsState extends Equatable {
 
 class TimeSlotsInitial extends TimeSlotsState {
   TimeSlotsInitial()
-      : super(
-          timeSlots: Const.notificationFavoriteSlotsDefaultValue,
-          days: Const.notificationFavoriteSlotsDaysDefaultValue,
-        );
+    : super(
+        timeSlots: Const.notificationFavoriteSlotsDefaultValue,
+        days: Const.notificationFavoriteSlotsDaysDefaultValue,
+      );
 }
