@@ -13,14 +13,14 @@ class ConsentFormService {
       () {
         /// Check if one form is available
         ConsentInformation.instance.isConsentFormAvailable().then(
-              (value) => {
-                developer.log(
-                  'Is a form available : $value',
-                  name: 'consent-form-service._loadConsentForm',
-                ),
-                if (value) _loadConsentForm(),
-              },
-            );
+          (value) => {
+            developer.log(
+              'Is a form available : $value',
+              name: 'consent-form-service._loadConsentForm',
+            ),
+            if (value) _loadConsentForm(),
+          },
+        );
       },
       (FormError formError) {
         developer.log(
@@ -35,24 +35,24 @@ class ConsentFormService {
     ConsentForm.loadConsentForm(
       (ConsentForm consentForm) {
         /// Check if the form has to be displayed
-        ConsentInformation.instance.getConsentStatus().then((value) => {
-              developer.log(
-                'Form consent status : ${value.name}',
-                name: 'consent-form-service._loadConsentForm',
-              ),
-              if (value == ConsentStatus.required)
-                {
-                  consentForm.show(
-                    (FormError? formError) {
-                      developer.log(
-                        '##### Error while loading the consent form : ${formError?.message}',
-                        name: 'consent-form-service._loadConsentForm',
-                      );
-                      _loadConsentForm();
-                    },
-                  ),
-                },
-            });
+        ConsentInformation.instance.getConsentStatus().then(
+          (value) => {
+            developer.log(
+              'Form consent status : ${value.name}',
+              name: 'consent-form-service._loadConsentForm',
+            ),
+            if (value == ConsentStatus.required)
+              {
+                consentForm.show((FormError? formError) {
+                  developer.log(
+                    '##### Error while loading the consent form : ${formError?.message}',
+                    name: 'consent-form-service._loadConsentForm',
+                  );
+                  _loadConsentForm();
+                }),
+              },
+          },
+        );
       },
       (FormError formError) {
         developer.log(

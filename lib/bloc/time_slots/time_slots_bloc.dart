@@ -14,17 +14,11 @@ class TimeSlotsBloc extends Bloc<TimeSlotsEvent, TimeSlotsState> {
   final StorageService storageService;
 
   TimeSlotsBloc({required this.storageService}) : super(TimeSlotsInitial()) {
-    on<TimeSlotChanged>(
-      _onTimeSlotChanged,
-    );
+    on<TimeSlotChanged>(_onTimeSlotChanged);
 
-    on<DaysChanged>(
-      _onDaysChanged,
-    );
+    on<DaysChanged>(_onDaysChanged);
 
-    on<TimeSlotsAppEvent>(
-      _onAppEvent,
-    );
+    on<TimeSlotsAppEvent>(_onAppEvent);
   }
 
   Future<void> _onTimeSlotChanged(
@@ -39,11 +33,7 @@ class TimeSlotsBloc extends Bloc<TimeSlotsEvent, TimeSlotsState> {
     );
     HapticFeedback.lightImpact();
 
-    emit(
-      state.copyWith(
-        timeSlots: timeSlots,
-      ),
-    );
+    emit(state.copyWith(timeSlots: timeSlots));
   }
 
   Future<void> _onDaysChanged(
@@ -63,30 +53,18 @@ class TimeSlotsBloc extends Bloc<TimeSlotsEvent, TimeSlotsState> {
     );
     HapticFeedback.lightImpact();
 
-    emit(
-      state.copyWith(
-        days: days,
-      ),
-    );
+    emit(state.copyWith(days: days));
   }
 
-  void _onAppEvent(
-    TimeSlotsAppEvent event,
-    Emitter<TimeSlotsState> emit,
-  ) {
+  void _onAppEvent(TimeSlotsAppEvent event, Emitter<TimeSlotsState> emit) {
     final days =
         storageService.readDays(Const.notificationFavoriteSlotsDaysValueKey) ??
-            Const.notificationFavoriteSlotsDaysDefaultValue;
+        Const.notificationFavoriteSlotsDaysDefaultValue;
 
     final timeSlots =
         storageService.readTimeSlots(Const.notificationFavoriteSlotsValueKey) ??
-            Const.notificationFavoriteSlotsDefaultValue;
+        Const.notificationFavoriteSlotsDefaultValue;
 
-    emit(
-      state.copyWith(
-        days: days,
-        timeSlots: timeSlots,
-      ),
-    );
+    emit(state.copyWith(days: days, timeSlots: timeSlots));
   }
 }

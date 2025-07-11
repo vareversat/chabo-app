@@ -3,6 +3,7 @@ import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
 import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/boat.dart';
 import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
@@ -10,7 +11,6 @@ import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class BoatForecast extends AbstractForecast {
@@ -24,18 +24,17 @@ class BoatForecast extends AbstractForecast {
     required super.circulationReOpeningDate,
     required this.boats,
     required super.closingType,
-  })  : assert(boats.isNotEmpty),
-        super(
-          closingReason: ForecastClosingReason.boat,
-        );
+  }) : assert(boats.isNotEmpty),
+       super(closingReason: ForecastClosingReason.boat);
 
   factory BoatForecast.fake() {
     return BoatForecast(
-        totalClosing: true,
-        circulationClosingDate: DateTime.now(),
-        circulationReOpeningDate: DateTime.now(),
-        boats: [Boat.fake()],
-        closingType: ForecastClosingType.complete);
+      totalClosing: true,
+      circulationClosingDate: DateTime.now(),
+      circulationReOpeningDate: DateTime.now(),
+      boats: [Boat.fake()],
+      closingType: ForecastClosingType.complete,
+    );
   }
 
   factory BoatForecast.fromJSON(Map<String, dynamic> json) {
@@ -52,9 +51,9 @@ class BoatForecast extends AbstractForecast {
     );
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
-                'totale'
-            ? ForecastClosingType.complete
-            : ForecastClosingType.partial;
+            'totale'
+        ? ForecastClosingType.complete
+        : ForecastClosingType.partial;
     var totalClosing = AbstractForecast.getBooleanTotalClosingValue(
       json['fields']['fermeture_totale'],
     );
@@ -85,25 +84,27 @@ class BoatForecast extends AbstractForecast {
 
   @override
   List<Object?> get props => [
-        totalClosing,
-        closingReason,
-        closedDuration,
-        boats,
-        circulationClosingDate,
-        circulationReOpeningDate,
-        closingType,
-      ];
+    totalClosing,
+    closingReason,
+    closedDuration,
+    boats,
+    circulationClosingDate,
+    circulationReOpeningDate,
+    closingType,
+  ];
 
   @override
   RichText getInformationWidget(BuildContext context) {
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final colorScheme = Theme.of(context).colorScheme;
 
-    var schedule = circulationClosingDate
-        .add(Duration(microseconds: closedDuration.inMicroseconds ~/ 2));
+    var schedule = circulationClosingDate.add(
+      Duration(microseconds: closedDuration.inMicroseconds ~/ 2),
+    );
     var scheduleString = DateFormat(
-            timeFormat.icuName, Localizations.localeOf(context).languageCode)
-        .format(schedule);
+      timeFormat.icuName,
+      Localizations.localeOf(context).languageCode,
+    ).format(schedule);
     if (isDuringTwoDays) {
       scheduleString =
           '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
@@ -170,11 +171,7 @@ class BoatForecast extends AbstractForecast {
     var icons = <Widget>[
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Icon(
-          iconData,
-          color: getColor(context, reversed),
-          size: size,
-        ),
+        child: Icon(iconData, color: getColor(context, reversed), size: size),
       ),
     ];
     for (int i = 0; i < boats.length; i++) {
@@ -208,12 +205,7 @@ class BoatForecast extends AbstractForecast {
     return isLight
         ? Icon(iconData, color: getColor(context, reversed), size: size)
         : Stack(
-            children: _computeIconWidget(
-              context,
-              iconData,
-              reversed,
-              size,
-            ),
+            children: _computeIconWidget(context, iconData, reversed, size),
           );
   }
 
@@ -221,12 +213,12 @@ class BoatForecast extends AbstractForecast {
   Color getColor(BuildContext context, bool reversed) {
     if (boats.isWineFestival()) {
       return reversed
-          ? Theme.of(context).dialogBackgroundColor
+          ? Theme.of(context).colorScheme.surface
           : Theme.of(context).colorScheme.bordeauxColor;
     }
 
     return reversed
-        ? Theme.of(context).dialogBackgroundColor
+        ? Theme.of(context).colorScheme.surface
         : Theme.of(context).colorScheme.boatColor;
   }
 
@@ -240,9 +232,7 @@ class BoatForecast extends AbstractForecast {
   @override
   Map<String, dynamic> toJson() {
     var json = super.toJson();
-    json.addAll({
-      'boats': boats.map((e) => e.toJson()).toList(),
-    });
+    json.addAll({'boats': boats.map((e) => e.toJson()).toList()});
 
     return json;
   }

@@ -16,33 +16,23 @@ class _CurrentStatusWidget extends StatelessWidget {
           ),
           reverseDuration: const Duration(milliseconds: 0),
           child: AnimatedSwitcher(
-            duration: const Duration(
-              seconds: 1,
-            ),
+            duration: const Duration(seconds: 1),
             reverseDuration: const Duration(milliseconds: 0),
             transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+              return FadeTransition(opacity: animation, child: child);
             },
-            child: state.showCurrentStatus &&
+            child:
+                state.showCurrentStatus &&
                     state.currentTarget != null &&
                     statusState.statusWidgetDimension ==
                         StatusWidgetDimension.small
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ForecastWidget(
                       onTap: () => {
                         BlocProvider.of<ScrollStatusBloc>(
                           context,
-                        ).add(
-                          GoTo(
-                            goTo: state.currentTarget,
-                          ),
-                        ),
+                        ).add(GoTo(goTo: state.currentTarget)),
                       },
                       hasPassed: false,
                       isCurrent: true,

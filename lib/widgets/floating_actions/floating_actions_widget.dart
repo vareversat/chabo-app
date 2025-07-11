@@ -4,6 +4,7 @@ import 'package:chabo_app/cubits/floating_actions_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/helpers/custom_page_routes.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/screens/chabo_about_screen/chabo_about_screen.dart';
 import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
 import 'package:chabo_app/widgets/ad_banner_widget.dart';
@@ -12,7 +13,6 @@ import 'package:chabo_app/widgets/current_docked_boat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'floating_actions_item.dart';
 
@@ -68,7 +68,8 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Wrap(
-                          direction: DeviceHelper.isMobile(context) &&
+                          direction:
+                              DeviceHelper.isMobile(context) &&
                                   !DeviceHelper.isPortrait(context)
                               ? Axis.horizontal
                               : Axis.vertical,
@@ -86,14 +87,18 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                               content: [
                                 Text(
                                   state.isRightHanded
-                                      ? AppLocalizations.of(context)!
-                                          .rightHanded
-                                      : AppLocalizations.of(context)!
-                                          .leftHanded,
+                                      ? AppLocalizations.of(
+                                          context,
+                                        )!.rightHanded
+                                      : AppLocalizations.of(
+                                          context,
+                                        )!.leftHanded,
                                 ),
-                                Icon(state.isRightHanded
-                                    ? Icons.back_hand
-                                    : Icons.front_hand),
+                                Icon(
+                                  state.isRightHanded
+                                      ? Icons.back_hand
+                                      : Icons.front_hand,
+                                ),
                               ],
                               isRightHanded: state.isRightHanded,
                               isSpaced: true,
@@ -125,12 +130,8 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                     .openFloatingActions();
                               },
                               content: [
-                                Text(
-                                  AppLocalizations.of(context)!.openSetting,
-                                ),
-                                const Icon(
-                                  Icons.settings,
-                                ),
+                                Text(AppLocalizations.of(context)!.openSetting),
+                                const Icon(Icons.settings),
                               ],
                               isRightHanded: state.isRightHanded,
                               isSpaced: true,
@@ -152,12 +153,11 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                               },
                               content: [
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .notificationsTitle,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.notificationsTitle,
                                 ),
-                                const Icon(
-                                  Icons.notifications_active_outlined,
-                                ),
+                                const Icon(Icons.notifications_active_outlined),
                               ],
                               isRightHanded: state.isRightHanded,
                               isSpaced: true,
@@ -177,12 +177,8 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                                     .openFloatingActions();
                               },
                               content: [
-                                Text(
-                                  AppLocalizations.of(context)!.about,
-                                ),
-                                const Icon(
-                                  Icons.info_outline,
-                                ),
+                                Text(AppLocalizations.of(context)!.about),
+                                const Icon(Icons.info_outline),
                               ],
                               isRightHanded: state.isRightHanded,
                               isSpaced: true,
@@ -193,14 +189,10 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                     )
                   : const SizedBox.shrink(),
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(
-                  CustomProperties.borderRadius,
-                ),
+                top: Radius.circular(CustomProperties.borderRadius),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
@@ -254,9 +246,7 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
             duration: const Duration(
               milliseconds: CustomProperties.shortAnimationDurationMs,
             ),
-            reverseDuration: const Duration(
-              milliseconds: 0,
-            ),
+            reverseDuration: const Duration(milliseconds: 0),
             child: state.isMenuOpen
                 ? Text(
                     AppLocalizations.of(context)!.settingsClose,
@@ -266,21 +256,13 @@ class _FloatingActionsWidgetState extends State<FloatingActionsWidget>
                 : const SizedBox.shrink(),
           ),
           state.isMenuOpen
-              ? const Icon(
-                  Icons.expand_more,
-                )
-              : const Icon(
-                  Icons.expand_less_outlined,
-                ),
+              ? const Icon(Icons.expand_more)
+              : const Icon(Icons.expand_less_outlined),
         ],
         isSpaced: state.isMenuOpen,
       ),
-      const SizedBox(
-        width: 10,
-      ),
-      const Flexible(
-        child: CurrentDockedBoatButton(),
-      ),
+      const SizedBox(width: 10),
+      const Flexible(child: CurrentDockedBoatButton()),
     ];
   }
 }

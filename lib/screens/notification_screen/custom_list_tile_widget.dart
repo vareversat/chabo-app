@@ -10,14 +10,14 @@ class _CustomListTileWidget extends StatelessWidget {
   final IconData leadingIcon;
   final Color? iconColor;
 
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>((states) {
-    if (states.contains(MaterialState.selected)) {
-      return const Icon(Icons.check);
-    }
+  final WidgetStateProperty<Icon?> thumbIcon =
+      WidgetStateProperty.resolveWith<Icon?>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return const Icon(Icons.check);
+        }
 
-    return const Icon(Icons.close);
-  });
+        return const Icon(Icons.close);
+      });
 
   _CustomListTileWidget({
     required this.enabled,
@@ -44,9 +44,7 @@ class _CustomListTileWidget extends StatelessWidget {
               overflow: TextOverflow.clip,
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
           Flexible(
             child: AnimatedSwitcher(
               duration: const Duration(
@@ -54,8 +52,10 @@ class _CustomListTileWidget extends StatelessWidget {
               ),
               transitionBuilder: (Widget child, Animation<double> animation) {
                 return FadeTransition(
-                  opacity:
-                      CurvedAnimation(parent: animation, curve: Curves.easeIn),
+                  opacity: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeIn,
+                  ),
                   child: SlideTransition(
                     position: Tween(
                       begin: const Offset(-1.0, 0.0),
@@ -68,8 +68,9 @@ class _CustomListTileWidget extends StatelessWidget {
               child: constrainedBySlots && enabled
                   ? CircleAvatar(
                       radius: 5,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.warningColor,
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.warningColor,
                       child: Container(),
                     )
                   : const SizedBox(),
@@ -78,17 +79,13 @@ class _CustomListTileWidget extends StatelessWidget {
         ],
       ),
       subtitle: Text(subtitle),
-      leading: Icon(
-        leadingIcon,
-      ),
+      leading: Icon(leadingIcon),
       onTap: onTap,
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           onTap != null
-              ? const VerticalDivider(
-                  width: 20,
-                )
+              ? const VerticalDivider(width: 20)
               : const SizedBox.shrink(),
           Switch.adaptive(
             thumbIcon: thumbIcon,
@@ -100,10 +97,7 @@ class _CustomListTileWidget extends StatelessWidget {
                   level: SentryLevel.info,
                   category: 'notification.change-state',
                   type: 'Notification',
-                  data: {
-                    'old-state': !value,
-                    'new-state': value,
-                  },
+                  data: {'old-state': !value, 'new-state': value},
                 ),
               );
               onChanged(value);

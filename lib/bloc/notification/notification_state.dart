@@ -58,7 +58,8 @@ class NotificationState {
           openingNotificationEnabled ?? this.openingNotificationEnabled,
       closingNotificationEnabled:
           closingNotificationEnabled ?? this.closingNotificationEnabled,
-      timeSlotsEnabledForNotifications: timeSlotsEnabledForNotifications ??
+      timeSlotsEnabledForNotifications:
+          timeSlotsEnabledForNotifications ??
           this.timeSlotsEnabledForNotifications,
       notificationEnabled: notificationEnabled ?? this.notificationEnabled,
     );

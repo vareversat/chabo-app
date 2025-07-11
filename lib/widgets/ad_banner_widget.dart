@@ -26,11 +26,9 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
       request: const AdRequest(),
       listener: NativeAdListener(
         onAdLoaded: (ad) {
-          setState(
-            () {
-              _ad = ad;
-            },
-          );
+          setState(() {
+            _ad = ad;
+          });
         },
         onAdFailedToLoad: (ad, error) {
           developer.log(
@@ -71,8 +69,8 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
                     ? screenWidth
                     //ignore: avoid-nested-conditional-expressions
                     : !DeviceHelper.isMobile(context)
-                        ? screenWidth / 1.55
-                        : screenWidth / 2.13,
+                    ? screenWidth / 1.55
+                    : screenWidth / 2.13,
               ),
               alignment: Alignment.center,
               child: AnimatedSize(
@@ -84,10 +82,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
                     milliseconds: CustomProperties.animationDurationMs,
                   ),
                   transitionBuilder: (child, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
+                    return FadeTransition(opacity: animation, child: child);
                   },
                   child: AdWidget(ad: _bannerAd),
                 ),

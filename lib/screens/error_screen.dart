@@ -1,6 +1,6 @@
 import 'package:chabo_app/custom_widget_state.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ErrorScreen extends StatefulWidget {
   final String errorMessage;
@@ -31,10 +31,9 @@ class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
                   Text(
                     AppLocalizations.of(context)!.errorScreenContentError,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Theme.of(context).colorScheme.error),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                   const SizedBox(height: 15),
                   Text(

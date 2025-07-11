@@ -32,13 +32,10 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
               return ListView.separated(
                 shrinkWrap: true,
                 cacheExtent: 5000,
-                padding: const EdgeInsets.symmetric(horizontal: 5).copyWith(
-                  bottom: 150,
-                ),
-                itemBuilder: (
-                  BuildContext context,
-                  int index,
-                ) {
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5,
+                ).copyWith(bottom: 150),
+                itemBuilder: (BuildContext context, int index) {
                   final AbstractForecast forecast =
                       forecastState.forecasts[index];
                   forecast.computeSlotInterference(timeSlotState);
@@ -55,14 +52,17 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                       : const SizedBox.shrink();
                 },
                 itemCount: forecastState.forecasts.length,
-                controller:
-                    BlocProvider.of<ScrollStatusBloc>(context).scrollController,
+                controller: BlocProvider.of<ScrollStatusBloc>(
+                  context,
+                ).scrollController,
                 separatorBuilder: (BuildContext context, int index) {
                   final AbstractForecast forecast =
                       forecastState.forecasts[index];
                   if ((forecast.circulationClosingDate.month !=
-                              forecastState.forecasts[index + 1]
-                                  .circulationClosingDate.month) &&
+                              forecastState
+                                  .forecasts[index + 1]
+                                  .circulationClosingDate
+                                  .month) &&
                           !forecast.hasPassed() ||
                       forecastState.forecasts[index + 1] ==
                           forecastState.currentForecast) {
@@ -103,10 +103,9 @@ class _MonthWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              DateFormat.yMMMM(Localizations.localeOf(context).languageCode)
-                  .format(
-                forecast.circulationClosingDate,
-              ),
+              DateFormat.yMMMM(
+                Localizations.localeOf(context).languageCode,
+              ).format(forecast.circulationClosingDate),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),

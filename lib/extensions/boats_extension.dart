@@ -1,27 +1,21 @@
 import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/boat.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension BoatsExtension on List<Boat> {
   TextSpan toLocalizedTextSpan(BuildContext context) {
     final finalTextSpan = <TextSpan>[];
     for (var index = 0; index < length; index++) {
-      finalTextSpan.add(
-        this[index].toLocalizedStatusTextSpan(
-          context,
-          true,
-        ),
-      );
+      finalTextSpan.add(this[index].toLocalizedStatusTextSpan(context, true));
       if (index + 1 != length) {
-        finalTextSpan
-            .add(TextSpan(text: ' ${AppLocalizations.of(context)!.and} '));
+        finalTextSpan.add(
+          TextSpan(text: ' ${AppLocalizations.of(context)!.and} '),
+        );
       }
     }
 
-    return TextSpan(
-      children: finalTextSpan,
-    );
+    return TextSpan(children: finalTextSpan);
   }
 
   String getNames(BuildContext context) {
@@ -42,10 +36,12 @@ extension BoatsExtension on List<Boat> {
     var finalString = '';
     for (var index = 0; index < length; index++) {
       finalString += this[index].isLeaving
-          ? AppLocalizations.of(context)!
-              .notificationTimeBoatDeparture(this[index].name)
-          : AppLocalizations.of(context)!
-              .notificationTimeBoatArrival(this[index].name);
+          ? AppLocalizations.of(
+              context,
+            )!.notificationTimeBoatDeparture(this[index].name)
+          : AppLocalizations.of(
+              context,
+            )!.notificationTimeBoatArrival(this[index].name);
       if (length - index > 2) {
         finalString += ', ';
       } else if (index + 1 != length) {
@@ -63,22 +59,18 @@ extension BoatsExtension on List<Boat> {
       if (!this[index].isLeaving) {
         if (boatCount != 0) {
           finalTextSpan.add(
-            TextSpan(
-              text: ' ${AppLocalizations.of(context)!.and} ',
-            ),
+            TextSpan(text: ' ${AppLocalizations.of(context)!.and} '),
           );
         }
         boatCount += 1;
         finalTextSpan.add(
           TextSpan(
-            text: AppLocalizations.of(context)!
-                .the(this[index].name.startsWithVowel().toString())
-                .capitalize(),
+            text: AppLocalizations.of(
+              context,
+            )!.the(this[index].name.startsWithVowel().toString()).capitalize(),
           ),
         );
-        finalTextSpan.add(
-          this[index].toLocalizedTextSpan(context, true),
-        );
+        finalTextSpan.add(this[index].toLocalizedTextSpan(context, true));
       }
     }
 

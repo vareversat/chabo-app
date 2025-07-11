@@ -48,9 +48,7 @@ class _StoreRateWidgetState extends State<_StoreRateWidget>
               ),
             ),
           ),
-          child: const Icon(
-            Icons.star,
-          ),
+          child: const Icon(Icons.star),
         ),
       );
     }
@@ -61,17 +59,14 @@ class _StoreRateWidgetState extends State<_StoreRateWidget>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.ease,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.ease);
 
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
+        backgroundColor: WidgetStateProperty.all<Color>(
           colorScheme.warningColor,
         ),
-        foregroundColor: MaterialStateProperty.all<Color>(
+        foregroundColor: WidgetStateProperty.all<Color>(
           Theme.of(context).cardColor,
         ),
       ),
@@ -81,19 +76,13 @@ class _StoreRateWidgetState extends State<_StoreRateWidget>
         textBaseline: TextBaseline.ideographic,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 0,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 0),
             child: Text(
               '${AppLocalizations.of(context)!.rate} ${Const.appName} ❤️',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Row(
-            children: _computeIconWidgets(),
-          ),
+          Row(children: _computeIconWidgets()),
         ],
       ),
     );

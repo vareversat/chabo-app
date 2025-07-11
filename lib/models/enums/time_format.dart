@@ -1,7 +1,4 @@
-enum TimeFormat {
-  twelveHours,
-  twentyFourHours;
-}
+enum TimeFormat { twelveHours, twentyFourHours }
 
 extension TimeFormatExtension on TimeFormat? {
   String get text {

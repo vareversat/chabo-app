@@ -3,26 +3,19 @@ part of 'status_widget.dart';
 class _TextWidget extends StatelessWidget {
   final StatusState statusState;
 
-  const _TextWidget({
-    required this.statusState,
-  });
+  const _TextWidget({required this.statusState});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 5,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         decoration: BoxDecoration(
           color: statusState.backgroundColor,
           borderRadius: const BorderRadius.all(
-            Radius.circular(
-              CustomProperties.borderRadius,
-            ),
+            Radius.circular(CustomProperties.borderRadius),
           ),
         ),
         child: AnimatedSize(
@@ -34,14 +27,9 @@ class _TextWidget extends StatelessWidget {
             duration: const Duration(
               milliseconds: CustomProperties.shortAnimationDurationMs,
             ),
-            reverseDuration: const Duration(
-              milliseconds: 0,
-            ),
+            reverseDuration: const Duration(milliseconds: 0),
             transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+              return FadeTransition(opacity: animation, child: child);
             },
             child: AutoSizeText(
               key: ValueKey<String>(
@@ -50,9 +38,9 @@ class _TextWidget extends StatelessWidget {
               statusState.mainMessageStatus,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: statusState.foregroundColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                color: statusState.foregroundColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

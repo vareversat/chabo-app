@@ -6,13 +6,13 @@ import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/date_time_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/models/time_slot.dart';
 import 'package:chabo_app/widgets/bottom_sheets/forecast_information_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 part 'closing_info_widget.dart';
@@ -51,54 +51,53 @@ class ForecastWidget extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              shape: MaterialStateProperty.all<OutlinedBorder>(
+              shape: WidgetStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(CustomProperties.borderRadius),
+                  borderRadius: BorderRadius.circular(
+                    CustomProperties.borderRadius,
+                  ),
                   side: isCurrent
                       ? BorderSide(
                           width: 2,
-                          color: backgroundColor ??
+                          color:
+                              backgroundColor ??
                               forecast.getColor(context, false),
                         )
                       : BorderSide(
                           width: 2,
-                          color: Theme.of(context).colorScheme.surfaceVariant,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
                         ),
                 ),
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry?>(
-                const EdgeInsets.only(
-                  right: 0,
-                ),
+              padding: WidgetStateProperty.all<EdgeInsetsGeometry?>(
+                const EdgeInsets.only(right: 0),
               ),
             ),
-            onPressed: onTap ??
+            onPressed:
+                onTap ??
                 () async => {
-                      await showModalBottomSheet(
-                        useSafeArea: false,
-                        barrierColor: Colors.black.withOpacity(0.65),
-                        constraints: BoxConstraints(
-                          maxWidth: DeviceHelper.isPortrait(context)
-                              ? double.infinity
-                              : MediaQuery.of(context).size.width / 1.8,
-                        ),
-                        enableDrag: true,
-                        context: context,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(
-                              CustomProperties.borderRadius * 2,
-                            ),
-                          ),
-                        ),
-                        builder: (context) {
-                          return ForecastInformationBottomSheet(
-                            forecast: forecast,
-                          );
-                        },
+                  await showModalBottomSheet(
+                    useSafeArea: false,
+                    barrierColor: Colors.black.withValues(alpha: 0.65),
+                    constraints: BoxConstraints(
+                      maxWidth: DeviceHelper.isPortrait(context)
+                          ? double.infinity
+                          : MediaQuery.of(context).size.width / 1.8,
+                    ),
+                    enableDrag: true,
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(CustomProperties.borderRadius * 2),
                       ),
+                    ),
+                    builder: (context) {
+                      return ForecastInformationBottomSheet(forecast: forecast);
                     },
+                  ),
+                },
             child: SizedBox(
               height: 80,
               child: Row(
@@ -108,11 +107,8 @@ class ForecastWidget extends StatelessWidget {
                     flex: 5,
                     child: _LeadingIconWidget(
                       forecast: forecast,
-                      backgroundColor: backgroundColor ??
-                          forecast.getColor(
-                            context,
-                            false,
-                          ),
+                      backgroundColor:
+                          backgroundColor ?? forecast.getColor(context, false),
                     ),
                   ),
                   Flexible(
@@ -122,11 +118,7 @@ class ForecastWidget extends StatelessWidget {
                         Expanded(
                           child: Row(
                             children: [
-                              Expanded(
-                                child: _DayWidget(
-                                  forecast: forecast,
-                                ),
-                              ),
+                              Expanded(child: _DayWidget(forecast: forecast)),
 
                               /// Display a warning sign if the schedule interferes with timeslots
                               timeSlots.isNotEmpty
@@ -145,22 +137,22 @@ class ForecastWidget extends StatelessWidget {
                                     Flexible(
                                       flex: 2,
                                       child: _ClosingInfoWidget(
-                                          forecast: forecast,
-                                          timeFormat: state.timeFormat),
+                                        forecast: forecast,
+                                        timeFormat: state.timeFormat,
+                                      ),
                                     ),
                                     Flexible(
                                       flex: 2,
                                       child: _OpeningInfoWidget(
-                                          forecast: forecast,
-                                          timeFormat: state.timeFormat),
+                                        forecast: forecast,
+                                        timeFormat: state.timeFormat,
+                                      ),
                                     ),
                                   ],
                                 );
                               },
                             ),
-                            _DurationWidget(
-                              forecast: forecast,
-                            ),
+                            _DurationWidget(forecast: forecast),
                           ],
                         ),
                       ],
@@ -181,9 +173,7 @@ class ForecastWidget extends StatelessWidget {
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context)!.passedClosure,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

@@ -18,15 +18,11 @@ class _WebLinksWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(
-                CustomProperties.borderRadius / 2,
-              ),
+              topRight: Radius.circular(CustomProperties.borderRadius / 2),
             ),
             color: Theme.of(context).colorScheme.primaryContainer,
           ),
-          child: Text(
-            AppLocalizations.of(context)!.externalLinks,
-          ),
+          child: Text(AppLocalizations.of(context)!.externalLinks),
         ),
         Column(
           children: Const.usefulLinks
@@ -42,25 +38,19 @@ class _WebLinksWidget extends StatelessWidget {
                   child: ListTile(
                     dense: true,
                     onTap: () => link.launchURL(_getRegionCode(context)),
-                    leading: Icon(
-                      link.iconData,
-                      size: 20,
-                    ),
+                    leading: Icon(link.iconData, size: 20),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           child: Text(
-                            AppLocalizations.of(context)!.selectAboutDialog(
-                              link.translationKey,
-                            ),
+                            AppLocalizations.of(
+                              context,
+                            )!.selectAboutDialog(link.translationKey),
                           ),
                         ),
-                        const Icon(
-                          Icons.outbond,
-                          size: 17,
-                        ),
+                        const Icon(Icons.outbond, size: 17),
                       ],
                     ),
                   ),

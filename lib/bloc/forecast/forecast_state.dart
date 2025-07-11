@@ -45,14 +45,14 @@ class ForecastState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
-        forecasts,
-        hasReachedMax,
-        offset,
-        message,
-        currentForecast,
-        previousForecast,
-      ];
+    status,
+    forecasts,
+    hasReachedMax,
+    offset,
+    message,
+    currentForecast,
+    previousForecast,
+  ];
 }
 
 enum ForecastStatus { initial, success, failure }

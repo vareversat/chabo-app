@@ -13,13 +13,13 @@ jobs:
   flutter-test-analyze:
     uses: ./.github/workflows/action.flutter.analyze-test.yaml
     with:
-      flutter_version: '3.19.3'
+      flutter_version: '3.32.2'
     secrets: inherit
   flutter-build:
     needs: [ flutter-test-analyze ]
     uses: ./.github/workflows/action.flutter.build.yaml
     with:
-      flutter_version: '3.19.3'
+      flutter_version: '3.32.2'
       android_output: 'apk'
       env: 'dev'
     secrets: inherit

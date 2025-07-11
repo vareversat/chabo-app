@@ -22,16 +22,8 @@ class TimeSlot extends Equatable {
 
     return TimeSlot(
       name: json['name'] ?? '',
-      from: TimeOfDay.fromDateTime(
-        format.parse(
-          json['from'],
-        ),
-      ),
-      to: TimeOfDay.fromDateTime(
-        format.parse(
-          json['to'],
-        ),
-      ),
+      from: TimeOfDay.fromDateTime(format.parse(json['from'])),
+      to: TimeOfDay.fromDateTime(format.parse(json['to'])),
     );
   }
 

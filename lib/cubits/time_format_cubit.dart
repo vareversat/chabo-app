@@ -14,35 +14,24 @@ class TimeFormatCubit extends Cubit<TimeFormatState> {
         ? TimeFormat.twelveHours
         : TimeFormat.twentyFourHours;
     storageService.saveTimeFormat(Const.timeFormatKey, newDateFormat);
-    emit(
-      state.copyWith(
-        timeFormat: newDateFormat,
-      ),
-    );
+    emit(state.copyWith(timeFormat: newDateFormat));
   }
 
   void init() {
-    final timeFormat = storageService.readTimeFormat(Const.timeFormatKey) ??
+    final timeFormat =
+        storageService.readTimeFormat(Const.timeFormatKey) ??
         Const.timeFormatDefaultValue;
-    emit(
-      state.copyWith(
-        timeFormat: timeFormat,
-      ),
-    );
+    emit(state.copyWith(timeFormat: timeFormat));
   }
 }
 
 class TimeFormatState extends Equatable {
   final TimeFormat timeFormat;
 
-  const TimeFormatState({
-    required this.timeFormat,
-  });
+  const TimeFormatState({required this.timeFormat});
 
   TimeFormatState copyWith({TimeFormat? timeFormat}) {
-    return TimeFormatState(
-      timeFormat: timeFormat ?? this.timeFormat,
-    );
+    return TimeFormatState(timeFormat: timeFormat ?? this.timeFormat);
   }
 
   @override

@@ -9,12 +9,8 @@ class _TimeSlotWarningWidget extends StatelessWidget {
       width: 40,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
-          bottomLeft: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
+          topRight: Radius.circular(CustomProperties.borderRadius),
+          bottomLeft: Radius.circular(CustomProperties.borderRadius),
         ),
         color: Theme.of(context).colorScheme.warningColor,
       ),

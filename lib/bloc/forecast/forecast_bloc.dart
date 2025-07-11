@@ -18,17 +18,17 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
 
   ForecastBloc({required this.httpClient}) : super(const ForecastState()) {
     Timer.periodic(const Duration(seconds: 1), _onRefreshCurrentStatus);
-    on<ForecastFetched>(
-      _onForecastFetched,
-    );
+    on<ForecastFetched>(_onForecastFetched);
   }
 
   void _onRefreshCurrentStatus(Timer timer) {
     try {
       if (state.status == ForecastStatus.success) {
         final currentStatus = _getCurrentStatus(state.forecasts);
-        final previousStatus =
-            _getPreviousStatus(state.forecasts, currentStatus);
+        final previousStatus = _getPreviousStatus(
+          state.forecasts,
+          currentStatus,
+        );
         if (currentStatus != state.currentForecast &&
             currentStatus != previousStatus) {
           // ignore: invalid_use_of_visible_for_testing_member
@@ -42,16 +42,13 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
       }
     } catch (e) {
       // ignore: invalid_use_of_visible_for_testing_member
-      emit(state.copyWith(
-        status: ForecastStatus.failure,
-        message: e.toString(),
-      ));
+      emit(
+        state.copyWith(status: ForecastStatus.failure, message: e.toString()),
+      );
     }
   }
 
-  Future<List<AbstractForecast>> _fetchForecasts(
-    int offset,
-  ) async {
+  Future<List<AbstractForecast>> _fetchForecasts(int offset) async {
     var uri = Uri.https(
       'opendata.bordeaux-metropole.fr',
       '/api/records/1.0/search',
@@ -77,17 +74,15 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
         final boatForecast = BoatForecast.fromJSON(json);
 
         return boatForecast;
-      }).toList()
-        ..sort((a, b) =>
-            a.circulationClosingDate.compareTo(b.circulationClosingDate));
+      }).toList()..sort(
+        (a, b) => a.circulationClosingDate.compareTo(b.circulationClosingDate),
+      );
     }
 
     return [];
   }
 
-  AbstractForecast? _getCurrentStatus(
-    List<AbstractForecast> forecast,
-  ) {
+  AbstractForecast? _getCurrentStatus(List<AbstractForecast> forecast) {
     int middle = forecast.length ~/ 2;
     if ((forecast[middle].circulationClosingDate.isBefore(DateTime.now()) &&
         forecast[middle].circulationReOpeningDate.isAfter(DateTime.now()))) {
@@ -104,9 +99,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
           return null;
         }
       }
-    } else if (forecast[middle]
-        .circulationClosingDate
-        .isAfter(DateTime.now())) {
+    } else if (forecast[middle].circulationClosingDate.isAfter(
+      DateTime.now(),
+    )) {
       return _getCurrentStatus(forecast.sublist(0, middle + 1));
     } else {
       return _getCurrentStatus(forecast.sublist(middle));
@@ -135,15 +130,17 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
         final forecasts = await _fetchForecasts(state.offset);
         final currentStatus = _getCurrentStatus(forecasts);
         final noMoreForecasts = currentStatus == null;
-        emit(state.copyWith(
-          status: ForecastStatus.success,
-          forecasts: forecasts,
-          currentForecast: currentStatus,
-          previousForecast: _getPreviousStatus(forecasts, currentStatus),
-          noMoreForecasts: noMoreForecasts,
-          hasReachedMax: false,
-          offset: state.offset + Const.forecastLimit,
-        ));
+        emit(
+          state.copyWith(
+            status: ForecastStatus.success,
+            forecasts: forecasts,
+            currentForecast: currentStatus,
+            previousForecast: _getPreviousStatus(forecasts, currentStatus),
+            noMoreForecasts: noMoreForecasts,
+            hasReachedMax: false,
+            offset: state.offset + Const.forecastLimit,
+          ),
+        );
       }
       final forecasts = await _fetchForecasts(state.forecasts.length);
       emit(
@@ -152,11 +149,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
             : state.copyWith(
                 currentForecast:
                     state.currentForecast ?? _getCurrentStatus(forecasts),
-                previousForecast: state.previousForecast ??
-                    _getPreviousStatus(
-                      forecasts,
-                      _getCurrentStatus(forecasts),
-                    ),
+                previousForecast:
+                    state.previousForecast ??
+                    _getPreviousStatus(forecasts, _getCurrentStatus(forecasts)),
                 status: ForecastStatus.success,
                 forecasts: List.of(state.forecasts)..addAll(forecasts),
                 hasReachedMax: false,
@@ -164,10 +159,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
               ),
       );
     } catch (e) {
-      emit(state.copyWith(
-        status: ForecastStatus.failure,
-        message: e.toString(),
-      ));
+      emit(
+        state.copyWith(status: ForecastStatus.failure, message: e.toString()),
+      );
     }
   }
 }

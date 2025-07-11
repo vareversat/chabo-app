@@ -12,9 +12,7 @@ class _ClosingInfoWidget extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(
-            CustomProperties.borderRadius,
-          ),
+          topLeft: Radius.circular(CustomProperties.borderRadius),
         ),
         color: Theme.of(context).colorScheme.error,
       ),

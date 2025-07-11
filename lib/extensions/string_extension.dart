@@ -8,8 +8,6 @@ extension StringExtension on String {
   }
 
   bool startsWithVowel() {
-    return Const.vowelList.contains(
-      this[0].toLowerCase(),
-    );
+    return Const.vowelList.contains(this[0].toLowerCase());
   }
 }

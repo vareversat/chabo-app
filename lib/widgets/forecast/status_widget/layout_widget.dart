@@ -3,9 +3,7 @@ part of 'status_widget.dart';
 class _LayoutWidget extends StatelessWidget {
   final StatusState statusState;
 
-  const _LayoutWidget({
-    required this.statusState,
-  });
+  const _LayoutWidget({required this.statusState});
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +15,11 @@ class _LayoutWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                child: _TextWidget(
-                  statusState: statusState,
-                ),
-              ),
+              Flexible(child: _TextWidget(statusState: statusState)),
               if (statusState.currentForecast != null)
-                _ProgressIndicatorWidget(
-                  statusState: statusState,
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              _CurrentStatusWidget(
-                statusState: statusState,
-              ),
+                _ProgressIndicatorWidget(statusState: statusState),
+              const SizedBox(height: 10),
+              _CurrentStatusWidget(statusState: statusState),
             ],
           ),
         ),

@@ -9,11 +9,7 @@ import 'package:intl/intl.dart';
 extension DateTimeExtension on DateTime {
   DateTime previous(int day) {
     return day == weekday
-        ? subtract(Duration(
-            days: 7,
-            hours: hour,
-            minutes: minute,
-          ))
+        ? subtract(Duration(days: 7, hours: hour, minutes: minute))
         : subtract(
             Duration(
               days: (weekday - day) % DateTime.daysPerWeek,
@@ -42,9 +38,7 @@ extension DateTimeExtension on DateTime {
   TextSpan toLocalizedTextSpan(BuildContext context, Color foregroundColor) {
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final languageCode = Localizations.localeOf(context).languageCode;
-    var stringDate = DateFormat(timeFormat.icuName, languageCode).format(
-      this,
-    );
+    var stringDate = DateFormat(timeFormat.icuName, languageCode).format(this);
     var timeMarker = '';
 
     /// Try to fetch the time marker (us based local). If it exists, indexOfTimeMarker != -1
@@ -57,21 +51,17 @@ extension DateTimeExtension on DateTime {
 
     return TextSpan(
       children: [
-        TextSpan(
-          text: stringDate,
-        ),
+        TextSpan(text: stringDate),
         TextSpan(
           text: timeMarker,
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium
-              ?.copyWith(color: foregroundColor),
+          style: Theme.of(
+            context,
+          ).textTheme.labelMedium?.copyWith(color: foregroundColor),
         ),
       ],
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall
-          ?.copyWith(color: foregroundColor),
+      style: Theme.of(
+        context,
+      ).textTheme.headlineSmall?.copyWith(color: foregroundColor),
     );
   }
 }

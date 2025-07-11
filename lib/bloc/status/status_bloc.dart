@@ -2,11 +2,11 @@ import 'package:chabo_app/bloc/chabo_event.dart';
 import 'package:chabo_app/const.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/string_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 part 'status_event.dart';
@@ -14,18 +14,10 @@ part 'status_state.dart';
 
 class StatusBloc extends Bloc<StatusEvent, StatusState> {
   StatusBloc() : super(const StatusStateInitial()) {
-    on<StatusChanged>(
-      _onStatusChanged,
-    );
-    on<StatusRefresh>(
-      _onRefresh,
-    );
-    on<StatusDurationChanged>(
-      _onDurationChanged,
-    );
-    on<StatusWidgetDimensionChanged>(
-      _onStatusWidgetDimensionChanged,
-    );
+    on<StatusChanged>(_onStatusChanged);
+    on<StatusRefresh>(_onRefresh);
+    on<StatusDurationChanged>(_onDurationChanged);
+    on<StatusWidgetDimensionChanged>(_onStatusWidgetDimensionChanged);
   }
 
   void _onStatusWidgetDimensionChanged(
@@ -35,9 +27,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     emit(
       state.copyWith(
         statusWidgetDimension: event.dimension,
-        mainMessageStatus: _getMainStatus(
-          event.context,
-        ),
+        mainMessageStatus: _getMainStatus(event.context),
       ),
     );
   }
@@ -46,17 +36,10 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     StatusDurationChanged event,
     Emitter<StatusState> emit,
   ) {
-    emit(
-      state.copyWith(
-        durationForCloseClosing: event.duration,
-      ),
-    );
+    emit(state.copyWith(durationForCloseClosing: event.duration));
   }
 
-  void _onStatusChanged(
-    StatusChanged event,
-    Emitter<StatusState> emit,
-  ) {
+  void _onStatusChanged(StatusChanged event, Emitter<StatusState> emit) {
     emit(
       state.copyWith(
         currentForecast: event.currentForecast,
@@ -65,10 +48,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     );
   }
 
-  void _onRefresh(
-    StatusRefresh event,
-    Emitter<StatusState> emit,
-  ) {
+  void _onRefresh(StatusRefresh event, Emitter<StatusState> emit) {
     final Duration? durationUntilNextEvent = _getDurationUntilNextEvent();
     final Duration? durationBetweenPreviousAndNextEvent =
         _getDurationBetweenPreviousAndNextEvent();
@@ -90,8 +70,10 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         mainMessageStatus: mainMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
-        statusLifecycle: state.durationUntilNextEvent !=
-                Duration.zero // Prevents from displaying the wrong status color
+        statusLifecycle:
+            state.durationUntilNextEvent !=
+                Duration
+                    .zero // Prevents from displaying the wrong status color
             ? StatusLifecycle.populated
             : StatusLifecycle.empty,
         backgroundColor: backgroundColor,
@@ -126,10 +108,10 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
       return isOpen ||
               state.durationUntilNextEvent.inMinutes <
                   state.durationForCloseClosing.inMinutes
-          ? colorScheme.background
+          ? colorScheme.surface
           : colorScheme.onError;
     } else {
-      return Theme.of(context).colorScheme.background;
+      return Theme.of(context).colorScheme.surface;
     }
   }
 
@@ -200,8 +182,8 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     return durationBetweenPreviousAndNextEvent != null &&
             durationUntilNextEvent != null
         ? 1 -
-            (durationUntilNextEvent.inSeconds /
-                durationBetweenPreviousAndNextEvent.inSeconds)
+              (durationUntilNextEvent.inSeconds /
+                  durationBetweenPreviousAndNextEvent.inSeconds)
         : -1;
   }
 

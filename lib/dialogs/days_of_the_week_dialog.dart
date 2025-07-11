@@ -2,10 +2,10 @@ import 'package:chabo_app/bloc/notification/notification_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/time_of_day_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
   const DaysOfTheWeekDialog({super.key});
@@ -15,9 +15,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          CustomProperties.borderRadius,
-        ),
+        borderRadius: BorderRadius.circular(CustomProperties.borderRadius),
       ),
       content: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
@@ -36,11 +34,9 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.0),
                         onChanged: (Day? value) {
                           if (value != null) {
-                            BlocProvider.of<NotificationBloc>(context).add(
-                              DayNotificationValueEvent(
-                                day: value,
-                              ),
-                            );
+                            BlocProvider.of<NotificationBloc>(
+                              context,
+                            ).add(DayNotificationValueEvent(day: value));
                           }
                         },
                         value: state.dayNotificationValue,
@@ -83,18 +79,18 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                         (value) => {
                           if (value != null)
                             {
-                              BlocProvider.of<NotificationBloc>(context).add(
-                                DayNotificationTimeValueEvent(
-                                  time: value,
+                              if (context.mounted)
+                                BlocProvider.of<NotificationBloc>(context).add(
+                                  DayNotificationTimeValueEvent(time: value),
                                 ),
-                              ),
                             },
                         },
                       );
                     },
                     child: Text(
-                      state.dayNotificationTimeValue
-                          .toFormattedString(timeFormatState.timeFormat),
+                      state.dayNotificationTimeValue.toFormattedString(
+                        timeFormatState.timeFormat,
+                      ),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -109,7 +105,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton.icon(
             style: ButtonStyle(
-              shape: MaterialStateProperty.all<OutlinedBorder>(
+              shape: WidgetStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     CustomProperties.borderRadius,
@@ -119,9 +115,7 @@ class DaysOfTheWeekDialog extends StatelessWidget {
             ),
             onPressed: () => {Navigator.pop(context)},
             icon: const Icon(Icons.check_circle),
-            label: Text(
-              MaterialLocalizations.of(context).okButtonLabel,
-            ),
+            label: Text(MaterialLocalizations.of(context).okButtonLabel),
           ),
         ),
       ],

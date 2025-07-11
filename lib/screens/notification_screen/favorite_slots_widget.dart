@@ -43,21 +43,18 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
 
   @override
   Widget build(BuildContext context) {
-    _animation = ColorTween(
-      begin: Theme.of(context).colorScheme.warningColor,
-      end: Theme.of(context).colorScheme.background,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInQuad,
-      ),
-    )..addListener(
-        () {
-          /// Trigger the rebuild of the widget
-          // ignore: no-empty-block
-          setState(() {});
-        },
-      );
+    _animation =
+        ColorTween(
+            begin: Theme.of(context).colorScheme.warningColor,
+            end: Theme.of(context).colorScheme.surface,
+          ).animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeInQuad),
+          )
+          ..addListener(() {
+            /// Trigger the rebuild of the widget
+            // ignore: no-empty-block
+            setState(() {});
+          });
 
     return BlocBuilder<TimeSlotsBloc, TimeSlotsState>(
       builder: (context, state) {
@@ -65,26 +62,26 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
           children: [
             _CustomListTileWidget(
               onChanged: (bool value) => {
-                BlocProvider.of<NotificationBloc>(context).add(
-                  EnabledTimeSlotEvent(
-                    enabled: value,
-                  ),
-                ),
+                BlocProvider.of<NotificationBloc>(
+                  context,
+                ).add(EnabledTimeSlotEvent(enabled: value)),
                 if (value)
                   {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         duration: const Duration(seconds: 7),
                         showCloseIcon: true,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.warningColor,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.warningColor,
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .favoriteTimeSlotEnabledWarning,
+                                AppLocalizations.of(
+                                  context,
+                                )!.favoriteTimeSlotEnabledWarning,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -97,9 +94,9 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
                   }
                 else
                   {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar(
-                      reason: SnackBarClosedReason.action,
-                    ),
+                    ScaffoldMessenger.of(
+                      context,
+                    ).hideCurrentSnackBar(reason: SnackBarClosedReason.action),
                   },
               },
               enabled: widget.timeSlotsEnabledForNotifications,
@@ -120,19 +117,14 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       for (var i = 0; i < state.timeSlots.length; i++) ...[
-                        TimeSlotWidget(
-                          timeSlot: state.timeSlots[i],
-                          index: i,
-                        ),
+                        TimeSlotWidget(timeSlot: state.timeSlots[i], index: i),
                       ],
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   ElevatedButton.icon(
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             CustomProperties.borderRadius,

@@ -23,26 +23,25 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     required this.storageService,
     required this.notificationService,
   }) : super(
-          NotificationState(
-            durationNotificationEnabled:
-                Const.notificationDurationEnabledDefaultValue,
-            durationNotificationValue:
-                Const.notificationDurationValueDefaultValue,
-            timeNotificationEnabled: Const.notificationTimeEnabledDefaultValue,
-            timeNotificationValue: Const.notificationTimeValueDefaultValue,
-            dayNotificationEnabled: Const.notificationDayEnabledDefaultValue,
-            dayNotificationValue: Const.notificationDayValueDefaultValue,
-            dayNotificationTimeValue:
-                Const.notificationDayValueDefaultTimeValue,
-            openingNotificationEnabled:
-                Const.notificationOpeningEnabledDefaultValue,
-            closingNotificationEnabled:
-                Const.notificationClosingEnabledDefaultValue,
-            timeSlotsEnabledForNotifications:
-                Const.notificationFavoriteSlotsEnabledDefaultValue,
-            notificationEnabled: false,
-          ),
-        ) {
+         NotificationState(
+           durationNotificationEnabled:
+               Const.notificationDurationEnabledDefaultValue,
+           durationNotificationValue:
+               Const.notificationDurationValueDefaultValue,
+           timeNotificationEnabled: Const.notificationTimeEnabledDefaultValue,
+           timeNotificationValue: Const.notificationTimeValueDefaultValue,
+           dayNotificationEnabled: Const.notificationDayEnabledDefaultValue,
+           dayNotificationValue: Const.notificationDayValueDefaultValue,
+           dayNotificationTimeValue: Const.notificationDayValueDefaultTimeValue,
+           openingNotificationEnabled:
+               Const.notificationOpeningEnabledDefaultValue,
+           closingNotificationEnabled:
+               Const.notificationClosingEnabledDefaultValue,
+           timeSlotsEnabledForNotifications:
+               Const.notificationFavoriteSlotsEnabledDefaultValue,
+           notificationEnabled: false,
+         ),
+       ) {
     on<OpeningNotificationStateEvent>(
       _onOpeningNotificationStateEvent,
       transformer: sequential(),
@@ -87,10 +86,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       _onComputeNotificationEvent,
       transformer: sequential(),
     );
-    on<NotificationAppEvent>(
-      _onAppEvent,
-      transformer: sequential(),
-    );
+    on<NotificationAppEvent>(_onAppEvent, transformer: sequential());
   }
 
   Future<void> _onOpeningNotificationStateEvent(
@@ -102,11 +98,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.enabled,
     );
     HapticFeedback.lightImpact();
-    emit(
-      state.copyWith(
-        openingNotificationEnabled: event.enabled,
-      ),
-    );
+    emit(state.copyWith(openingNotificationEnabled: event.enabled));
   }
 
   Future<void> _onClosingNotificationStateEvent(
@@ -150,16 +142,9 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     DayNotificationValueEvent event,
     Emitter<NotificationState> emit,
   ) async {
-    await storageService.saveDay(
-      Const.notificationDayValueKey,
-      event.day,
-    );
+    await storageService.saveDay(Const.notificationDayValueKey, event.day);
     HapticFeedback.lightImpact();
-    emit(
-      state.copyWith(
-        dayNotificationValue: event.day,
-      ),
-    );
+    emit(state.copyWith(dayNotificationValue: event.day));
   }
 
   Future<void> _onDayNotificationTimeValueEvent(
@@ -171,11 +156,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       event.time,
     );
     HapticFeedback.lightImpact();
-    emit(
-      state.copyWith(
-        dayNotificationTimeValue: event.time,
-      ),
-    );
+    emit(state.copyWith(dayNotificationTimeValue: event.time));
   }
 
   Future<void> _onTimeNotificationStateEvent(
@@ -204,11 +185,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       Const.notificationTimeValueKey,
       event.time,
     );
-    emit(
-      state.copyWith(
-        timeNotificationValue: event.time,
-      ),
-    );
+    emit(state.copyWith(timeNotificationValue: event.time));
   }
 
   Future<void> _onDurationNotificationStateEvent(
@@ -237,9 +214,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       Const.notificationDurationValueKey,
       event.duration,
     );
-    emit(
-      state.copyWith(durationNotificationValue: event.duration),
-    );
+    emit(state.copyWith(durationNotificationValue: event.duration));
   }
 
   Future<void> _onEnabledTimeSlotEvent(
@@ -252,9 +227,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     );
     HapticFeedback.lightImpact();
 
-    emit(state.copyWith(
-      timeSlotsEnabledForNotifications: event.enabled,
-    ));
+    emit(state.copyWith(timeSlotsEnabledForNotifications: event.enabled));
   }
 
   Future<void> _onComputeNotificationEvent(
@@ -275,43 +248,43 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   ) async {
     final durationNotificationEnabled =
         storageService.readBool(Const.notificationDurationEnabledKey) ??
-            Const.notificationDurationEnabledDefaultValue;
+        Const.notificationDurationEnabledDefaultValue;
 
     final durationNotificationValue =
         storageService.readDuration(Const.notificationDurationValueKey) ??
-            Const.notificationDurationValueDefaultValue;
+        Const.notificationDurationValueDefaultValue;
 
     final timeNotificationEnabled =
         storageService.readBool(Const.notificationTimeEnabledKey) ??
-            Const.notificationTimeEnabledDefaultValue;
+        Const.notificationTimeEnabledDefaultValue;
 
     final timeNotificationValue =
         storageService.readTimeOfDay(Const.notificationTimeValueKey) ??
-            Const.notificationTimeValueDefaultValue;
+        Const.notificationTimeValueDefaultValue;
 
     final dayNotificationEnabled =
         storageService.readBool(Const.notificationDayEnabledKey) ??
-            Const.notificationDayEnabledDefaultValue;
+        Const.notificationDayEnabledDefaultValue;
 
     final dayNotificationValue =
         storageService.readDay(Const.notificationDayValueKey) ??
-            Const.notificationDayValueDefaultValue;
+        Const.notificationDayValueDefaultValue;
 
     final dayNotificationTimeValue =
         storageService.readTimeOfDay(Const.notificationDayTimeValueKey) ??
-            Const.notificationDayValueDefaultTimeValue;
+        Const.notificationDayValueDefaultTimeValue;
 
     final openingNotificationEnabled =
         storageService.readBool(Const.notificationOpeningEnabledKey) ??
-            Const.notificationOpeningEnabledDefaultValue;
+        Const.notificationOpeningEnabledDefaultValue;
 
     final closingNotificationEnabled =
         storageService.readBool(Const.notificationClosingEnabledKey) ??
-            Const.notificationClosingEnabledDefaultValue;
+        Const.notificationClosingEnabledDefaultValue;
 
     final enabledForNotifications =
         storageService.readBool(Const.notificationFavoriteSlotsEnabledKey) ??
-            Const.notificationFavoriteSlotsEnabledDefaultValue;
+        Const.notificationFavoriteSlotsEnabledDefaultValue;
 
     final enabled = await notificationService.areNotificationsEnabled();
 

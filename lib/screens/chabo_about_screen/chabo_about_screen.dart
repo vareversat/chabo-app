@@ -3,10 +3,10 @@ import 'package:chabo_app/cubits/floating_actions_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/misc/no_scaling_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -53,9 +53,7 @@ class ChaboAboutScreen extends StatelessWidget {
             label: Wrap(
               spacing: 10,
               children: [
-                Text(
-                  MaterialLocalizations.of(context).closeButtonLabel,
-                ),
+                Text(MaterialLocalizations.of(context).closeButtonLabel),
                 const Icon(Icons.close),
               ],
             ),
@@ -70,8 +68,8 @@ class ChaboAboutScreen extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.about,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
             ),
           ),
           body: FutureBuilder<PackageInfo>(
@@ -94,8 +92,9 @@ class ChaboAboutScreen extends StatelessWidget {
                     stretch: true,
                     collapsedHeight: 120,
                     expandedHeight: 150,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.primaryContainer,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primaryContainer,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(
@@ -158,8 +157,8 @@ class ChaboAboutScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             Const.legalLease,
-                                            style:
-                                                textTheme.bodySmall!.copyWith(),
+                                            style: textTheme.bodySmall!
+                                                .copyWith(),
                                           ),
                                         ],
                                       ),
@@ -187,12 +186,12 @@ class ChaboAboutScreen extends StatelessWidget {
                         Container(
                           constraints: DeviceHelper.isMobile(context)
                               ? DeviceHelper.isPortrait(context)
-                                  ? null
-                                  : BoxConstraints(
-                                      maxWidth:
-                                          MediaQuery.of(context).size.width /
-                                              1.2,
-                                    )
+                                    ? null
+                                    : BoxConstraints(
+                                        maxWidth:
+                                            MediaQuery.of(context).size.width /
+                                            1.2,
+                                      )
                               : BoxConstraints(
                                   maxWidth:
                                       MediaQuery.of(context).size.width / 1.9,
@@ -205,13 +204,12 @@ class ChaboAboutScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .appDescription,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.appDescription,
                                       style: textTheme.bodyLarge,
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    const SizedBox(height: 15),
                                     Text(
                                       AppLocalizations.of(context)!.disclaimer,
                                       style: Theme.of(context)
@@ -221,9 +219,7 @@ class ChaboAboutScreen extends StatelessWidget {
                                             fontStyle: FontStyle.italic,
                                           ),
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    const SizedBox(height: 15),
                                     DeviceHelper.isPortrait(context)
                                         ? Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -238,9 +234,7 @@ class ChaboAboutScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               const Padding(
                                 padding: EdgeInsets.only(bottom: 80.0),
                                 child: _WebLinksWidget(),

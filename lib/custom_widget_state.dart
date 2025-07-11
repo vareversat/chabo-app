@@ -40,16 +40,12 @@ class CustomWidgetState<T extends StatefulWidget> extends State<T>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    BlocProvider.of<ThemeBloc>(context).add(
-      AppStateChanged(),
-    );
+    BlocProvider.of<ThemeBloc>(context).add(AppStateChanged());
   }
 
   @override
   void didChangePlatformBrightness() {
-    BlocProvider.of<ThemeBloc>(context).add(
-      AppStateChanged(),
-    );
+    BlocProvider.of<ThemeBloc>(context).add(AppStateChanged());
     super.didChangePlatformBrightness();
   }
 

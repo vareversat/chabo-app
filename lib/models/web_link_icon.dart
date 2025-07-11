@@ -10,10 +10,7 @@ class WebLinkIcon {
 
   void launchURL(String regionCode) async {
     await launchUrlString(
-      link.replaceAll(
-        '%',
-        regionCode,
-      ),
+      link.replaceAll('%', regionCode),
       mode: LaunchMode.externalApplication,
     );
   }

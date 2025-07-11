@@ -1,13 +1,13 @@
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
+import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
 import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class MaintenanceForecast extends AbstractForecast {
@@ -16,16 +16,15 @@ class MaintenanceForecast extends AbstractForecast {
     required super.circulationClosingDate,
     required super.circulationReOpeningDate,
     required super.closingType,
-  }) : super(
-          closingReason: ForecastClosingReason.maintenance,
-        );
+  }) : super(closingReason: ForecastClosingReason.maintenance);
 
   factory MaintenanceForecast.fake() {
     return MaintenanceForecast(
-        totalClosing: true,
-        circulationClosingDate: DateTime.now(),
-        circulationReOpeningDate: DateTime.now(),
-        closingType: ForecastClosingType.complete);
+      totalClosing: true,
+      circulationClosingDate: DateTime.now(),
+      circulationReOpeningDate: DateTime.now(),
+      closingType: ForecastClosingType.complete,
+    );
   }
 
   factory MaintenanceForecast.fromJSON(Map<String, dynamic> json) {
@@ -42,9 +41,9 @@ class MaintenanceForecast extends AbstractForecast {
     );
     var closingType =
         (json['fields']['type_de_fermeture'] as String).toLowerCase() ==
-                'totale'
-            ? ForecastClosingType.complete
-            : ForecastClosingType.partial;
+            'totale'
+        ? ForecastClosingType.complete
+        : ForecastClosingType.partial;
     var totalClosing = AbstractForecast.getBooleanTotalClosingValue(
       json['fields']['fermeture_totale'],
     );
@@ -59,13 +58,13 @@ class MaintenanceForecast extends AbstractForecast {
 
   @override
   List<Object?> get props => [
-        totalClosing,
-        closingReason,
-        closedDuration,
-        circulationClosingDate,
-        circulationReOpeningDate,
-        closingType,
-      ];
+    totalClosing,
+    closingReason,
+    closedDuration,
+    circulationClosingDate,
+    circulationReOpeningDate,
+    closingType,
+  ];
 
   @override
   String getNotificationDurationMessage(
@@ -90,9 +89,7 @@ class MaintenanceForecast extends AbstractForecast {
   @override
   String getNotificationClosingMessage(BuildContext context) {
     return AppLocalizations.of(context)!.notificationClosingMaintenanceMessage(
-      closedDuration.durationToString(
-        context,
-      ),
+      closedDuration.durationToString(context),
     );
   }
 
@@ -106,8 +103,9 @@ class MaintenanceForecast extends AbstractForecast {
         children: [
           ...getCoreInformationWidget(context),
           TextSpan(
-            text: AppLocalizations.of(context)!
-                .dialogInformationContentBridge_closed_maintenance,
+            text: AppLocalizations.of(
+              context,
+            )!.dialogInformationContentBridge_closed_maintenance,
             style: TextStyle(
               color: colorScheme.maintenanceColor,
               fontWeight: FontWeight.bold,
@@ -135,14 +133,14 @@ class MaintenanceForecast extends AbstractForecast {
   @override
   Color getColor(BuildContext context, bool reversed) {
     return reversed
-        ? Theme.of(context).dialogBackgroundColor
+        ? Theme.of(context).colorScheme.surface
         : Theme.of(context).colorScheme.maintenanceColor;
   }
 
   @override
   String getClosingReason(BuildContext context) {
-    return AppLocalizations.of(context)!
-        .dialogInformationContentBridge_closed_maintenance
-        .toUpperCase();
+    return AppLocalizations.of(
+      context,
+    )!.dialogInformationContentBridge_closed_maintenance.toUpperCase();
   }
 }
