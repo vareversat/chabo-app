@@ -75,7 +75,7 @@ flutter {
 
 dependencies {
 
-    implementation 'androidx.window:window:1.5.0'
+    implementation 'androidx.window:window:1.5.1'
     // https://github.com/flutter/flutter/issues/110658
     implementation 'androidx.window:window-java:1.5.1'
     // https://github.com/flutter/flutter/issues/110658
