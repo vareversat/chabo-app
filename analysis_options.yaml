@@ -5,5 +5,11 @@ linter:
     prefer_single_quotes: true
 
 analyzer:
+  exclude:
+    - "**.g.dart"
+    - "**.mocks.dart"
+    - "lib/generated_plugin_registrant.dart"
   plugins:
     - dart_code_metrics
+
+
