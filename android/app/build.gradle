@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "fr.vareversat.chabo"
 
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     lintOptions {
         disable 'InvalidPackage'
@@ -44,11 +44,15 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     defaultConfig {
         multiDexEnabled true // https://pub.dev/packages/flutter_local_notifications/
         applicationId "fr.vareversat.chabo"
-        minSdkVersion 23
-        targetSdkVersion 35
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

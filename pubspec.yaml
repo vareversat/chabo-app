@@ -7,7 +7,7 @@ version: 0.0.0+dev
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '3.32.2'
+  flutter: '3.38.4'
 
 dependencies:
   animated_toggle_switch: ^0.8.0
@@ -26,7 +26,7 @@ dependencies:
   google_mobile_ads: ^6.0.0
   http: ^1.0.0
   intl: ^0.20.2
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.0
   shared_preferences: ^2.0.17
   stream_transform: ^2.0.0
   timezone: ^0.10.1
