@@ -22,7 +22,7 @@ dependencies:
     sdk: flutter
   flutter_local_notifications: ^19.3.0
   font_awesome_flutter: ^10.1.0
-  google_fonts: 8.0.0
+  google_fonts: 8.0.1
   google_mobile_ads: 7.0.0
   http: ^1.0.0
   intl: ^0.20.2
