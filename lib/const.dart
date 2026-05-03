@@ -151,4 +151,5 @@ class Const {
   static const String sentryDSNEnvKey = 'SENTRY_DSN';
   static const String envKey = 'ENV';
   static const String defaultEnv = 'dev';
+  static const String multiBoatsEventSeparator = r' - ';
 }
