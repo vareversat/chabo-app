@@ -31,7 +31,7 @@ class _PageLinksWidget extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(FontAwesomeIcons.codeMerge, size: 20),
+              const FaIcon(FontAwesomeIcons.codeMerge, size: 20),
               const SizedBox(width: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -79,7 +79,7 @@ class _PageLinksWidget extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(FontAwesomeIcons.fileLines, size: 20),
+              const FaIcon(FontAwesomeIcons.fileLines, size: 20),
               const SizedBox(width: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),

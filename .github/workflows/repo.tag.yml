@@ -19,7 +19,7 @@ jobs:
     uses: vareversat/github-actions/.github/workflows/flutter.build.yml@v1.7.0
     needs: [ release-info ]
     with:
-      flutter_version: '3.38.4'
+      flutter_version: '3.41.9'
       flutter_flavor: 'prod'
       java_version: '17.x'
       build_android_aab: 'true'

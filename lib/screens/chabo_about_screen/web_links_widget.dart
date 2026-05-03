@@ -38,7 +38,7 @@ class _WebLinksWidget extends StatelessWidget {
                   child: ListTile(
                     dense: true,
                     onTap: () => link.launchURL(_getRegionCode(context)),
-                    leading: Icon(link.iconData, size: 20),
+                    leading: link.icon,
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
