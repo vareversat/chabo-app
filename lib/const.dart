@@ -31,27 +31,27 @@ class Const {
   static List<WebLinkIcon> usefulLinks = [
     WebLinkIcon(
       'https://www.instagram.com/_yuhliet_/',
-      FontAwesomeIcons.instagram,
+      FaIcon(FontAwesomeIcons.instagram, size: 20),
       'yuhliet_instagram',
     ),
     WebLinkIcon(
       'https://bordeaux-metropole.fr/',
-      Icons.location_city_rounded,
+      Icon(Icons.location_city_rounded, size: 20),
       'city_of_bordeaux',
     ),
     WebLinkIcon(
       'https://opendata.bordeaux-metropole.fr/',
-      Icons.data_thresholding_rounded,
+      Icon(Icons.data_thresholding_rounded, size: 20),
       'bordeaux_open_data',
     ),
     WebLinkIcon(
       'https://github.com/vareversat/chabo-app',
-      FontAwesomeIcons.github,
+      FaIcon(FontAwesomeIcons.github, size: 20),
       'source_code',
     ),
     WebLinkIcon(
       'https://chabo.vareversat.fr/%privacy',
-      Icons.privacy_tip_rounded,
+      Icon(Icons.privacy_tip_rounded, size: 20),
       'privacy_policy',
     ),
   ];

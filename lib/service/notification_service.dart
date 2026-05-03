@@ -47,7 +47,7 @@ class NotificationService {
 
     /// Initialize the notification plugin
     await localNotifications.initialize(
-      initializationSettings,
+      settings: initializationSettings,
       onDidReceiveNotificationResponse: _onDidReceiveLocalNotification,
       onDidReceiveBackgroundNotificationResponse:
           _onDidReceiveBackgroundNotificationResponse,
@@ -350,11 +350,11 @@ class NotificationService {
         name: 'notification-service.on.scheduleNotification',
       );
       await localNotifications.zonedSchedule(
-        notificationId,
-        notificationTitle,
-        notificationMessage,
-        tz.TZDateTime.from(notificationScheduleTime, tz.local),
-        notificationDetails,
+        id: notificationId,
+        scheduledDate: tz.TZDateTime.from(notificationScheduleTime, tz.local),
+        notificationDetails: notificationDetails,
+        title: notificationTitle,
+        body: notificationMessage,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
     }
