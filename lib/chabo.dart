@@ -32,13 +32,20 @@ class Chabo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceHelper.computePreferredOrientation(context);
+    TextTheme textTheme = createTextTheme(
+      context,
+      'Josefin Sans',
+      'Josefin Sans',
+    );
+    MaterialTheme theme = MaterialTheme(textTheme);
 
     return MultiBlocProvider(
       providers: [
         /// Bloc intended to manage the theme of the App
         BlocProvider(
           create: (_) =>
-              ThemeBloc(storageService: storageService)..add(AppStateChanged()),
+              ThemeBloc(storageService: storageService, theme: theme)
+                ..add(AppStateChanged()),
         ),
 
         /// Bloc intended to manage the FloatingActions
@@ -93,7 +100,7 @@ class Chabo extends StatelessWidget {
             SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
               systemStatusBarContrastEnforced: false,
-              statusBarIconBrightness: state.themeData == AppTheme.darkTheme
+              statusBarIconBrightness: state.themeData == theme.dark()
                   ? Brightness.light
                   : Brightness.dark,
             ),

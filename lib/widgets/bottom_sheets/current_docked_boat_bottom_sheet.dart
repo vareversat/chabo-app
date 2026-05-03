@@ -1,6 +1,5 @@
 import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/models/boat_forecast.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +58,7 @@ class _CurrentDockedBoatBottomSheetState
                   ),
                   child: CircleAvatar(
                     radius: 35,
-                    backgroundColor: Theme.of(context).colorScheme.boatColor,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Icon(
                       Icons.info_rounded,
                       color: Theme.of(context).cardColor,
