@@ -1,3 +1,4 @@
+import 'package:chabo_app/const.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
@@ -61,7 +62,8 @@ class BoatForecast extends AbstractForecast {
     List<Boat> boats = [];
     bool isLeaving = false;
     final rawBoatName = json['fields']['bateau'] as String;
-    final boatNames = rawBoatName.split(RegExp(r'/'));
+    // For multi boat events, extract all the boat name
+    final boatNames = rawBoatName.split(RegExp(Const.multiBoatsEventSeparator));
     for (final boatName in boatNames) {
       final trimmedBoatName = boatName.trim();
       isLeaving = allBoatNames.contains(trimmedBoatName);
