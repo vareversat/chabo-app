@@ -1,7 +1,6 @@
 import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
-import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/boat_forecast.dart';
@@ -32,10 +31,10 @@ class CurrentDockedBoatButton extends StatelessWidget {
               ? ElevatedButton.icon(
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.boatColor,
+                      Theme.of(context).colorScheme.primary,
                     ),
                     foregroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).cardColor,
+                      Theme.of(context).colorScheme.onPrimary,
                     ),
                     shape: WidgetStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
@@ -75,10 +74,6 @@ class CurrentDockedBoatButton extends StatelessWidget {
                     AppLocalizations.of(context)!.moonHarborShortStatus(
                       (statusState.previousForecast as BoatForecast).boats
                           .getArrivingCount(),
-                    ),
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Theme.of(context).cardColor,
-                      fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -12,9 +12,10 @@ part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   final StorageService storageService;
+  final MaterialTheme theme;
 
-  ThemeBloc({required this.storageService})
-    : super(ThemeState(themeData: AppTheme.lightTheme)) {
+  ThemeBloc({required this.storageService, required this.theme})
+    : super(ThemeState(themeData: theme.light())) {
     on<ThemeChanged>(_onThemeChanged);
     on<AppStateChanged>(_onAppStateChanged);
   }
@@ -24,7 +25,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         SchedulerBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
 
-    return isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
+    return isDarkMode ? theme.dark() : theme.light();
   }
 
   void _onAppStateChanged(AppStateChanged event, Emitter<ThemeState> emit) {
@@ -41,14 +42,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         emit(
           state.copyWith(
             status: ThemeStateStatus.light,
-            themeData: AppTheme.lightTheme,
+            themeData: theme.light(),
           ),
         );
       } else if (savedStatus == ThemeStateStatus.dark) {
         emit(
           state.copyWith(
             status: ThemeStateStatus.dark,
-            themeData: AppTheme.darkTheme,
+            themeData: theme.dark(),
           ),
         );
       } else if (savedStatus == ThemeStateStatus.system) {
@@ -71,15 +72,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       emit(
         state.copyWith(
           status: ThemeStateStatus.light,
-          themeData: AppTheme.lightTheme,
+          themeData: theme.light(),
         ),
       );
     } else if (event.status == ThemeStateStatus.dark) {
       emit(
-        state.copyWith(
-          status: ThemeStateStatus.dark,
-          themeData: AppTheme.darkTheme,
-        ),
+        state.copyWith(status: ThemeStateStatus.dark, themeData: theme.dark()),
       );
     } else if (event.status == ThemeStateStatus.system) {
       emit(
