@@ -13,9 +13,36 @@ class Const {
   /// List
   static const int forecastLimit = 1000;
 
-  /// Paths
+  /// Image paths
   static const String appLogoPath = 'assets/images/chabo_icon.png';
+  static const String chaboPhotoDayOpen =
+      'assets/images/chaban_bridge_day_open.jpg';
+  static const String chaboPhotoDayClosed =
+      'assets/images/chaban_bridge_day_closed.jpg';
+  static const String chaboPhotoNightOpen =
+      'assets/images/chaban_bridge_night_open.jpg';
+  static const String chaboPhotoNightClosed =
+      'assets/images/chaban_bridge_night_closed.jpg';
   static const String oflLicensePath = 'assets/licenses/OFL.txt';
+
+  // Credits
+  static const String chaboPhotoDayOpenCredits =
+      '© By Grand Parc - Bordeaux, France from France - Bordeaux. Pont Chaban Delmas sur la Garonne depuis rive droite - Photo Image Photography, CC BY 2.0';
+  static const String chaboPhotoDayOpenCreditsLink =
+      'https://commons.wikimedia.org/w/index.php?curid=37313921';
+  static const String chaboPhotoNightOpenCredits =
+      '© By Grand Parc - Bordeaux, France, CC BY 2.0';
+  static const String chaboPhotoNightOpenCreditsLink =
+      'https://commons.wikimedia.org/w/index.php?curid=27942907';
+
+  static const String chaboPhotoDayClosedCredits =
+      '© Bordeaux Stock photos by Vecteezy';
+  static const String chaboPhotoDayClosedCreditsLink =
+      'https://www.vecteezy.com/free-photos/bordeaux';
+  static const String chaboPhotoNightClosedCredits =
+      '© By Grand Parc - Bordeaux, France from France - Pont Chaban Delmas Bordeaux Gironde Garonne Nuit Night Photo Image Photography Picture, CC BY 2.0,';
+  static const String chaboPhotoNightClosedCreditsLink =
+      'https://commons.wikimedia.org/w/index.php?curid=37313786';
 
   /// Link
   static const String vesselFinderLinkPlaceholder = ':boatName:';

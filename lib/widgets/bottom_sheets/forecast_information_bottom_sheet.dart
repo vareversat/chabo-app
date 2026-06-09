@@ -1,4 +1,3 @@
-import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/helpers/custom_page_routes.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
@@ -58,105 +57,105 @@ class _ForecastInformationBottomSheetState
       ),
     );
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ScaleTransition(
-                scale: _tween.animate(
-                  CurvedAnimation(
-                    parent: _controller,
-                    curve: Curves.elasticOut,
-                  ),
-                ),
-                child: CircleAvatar(
-                  radius: 35,
-                  backgroundColor: widget.forecast.getColor(context, false),
-                  child: widget.forecast.getIconWidget(context, true, 33, true),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(child: widget.forecast.getInformationWidget(context)),
-            ],
-          ),
-        ),
-        if (widget.forecast.interferingTimeSlots.isNotEmpty)
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(CustomProperties.borderRadius),
-                  ),
-                  color: Theme.of(context).colorScheme.warningColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        Icons.warning_rounded,
-                        size: 25,
-                        color: Theme.of(context).cardColor,
-                      ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.favoriteSlotsInterferenceWarning,
-                          overflow: TextOverflow.clip,
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: Theme.of(context).cardColor),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.forecast.interferingTimeSlots.isNotEmpty)
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.warning_rounded,
+                      size: 25,
+                      color: colorScheme.warningColor,
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.favoriteSlotsInterferenceWarning,
+                        overflow: TextOverflow.clip,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.warningColor,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          foregroundColor: WidgetStateProperty.all<Color>(
-                            colorScheme.warningColor,
-                          ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                          colorScheme.warningColor,
                         ),
-                        onPressed: () => {
-                          Navigator.of(context).pop(),
-                          Navigator.of(context).push(
-                            BottomToTopPageRoute(
-                              builder: (context) => const NotificationScreen(
-                                highlightTimeSlots: true,
-                              ),
-                              settings: const RouteSettings(
-                                name: NotificationScreen.routeName,
-                              ),
+                        foregroundColor: WidgetStateProperty.all<Color>(
+                          colorScheme.surface,
+                        ),
+                      ),
+                      onPressed: () => {
+                        Navigator.of(context).pop(),
+                        Navigator.of(context).push(
+                          LeftToRightPageRoute(
+                            builder: (context) => const NotificationScreen(
+                              highlightTimeSlots: true,
+                            ),
+                            settings: const RouteSettings(
+                              name: NotificationScreen.routeName,
                             ),
                           ),
-                        },
-                        child: TweenAnimationBuilder<double>(
-                          tween: _tween,
-                          duration: _duration,
-                          builder: (context, animation, child) =>
-                              Transform.translate(
-                                offset: Offset(20 * shake(animation), 0),
-                                child: child,
-                              ),
-                          child: const Icon(Icons.notifications_active),
                         ),
+                      },
+                      child: TweenAnimationBuilder<double>(
+                        tween: _tween,
+                        duration: _duration,
+                        builder: (context, animation, child) =>
+                            Transform.translate(
+                              offset: Offset(20 * shake(animation), 0),
+                              child: child,
+                            ),
+                        child: const Icon(Icons.notifications_active),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ScaleTransition(
+                  scale: _tween.animate(
+                    CurvedAnimation(
+                      parent: _controller,
+                      curve: Curves.elasticOut,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundColor: widget.forecast.getColor(context, false),
+                    child: widget.forecast.getIconWidget(
+                      context,
+                      true,
+                      33,
+                      true,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(child: widget.forecast.getInformationWidget(context)),
+              ],
+            ),
           ),
-      ],
+        ],
+      ),
     );
   }
 }

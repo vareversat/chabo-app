@@ -15,8 +15,6 @@ class TimeSlotDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return AlertDialog(
       contentPadding: const EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
@@ -32,10 +30,7 @@ class TimeSlotDialog extends StatelessWidget {
                 spacing: 5,
                 runSpacing: 10,
                 children: [
-                  Text(
-                    ' ${AppLocalizations.of(context)!.favoriteSlotsFrom} ',
-                    style: textTheme.titleMedium,
-                  ),
+                  Text(' ${AppLocalizations.of(context)!.favoriteSlotsFrom} '),
                   ElevatedButton(
                     onPressed: () {
                       showTimePicker(
@@ -75,13 +70,9 @@ class TimeSlotDialog extends StatelessWidget {
                       timeSlotState.timeSlots[index].from.toFormattedString(
                         timeFormatState.timeFormat,
                       ),
-                      style: textTheme.titleMedium,
                     ),
                   ),
-                  Text(
-                    ' ${AppLocalizations.of(context)!.favoriteSlotsTo} ',
-                    style: textTheme.titleMedium,
-                  ),
+                  Text(' ${AppLocalizations.of(context)!.favoriteSlotsTo} '),
                   ElevatedButton(
                     onPressed: () {
                       showTimePicker(
@@ -121,7 +112,6 @@ class TimeSlotDialog extends StatelessWidget {
                       timeSlotState.timeSlots[index].to.toFormattedString(
                         timeFormatState.timeFormat,
                       ),
-                      style: textTheme.titleMedium,
                     ),
                   ),
                 ],

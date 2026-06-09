@@ -12,7 +12,8 @@ import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart' as intl;
 
 class BoatForecast extends AbstractForecast {
   final List<Boat> boats;
@@ -103,13 +104,13 @@ class BoatForecast extends AbstractForecast {
     var schedule = circulationClosingDate.add(
       Duration(microseconds: closedDuration.inMicroseconds ~/ 2),
     );
-    var scheduleString = DateFormat(
+    var scheduleString = intl.DateFormat(
       timeFormat.icuName,
       Localizations.localeOf(context).languageCode,
     ).format(schedule);
     if (isDuringTwoDays) {
       scheduleString =
-          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
+          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${intl.DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
     }
 
     return RichText(
@@ -151,7 +152,7 @@ class BoatForecast extends AbstractForecast {
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     return AppLocalizations.of(context)!.notificationTimeBoatMessage(
       boats.toLocalizedString(context),
-      DateFormat(timeFormat.icuName).format(circulationClosingDate),
+      intl.DateFormat(timeFormat.icuName).format(circulationClosingDate),
       closedDuration.durationToString(context),
     );
   }
@@ -162,35 +163,6 @@ class BoatForecast extends AbstractForecast {
       boats.toLocalizedString(context),
       closedDuration.durationToString(context),
     );
-  }
-
-  List<Widget> _computeIconWidget(
-    BuildContext context,
-    IconData iconData,
-    bool reversed,
-    double size,
-  ) {
-    var icons = <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Icon(iconData, color: getColor(context, reversed), size: size),
-      ),
-    ];
-    for (int i = 0; i < boats.length; i++) {
-      icons.add(
-        Positioned(
-          right: boats[i].isLeaving ? 0 : 45,
-          top: boats.length == 1 ? 4 : i * 15,
-          child: Icon(
-            Icons.double_arrow_rounded,
-            color: getColor(context, reversed),
-            size: boats.length == 1 ? 19 : 15,
-          ),
-        ),
-      );
-    }
-
-    return icons;
   }
 
   @override
@@ -204,11 +176,35 @@ class BoatForecast extends AbstractForecast {
         ? Icons.wine_bar_outlined
         : Icons.directions_boat_filled_outlined;
 
-    return isLight
-        ? Icon(iconData, color: getColor(context, reversed), size: size)
-        : Stack(
-            children: _computeIconWidget(context, iconData, reversed, size),
-          );
+    return Icon(iconData, color: getColor(context, reversed), size: size);
+  }
+
+  @override
+  Widget getContextIconWidget(BuildContext context) {
+    int leaving = boats.where((boat) => boat.isLeaving).length;
+    int entering = boats.length - leaving;
+
+    return Column(
+      spacing: 3,
+      children: [
+        entering > 0
+            ? Row(
+                children: [
+                  Text('$entering x '),
+                  FaIcon(FontAwesomeIcons.arrowRightToBracket),
+                ],
+              )
+            : SizedBox.shrink(),
+        leaving > 0
+            ? Row(
+                children: [
+                  Text('$leaving x '),
+                  FaIcon(FontAwesomeIcons.arrowRightFromBracket),
+                ],
+              )
+            : SizedBox.shrink(),
+      ],
+    );
   }
 
   @override

@@ -59,7 +59,6 @@ class TimeSlotWidget extends StatelessWidget {
                       : AppLocalizations.of(
                           context,
                         )!.favoriteTimeSlotDefaultName(index + 1),
-                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
                   '${timeSlot.from.toFormattedString(timeFormatState.timeFormat)} - ${timeSlot.to.toFormattedString(timeFormatState.timeFormat)}',

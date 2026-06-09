@@ -112,6 +112,12 @@ abstract class AppLocalizations {
   /// **'and'**
   String get and;
 
+  /// No description provided for @credits.
+  ///
+  /// In en, this message translates to:
+  /// **'Credits'**
+  String get credits;
+
   /// No description provided for @the.
   ///
   /// In en, this message translates to:
@@ -133,7 +139,7 @@ abstract class AppLocalizations {
   /// No description provided for @isClosed.
   ///
   /// In en, this message translates to:
-  /// **'closed to traffic'**
+  /// **'closed'**
   String get isClosed;
 
   /// No description provided for @daySmall.
@@ -169,7 +175,7 @@ abstract class AppLocalizations {
   /// No description provided for @isOpen.
   ///
   /// In en, this message translates to:
-  /// **'open to traffic'**
+  /// **'open'**
   String get isOpen;
 
   /// No description provided for @scheduledToOpen.
@@ -199,7 +205,7 @@ abstract class AppLocalizations {
   /// No description provided for @willSoonClose.
   ///
   /// In en, this message translates to:
-  /// **'close to traffic soon'**
+  /// **'close soon'**
   String get willSoonClose;
 
   /// No description provided for @settingsClose.
@@ -280,6 +286,12 @@ abstract class AppLocalizations {
   /// **'estimated time of crossing'**
   String get dialogInformationContentTime_of_crossing;
 
+  /// No description provided for @duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get duration;
+
   /// No description provided for @errorScreenContentError.
   ///
   /// In en, this message translates to:
@@ -334,11 +346,17 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get openSetting;
 
-  /// No description provided for @themeSettingSubtitle.
+  /// No description provided for @themeSettingTitle.
   ///
   /// In en, this message translates to:
-  /// **'Application theme'**
-  String get themeSettingSubtitle;
+  /// **'Theme'**
+  String get themeSettingTitle;
+
+  /// No description provided for @themeSettingSubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change the appearance of the application'**
+  String get themeSettingSubTitle;
 
   /// No description provided for @lightTheme.
   ///
@@ -351,6 +369,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dark theme'**
   String get darkTheme;
+
+  /// No description provided for @schedules.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedules'**
+  String get schedules;
 
   /// No description provided for @systemTheme.
   ///
@@ -629,6 +653,12 @@ abstract class AppLocalizations {
   /// **'Right handed'**
   String get rightHanded;
 
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
   /// No description provided for @statusLoadMessage.
   ///
   /// In en, this message translates to:
@@ -707,6 +737,12 @@ abstract class AppLocalizations {
   /// **'{count} {count, plural, =1 {ship is} other {ships are}} currently in Bordeaux'**
   String moonHarborShortStatus(num count);
 
+  /// No description provided for @webSite.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get webSite;
+
   /// No description provided for @wineFestivalSailBoats.
   ///
   /// In en, this message translates to:
@@ -725,10 +761,16 @@ abstract class AppLocalizations {
   /// **'Rate'**
   String get rate;
 
-  /// No description provided for @timeFormatSubTitle.
+  /// No description provided for @timeFormatTitle.
   ///
   /// In en, this message translates to:
   /// **'Time format'**
+  String get timeFormatTitle;
+
+  /// No description provided for @timeFormatSubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display hours in 12 or 24 format'**
   String get timeFormatSubTitle;
 
   /// No description provided for @noMoreForecastsTitle.

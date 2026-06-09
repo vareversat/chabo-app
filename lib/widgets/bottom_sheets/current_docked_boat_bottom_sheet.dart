@@ -41,7 +41,7 @@ class _CurrentDockedBoatBottomSheetState
     final boatForecast = (widget.statusState.previousForecast as BoatForecast);
 
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Flexible(
@@ -60,7 +60,7 @@ class _CurrentDockedBoatBottomSheetState
                     radius: 35,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Icon(
-                      Icons.info_rounded,
+                      Icons.directions_boat_filled_outlined,
                       color: Theme.of(context).cardColor,
                       size: 30,
                     ),

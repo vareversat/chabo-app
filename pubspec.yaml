@@ -34,6 +34,8 @@ dependencies:
   auto_size_text: ^3.0.0
   sentry_flutter: ^9.4.0
   in_app_review: ^2.0.6
+  build_runner: ^2.15.0
+  intl_utils: ^2.8.14
 
 
 dev_dependencies:

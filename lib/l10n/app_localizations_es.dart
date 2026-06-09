@@ -15,6 +15,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get and => 'y';
 
   @override
+  String get credits => 'Créditos';
+
+  @override
   String the(String startWithVowel) {
     String _temp0 = intl.Intl.selectLogic(startWithVowel, {
       'true': 'el ',
@@ -30,7 +33,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get circulationReOpening => 'reapertura';
 
   @override
-  String get isClosed => 'cerrado al tráfico';
+  String get isClosed => 'cerrado';
 
   @override
   String get daySmall => 'd';
@@ -48,7 +51,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get nextClosingScheduled => 'próximo cierre programado en';
 
   @override
-  String get isOpen => 'abierto al tráfico';
+  String get isOpen => 'abierto';
 
   @override
   String get scheduledToOpen => 'programado para abrir en';
@@ -66,7 +69,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'el puente Chaban cerca del tráfico pronto';
 
   @override
-  String get willSoonClose => 'cerca del tráfico pronto';
+  String get willSoonClose => 'cerrar pronto';
 
   @override
   String get settingsClose => 'Cerca';
@@ -127,6 +130,9 @@ class AppLocalizationsEs extends AppLocalizations {
       'hora estimada de cruce';
 
   @override
+  String get duration => 'Duración';
+
+  @override
   String get errorScreenContentError => 'Error';
 
   @override
@@ -158,13 +164,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get openSetting => 'Ajustes';
 
   @override
-  String get themeSettingSubtitle => 'Tema de la aplicación';
+  String get themeSettingTitle => 'Tema';
+
+  @override
+  String get themeSettingSubTitle => 'Cambiar la apariencia de la aplicación';
 
   @override
   String get lightTheme => 'Tema claro';
 
   @override
   String get darkTheme => 'Tema oscuro';
+
+  @override
+  String get schedules => 'Programar';
 
   @override
   String get systemTheme => 'Tema del sistema';
@@ -366,6 +378,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get rightHanded => 'Diestro.a';
 
   @override
+  String get status => 'Estado';
+
+  @override
   String get statusLoadMessage => 'Carga del estado actual del puente';
 
   @override
@@ -426,6 +441,9 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get webSite => 'Sitio web';
+
+  @override
   String get wineFestivalSailBoats => 'Veleros de la Fiesta del Vino';
 
   @override
@@ -435,7 +453,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get rate => 'Califica';
 
   @override
-  String get timeFormatSubTitle => 'Formato de hora';
+  String get timeFormatTitle => 'Formato de hora';
+
+  @override
+  String get timeFormatSubTitle =>
+      'Visualización de las horas en formato de 12 o 24 horas.';
 
   @override
   String get noMoreForecastsTitle => 'Ningún acontecimiento por venir';

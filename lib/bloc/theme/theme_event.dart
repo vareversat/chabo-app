@@ -11,3 +11,9 @@ class ThemeChanged extends ThemeEvent {
 class AppStateChanged extends ThemeEvent {
   AppStateChanged() : super();
 }
+
+class BridgeStateChanged extends ThemeEvent {
+  final BridgeState bridgeState;
+
+  BridgeStateChanged({required this.bridgeState}) : super();
+}

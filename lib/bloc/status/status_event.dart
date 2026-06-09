@@ -17,15 +17,12 @@ class StatusRefresh extends StatusEvent {
 }
 
 class StatusDurationChanged extends StatusEvent {
+  // If the notification is enabled or not
+  final bool isEnabled;
+
+  // The duration picked
   final Duration duration;
 
-  StatusDurationChanged({required this.duration}) : super();
-}
-
-class StatusWidgetDimensionChanged extends StatusEvent {
-  final StatusWidgetDimension dimension;
-  final BuildContext context;
-
-  StatusWidgetDimensionChanged({required this.dimension, required this.context})
+  StatusDurationChanged({required this.duration, required this.isEnabled})
     : super();
 }

@@ -131,6 +131,11 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
+  Widget getContextIconWidget(BuildContext context) {
+    return SizedBox.shrink();
+  }
+
+  @override
   Color getColor(BuildContext context, bool reversed) {
     return reversed
         ? Theme.of(context).colorScheme.surface
