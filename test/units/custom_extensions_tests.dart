@@ -77,7 +77,8 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
-                  text: dateTime.toLocalizedTextSpan(context, Colors.black));
+                  text: dateTime.toLocalizedTextSpan(
+                      context, TextStyle(color: Colors.black)));
 
               expect(
                 richText.text.toPlainText(),
@@ -98,7 +99,7 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
-                  text: dateTime.toLocalizedTextSpan(context, Colors.black));
+                  text: dateTime.toLocalizedTextSpan(context, TextStyle(color: Colors.black)));
 
               expect(
                 richText.text.toPlainText(),

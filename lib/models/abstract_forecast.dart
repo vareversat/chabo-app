@@ -153,6 +153,8 @@ abstract class AbstractForecast extends Equatable {
     bool isLight,
   );
 
+  Widget getContextIconWidget(BuildContext context);
+
   String getNotificationDurationMessage(
     BuildContext context,
     String pickedDuration,

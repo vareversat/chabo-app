@@ -17,26 +17,18 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
     on<StatusChanged>(_onStatusChanged);
     on<StatusRefresh>(_onRefresh);
     on<StatusDurationChanged>(_onDurationChanged);
-    on<StatusWidgetDimensionChanged>(_onStatusWidgetDimensionChanged);
-  }
-
-  void _onStatusWidgetDimensionChanged(
-    StatusWidgetDimensionChanged event,
-    Emitter<StatusState> emit,
-  ) {
-    emit(
-      state.copyWith(
-        statusWidgetDimension: event.dimension,
-        mainMessageStatus: _getMainStatus(event.context),
-      ),
-    );
   }
 
   void _onDurationChanged(
     StatusDurationChanged event,
     Emitter<StatusState> emit,
   ) {
-    emit(state.copyWith(durationForCloseClosing: event.duration));
+    emit(
+      state.copyWith(
+        durationForCloseClosing: event.duration,
+        durationForCloseClosingEnabled: event.isEnabled,
+      ),
+    );
   }
 
   void _onStatusChanged(StatusChanged event, Emitter<StatusState> emit) {
@@ -57,9 +49,11 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
       durationUntilNextEvent,
     );
     final String mainMessageStatus = _getMainStatus(event.context);
+    final String smallMessageStatus = _getSmallStatus(event.context);
     final String timeMessagePrefix = _getTimeMessagePrefix(event.context);
     final Color foregroundColor = _getForegroundColor(event.context);
     final Color backgroundColor = _getBackgroundColor(event.context);
+    final BridgeState bridgeState = _getBridgeState(event.context);
 
     emit(
       state.copyWith(
@@ -68,6 +62,7 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
             durationBetweenPreviousAndNextEvent,
         completionPercentage: completionPercentage,
         mainMessageStatus: mainMessageStatus,
+        smallMessageStatus: smallMessageStatus,
         timeMessagePrefix: timeMessagePrefix,
         foregroundColor: foregroundColor,
         statusLifecycle:
@@ -77,8 +72,27 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
             ? StatusLifecycle.populated
             : StatusLifecycle.empty,
         backgroundColor: backgroundColor,
+        bridgeState: bridgeState,
       ),
     );
+  }
+
+  BridgeState _getBridgeState(BuildContext context) {
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null) {
+      final isOpen = !currentForecast.isCurrentlyClosed();
+      if (isOpen &&
+          state.durationUntilNextEvent.inMinutes <
+              state.durationForCloseClosing.inMinutes) {
+        return BridgeState.willSoonClose;
+      } else if (isOpen) {
+        return BridgeState.open;
+      } else {
+        return BridgeState.closed;
+      }
+    } else {
+      return BridgeState.open;
+    }
   }
 
   Color _getBackgroundColor(BuildContext context) {
@@ -87,7 +101,8 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
       final isOpen = !currentForecast.isCurrentlyClosed();
       if (isOpen &&
           state.durationUntilNextEvent.inMinutes <
-              state.durationForCloseClosing.inMinutes) {
+              state.durationForCloseClosing.inMinutes &&
+          state.durationForCloseClosingEnabled) {
         return Theme.of(context).colorScheme.warningColor;
       } else if (isOpen) {
         return Theme.of(context).colorScheme.okColor;
@@ -106,8 +121,9 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
       final colorScheme = Theme.of(context).colorScheme;
 
       return isOpen ||
-              state.durationUntilNextEvent.inMinutes <
-                  state.durationForCloseClosing.inMinutes
+              (state.durationUntilNextEvent.inMinutes <
+                      state.durationForCloseClosing.inMinutes &&
+                  state.durationForCloseClosingEnabled)
           ? colorScheme.surface
           : colorScheme.onError;
     } else {
@@ -132,20 +148,33 @@ class StatusBloc extends Bloc<StatusEvent, StatusState> {
         !currentForecast.isCurrentlyClosed() &&
         state.durationUntilNextEvent.inMinutes >=
             state.durationForCloseClosing.inMinutes) {
-      return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}'
-          : AppLocalizations.of(context)!.isOpen.capitalize();
+      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsOpen}';
     } else if (currentForecast != null &&
         !currentForecast.isCurrentlyClosed() &&
+        state.durationForCloseClosingEnabled &&
         state.durationUntilNextEvent.inMinutes <
             state.durationForCloseClosing.inMinutes) {
-      return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeWillSoonClose}'
-          : AppLocalizations.of(context)!.willSoonClose.capitalize();
+      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeWillSoonClose}';
     } else {
-      return state.statusWidgetDimension == StatusWidgetDimension.large
-          ? '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}'
-          : AppLocalizations.of(context)!.isClosed.capitalize();
+      return '${_getGreetings(context)}, ${AppLocalizations.of(context)!.theChabanBridgeIsClosed}';
+    }
+  }
+
+  String _getSmallStatus(BuildContext context) {
+    final currentForecast = state.currentForecast;
+    if (currentForecast != null &&
+        !currentForecast.isCurrentlyClosed() &&
+        state.durationUntilNextEvent.inMinutes >=
+            state.durationForCloseClosing.inMinutes) {
+      return AppLocalizations.of(context)!.isOpen.capitalize();
+    } else if (currentForecast != null &&
+        !currentForecast.isCurrentlyClosed() &&
+        state.durationForCloseClosingEnabled &&
+        state.durationUntilNextEvent.inMinutes <
+            state.durationForCloseClosing.inMinutes) {
+      return AppLocalizations.of(context)!.willSoonClose.capitalize();
+    } else {
+      return AppLocalizations.of(context)!.isClosed.capitalize();
     }
   }
 

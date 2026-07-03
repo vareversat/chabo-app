@@ -1,5 +1,8 @@
 class CustomProperties {
   static const double borderRadius = 17;
+
+  static const double padding = 20;
+
   static const int animationDurationMs = 400;
   static const int shortAnimationDurationMs = 200;
 

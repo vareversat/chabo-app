@@ -18,7 +18,7 @@ extension ColorSchemeExtension on ColorScheme {
   }
 
   Color get okColor {
-    return brightness == Brightness.light
+    return brightness == Brightness.dark
         ? const Color(0xFF81C784)
         : Colors.green;
   }

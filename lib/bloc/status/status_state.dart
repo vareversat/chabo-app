@@ -6,13 +6,15 @@ class StatusState extends Equatable {
   final AbstractForecast? previousForecast;
   final Duration durationUntilNextEvent;
   final Duration durationForCloseClosing;
+  final bool durationForCloseClosingEnabled;
   final Duration? durationBetweenPreviousAndNextEvent;
   final double completionPercentage;
   final String mainMessageStatus;
+  final String smallMessageStatus;
   final String timeMessagePrefix;
   final Color foregroundColor;
   final Color backgroundColor;
-  final StatusWidgetDimension statusWidgetDimension;
+  final BridgeState bridgeState;
 
   const StatusState({
     required this.statusLifecycle,
@@ -20,13 +22,15 @@ class StatusState extends Equatable {
     required this.previousForecast,
     required this.durationUntilNextEvent,
     required this.durationForCloseClosing,
+    required this.durationForCloseClosingEnabled,
     required this.durationBetweenPreviousAndNextEvent,
     required this.completionPercentage,
     required this.mainMessageStatus,
+    required this.smallMessageStatus,
     required this.timeMessagePrefix,
     required this.foregroundColor,
     required this.backgroundColor,
-    required this.statusWidgetDimension,
+    required this.bridgeState,
   });
 
   StatusState copyWith({
@@ -35,13 +39,15 @@ class StatusState extends Equatable {
     AbstractForecast? previousForecast,
     Duration? durationUntilNextEvent,
     Duration? durationForCloseClosing,
+    bool? durationForCloseClosingEnabled,
     Duration? durationBetweenPreviousAndNextEvent,
     double? completionPercentage,
     String? mainMessageStatus,
+    String? smallMessageStatus,
     String? timeMessagePrefix,
     Color? foregroundColor,
     Color? backgroundColor,
-    StatusWidgetDimension? statusWidgetDimension,
+    BridgeState? bridgeState,
   }) {
     return StatusState(
       statusLifecycle: statusLifecycle ?? this.statusLifecycle,
@@ -51,16 +57,18 @@ class StatusState extends Equatable {
           durationUntilNextEvent ?? this.durationUntilNextEvent,
       durationForCloseClosing:
           durationForCloseClosing ?? this.durationForCloseClosing,
+      durationForCloseClosingEnabled:
+          durationForCloseClosingEnabled ?? this.durationForCloseClosingEnabled,
       durationBetweenPreviousAndNextEvent:
           durationBetweenPreviousAndNextEvent ??
           this.durationBetweenPreviousAndNextEvent,
       completionPercentage: completionPercentage ?? this.completionPercentage,
       mainMessageStatus: mainMessageStatus ?? this.mainMessageStatus,
+      smallMessageStatus: smallMessageStatus ?? this.smallMessageStatus,
       timeMessagePrefix: timeMessagePrefix ?? this.timeMessagePrefix,
       foregroundColor: foregroundColor ?? this.foregroundColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
-      statusWidgetDimension:
-          statusWidgetDimension ?? this.statusWidgetDimension,
+      bridgeState: bridgeState ?? this.bridgeState,
     );
   }
 
@@ -71,13 +79,15 @@ class StatusState extends Equatable {
     previousForecast,
     durationUntilNextEvent,
     durationForCloseClosing,
+    durationForCloseClosingEnabled,
     durationBetweenPreviousAndNextEvent,
     completionPercentage,
     mainMessageStatus,
+    smallMessageStatus,
     timeMessagePrefix,
     foregroundColor,
     backgroundColor,
-    statusWidgetDimension,
+    bridgeState,
   ];
 }
 
@@ -90,15 +100,17 @@ class StatusStateInitial extends StatusState {
         durationBetweenPreviousAndNextEvent: null,
         durationForCloseClosing: Const.notificationDurationValueDefaultValue,
         statusLifecycle: StatusLifecycle.loading,
+        durationForCloseClosingEnabled: false,
         completionPercentage: 0,
         mainMessageStatus: '',
+        smallMessageStatus: '',
         timeMessagePrefix: '',
         foregroundColor: Colors.white,
         backgroundColor: Colors.white,
-        statusWidgetDimension: StatusWidgetDimension.large,
+        bridgeState: BridgeState.open,
       );
 }
 
 enum StatusLifecycle { empty, populated, loading }
 
-enum StatusWidgetDimension { small, large }
+enum BridgeState { open, willSoonClose, closed }

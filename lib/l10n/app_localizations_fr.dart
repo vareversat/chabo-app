@@ -15,6 +15,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get and => 'et';
 
   @override
+  String get credits => 'Crédits';
+
+  @override
   String the(String startWithVowel) {
     String _temp0 = intl.Intl.selectLogic(startWithVowel, {
       'true': 'l\'',
@@ -30,7 +33,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get circulationReOpening => 'réouverture';
 
   @override
-  String get isClosed => 'fermé à la circulation';
+  String get isClosed => 'fermé';
 
   @override
   String get daySmall => 'j';
@@ -48,7 +51,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get nextClosingScheduled => 'prochaine fermeture prévue dans';
 
   @override
-  String get isOpen => 'ouvert à la circulation';
+  String get isOpen => 'ouvert';
 
   @override
   String get scheduledToOpen => 'ouverture prévue dans';
@@ -66,7 +69,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'le pont Chaban ferme bientôt à la circulation';
 
   @override
-  String get willSoonClose => 'ferme bientôt à la circulation';
+  String get willSoonClose => 'ferme bientôt';
 
   @override
   String get settingsClose => 'Fermer';
@@ -126,6 +129,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'heure de passage estimée';
 
   @override
+  String get duration => 'Durée';
+
+  @override
   String get errorScreenContentError => 'Erreur';
 
   @override
@@ -157,13 +163,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get openSetting => 'Paramètres';
 
   @override
-  String get themeSettingSubtitle => 'Thème de l\'application';
+  String get themeSettingTitle => 'Thème';
+
+  @override
+  String get themeSettingSubTitle => 'Changer l\'apparence de l\'application';
 
   @override
   String get lightTheme => 'Thème clair';
 
   @override
   String get darkTheme => 'Thème sombre';
+
+  @override
+  String get schedules => 'Calendrier';
 
   @override
   String get systemTheme => 'Thème système';
@@ -367,6 +379,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rightHanded => 'Droitier.ère';
 
   @override
+  String get status => 'État';
+
+  @override
   String get statusLoadMessage => 'Chargement de l\'état actuel du pont';
 
   @override
@@ -427,6 +442,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get webSite => 'Site web';
+
+  @override
   String get wineFestivalSailBoats => 'Voiliers de la fête du vin';
 
   @override
@@ -436,7 +454,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rate => 'Noter';
 
   @override
-  String get timeFormatSubTitle => 'Format d\'affichage des heures';
+  String get timeFormatTitle => 'Format des heures';
+
+  @override
+  String get timeFormatSubTitle =>
+      'Afficher les heures au format 12 ou 24 heures';
 
   @override
   String get noMoreForecastsTitle => 'Aucun évènement à venir';

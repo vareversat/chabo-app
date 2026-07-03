@@ -1,23 +1,23 @@
 import 'package:chabo_app/app_theme.dart';
 import 'package:chabo_app/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo_app/bloc/notification/notification_bloc.dart';
-import 'package:chabo_app/bloc/scroll_status/scroll_status_bloc.dart';
 import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/bloc/theme/theme_bloc.dart';
 import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
-import 'package:chabo_app/cubits/floating_actions_cubit.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:chabo_app/screens/forecast_screen.dart';
 import 'package:chabo_app/service/notification_service.dart';
 import 'package:chabo_app/service/storage_service.dart';
+import 'package:chabo_app/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
+import 'screens/main_screen.dart';
 
 class Chabo extends StatelessWidget {
   final StorageService storageService;
@@ -35,25 +35,20 @@ class Chabo extends StatelessWidget {
     TextTheme textTheme = createTextTheme(
       context,
       'Josefin Sans',
-      'Josefin Sans',
+      'Gravitas One', // Climate Crisis, Outfit, Gravitas One
     );
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return MultiBlocProvider(
       providers: [
+        /// Bloc intended to manage the navigation of the app
+        BlocProvider(create: (_) => NavBloc()),
+
         /// Bloc intended to manage the theme of the App
         BlocProvider(
           create: (_) =>
               ThemeBloc(storageService: storageService, theme: theme)
                 ..add(AppStateChanged()),
-        ),
-
-        /// Bloc intended to manage the FloatingActions
-        BlocProvider(
-          create: (_) => FloatingActionsCubit(
-            storageService,
-            const FloatingActionsState(isMenuOpen: false, isRightHanded: true),
-          )..init(),
         ),
 
         /// Bloc intended to manage the displayed time format
@@ -74,11 +69,6 @@ class Chabo extends StatelessWidget {
         /// Bloc intended to manage the status
         BlocProvider(create: (_) => StatusBloc()),
 
-        /// Bloc intended to manage scroll to status to display (or not) the current status
-        BlocProvider(
-          create: (_) => ScrollStatusBloc(scrollController: ScrollController()),
-        ),
-
         /// Bloc intended to manage all Notifications
         BlocProvider(
           create: (_) => NotificationBloc(
@@ -93,6 +83,9 @@ class Chabo extends StatelessWidget {
               TimeSlotsBloc(storageService: storageService)
                 ..add(TimeSlotsAppEvent()),
         ),
+
+        /// Bloc intended to the NavBar
+        BlocProvider(create: (_) => NavBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
@@ -112,10 +105,7 @@ class Chabo extends StatelessWidget {
             navigatorObservers: [
               SentryNavigatorObserver(setRouteNameAsTransaction: true),
             ],
-            initialRoute: ForecastScreen.routeName,
-            routes: {
-              ForecastScreen.routeName: (context) => const ForecastScreen(),
-            },
+            home: const MainScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -35,7 +35,7 @@ extension DateTimeExtension on DateTime {
     return value;
   }
 
-  TextSpan toLocalizedTextSpan(BuildContext context, Color foregroundColor) {
+  TextSpan toLocalizedTextSpan(BuildContext context, TextStyle? textStyle) {
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
     final languageCode = Localizations.localeOf(context).languageCode;
     var stringDate = DateFormat(timeFormat.icuName, languageCode).format(this);
@@ -56,12 +56,10 @@ extension DateTimeExtension on DateTime {
           text: timeMarker,
           style: Theme.of(
             context,
-          ).textTheme.labelMedium?.copyWith(color: foregroundColor),
+          ).textTheme.labelSmall?.copyWith(color: textStyle?.color),
         ),
       ],
-      style: Theme.of(
-        context,
-      ).textTheme.headlineSmall?.copyWith(color: foregroundColor),
+      style: textStyle,
     );
   }
 }
