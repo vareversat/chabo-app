@@ -45,5 +45,19 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<!-- iOS 10-16 (legacy key, still valid) -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access your calendar to add bridge closure events</string>
+	<!-- iOS 17+ -->
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Full access to view and edit your calendar events</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Add bridge closure events without reading existing events</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>fr</string>
+		<string>es</string>
+	</array>
 </dict>
 </plist>

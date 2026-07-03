@@ -460,4 +460,50 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noMoreForecastsMessage =>
       'Bordeaux Métropole has not communicated any closure of the Chaban-Delmas Bridge for the coming weeks.\nStay informed of upcoming closures by returning here regularly';
+
+  @override
+  String get shareEventTitle => 'Share';
+
+  @override
+  String get calendarEventAddToCalendar => 'Add to calendar';
+
+  @override
+  String get calendarEventTitle => 'Closure of the Chaban Delmas bridge';
+
+  @override
+  String get calendarEventLocation => 'Bordeaux, Chaban Delmas bridge';
+
+  @override
+  String calendarEventMaintenanceDescription(Object duration) {
+    return 'The Chaban bridge will close for maintenance 🛠. It will remains closed for $duration 🌉';
+  }
+
+  @override
+  String calendarEventBoatDescription(Object boat, Object duration) {
+    return 'The Chaban bridge will close for $boat 🚢. It will remains closed for $duration 🌉';
+  }
+
+  @override
+  String get bottomSheetTitle_maintenance => 'Maintenance';
+
+  @override
+  String get bottomSheetTitle_boat => 'Passage of vessel(s)';
+
+  @override
+  String get bottomSheetAdditionalInfo_maintenance =>
+      'The Chaban Bridge is closed for scheduled maintenance.';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatLeaving => 'leaving';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatArriving => 'arriving';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer =>
+      'Arrival and departure times are for information purposes only and are not guaranteed.';
+
+  @override
+  String get bottomSheetAdditionalInfo_shareMessage =>
+      'Hi, I\'m going to be late, the Chaban Bridge is closed until';
 }

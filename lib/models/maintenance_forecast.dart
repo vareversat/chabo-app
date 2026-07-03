@@ -94,26 +94,22 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  RichText getInformationWidget(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return RichText(
-      text: TextSpan(
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
-        children: [
-          ...getCoreInformationWidget(context),
-          TextSpan(
-            text: AppLocalizations.of(
-              context,
-            )!.dialogInformationContentBridge_closed_maintenance,
-            style: TextStyle(
-              color: colorScheme.maintenanceColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
+  String getCalendarEventClosingDescription(BuildContext context) {
+    return AppLocalizations.of(context)!.calendarEventMaintenanceDescription(
+      closedDuration.durationToString(context),
     );
+  }
+
+  @override
+  Widget getDetailedInfo(BuildContext context) {
+    return Text(
+      AppLocalizations.of(context)!.bottomSheetAdditionalInfo_maintenance,
+    );
+  }
+
+  @override
+  String getBottomSheetTitle(BuildContext context) {
+    return AppLocalizations.of(context)!.bottomSheetTitle_maintenance;
   }
 
   @override

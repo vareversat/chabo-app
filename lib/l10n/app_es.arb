@@ -46,25 +46,25 @@
     }
   },
   "dialogInformationContentBridge_closed_maintenance": "mantenimiento",
-  "dialogInformationContentTime_of_crossing": "hora estimada de cruce",
+  "dialogInformationContentTime_of_crossing": "hora de paso estimada",
   "duration": "Duración",
   "errorScreenContentError": "Error",
-  "errorScreenContentMessage": "Se produjo un error al abrir esta página. Encuentre la información técnica a continuación",
+  "errorScreenContentMessage": "Se ha producido un error al abrir esta pàgina. Encuentre información técnica a continuación",
   "errorScreenContentTechnical_Info": "Información técnica",
-  "unableAppInfo": "No se puede obtener información de la aplicación",
-  "appDescription": "La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Bordeaux, Francia",
+  "unableAppInfo": "No se puede recuperar la información de la aplicación",
+  "appDescription": "Aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban-Delmas ubicado en Burdeos, Francia",
   "informationAboutTheApp": "Información sobre la aplicación",
   "about": "Acerca de",
-  "disclaimer": "Descargo de responsabilidad: cierres provisionales. Sujeto a confirmación de la Capitanía de Puerto.",
-  "openSetting": "Ajustes",
+  "disclaimer": "Aviso: cierres provisionales. Sujeto a confirmación de la Capitania de Puerto.",
+  "openSetting": "Configuración",
   "themeSettingTitle": "Tema",
   "themeSettingSubTitle": "Cambiar la apariencia de la aplicación",
   "lightTheme": "Tema claro",
   "darkTheme": "Tema oscuro",
-  "schedules": "Programar",
+  "schedules": "Horarios",
   "systemTheme": "Tema del sistema",
   "notifications": "Notificaciones",
-  "notificationsSubtitle": "Administre las notificaciones de la aplicación",
+  "notificationsSubtitle": "Administrar las notificaciones de la aplicación",
   "durationNotificationTitle": "{duration}antes",
   "@durationNotificationTitle": {
     "placeholders": {
@@ -95,35 +95,35 @@
       "day": {}
     }
   },
-  "dayNotificationExplanation": "Reciba una notificación el {day} a las {time} que enumere todos los cierres planeados para la próxima semana",
+  "dayNotificationExplanation": "Reciba una notificación el {day} a las {time} que enumere todos los cierres planificados para la próxima semana",
   "@dayNotificationExplanation": {
     "placeholders": {
       "day": {},
       "time": {}
     }
   },
-  "closingNotificationTitle": "En el cierre",
-  "closingNotificationExplanation": "Reciba una notificación cuando el puente cierre",
+  "closingNotificationTitle": "Al cierre",
+  "closingNotificationExplanation": "Reciba una notificación cuando el puente se cierra",
   "notificationClosingChannelName": "Cierre",
-  "notificationClosingTitle": "El puente Chaban ha cerrado ⛔",
-  "notificationClosingBoatMessage": "El puente Chaban acaba de cerrarse para {boat} \uD83D\uDEA2. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationClosingTitle": "El puente Chaban está cerrado ⛔",
+  "notificationClosingBoatMessage": "El puente Chaban acaba de cerrarse para {boat} \uD83D\uDEA2. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationClosingBoatMessage": {
     "placeholders": {
       "boat": {},
       "duration": {}
     }
   },
-  "notificationClosingMaintenanceMessage": "El puente Chaban acaba de cerrarse para mantenimiento \uD83D\uDEE0. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationClosingMaintenanceMessage": "El puente Chaban acaba de cerrarse para mantenimiento \uD83D\uDEE0. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationClosingMaintenanceMessage": {
     "placeholders": {
       "duration": {}
     }
   },
   "openingNotificationTitle": "En la apertura",
-  "openingNotificationExplanation": "Reciba una notificación cuando el puente abra",
+  "openingNotificationExplanation": "Reciba una notificación cuando el puente se abre",
   "notificationOpeningChannelName": "Apertura",
   "notificationOpeningTitle": "El puente Chaban está abierto ✅",
-  "notificationOpeningMessage": "El puente Chaban acaba de abrirse al tráfico \uD83D\uDEB2",
+  "notificationOpeningMessage": "El puente Chaban acaba de abrirse al tràfico \uD83D\uDEB2",
   "monday": "Lunes",
   "tuesday": "Martes",
   "wednesday": "Miércoles",
@@ -132,7 +132,7 @@
   "saturday": "Sábado",
   "sunday": "Domingo",
   "notificationDurationTitle": "Cierre inminente ⚠️",
-  "notificationDurationBoatMessage": "El puente Chaban cerrará en {timeLeft} para {boat} \uD83D\uDEA2. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationDurationBoatMessage": "El puente Chaban se cerrarà en {timeLeft} para {boat} \uD83D\uDEA2. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationDurationBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -140,7 +140,7 @@
       "duration": {}
     }
   },
-  "notificationDurationMaintenanceMessage": "El puente Chaban cerrará en {timeLeft} para mantenimiento \uD83D\uDEE0. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationDurationMaintenanceMessage": "El puente Chaban se cerrarà en {timeLeft} para mantenimiento \uD83D\uDEE0. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationDurationMaintenanceMessage": {
     "placeholders": {
       "timeLeft": {},
@@ -149,7 +149,7 @@
   },
   "notificationDurationChannelName": "Cierres inminentes",
   "notificationTimeTitle": "\uD83D\uDDD3 Cierre programado para mañana",
-  "notificationTimeBoatMessage": "El puente Chaban cerrará mañana a las {time} para {boat} \uD83D\uDEA2. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationTimeBoatMessage": "El puente Chaban se cerrarà mañana a las {time} para {boat} \uD83D\uDEA2. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationTimeBoatMessage": {
     "placeholders": {
       "boat": {},
@@ -169,34 +169,34 @@
       "boat": {}
     }
   },
-  "notificationTimeMaintenanceMessage": "El puente Chaban cerrará mañana a las {time} por mantenimiento \uD83D\uDEE0. Permanecerá cerrado durante {duration} \uD83C\uDF09",
+  "notificationTimeMaintenanceMessage": "El puente Chaban se cerrarà mañana a las {time} para mantenimiento \uD83D\uDEE0. Permanecerà cerrado durante {duration} \uD83C\uDF09",
   "@notificationTimeMaintenanceMessage": {
     "placeholders": {
       "time": {},
       "duration": {}
     }
   },
-  "notificationTimeChannelName": "Cierres del próximo día",
+  "notificationTimeChannelName": "Cierres del dìa siguiente",
   "passedClosure": "Cierre pasado",
-  "selectAboutDialog": "{choice, select, source_code {Código fuente} privacy_policy {Política de privacidad} yuhliet_instagram {Instagram de Yuhliet's} city_of_bordeaux {Ciudad de Bordeaux} bordeaux_open_data {Bordeaux Open Data} licenses {Licencias} changelog {Registro de cambios} other {Undefined}}",
+  "selectAboutDialog": "{choice, select, source_code {Código fuente} privacy_policy {Polìtica de privacidad} yuhliet_instagram {Instagram de Yuhliet} city_of_bordeaux {Ciudad de Burdeos} bordeaux_open_data {Bordeaux Open Data} licenses {Licencias} changelog {Registro de cambios} other {Indefinido}}",
   "@selectAboutDialog": {
     "placeholders": {
       "choice": {}
     }
   },
-  "day": "Día",
+  "day": "Dìa",
   "notificationDayTitle": "\uD83D\uDD2E Cierre programado",
-  "notificationDayMessage": "{count, plural, =0{No hay cierres programados para la próxima semana} =1{La próxima semana, el puente Chaban Delmas solo cerrará una vez} other{La próxima semana, el puente Chaban Delmas cerrará {count} veces}}",
+  "notificationDayMessage": "{count, plural, =0{Ningún cierre programado para la próxima semana} =1{La próxima semana, el puente Chaban-Delmas solo se cerrarà una vez} other{La próxima semana, el puente Chaban-Delmas se cerrarà {count} veces}}",
   "@notificationDayMessage": {
     "placeholders": {
       "count": {}
     }
   },
-  "notificationDayChannelName": "Cierres planificados",
-  "leftHanded": "Zurdo.a",
-  "rightHanded": "Diestro.a",
+  "notificationDayChannelName": "Cierres programados",
+  "leftHanded": "Zurdo",
+  "rightHanded": "Diestro",
   "status": "Estado",
-  "statusLoadMessage": "Carga del estado actual del puente",
+  "statusLoadMessage": "Cargando el estado actual del puente",
   "loading": "Cargando...",
   "dayNotificationAt": "en las",
   "favoriteSlotsFrom": "De",
@@ -209,16 +209,16 @@
       "index": {}
     }
   },
-  "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o más intervalos de tiempo",
-  "favoriteTimeSlotEnabledWarning": "Atención, al activar este parámetro solo recibirás notificaciones cuando ocurra un evento durante una de tus franjas horarias",
-  "favoriteSlotsChooseDay": "Elegir los días de la semana",
-  "moonHarborStatus": "{count, plural, =1 {está actualmente amarrado} other {están actualmente amarrados}} en el 'Puerto de la Luna'",
+  "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o màs intervalos de tiempo",
+  "favoriteTimeSlotEnabledWarning": "Atención, al activar este paràmetro solo recibiràs notificaciones cuando ocurra un evento durante una de tus franjas horarias",
+  "favoriteSlotsChooseDay": "Elegir los dìas de la semana",
+  "moonHarborStatus": "{count, plural, =1 {está actualmente amarrado} other {estàn actualmente amarrados}} en el 'Puerto de la Luna'",
   "@moonHarborStatus": {
     "placeholders": {
       "count": {}
     }
   },
-  "moonHarborShortStatus": "{count} {count, plural, =1 {barco está actualmente} other {buques están actualmente}} en Bordeaux",
+  "moonHarborShortStatus": "{count} {count, plural, =1 {barco está actualmente} other {buques estàn actualmente}} en Bordeaux",
   "@moonHarborShortStatus": {
     "placeholders": {
       "count": {}
@@ -231,5 +231,29 @@
   "timeFormatTitle": "Formato de hora",
   "timeFormatSubTitle": "Visualización de las horas en formato de 12 o 24 horas.",
   "noMoreForecastsTitle": "Ningún acontecimiento por venir",
-  "noMoreForecastsMessage": "Bordeaux Métropole no ha comunicado ningún cierre del Puente Chaban-Delmas para las próximas semanas.\nManténgase informado de los próximos cierres volviendo aquí regularmente"
+  "noMoreForecastsMessage": "Bordeaux Métropole no ha comunicado ningún cierre del Puente Chaban-Delmas para las próximas semanas.\nManténgase informado de los próximos cierres volviendo aquì regularmente",
+  "shareEventTitle": "Compartir",
+  "calendarEventAddToCalendar": "Añadir al calendario",
+  "calendarEventTitle": "Cierre del puente Chaban Delmas",
+  "calendarEventLocation": "Bordeaux, puente Chaban Delmas",
+  "calendarEventMaintenanceDescription": "\"El puente Chaban permanecerá cerrado para mantenimiento \uD83D\uDEE0. Permanecerà cerrado durante {duration} \uD83C\uDF09",
+  "@calendarEventMaintenanceDescription": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "calendarEventBoatDescription": "El puente Chaban permanecerá cerrado para {boat} \uD83D\uDEA2. Permanecerà cerrado durante {duration} \uD83C\uDF09",
+  "@calendarEventBoatDescription": {
+    "placeholders": {
+      "boat": {},
+      "duration": {}
+    }
+  },
+  "bottomSheetTitle_maintenance": "Mantenimiento",
+  "bottomSheetTitle_boat": "Paso de la(s) embarcación(es)",
+  "bottomSheetAdditionalInfo_maintenance": "El puente Chaban está cerrado por mantenimiento programado.",
+  "bottomSheetAdditionalInfo_boatLeaving": "llegada",
+  "bottomSheetAdditionalInfo_boatArriving": "partida",
+  "bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer": "Los horarios de llegada y salida son únicamente a título informativo y no están garantizados.",
+  "bottomSheetAdditionalInfo_shareMessage": "Hola, voy a llegar tarde; el puente Chaban está cerrado hasta"
 }

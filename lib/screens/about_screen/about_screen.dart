@@ -88,10 +88,11 @@ class AboutScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Flexible(
+                        Expanded(
                           child: IconTheme(
                             data: Theme.of(context).iconTheme,
                             child: Row(
+                              spacing: 20,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
@@ -106,36 +107,32 @@ class AboutScreen extends StatelessWidget {
                                   ),
                                   child: iconWidget,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
+                                Flexible(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Row(
-                                        children: [
-                                          Text(
-                                            snapshot.data!.appName,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 30,
-                                                ),
-                                          ),
-                                          Text(
-                                            ' | ${_formatBetaVersion(snapshot.data!.version)} (${snapshot.data!.buildNumber})',
-                                            style: textTheme.bodyMedium,
-                                          ),
-                                        ],
+                                      Text(
+                                        snapshot.data!.appName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 35,
+                                            ),
                                       ),
                                       Text(
+                                        '${_formatBetaVersion(snapshot.data!.version)} (${snapshot.data!.buildNumber})',
+                                        style: textTheme.bodyMedium?.copyWith(
+                                          overflow: TextOverflow.fade,
+                                        ),
+                                      ),
+                                      Divider(),
+                                      Text(
                                         Const.legalLease,
-                                        style: textTheme.bodySmall!.copyWith(),
+                                        style: textTheme.labelSmall!.copyWith(),
                                       ),
                                     ],
                                   ),

@@ -37,14 +37,13 @@ class Boat extends Equatable {
           baseURL.replaceAll(Const.vesselFinderLinkPlaceholder, name),
         ),
       text: text,
-      style: TextStyle(
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
         fontWeight: FontWeight.bold,
         color: colored
             ? isWineFestivalSailBoats
                   ? Theme.of(context).colorScheme.bordeauxColor
                   : Theme.of(context).colorScheme.boatColor
             : Theme.of(context).colorScheme.surface,
-        decoration: TextDecoration.underline,
       ),
     );
   }

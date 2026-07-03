@@ -3,7 +3,6 @@ import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/date_time_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
-import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/time_slot.dart';
@@ -71,20 +70,9 @@ class ForecastWidget extends StatelessWidget {
             onTap ??
             () async => {
               await showModalBottomSheet(
-                useSafeArea: false,
+                isScrollControlled: true,
                 barrierColor: Colors.black.withValues(alpha: 0.65),
-                constraints: BoxConstraints(
-                  maxWidth: DeviceHelper.isPortrait(context)
-                      ? double.infinity
-                      : MediaQuery.of(context).size.width / 1.8,
-                ),
-                enableDrag: true,
                 context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(CustomProperties.borderRadius * 2),
-                  ),
-                ),
                 builder: (context) {
                   return ForecastInformationBottomSheet(forecast: forecast);
                 },

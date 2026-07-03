@@ -127,7 +127,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get dialogInformationContentTime_of_crossing =>
-      'hora estimada de cruce';
+      'hora de paso estimada';
 
   @override
   String get duration => 'Duración';
@@ -137,18 +137,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorScreenContentMessage =>
-      'Se produjo un error al abrir esta página. Encuentre la información técnica a continuación';
+      'Se ha producido un error al abrir esta pàgina. Encuentre información técnica a continuación';
 
   @override
   String get errorScreenContentTechnical_Info => 'Información técnica';
 
   @override
   String get unableAppInfo =>
-      'No se puede obtener información de la aplicación';
+      'No se puede recuperar la información de la aplicación';
 
   @override
   String get appDescription =>
-      'La aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban Delmas ubicado en Bordeaux, Francia';
+      'Aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban-Delmas ubicado en Burdeos, Francia';
 
   @override
   String get informationAboutTheApp => 'Información sobre la aplicación';
@@ -158,10 +158,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get disclaimer =>
-      'Descargo de responsabilidad: cierres provisionales. Sujeto a confirmación de la Capitanía de Puerto.';
+      'Aviso: cierres provisionales. Sujeto a confirmación de la Capitania de Puerto.';
 
   @override
-  String get openSetting => 'Ajustes';
+  String get openSetting => 'Configuración';
 
   @override
   String get themeSettingTitle => 'Tema';
@@ -176,7 +176,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get darkTheme => 'Tema oscuro';
 
   @override
-  String get schedules => 'Programar';
+  String get schedules => 'Horarios';
 
   @override
   String get systemTheme => 'Tema del sistema';
@@ -186,7 +186,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationsSubtitle =>
-      'Administre las notificaciones de la aplicación';
+      'Administrar las notificaciones de la aplicación';
 
   @override
   String durationNotificationTitle(Object duration) {
@@ -215,30 +215,30 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String dayNotificationExplanation(Object day, Object time) {
-    return 'Reciba una notificación el $day a las $time que enumere todos los cierres planeados para la próxima semana';
+    return 'Reciba una notificación el $day a las $time que enumere todos los cierres planificados para la próxima semana';
   }
 
   @override
-  String get closingNotificationTitle => 'En el cierre';
+  String get closingNotificationTitle => 'Al cierre';
 
   @override
   String get closingNotificationExplanation =>
-      'Reciba una notificación cuando el puente cierre';
+      'Reciba una notificación cuando el puente se cierra';
 
   @override
   String get notificationClosingChannelName => 'Cierre';
 
   @override
-  String get notificationClosingTitle => 'El puente Chaban ha cerrado ⛔';
+  String get notificationClosingTitle => 'El puente Chaban está cerrado ⛔';
 
   @override
   String notificationClosingBoatMessage(Object boat, Object duration) {
-    return 'El puente Chaban acaba de cerrarse para $boat 🚢. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban acaba de cerrarse para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
   String notificationClosingMaintenanceMessage(Object duration) {
-    return 'El puente Chaban acaba de cerrarse para mantenimiento 🛠. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban acaba de cerrarse para mantenimiento 🛠. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
@@ -246,7 +246,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get openingNotificationExplanation =>
-      'Reciba una notificación cuando el puente abra';
+      'Reciba una notificación cuando el puente se abre';
 
   @override
   String get notificationOpeningChannelName => 'Apertura';
@@ -256,7 +256,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationOpeningMessage =>
-      'El puente Chaban acaba de abrirse al tráfico 🚲';
+      'El puente Chaban acaba de abrirse al tràfico 🚲';
 
   @override
   String get monday => 'Lunes';
@@ -288,7 +288,7 @@ class AppLocalizationsEs extends AppLocalizations {
     Object timeLeft,
     Object duration,
   ) {
-    return 'El puente Chaban cerrará en $timeLeft para $boat 🚢. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban se cerrarà en $timeLeft para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
@@ -296,7 +296,7 @@ class AppLocalizationsEs extends AppLocalizations {
     Object timeLeft,
     Object duration,
   ) {
-    return 'El puente Chaban cerrará en $timeLeft para mantenimiento 🛠. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban se cerrarà en $timeLeft para mantenimiento 🛠. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
@@ -311,7 +311,7 @@ class AppLocalizationsEs extends AppLocalizations {
     Object time,
     Object duration,
   ) {
-    return 'El puente Chaban cerrará mañana a las $time para $boat 🚢. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban se cerrarà mañana a las $time para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
@@ -326,11 +326,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String notificationTimeMaintenanceMessage(Object time, Object duration) {
-    return 'El puente Chaban cerrará mañana a las $time por mantenimiento 🛠. Permanecerá cerrado durante $duration 🌉';
+    return 'El puente Chaban se cerrarà mañana a las $time para mantenimiento 🛠. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
-  String get notificationTimeChannelName => 'Cierres del próximo día';
+  String get notificationTimeChannelName => 'Cierres del dìa siguiente';
 
   @override
   String get passedClosure => 'Cierre pasado';
@@ -339,19 +339,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String selectAboutDialog(String choice) {
     String _temp0 = intl.Intl.selectLogic(choice, {
       'source_code': 'Código fuente',
-      'privacy_policy': 'Política de privacidad',
-      'yuhliet_instagram': 'Instagram de Yuhliet\'s',
-      'city_of_bordeaux': 'Ciudad de Bordeaux',
+      'privacy_policy': 'Polìtica de privacidad',
+      'yuhliet_instagram': 'Instagram de Yuhliet',
+      'city_of_bordeaux': 'Ciudad de Burdeos',
       'bordeaux_open_data': 'Bordeaux Open Data',
       'licenses': 'Licencias',
       'changelog': 'Registro de cambios',
-      'other': 'Undefined',
+      'other': 'Indefinido',
     });
     return '$_temp0';
   }
 
   @override
-  String get day => 'Día';
+  String get day => 'Dìa';
 
   @override
   String get notificationDayTitle => '🔮 Cierre programado';
@@ -361,27 +361,28 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'La próxima semana, el puente Chaban Delmas cerrará $count veces',
-      one: 'La próxima semana, el puente Chaban Delmas solo cerrará una vez',
-      zero: 'No hay cierres programados para la próxima semana',
+      other:
+          'La próxima semana, el puente Chaban-Delmas se cerrarà $count veces',
+      one: 'La próxima semana, el puente Chaban-Delmas solo se cerrarà una vez',
+      zero: 'Ningún cierre programado para la próxima semana',
     );
     return '$_temp0';
   }
 
   @override
-  String get notificationDayChannelName => 'Cierres planificados';
+  String get notificationDayChannelName => 'Cierres programados';
 
   @override
-  String get leftHanded => 'Zurdo.a';
+  String get leftHanded => 'Zurdo';
 
   @override
-  String get rightHanded => 'Diestro.a';
+  String get rightHanded => 'Diestro';
 
   @override
   String get status => 'Estado';
 
   @override
-  String get statusLoadMessage => 'Carga del estado actual del puente';
+  String get statusLoadMessage => 'Cargando el estado actual del puente';
 
   @override
   String get loading => 'Cargando...';
@@ -409,21 +410,21 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get favoriteSlotsInterferenceWarning =>
-      'Este horario interfiere con uno o más intervalos de tiempo';
+      'Este horario interfiere con uno o màs intervalos de tiempo';
 
   @override
   String get favoriteTimeSlotEnabledWarning =>
-      'Atención, al activar este parámetro solo recibirás notificaciones cuando ocurra un evento durante una de tus franjas horarias';
+      'Atención, al activar este paràmetro solo recibiràs notificaciones cuando ocurra un evento durante una de tus franjas horarias';
 
   @override
-  String get favoriteSlotsChooseDay => 'Elegir los días de la semana';
+  String get favoriteSlotsChooseDay => 'Elegir los dìas de la semana';
 
   @override
   String moonHarborStatus(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'están actualmente amarrados',
+      other: 'estàn actualmente amarrados',
       one: 'está actualmente amarrado',
     );
     return '$_temp0 en el \'Puerto de la Luna\'';
@@ -434,7 +435,7 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'buques están actualmente',
+      other: 'buques estàn actualmente',
       one: 'barco está actualmente',
     );
     return '$count $_temp0 en Bordeaux';
@@ -464,5 +465,51 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noMoreForecastsMessage =>
-      'Bordeaux Métropole no ha comunicado ningún cierre del Puente Chaban-Delmas para las próximas semanas.\nManténgase informado de los próximos cierres volviendo aquí regularmente';
+      'Bordeaux Métropole no ha comunicado ningún cierre del Puente Chaban-Delmas para las próximas semanas.\nManténgase informado de los próximos cierres volviendo aquì regularmente';
+
+  @override
+  String get shareEventTitle => 'Compartir';
+
+  @override
+  String get calendarEventAddToCalendar => 'Añadir al calendario';
+
+  @override
+  String get calendarEventTitle => 'Cierre del puente Chaban Delmas';
+
+  @override
+  String get calendarEventLocation => 'Bordeaux, puente Chaban Delmas';
+
+  @override
+  String calendarEventMaintenanceDescription(Object duration) {
+    return '\"El puente Chaban permanecerá cerrado para mantenimiento 🛠. Permanecerà cerrado durante $duration 🌉';
+  }
+
+  @override
+  String calendarEventBoatDescription(Object boat, Object duration) {
+    return 'El puente Chaban permanecerá cerrado para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
+  }
+
+  @override
+  String get bottomSheetTitle_maintenance => 'Mantenimiento';
+
+  @override
+  String get bottomSheetTitle_boat => 'Paso de la(s) embarcación(es)';
+
+  @override
+  String get bottomSheetAdditionalInfo_maintenance =>
+      'El puente Chaban está cerrado por mantenimiento programado.';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatLeaving => 'llegada';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatArriving => 'partida';
+
+  @override
+  String get bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer =>
+      'Los horarios de llegada y salida son únicamente a título informativo y no están garantizados.';
+
+  @override
+  String get bottomSheetAdditionalInfo_shareMessage =>
+      'Hola, voy a llegar tarde; el puente Chaban está cerrado hasta';
 }

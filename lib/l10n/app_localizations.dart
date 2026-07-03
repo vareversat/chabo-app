@@ -784,6 +784,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Bordeaux Métropole has not communicated any closure of the Chaban-Delmas Bridge for the coming weeks.\nStay informed of upcoming closures by returning here regularly'**
   String get noMoreForecastsMessage;
+
+  /// No description provided for @shareEventTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get shareEventTitle;
+
+  /// No description provided for @calendarEventAddToCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to calendar'**
+  String get calendarEventAddToCalendar;
+
+  /// No description provided for @calendarEventTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Closure of the Chaban Delmas bridge'**
+  String get calendarEventTitle;
+
+  /// No description provided for @calendarEventLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Bordeaux, Chaban Delmas bridge'**
+  String get calendarEventLocation;
+
+  /// No description provided for @calendarEventMaintenanceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The Chaban bridge will close for maintenance 🛠. It will remains closed for {duration} 🌉'**
+  String calendarEventMaintenanceDescription(Object duration);
+
+  /// No description provided for @calendarEventBoatDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The Chaban bridge will close for {boat} 🚢. It will remains closed for {duration} 🌉'**
+  String calendarEventBoatDescription(Object boat, Object duration);
+
+  /// No description provided for @bottomSheetTitle_maintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get bottomSheetTitle_maintenance;
+
+  /// No description provided for @bottomSheetTitle_boat.
+  ///
+  /// In en, this message translates to:
+  /// **'Passage of vessel(s)'**
+  String get bottomSheetTitle_boat;
+
+  /// No description provided for @bottomSheetAdditionalInfo_maintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'The Chaban Bridge is closed for scheduled maintenance.'**
+  String get bottomSheetAdditionalInfo_maintenance;
+
+  /// No description provided for @bottomSheetAdditionalInfo_boatLeaving.
+  ///
+  /// In en, this message translates to:
+  /// **'leaving'**
+  String get bottomSheetAdditionalInfo_boatLeaving;
+
+  /// No description provided for @bottomSheetAdditionalInfo_boatArriving.
+  ///
+  /// In en, this message translates to:
+  /// **'arriving'**
+  String get bottomSheetAdditionalInfo_boatArriving;
+
+  /// No description provided for @bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrival and departure times are for information purposes only and are not guaranteed.'**
+  String get bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer;
+
+  /// No description provided for @bottomSheetAdditionalInfo_shareMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi, I\'m going to be late, the Chaban Bridge is closed until'**
+  String get bottomSheetAdditionalInfo_shareMessage;
 }
 
 class _AppLocalizationsDelegate

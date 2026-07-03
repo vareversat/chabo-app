@@ -231,5 +231,30 @@
   "timeFormatTitle": "Time format",
   "timeFormatSubTitle": "Display hours in 12 or 24 format",
   "noMoreForecastsTitle": "No upcoming events",
-  "noMoreForecastsMessage": "Bordeaux Métropole has not communicated any closure of the Chaban-Delmas Bridge for the coming weeks.\nStay informed of upcoming closures by returning here regularly"
+  "noMoreForecastsMessage": "Bordeaux Métropole has not communicated any closure of the Chaban-Delmas Bridge for the coming weeks.\nStay informed of upcoming closures by returning here regularly",
+  "shareEventTitle": "Share",
+  "calendarEventAddToCalendar": "Add to calendar",
+  "calendarEventTitle": "Closure of the Chaban Delmas bridge",
+  "calendarEventLocation": "Bordeaux, Chaban Delmas bridge",
+  "calendarEventMaintenanceDescription": "The Chaban bridge will close for maintenance \uD83D\uDEE0. It will remains closed for {duration} \uD83C\uDF09",
+  "@calendarEventMaintenanceDescription": {
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "calendarEventBoatDescription": "The Chaban bridge will close for {boat} \uD83D\uDEA2. It will remains closed for {duration} \uD83C\uDF09",
+  "@calendarEventBoatDescription": {
+    "placeholders": {
+      "boat": {},
+      "duration": {}
+    }
+  },
+  "bottomSheetTitle_maintenance": "Maintenance",
+  "bottomSheetTitle_boat": "Passage of vessel(s)",
+  "bottomSheetAdditionalInfo_maintenance": "The Chaban Bridge is closed for scheduled maintenance.",
+  "bottomSheetAdditionalInfo_boatLeaving": "leaving",
+  "bottomSheetAdditionalInfo_boatArriving": "arriving",
+  "bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer": "Arrival and departure times are for information purposes only and are not guaranteed.",
+  "bottomSheetAdditionalInfo_shareMessage": "Hi, I'm going to be late, the Chaban Bridge is closed until"
 }
+

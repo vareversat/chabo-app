@@ -6,7 +6,6 @@ import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../localized_testable_widget.dart';
 
 void main() {
   final forecast = BoatForecast(
@@ -79,52 +78,6 @@ void main() {
 
   test('Get the correct closing duration', () {
     expect(forecast.closedDuration, const Duration(hours: 1));
-  });
-
-  group('Info TextSpan', () {
-    testWidgets(
-      'Same day',
-      (WidgetTester tester) async {
-        await tester.pumpWidget(
-          await localizedTestableWidgetEN(
-            child: Builder(
-              builder: (BuildContext context) {
-                final RichText richText =
-                    forecast.getInformationWidget(context);
-                expect(
-                  richText.text.toPlainText(),
-                  'Sunday, May 14, 2023 from ￼ to ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nEstimated time of crossing : 3:30 PM',
-                );
-
-                return const Placeholder();
-              },
-            ),
-          ),
-        );
-      },
-    );
-
-    testWidgets(
-      'During tow days',
-      (WidgetTester tester) async {
-        await tester.pumpWidget(
-          await localizedTestableWidgetEN(
-            child: Builder(
-              builder: (BuildContext context) {
-                final RichText richText =
-                    forecast2.getInformationWidget(context);
-                expect(
-                  richText.text.toPlainText(),
-                  'From Sunday, May 14, 2023 ￼, to Monday, May 15, 2023 ￼, the Chaban bridge will be closed for the arrival of the TEST_BOAT\n\nEstimated time of crossing : Mon, May 15 at 2:00 AM',
-                );
-
-                return const Placeholder();
-              },
-            ),
-          ),
-        );
-      },
-    );
   });
 
   group('During two days or not', () {
