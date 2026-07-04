@@ -5,6 +5,7 @@ import 'package:chabo_app/widgets/forecast/no_more_forecasts_widget.dart';
 import 'package:chabo_app/widgets/forecast/forecast_widget.dart';
 import 'package:chabo_app/widgets/wave_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -29,8 +30,8 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
               return const NoMoreForecastsWidget();
             }
             return ListView.separated(
+              scrollCacheExtent: ScrollCacheExtent.pixels(5000),
               shrinkWrap: true,
-              cacheExtent: 5000,
               padding: const EdgeInsets.symmetric(
                 horizontal: 5,
               ).copyWith(bottom: 150),
