@@ -54,43 +54,58 @@ class StatusScreenState extends CustomWidgetState<StatusScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChaboAppBar(),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(CustomProperties.padding),
-        child: BlocBuilder<StatusBloc, StatusState>(
-          builder: (context, statusState) {
-            return AnimatedSwitcher(
-              duration: const Duration(
-                milliseconds: CustomProperties.animationDurationMs,
-              ),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(opacity: animation, child: child);
-              },
-              child: statusState.statusLifecycle == StatusLifecycle.populated
-                  ? Column(
-                      spacing: 10,
-                      children: [
-                        StatusImageWidget(statusState: statusState),
-                        CurrentDockedBoatButton(statusState: statusState),
-                        WaveDivider(),
-                        DurationWidget(statusState: statusState),
-                        ForecastWidget(
-                          isCurrent: true,
-                          hasPassed: false,
-                          forecast: statusState.currentForecast!,
-                          borderColor: statusState.backgroundColor,
-                          index: 0,
-                          timeSlots: [],
-                        ),
-                      ],
-                    )
-                  : Center(
-                      child: CustomCircularProgressIndicator(
-                        message: AppLocalizations.of(context)!.loading,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(CustomProperties.padding),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(
+                child: BlocBuilder<StatusBloc, StatusState>(
+                  builder: (context, statusState) {
+                    return AnimatedSwitcher(
+                      duration: const Duration(
+                        milliseconds: CustomProperties.animationDurationMs,
                       ),
-                    ),
-            );
-          },
-        ),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                      child:
+                          statusState.statusLifecycle ==
+                              StatusLifecycle.populated
+                          ? Column(
+                              spacing: 10,
+                              children: [
+                                StatusImageWidget(statusState: statusState),
+                                CurrentDockedBoatButton(
+                                  statusState: statusState,
+                                ),
+                                WaveDivider(),
+                                DurationWidget(statusState: statusState),
+                                ForecastWidget(
+                                  isCurrent: true,
+                                  hasPassed: false,
+                                  forecast: statusState.currentForecast!,
+                                  borderColor: statusState.backgroundColor,
+                                  index: 0,
+                                  timeSlots: [],
+                                ),
+                              ],
+                            )
+                          : CustomCircularProgressIndicator(
+                              message: AppLocalizations.of(context)!.loading,
+                            ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
