@@ -38,6 +38,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
               itemBuilder: (BuildContext context, int index) {
                 final AbstractForecast forecast =
                     forecastState.forecasts[index];
+
                 forecast.computeSlotInterference(timeSlotState);
 
                 return !forecast.hasPassed()
