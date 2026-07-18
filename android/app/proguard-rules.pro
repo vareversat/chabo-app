@@ -25,3 +25,8 @@
 # Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
 -keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
+# Fix for WorkManager crash in release mode (used by google_mobile_ads)
+# Github issue: https://github.com/googleads/googleads-mobile-flutter/issues/1444#issuecomment-4761480928
+-keep class androidx.work.impl.** { *; }
+-dontwarn androidx.work.impl.**
