@@ -52,5 +52,6 @@ jobs:
     uses: vareversat/github-actions/.github/workflows/flutter.publish.yml@v1.11.0
     with:
       lane: 'dry_run'
+      ruby_version: '4.0.5'
       url: 'https://play.google.com/console/u/0/developers/5699287307345981322/app/4972786398063514472/app-dashboard'
     secrets: inherit
