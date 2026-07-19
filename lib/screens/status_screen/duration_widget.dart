@@ -56,7 +56,7 @@ class DurationWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 10),
         child: Container(
           key: ValueKey<String>('$digits$digit'),
-          width: 30,
+          width: 25,
           height: 45,
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
