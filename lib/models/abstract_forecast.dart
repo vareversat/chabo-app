@@ -65,8 +65,6 @@ abstract class AbstractForecast extends Equatable {
     _circulationClosingDate = value;
   }
 
-  RichText getInformationWidget(BuildContext context);
-
   List<InlineSpan> getCoreInformationWidget(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
@@ -163,6 +161,12 @@ abstract class AbstractForecast extends Equatable {
   String getNotificationTimeMessage(BuildContext context);
 
   String getNotificationClosingMessage(BuildContext context);
+
+  String getCalendarEventClosingDescription(BuildContext context);
+
+  Widget getDetailedInfo(BuildContext context);
+
+  String getBottomSheetTitle(BuildContext context);
 
   String getClosingReason(BuildContext context);
 

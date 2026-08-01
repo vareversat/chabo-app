@@ -33,83 +33,88 @@ class _CustomListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleContainer(
-      child: ListTile(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 10,
-              child: Text(
-                title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(fontSize: 19),
-                overflow: TextOverflow.fade,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: AnimatedSwitcher(
-                duration: const Duration(
-                  milliseconds: CustomProperties.animationDurationMs,
+      child: Material(
+        // Fix "The ListTile is wrapped in a DecoratedBox that has a background colo..."
+        type: MaterialType.transparency,
+        child: ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 10,
+                child: Text(
+                  title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontSize: 19),
+                  overflow: TextOverflow.fade,
                 ),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return FadeTransition(
-                    opacity: CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeIn,
-                    ),
-                    child: SlideTransition(
-                      position: Tween(
-                        begin: const Offset(-1.0, 0.0),
-                        end: const Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child,
+              ),
+              const SizedBox(width: 10),
+              Flexible(
+                child: AnimatedSwitcher(
+                  duration: const Duration(
+                    milliseconds: CustomProperties.animationDurationMs,
+                  ),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                        return FadeTransition(
+                          opacity: CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeIn,
+                          ),
+                          child: SlideTransition(
+                            position: Tween(
+                              begin: const Offset(-1.0, 0.0),
+                              end: const Offset(0.0, 0.0),
+                            ).animate(animation),
+                            child: child,
+                          ),
+                        );
+                      },
+                  child: constrainedBySlots && enabled
+                      ? CircleAvatar(
+                          radius: 5,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.warningColor,
+                          child: Container(),
+                        )
+                      : const SizedBox(),
+                ),
+              ),
+            ],
+          ),
+          subtitle: Text(subtitle),
+          leading: Icon(leadingIcon),
+          onTap: onTap,
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              onTap != null
+                  ? const VerticalDivider(width: 20)
+                  : const SizedBox.shrink(),
+              Switch.adaptive(
+                thumbIcon: thumbIcon,
+                value: enabled,
+                onChanged: (value) {
+                  Sentry.addBreadcrumb(
+                    Breadcrumb(
+                      message: 'Change "$title" state',
+                      level: SentryLevel.info,
+                      category: 'notification.change-state',
+                      type: 'Notification',
+                      data: {'old-state': !value, 'new-state': value},
                     ),
                   );
+                  onChanged(value);
                 },
-                child: constrainedBySlots && enabled
-                    ? CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Theme.of(
-                          context,
-                        ).colorScheme.warningColor,
-                        child: Container(),
-                      )
-                    : const SizedBox(),
               ),
-            ),
-          ],
+            ],
+          ),
+          iconColor: iconColor ?? Theme.of(context).colorScheme.primary,
+          enabled: enabled,
         ),
-        subtitle: Text(subtitle),
-        leading: Icon(leadingIcon),
-        onTap: onTap,
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            onTap != null
-                ? const VerticalDivider(width: 20)
-                : const SizedBox.shrink(),
-            Switch.adaptive(
-              thumbIcon: thumbIcon,
-              value: enabled,
-              onChanged: (value) {
-                Sentry.addBreadcrumb(
-                  Breadcrumb(
-                    message: 'Change "$title" state',
-                    level: SentryLevel.info,
-                    category: 'notification.change-state',
-                    type: 'Notification',
-                    data: {'old-state': !value, 'new-state': value},
-                  ),
-                );
-                onChanged(value);
-              },
-            ),
-          ],
-        ),
-        iconColor: iconColor ?? Theme.of(context).colorScheme.primary,
-        enabled: enabled,
       ),
     );
   }

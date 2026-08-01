@@ -3,7 +3,6 @@ import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/extensions/duration_extension.dart';
-import 'package:chabo_app/extensions/string_extension.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/boat.dart';
@@ -97,45 +96,6 @@ class BoatForecast extends AbstractForecast {
   ];
 
   @override
-  RichText getInformationWidget(BuildContext context) {
-    final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    var schedule = circulationClosingDate.add(
-      Duration(microseconds: closedDuration.inMicroseconds ~/ 2),
-    );
-    var scheduleString = intl.DateFormat(
-      timeFormat.icuName,
-      Localizations.localeOf(context).languageCode,
-    ).format(schedule);
-    if (isDuringTwoDays) {
-      scheduleString =
-          '${MaterialLocalizations.of(context).formatMediumDate(schedule)} ${AppLocalizations.of(context)!.at} ${intl.DateFormat(timeFormat.icuName, Localizations.localeOf(context).languageCode).format(schedule)}';
-    }
-
-    return RichText(
-      text: TextSpan(
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
-        children: [
-          ...getCoreInformationWidget(context),
-          boats.toLocalizedTextSpan(context),
-          TextSpan(
-            text:
-                '\n\n${AppLocalizations.of(context)!.dialogInformationContentTime_of_crossing.capitalize()} : ',
-          ),
-          TextSpan(
-            text: scheduleString,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.timeColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
   String getNotificationDurationMessage(
     BuildContext context,
     String pickedDuration,
@@ -163,6 +123,102 @@ class BoatForecast extends AbstractForecast {
       boats.toLocalizedString(context),
       closedDuration.durationToString(context),
     );
+  }
+
+  @override
+  String getCalendarEventClosingDescription(BuildContext context) {
+    return AppLocalizations.of(context)!.calendarEventBoatDescription(
+      boats.toLocalizedString(context),
+      closedDuration.durationToString(context),
+    );
+  }
+
+  List<String> _generateCrossingTimes(DateTime t, int n, int p) {
+    // Calculate the step in seconds
+    int stepInSeconds = p;
+
+    // Generate the list of times
+    List<String> result = [];
+    for (int i = 0; i < n; i++) {
+      // Calculate the offset for the current time in seconds
+      double offset = (i - (n - 1) / 2.0) * stepInSeconds;
+      int offsetInSeconds = offset.round();
+
+      // Create a new DateTime by adding the offset
+      DateTime newTime = t.add(Duration(seconds: offsetInSeconds));
+
+      // Format the time as HH:MM:SS (or HH:MM if seconds are zero)
+      String formattedTime =
+          '${newTime.hour.toString().padLeft(2, '0')}h'
+          '${newTime.minute.toString().padLeft(2, '0')}';
+
+      result.add(formattedTime);
+    }
+
+    return result;
+  }
+
+  @override
+  Widget getDetailedInfo(BuildContext context) {
+    var halfDuration = Duration(seconds: closedDuration.inSeconds ~/ 2);
+    var medianTime = circulationClosingDate.add(halfDuration);
+    var crossingTimes = _generateCrossingTimes(medianTime, boats.length, 1800);
+    return Column(
+      spacing: 13,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 3,
+          children: boats.asMap().entries.map((elem) {
+            final boat = elem.value;
+            final index = elem.key;
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(text: boat.toLocalizedTextSpan(context, true)),
+                Row(
+                  spacing: 5,
+                  children: [
+                    Text(
+                      boat.isLeaving
+                          ? AppLocalizations.of(
+                              context,
+                            )!.bottomSheetAdditionalInfo_boatArriving
+                          : AppLocalizations.of(
+                              context,
+                            )!.bottomSheetAdditionalInfo_boatLeaving,
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('-  ${crossingTimes[index]}'),
+                  ],
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+        Text(
+          AppLocalizations.of(
+            context,
+          )!.bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontStyle: FontStyle.italic,
+            color: Theme.of(
+              context,
+            ).colorScheme.inverseSurface.withValues(alpha: .4),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  String getBottomSheetTitle(BuildContext context) {
+    return AppLocalizations.of(context)!.bottomSheetTitle_boat;
   }
 
   @override

@@ -12,7 +12,7 @@ class SimpleContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(CustomProperties.borderRadius),
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
       ),
       child: child,
     );

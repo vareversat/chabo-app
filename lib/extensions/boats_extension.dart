@@ -4,20 +4,6 @@ import 'package:chabo_app/models/boat.dart';
 import 'package:flutter/material.dart';
 
 extension BoatsExtension on List<Boat> {
-  TextSpan toLocalizedTextSpan(BuildContext context) {
-    final finalTextSpan = <TextSpan>[];
-    for (var index = 0; index < length; index++) {
-      finalTextSpan.add(this[index].toLocalizedStatusTextSpan(context, true));
-      if (index + 1 != length) {
-        finalTextSpan.add(
-          TextSpan(text: ' ${AppLocalizations.of(context)!.and} '),
-        );
-      }
-    }
-
-    return TextSpan(children: finalTextSpan);
-  }
-
   String getNames(BuildContext context) {
     var finalString = '';
     for (var index = 0; index < length; index++) {
