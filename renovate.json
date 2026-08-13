@@ -29,5 +29,16 @@
       "assigneesFromCodeOwners": true,
       "commitMessageTopic": "{{depName}}"
     }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileFormat": "yaml",
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "(?<depName>.*)_version:\\s*['\"]?(?<currentValue>[\\w.\\-]*)['\"]?"
+      ],
+      "datasourceTemplate": "github-actions"
+    }
   ]
 }
