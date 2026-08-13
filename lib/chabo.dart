@@ -34,8 +34,8 @@ class Chabo extends StatelessWidget {
     DeviceHelper.computePreferredOrientation(context);
     TextTheme textTheme = createTextTheme(
       context,
+      'Libre Franklin',
       'Josefin Sans',
-      'Gravitas One', // Climate Crisis, Outfit, Gravitas One
     );
     MaterialTheme theme = MaterialTheme(textTheme);
 
