@@ -22,7 +22,6 @@ class MainScreen extends StatelessWidget {
           );
         },
       ),
-
       body: BlocBuilder<NavBloc, NavState>(
         builder: (context, state) {
           return IndexedStack(

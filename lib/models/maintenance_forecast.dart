@@ -127,21 +127,9 @@ class MaintenanceForecast extends AbstractForecast {
   }
 
   @override
-  Widget getContextIconWidget(BuildContext context) {
-    return SizedBox.shrink();
-  }
-
-  @override
   Color getColor(BuildContext context, bool reversed) {
     return reversed
         ? Theme.of(context).colorScheme.surface
         : Theme.of(context).colorScheme.maintenanceColor;
-  }
-
-  @override
-  String getClosingReason(BuildContext context) {
-    return AppLocalizations.of(
-      context,
-    )!.dialogInformationContentBridge_closed_maintenance.toUpperCase();
   }
 }

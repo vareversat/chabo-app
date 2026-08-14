@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -120,10 +121,6 @@ class AppLocalizationsEs extends AppLocalizations {
     );
     return 'la llegada $_temp0';
   }
-
-  @override
-  String get dialogInformationContentBridge_closed_maintenance =>
-      'mantenimiento';
 
   @override
   String get dialogInformationContentTime_of_crossing =>
