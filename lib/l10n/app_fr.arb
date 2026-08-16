@@ -241,7 +241,7 @@
       "duration": {}
     }
   },
-  "calendarEventBoatDescription": "Le pont Chaban sera pour {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
+  "calendarEventBoatDescription": "Le pont Chaban sera fermé pour {boat} \uD83D\uDEA2. Il restera fermé pendant {duration} \uD83C\uDF09",
   "@calendarEventBoatDescription": {
     "placeholders": {
       "boat": {},
