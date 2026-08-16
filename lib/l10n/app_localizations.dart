@@ -274,12 +274,6 @@ abstract class AppLocalizations {
   /// **'the arrival of {count, plural, =1 {the} other {the}}'**
   String dialogInformationContentBridgeArrival(num count);
 
-  /// No description provided for @dialogInformationContentBridge_closed_maintenance.
-  ///
-  /// In en, this message translates to:
-  /// **'maintenance'**
-  String get dialogInformationContentBridge_closed_maintenance;
-
   /// No description provided for @dialogInformationContentTime_of_crossing.
   ///
   /// In en, this message translates to:

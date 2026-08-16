@@ -11,7 +11,6 @@ import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart' as intl;
 
 class BoatForecast extends AbstractForecast {
@@ -236,34 +235,6 @@ class BoatForecast extends AbstractForecast {
   }
 
   @override
-  Widget getContextIconWidget(BuildContext context) {
-    int leaving = boats.where((boat) => boat.isLeaving).length;
-    int entering = boats.length - leaving;
-
-    return Column(
-      spacing: 3,
-      children: [
-        entering > 0
-            ? Row(
-                children: [
-                  Text('$entering x '),
-                  FaIcon(FontAwesomeIcons.arrowRightToBracket),
-                ],
-              )
-            : SizedBox.shrink(),
-        leaving > 0
-            ? Row(
-                children: [
-                  Text('$leaving x '),
-                  FaIcon(FontAwesomeIcons.arrowRightFromBracket),
-                ],
-              )
-            : SizedBox.shrink(),
-      ],
-    );
-  }
-
-  @override
   Color getColor(BuildContext context, bool reversed) {
     if (boats.isWineFestival()) {
       return reversed
@@ -274,13 +245,6 @@ class BoatForecast extends AbstractForecast {
     return reversed
         ? Theme.of(context).colorScheme.surface
         : Theme.of(context).colorScheme.boatColor;
-  }
-
-  @override
-  String getClosingReason(BuildContext context) {
-    return boats.isWineFestival()
-        ? AppLocalizations.of(context)!.wineFestivalSailBoats
-        : boats.getNames(context);
   }
 
   @override

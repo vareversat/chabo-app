@@ -150,22 +150,6 @@ class ForecastWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Divider(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        child: Text(
-                          forecast.getClosingReason(context),
-                          overflow: TextOverflow.clip,
-                          style: Theme.of(context).textTheme.labelMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      forecast.getContextIconWidget(context),
-                    ],
-                  ),
                 ],
               ),
             ),
