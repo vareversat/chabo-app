@@ -665,6 +665,24 @@ abstract class AppLocalizations {
   /// **'Loading...'**
   String get loading;
 
+  /// No description provided for @refreshData.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refreshData;
+
+  /// No description provided for @refreshingData.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing...'**
+  String get refreshingData;
+
+  /// No description provided for @cachedDataTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline or API unavailable: showing cached data'**
+  String get cachedDataTooltip;
+
   /// No description provided for @dayNotificationAt.
   ///
   /// In en, this message translates to:

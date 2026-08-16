@@ -30,12 +30,40 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChaboAppBar(),
+      appBar: ChaboAppBar(
+        actions: [
+          BlocBuilder<ForecastBloc, ForecastState>(
+            builder: (context, state) {
+              final isRefreshing = state.isRefreshing;
+              return IconButton(
+                tooltip: AppLocalizations.of(context)!.refreshData,
+                icon: isRefreshing
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.refresh),
+                onPressed: isRefreshing
+                    ? null
+                    : () => BlocProvider.of<ForecastBloc>(
+                          context,
+                        ).add(ForecastRefresh()),
+              );
+            },
+          ),
+        ],
+      ),
       body: BlocBuilder<ForecastBloc, ForecastState>(
         builder: (context, forecastState) {
           switch (forecastState.status) {
             case ForecastStatus.failure:
-              return ErrorScreen(errorMessage: forecastState.message);
+              return ErrorScreen(
+                errorMessage: forecastState.message,
+                onRetry: () => BlocProvider.of<ForecastBloc>(
+                  context,
+                ).add(ForecastRefresh()),
+              );
             case ForecastStatus.success:
               if (forecastState.forecasts.isEmpty) {
                 return const ErrorScreen(errorMessage: 'Empty return');
@@ -125,7 +153,39 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                     },
                   ),
                 ],
-                child: const ForecastListWidget(),
+                child: Column(
+                  children: [
+                    if (forecastState.isFromCache)
+                      Material(
+                        color: Theme.of(context).colorScheme.errorContainer,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.cloud_off,
+                                size: 18,
+                                color:
+                                    Theme.of(context).colorScheme.onErrorContainer,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .cachedDataTooltip,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    const Expanded(child: ForecastListWidget()),
+                  ],
+                ),
               );
             default:
               return CustomCircularProgressIndicator(

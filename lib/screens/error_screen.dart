@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 class ErrorScreen extends StatefulWidget {
   final String errorMessage;
 
-  const ErrorScreen({super.key, required this.errorMessage});
+  /// Optional callback invoked when the user taps the retry button. When `null`
+  /// (the default) the retry button is not displayed.
+  final VoidCallback? onRetry;
+
+  const ErrorScreen({super.key, required this.errorMessage, this.onRetry});
 
   @override
   State<StatefulWidget> createState() {
@@ -48,10 +52,25 @@ class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 100.0),
-                child: Text(
-                  '${AppLocalizations.of(context)!.errorScreenContentTechnical_Info} : ${widget.errorMessage}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.grey),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${AppLocalizations.of(context)!.errorScreenContentTechnical_Info} : ${widget.errorMessage}',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    if (widget.onRetry != null) ...[
+                      const SizedBox(height: 16),
+                      FilledButton.tonalIcon(
+                        onPressed: widget.onRetry,
+                        icon: const Icon(Icons.refresh),
+                        label: Text(
+                          AppLocalizations.of(context)!.refreshData,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),

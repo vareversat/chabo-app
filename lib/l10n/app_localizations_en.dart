@@ -379,6 +379,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading...';
+  @override
+  String get refreshData => 'Refresh';
+  @override
+  String get refreshingData => 'Refreshing...';
+  @override
+  String get cachedDataTooltip => 'Offline or API unavailable: showing cached data';
 
   @override
   String get dayNotificationAt => 'at';

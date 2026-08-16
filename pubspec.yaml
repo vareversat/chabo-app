@@ -25,6 +25,7 @@ dependencies:
   google_fonts: ^8.1.0
   google_mobile_ads: ^9.0.0
   http: ^1.0.0
+  flutter_cache_manager: ^3.4.1
   intl: ^0.20.2
   package_info_plus: ^10.1.0
   share_plus: ^13.2.0
@@ -47,6 +48,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.0
   bloc_test: ^10.0.0
   mockito: ^5.4.0
+  mocktail: ^1.0.4
 
 flutter:
   generate: true

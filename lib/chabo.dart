@@ -8,6 +8,7 @@ import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
+import 'package:chabo_app/service/forecast_cache_service.dart';
 import 'package:chabo_app/service/notification_service.dart';
 import 'package:chabo_app/service/storage_service.dart';
 import 'package:chabo_app/widgets/nav_bar.dart';
@@ -22,12 +23,15 @@ import 'screens/main_screen.dart';
 class Chabo extends StatelessWidget {
   final StorageService storageService;
   final NotificationService notificationService;
+  final ForecastCacheService forecastCacheService;
 
-  const Chabo({
+  Chabo({
     super.key,
     required this.storageService,
     required this.notificationService,
-  });
+    ForecastCacheService? forecastCacheService,
+  }) : forecastCacheService =
+           forecastCacheService ?? ForecastCacheService();
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +63,15 @@ class Chabo extends StatelessWidget {
           )..init(),
         ),
 
-        /// Bloc intended to manage the forecast displayed
+        /// Bloc intended to manage the forecast displayed.
+        /// Data is fetched from the Bordeaux Metropole opendata REST API and
+        /// transparently cached on disk (via flutter_cache_manager) so it stays
+        /// available offline or when the API is down.
         BlocProvider(
-          create: (_) =>
-              ForecastBloc(httpClient: SentryHttpClient())
-                ..add(ForecastFetched()),
+          create: (_) => ForecastBloc(
+            httpClient: SentryHttpClient(),
+            cacheService: forecastCacheService,
+          )..add(ForecastFetched()),
         ),
 
         /// Bloc intended to manage the status
