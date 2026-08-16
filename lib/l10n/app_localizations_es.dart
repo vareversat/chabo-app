@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -8,9 +7,6 @@ import 'app_localizations.dart';
 /// The translations for Spanish Castilian (`es`).
 class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
-
-  @override
-  String get at => 'a las';
 
   @override
   String get and => 'y';
@@ -73,15 +69,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get willSoonClose => 'cerrar pronto';
 
   @override
-  String get settingsClose => 'Cerca';
-
-  @override
-  String get notificationsTitle => 'Notificaciónes';
-
-  @override
-  String get information => 'Información';
-
-  @override
   String get dialogInformationContentThe => 'el ';
 
   @override
@@ -123,10 +110,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get dialogInformationContentTime_of_crossing =>
-      'hora de paso estimada';
-
-  @override
   String get duration => 'Duración';
 
   @override
@@ -146,12 +129,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get appDescription =>
       'Aplicación móvil para obtener los horarios de cierre y apertura del puente Chaban-Delmas ubicado en Burdeos, Francia';
-
-  @override
-  String get informationAboutTheApp => 'Información sobre la aplicación';
-
-  @override
-  String get about => 'Acerca de';
 
   @override
   String get disclaimer =>
@@ -180,10 +157,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notifications => 'Notificaciones';
-
-  @override
-  String get notificationsSubtitle =>
-      'Administrar las notificaciones de la aplicación';
 
   @override
   String durationNotificationTitle(Object duration) {
@@ -330,9 +303,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get notificationTimeChannelName => 'Cierres del dìa siguiente';
 
   @override
-  String get passedClosure => 'Cierre pasado';
-
-  @override
   String selectAboutDialog(String choice) {
     String _temp0 = intl.Intl.selectLogic(choice, {
       'source_code': 'Código fuente',
@@ -346,9 +316,6 @@ class AppLocalizationsEs extends AppLocalizations {
     });
     return '$_temp0';
   }
-
-  @override
-  String get day => 'Dìa';
 
   @override
   String get notificationDayTitle => '🔮 Cierre programado';
@@ -370,16 +337,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get notificationDayChannelName => 'Cierres programados';
 
   @override
-  String get leftHanded => 'Zurdo';
-
-  @override
-  String get rightHanded => 'Diestro';
-
-  @override
   String get status => 'Estado';
-
-  @override
-  String get statusLoadMessage => 'Cargando el estado actual del puente';
 
   @override
   String get loading => 'Cargando...';
