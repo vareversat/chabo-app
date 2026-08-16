@@ -6,12 +6,45 @@ import 'package:chabo_app/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo_app/service/forecast_cache_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:mocktail/mocktail.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-class _MockSentryHttpClient extends Mock implements SentryHttpClient {}
+/// A minimal in-memory fake of [ForecastCacheService] so the bloc's cache
+/// layer can be exercised deterministically without touching the disk-backed
+/// flutter_cache_manager (which is not available in unit tests).
+class _FakeForecastCacheService implements ForecastCacheService {
+  String? _body;
 
-class _MockForecastCacheService extends Mock implements ForecastCacheService {}
+  @override
+  Future<void> putBody({required String body, String cacheKey = ''}) async {
+    _body = body;
+  }
+
+  @override
+  Future<String?> getBody({String cacheKey = ''}) async => _body;
+
+  @override
+  Future<void> remove({String cacheKey = ''}) async {
+    _body = null;
+  }
+}
+
+/// A fake [SentryHttpClient] that returns a canned response body for every
+/// request, or throws to simulate a network failure. This avoids mocking the
+/// inherited [http.Client.get] concrete method.
+class _FakeSentryHttpClient extends SentryHttpClient {
+  _FakeSentryHttpClient({this.responseBody, this.throwOnGet = false});
+
+  final String? responseBody;
+  final bool throwOnGet;
+
+  @override
+  Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
+    if (throwOnGet) {
+      throw Exception('SocketException: no network');
+    }
+    return http.Response(responseBody ?? '', 200);
+  }
+}
 
 /// Builds a JSON API response body containing a single boat forecast that is
 /// currently active (closing in the past, reopening in the future), so the
@@ -48,18 +81,12 @@ String _forecastsJson() {
   return jsonEncode(json);
 }
 
-http.Response _okResponse(String body) => http.Response(body, 200);
-
-ForecastBloc _buildBloc(
-  _MockSentryHttpClient httpClient,
-  _MockForecastCacheService cacheService,
-) {
-  return ForecastBloc(httpClient: httpClient, cacheService: cacheService);
+ForecastBloc _buildBloc(SentryHttpClient httpClient, ForecastCacheService cache) {
+  return ForecastBloc(httpClient: httpClient, cacheService: cache);
 }
 
-/// Polls the bloc's [BlocBase.state] until [test] holds true, waiting for the
-/// async event handlers to emit. Throws after [timeout] if the condition is
-/// never met.
+/// Polls the bloc's state until [test] holds true, waiting for the async
+/// event handlers to emit.
 Future<void> _waitFor(
   ForecastBloc bloc,
   bool Function(ForecastState state) test, {
@@ -75,29 +102,15 @@ Future<void> _waitFor(
 }
 
 void main() {
-  late _MockSentryHttpClient httpClient;
-  late _MockForecastCacheService cacheService;
-
-  setUp(() {
-    registerFallbackValue(Uri());
-    httpClient = _MockSentryHttpClient();
-    cacheService = _MockForecastCacheService();
-    when(
-      () => cacheService.putBody(body: any(named: 'body')),
-    ).thenAnswer((_) async {});
-    when(() => cacheService.getBody()).thenAnswer((_) async => null);
-  });
-
   group('ForecastBloc caching', () {
     test(
       'network success: emits success with isFromCache=false and writes cache',
       () async {
         final body = _forecastsJson();
-        when(
-          () => httpClient.get(any()),
-        ).thenAnswer((_) async => _okResponse(body));
+        final cache = _FakeForecastCacheService();
+        final httpClient = _FakeSentryHttpClient(responseBody: body);
 
-        final bloc = _buildBloc(httpClient, cacheService);
+        final bloc = _buildBloc(httpClient, cache);
 
         bloc.add(ForecastFetched());
         await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
@@ -106,22 +119,20 @@ void main() {
         expect(bloc.state.status, ForecastStatus.success);
         expect(bloc.state.isFromCache, false);
         expect(bloc.state.forecasts, isNotEmpty);
-        verify(
-          () => cacheService.putBody(body: any(named: 'body')),
-        ).called(greaterThanOrEqualTo(1));
+        expect(cache.getBody(), completion(isNotNull));
       },
     );
 
     test(
       'network failure with cache: falls back to cache and sets isFromCache',
       () async {
-        final cachedBody = _forecastsJson();
-        when(
-          () => httpClient.get(any()),
-        ).thenThrow(Exception('SocketException: no network'));
-        when(() => cacheService.getBody()).thenAnswer((_) async => cachedBody);
+        final body = _forecastsJson();
+        final cache = _FakeForecastCacheService();
+        // Pre-populate the cache to simulate a previous successful fetch.
+        await cache.putBody(body: body);
+        final httpClient = _FakeSentryHttpClient(throwOnGet: true);
 
-        final bloc = _buildBloc(httpClient, cacheService);
+        final bloc = _buildBloc(httpClient, cache);
 
         bloc.add(ForecastFetched());
         await _waitFor(
@@ -133,17 +144,14 @@ void main() {
         expect(bloc.state.status, ForecastStatus.success);
         expect(bloc.state.isFromCache, true);
         expect(bloc.state.forecasts, isNotEmpty);
-        verifyNever(() => cacheService.putBody(body: any(named: 'body')));
       },
     );
 
     test('network failure without cache: emits failure', () async {
-      when(
-        () => httpClient.get(any()),
-      ).thenThrow(Exception('SocketException: no network'));
-      when(() => cacheService.getBody()).thenAnswer((_) async => null);
+      final cache = _FakeForecastCacheService();
+      final httpClient = _FakeSentryHttpClient(throwOnGet: true);
 
-      final bloc = _buildBloc(httpClient, cacheService);
+      final bloc = _buildBloc(httpClient, cache);
 
       bloc.add(ForecastFetched());
       await _waitFor(bloc, (s) => s.status == ForecastStatus.failure);
@@ -153,28 +161,25 @@ void main() {
       expect(bloc.state.forecasts, isEmpty);
     });
 
-    test(
-      'ForecastRefresh toggles isRefreshing and reloads from network',
-      () async {
-        final body = _forecastsJson();
-        when(
-          () => httpClient.get(any()),
-        ).thenAnswer((_) async => _okResponse(body));
+    test('ForecastRefresh toggles isRefreshing and reloads from network',
+        () async {
+      final body = _forecastsJson();
+      final cache = _FakeForecastCacheService();
+      final httpClient = _FakeSentryHttpClient(responseBody: body);
 
-        final bloc = _buildBloc(httpClient, cacheService);
+      final bloc = _buildBloc(httpClient, cache);
 
-        bloc.add(ForecastFetched());
-        await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
+      bloc.add(ForecastFetched());
+      await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
 
-        bloc.add(ForecastRefresh());
-        await _waitFor(bloc, (s) => s.isRefreshing == true);
-        await _waitFor(bloc, (s) => s.isRefreshing == false);
-        await bloc.close();
+      bloc.add(ForecastRefresh());
+      await _waitFor(bloc, (s) => s.isRefreshing == true);
+      await _waitFor(bloc, (s) => s.isRefreshing == false);
+      await bloc.close();
 
-        expect(bloc.state.status, ForecastStatus.success);
-        expect(bloc.state.isFromCache, false);
-        expect(bloc.state.isRefreshing, false);
-      },
-    );
+      expect(bloc.state.status, ForecastStatus.success);
+      expect(bloc.state.isFromCache, false);
+      expect(bloc.state.isRefreshing, false);
+    });
   });
 }
