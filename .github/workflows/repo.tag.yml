@@ -11,12 +11,12 @@ concurrency:
 
 jobs:
   release-info:
-    uses: vareversat/github-actions/.github/workflows/global.release.info.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/global.release.info.yml@v1.12.0
     with:
       revision_type: 'date'
 
   flutter-build:
-    uses: vareversat/github-actions/.github/workflows/flutter.build.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/flutter.build.yml@v1.12.0
     needs: [ release-info ]
     with:
       flutter_version: '3.44.6'
@@ -28,16 +28,16 @@ jobs:
     secrets: inherit
 
   fastlane-lane:
-    uses: vareversat/github-actions/.github/workflows/fastlane.lane.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/fastlane.lane.yml@v1.12.0
     with:
       prerelease_suffix: 'beta'
   page-publish:
-    uses: vareversat/github-actions/.github/workflows/global.page.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/global.page.yml@v1.12.0
     with:
       path: 'page'
   flutter-publish:
     needs: [ flutter-build, fastlane-lane ]
-    uses: vareversat/github-actions/.github/workflows/flutter.publish.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/flutter.publish.yml@v1.12.0
     with:
       lane: ${{ needs.fastlane-lane.outputs.lane }}
       ruby_version: '4.0.5'
@@ -46,6 +46,6 @@ jobs:
 
   release:
     needs: [ flutter-publish ]
-    uses: vareversat/github-actions/.github/workflows/global.release.yml@v1.11.0
+    uses: vareversat/github-actions/.github/workflows/global.release.yml@v1.12.0
     with:
       prerelease_suffix: 'beta'
