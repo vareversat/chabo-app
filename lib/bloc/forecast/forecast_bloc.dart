@@ -229,8 +229,7 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
                     _getCurrentStatus(nextResult.forecasts),
                   ),
               status: ForecastStatus.success,
-              forecasts: List.of(state.forecasts)
-                ..addAll(nextResult.forecasts),
+              forecasts: List.of(state.forecasts)..addAll(nextResult.forecasts),
               hasReachedMax: false,
               offset: state.offset + Const.forecastLimit,
               isFromCache: nextResult.fromCache,
