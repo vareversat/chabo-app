@@ -219,11 +219,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
         } else {
           emit(
             state.copyWith(
-              currentForecast:
-                  state.currentForecast ??
+              currentForecast: state.currentForecast ??
                   _getCurrentStatus(nextResult.forecasts),
-              previousForecast:
-                  state.previousForecast ??
+              previousForecast: state.previousForecast ??
                   _getPreviousStatus(
                     nextResult.forecasts,
                     _getCurrentStatus(nextResult.forecasts),

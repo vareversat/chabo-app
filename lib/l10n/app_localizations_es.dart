@@ -388,7 +388,8 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get refreshingData => 'Actualizando...';
   @override
-  String get cachedDataTooltip => 'Sin conexión o API no disponible: mostrando datos en caché';
+  String get cachedDataTooltip =>
+      'Sin conexión o API no disponible: mostrando datos en caché';
 
   @override
   String get dayNotificationAt => 'en las';
