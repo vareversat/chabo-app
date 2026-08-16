@@ -30,8 +30,7 @@ class Chabo extends StatelessWidget {
     required this.storageService,
     required this.notificationService,
     ForecastCacheService? forecastCacheService,
-  }) : forecastCacheService =
-           forecastCacheService ?? ForecastCacheService();
+  }) : forecastCacheService = forecastCacheService ?? ForecastCacheService();
 
   @override
   Widget build(BuildContext context) {

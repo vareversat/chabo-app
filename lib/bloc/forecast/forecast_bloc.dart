@@ -87,9 +87,7 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   /// Returns the parsed forecasts and stores the raw response body in the
   /// cache. Throws when the network call fails or returns a non-200 status,
   /// so callers can fall back to the cache.
-  Future<List<AbstractForecast>> _fetchForecastsFromNetwork(
-    int offset,
-  ) async {
+  Future<List<AbstractForecast>> _fetchForecastsFromNetwork(int offset) async {
     final uri = _buildUri(offset);
     final response = await httpClient.get(uri);
     if (response.statusCode != 200) {
@@ -216,27 +214,29 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
         final nextResult = await _fetchForecasts(
           baseForecasts.length + result.forecasts.length,
         );
-        emit(
-          nextResult.forecasts.isEmpty
-              ? state.copyWith(hasReachedMax: true, isFromCache: false)
-              : state.copyWith(
-                  currentForecast:
-                      state.currentForecast ??
-                      _getCurrentStatus(nextResult.forecasts),
-                  previousForecast:
-                      state.previousForecast ??
-                      _getPreviousStatus(
-                        nextResult.forecasts,
-                        _getCurrentStatus(nextResult.forecasts),
-                      ),
-                  status: ForecastStatus.success,
-                  forecasts:
-                      List.of(state.forecasts)..addAll(nextResult.forecasts),
-                  hasReachedMax: false,
-                  offset: state.offset + Const.forecastLimit,
-                  isFromCache: nextResult.fromCache,
-                ),
-        );
+        if (nextResult.forecasts.isEmpty) {
+          emit(state.copyWith(hasReachedMax: true, isFromCache: false));
+        } else {
+          emit(
+            state.copyWith(
+              currentForecast:
+                  state.currentForecast ??
+                  _getCurrentStatus(nextResult.forecasts),
+              previousForecast:
+                  state.previousForecast ??
+                  _getPreviousStatus(
+                    nextResult.forecasts,
+                    _getCurrentStatus(nextResult.forecasts),
+                  ),
+              status: ForecastStatus.success,
+              forecasts: List.of(state.forecasts)
+                ..addAll(nextResult.forecasts),
+              hasReachedMax: false,
+              offset: state.offset + Const.forecastLimit,
+              isFromCache: nextResult.fromCache,
+            ),
+          );
+        }
       }
     } catch (e) {
       // ignore: invalid_use_of_visible_for_testing_member
@@ -253,8 +253,5 @@ class ForecastCacheResult {
   final List<AbstractForecast> forecasts;
   final bool fromCache;
 
-  const ForecastCacheResult({
-    required this.forecasts,
-    required this.fromCache,
-  });
+  const ForecastCacheResult({required this.forecasts, required this.fromCache});
 }

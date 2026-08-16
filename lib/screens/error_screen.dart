@@ -65,9 +65,7 @@ class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
                       FilledButton.tonalIcon(
                         onPressed: widget.onRetry,
                         icon: const Icon(Icons.refresh),
-                        label: Text(
-                          AppLocalizations.of(context)!.refreshData,
-                        ),
+                        label: Text(AppLocalizations.of(context)!.refreshData),
                       ),
                     ],
                   ],

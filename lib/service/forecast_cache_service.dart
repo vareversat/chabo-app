@@ -32,7 +32,7 @@ class ForecastCacheService {
 
   /// Stores the given [body] (a JSON-encoded API response) under [cacheKey].
   Future<void> putBody({
-    String body,
+    required String body,
     String cacheKey = _defaultCacheKey,
   }) async {
     try {

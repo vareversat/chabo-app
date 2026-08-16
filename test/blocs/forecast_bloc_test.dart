@@ -48,6 +48,13 @@ String _forecastsJson() {
 
 http.Response _okResponse(String body) => http.Response(body, 200);
 
+ForecastBloc _buildBloc(
+  _MockSentryHttpClient httpClient,
+  _MockForecastCacheService cacheService,
+) {
+  return ForecastBloc(httpClient: httpClient, cacheService: cacheService);
+}
+
 void main() {
   late _MockSentryHttpClient httpClient;
   late _MockForecastCacheService cacheService;
@@ -56,7 +63,6 @@ void main() {
     registerFallbackValue(Uri());
     httpClient = _MockSentryHttpClient();
     cacheService = _MockForecastCacheService();
-
     when(() => cacheService.putBody(body: any(named: 'body'))).thenAnswer(
       (_) async {},
     );
@@ -67,56 +73,47 @@ void main() {
     test(
       'network success: emits success with isFromCache=false and writes cache',
       () async {
-        final body = _forecastsJson();
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => _okResponse(body),
-        );
+      final body = _forecastsJson();
+      when(() => httpClient.get(any())).thenAnswer(
+        (_) async => _okResponse(body),
+      );
 
-        final bloc = ForecastBloc(
-          httpClient: httpClient,
-          cacheService: cacheService,
-        );
+      final bloc = _buildBloc(httpClient, cacheService);
 
-        await bloc.add(ForecastFetched());
-        await bloc.stream.firstWhere((s) => s.status == ForecastStatus.success);
-        await bloc.close();
+      await bloc.add(ForecastFetched());
+      await bloc.stream.firstWhere((s) => s.status == ForecastStatus.success);
+      await bloc.close();
 
-        expect(bloc.state.status, ForecastStatus.success);
-        expect(bloc.state.isFromCache, false);
-        expect(bloc.state.forecasts, isNotEmpty);
-        verify(() => cacheService.putBody(body: any(named: 'body'))).called(
-          greaterThanOrEqualTo(1),
-        );
-      },
-    );
+      expect(bloc.state.status, ForecastStatus.success);
+      expect(bloc.state.isFromCache, false);
+      expect(bloc.state.forecasts, isNotEmpty);
+      verify(
+        () => cacheService.putBody(body: any(named: 'body')),
+      ).called(greaterThanOrEqualTo(1));
+    });
 
     test(
       'network failure with cache: falls back to cache and sets isFromCache',
       () async {
-        final cachedBody = _forecastsJson();
-        when(() => httpClient.get(any())).thenThrow(
-          Exception('SocketException: no network'),
-        );
-        when(() => cacheService.getBody()).thenAnswer((_) async => cachedBody);
+      final cachedBody = _forecastsJson();
+      when(() => httpClient.get(any())).thenThrow(
+        Exception('SocketException: no network'),
+      );
+      when(() => cacheService.getBody()).thenAnswer((_) async => cachedBody);
 
-        final bloc = ForecastBloc(
-          httpClient: httpClient,
-          cacheService: cacheService,
-        );
+      final bloc = _buildBloc(httpClient, cacheService);
 
-        await bloc.add(ForecastFetched());
-        await bloc.stream.firstWhere(
-          (s) => s.status == ForecastStatus.success && s.isFromCache,
-        );
-        await bloc.close();
+      await bloc.add(ForecastFetched());
+      await bloc.stream.firstWhere(
+        (s) => s.status == ForecastStatus.success && s.isFromCache,
+      );
+      await bloc.close();
 
-        expect(bloc.state.status, ForecastStatus.success);
-        expect(bloc.state.isFromCache, true);
-        expect(bloc.state.forecasts, isNotEmpty);
-        // No write should happen when serving from cache.
-        verifyNever(() => cacheService.putBody(body: any(named: 'body')));
-      },
-    );
+      expect(bloc.state.status, ForecastStatus.success);
+      expect(bloc.state.isFromCache, true);
+      expect(bloc.state.forecasts, isNotEmpty);
+      verifyNever(() => cacheService.putBody(body: any(named: 'body')));
+    });
 
     test('network failure without cache: emits failure', () async {
       when(() => httpClient.get(any())).thenThrow(
@@ -124,10 +121,7 @@ void main() {
       );
       when(() => cacheService.getBody()).thenAnswer((_) async => null);
 
-      final bloc = ForecastBloc(
-        httpClient: httpClient,
-        cacheService: cacheService,
-      );
+      final bloc = _buildBloc(httpClient, cacheService);
 
       await bloc.add(ForecastFetched());
       await bloc.stream.firstWhere((s) => s.status == ForecastStatus.failure);
@@ -137,23 +131,19 @@ void main() {
       expect(bloc.state.forecasts, isEmpty);
     });
 
-    test('ForecastRefresh toggles isRefreshing and reloads from network',
-        () async {
+    test(
+      'ForecastRefresh toggles isRefreshing and reloads from network',
+      () async {
       final body = _forecastsJson();
       when(() => httpClient.get(any())).thenAnswer(
         (_) async => _okResponse(body),
       );
 
-      final bloc = ForecastBloc(
-        httpClient: httpClient,
-        cacheService: cacheService,
-      );
+      final bloc = _buildBloc(httpClient, cacheService);
 
-      // Initial fetch.
       await bloc.add(ForecastFetched());
       await bloc.stream.firstWhere((s) => s.status == ForecastStatus.success);
 
-      // Manual refresh.
       await bloc.add(ForecastRefresh());
       await bloc.stream.firstWhere((s) => s.isRefreshing == true);
       await bloc.stream.firstWhere((s) => s.isRefreshing == false);
