@@ -82,9 +82,9 @@ void main() {
     registerFallbackValue(Uri());
     httpClient = _MockSentryHttpClient();
     cacheService = _MockForecastCacheService();
-    when(() => cacheService.putBody(body: any(named: 'body'))).thenAnswer(
-      (_) async {},
-    );
+    when(
+      () => cacheService.putBody(body: any(named: 'body')),
+    ).thenAnswer((_) async {});
     when(() => cacheService.getBody()).thenAnswer((_) async => null);
   });
 
@@ -93,9 +93,9 @@ void main() {
       'network success: emits success with isFromCache=false and writes cache',
       () async {
         final body = _forecastsJson();
-        when(() => httpClient.get(any())).thenAnswer(
-          (_) async => _okResponse(body),
-        );
+        when(
+          () => httpClient.get(any()),
+        ).thenAnswer((_) async => _okResponse(body));
 
         final bloc = _buildBloc(httpClient, cacheService);
 
@@ -116,9 +116,9 @@ void main() {
       'network failure with cache: falls back to cache and sets isFromCache',
       () async {
         final cachedBody = _forecastsJson();
-        when(() => httpClient.get(any())).thenThrow(
-          Exception('SocketException: no network'),
-        );
+        when(
+          () => httpClient.get(any()),
+        ).thenThrow(Exception('SocketException: no network'));
         when(() => cacheService.getBody()).thenAnswer((_) async => cachedBody);
 
         final bloc = _buildBloc(httpClient, cacheService);
@@ -138,9 +138,9 @@ void main() {
     );
 
     test('network failure without cache: emits failure', () async {
-      when(() => httpClient.get(any())).thenThrow(
-        Exception('SocketException: no network'),
-      );
+      when(
+        () => httpClient.get(any()),
+      ).thenThrow(Exception('SocketException: no network'));
       when(() => cacheService.getBody()).thenAnswer((_) async => null);
 
       final bloc = _buildBloc(httpClient, cacheService);
@@ -153,26 +153,28 @@ void main() {
       expect(bloc.state.forecasts, isEmpty);
     });
 
-    test('ForecastRefresh toggles isRefreshing and reloads from network',
-        () async {
-      final body = _forecastsJson();
-      when(() => httpClient.get(any())).thenAnswer(
-        (_) async => _okResponse(body),
-      );
+    test(
+      'ForecastRefresh toggles isRefreshing and reloads from network',
+      () async {
+        final body = _forecastsJson();
+        when(
+          () => httpClient.get(any()),
+        ).thenAnswer((_) async => _okResponse(body));
 
-      final bloc = _buildBloc(httpClient, cacheService);
+        final bloc = _buildBloc(httpClient, cacheService);
 
-      bloc.add(ForecastFetched());
-      await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
+        bloc.add(ForecastFetched());
+        await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
 
-      bloc.add(ForecastRefresh());
-      await _waitFor(bloc, (s) => s.isRefreshing == true);
-      await _waitFor(bloc, (s) => s.isRefreshing == false);
-      await bloc.close();
+        bloc.add(ForecastRefresh());
+        await _waitFor(bloc, (s) => s.isRefreshing == true);
+        await _waitFor(bloc, (s) => s.isRefreshing == false);
+        await bloc.close();
 
-      expect(bloc.state.status, ForecastStatus.success);
-      expect(bloc.state.isFromCache, false);
-      expect(bloc.state.isRefreshing, false);
-    });
+        expect(bloc.state.status, ForecastStatus.success);
+        expect(bloc.state.isFromCache, false);
+        expect(bloc.state.isRefreshing, false);
+      },
+    );
   });
 }
