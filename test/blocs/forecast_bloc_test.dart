@@ -51,16 +51,20 @@ class _FakeSentryHttpClient extends SentryHttpClient {
 /// bloc's `_getCurrentStatus` returns a non-null value.
 String _forecastsJson() {
   final now = DateTime.now();
-  // Use a wide window (a day each side) so the forecast stays "currently
-  // active" regardless of the test machine's local timezone offset.
-  final closing = now.subtract(const Duration(days: 1));
-  final reopening = now.add(const Duration(days: 1));
   String twoDigits(int n) => n.toString().padLeft(2, '0');
   String padDate(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-${twoDigits(d.month)}-${twoDigits(d.day)}';
-  String padTime(DateTime d) => '${twoDigits(d.hour)}:${twoDigits(d.minute)}';
+  // The API uses a single `date_passage` for both the closing and re-opening
+  // times, so pick today as the passage date with a closing time in the past
+  // and a re-opening time in the future. This makes the forecast "currently
+  // active" so the bloc's `_getCurrentStatus` returns a non-null value (and
+  // avoids its recursive edge case).
+  final passageDate = padDate(now);
+  const closingTime = '00:01';
+  const reopeningTime = '23:59';
   // record_timestamp with timezone suffix so getApiTimeZone() can parse '+02:00'.
-  final recordTimestamp = '${padDate(now)} ${padTime(now)}+02:00';
+  final recordTimestamp =
+      '${padDate(now)} ${twoDigits(now.hour)}:${twoDigits(now.minute)}+02:00';
   final json = {
     'records': [
       {
@@ -69,9 +73,9 @@ String _forecastsJson() {
         'fields': {
           'fermeture_totale': 'oui',
           'bateau': 'TEST_BOAT',
-          'date_passage': padDate(closing),
-          're_ouverture_a_la_circulation': padTime(reopening),
-          'fermeture_a_la_circulation': padTime(closing),
+          'date_passage': passageDate,
+          're_ouverture_a_la_circulation': reopeningTime,
+          'fermeture_a_la_circulation': closingTime,
           'type_de_fermeture': 'Totale',
         },
         'record_timestamp': recordTimestamp,
@@ -81,7 +85,10 @@ String _forecastsJson() {
   return jsonEncode(json);
 }
 
-ForecastBloc _buildBloc(SentryHttpClient httpClient, ForecastCacheService cache) {
+ForecastBloc _buildBloc(
+  SentryHttpClient httpClient,
+  ForecastCacheService cache,
+) {
   return ForecastBloc(httpClient: httpClient, cacheService: cache);
 }
 
@@ -95,13 +102,7 @@ Future<void> _waitFor(
   final deadline = DateTime.now().add(timeout);
   while (!test(bloc.state)) {
     if (DateTime.now().isAfter(deadline)) {
-      // ignore: avoid_print
-      print('TIMEOUT: status=${bloc.state.status} '
-          'isFromCache=${bloc.state.isFromCache} '
-          'isRefreshing=${bloc.state.isRefreshing} '
-          'forecasts=${bloc.state.forecasts.length} '
-          'message=${bloc.state.message}');
-            throw TimeoutException('Timed out waiting for the expected state');
+      throw TimeoutException('Timed out waiting for the expected state');
     }
     await Future<void>.delayed(const Duration(milliseconds: 10));
   }
