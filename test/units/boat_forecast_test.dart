@@ -6,6 +6,7 @@ import 'package:chabo_app/models/time_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+
 void main() {
   final forecast = BoatForecast(
     totalClosing: true,
@@ -91,16 +92,14 @@ void main() {
 
   group('Overlaping or not', () {
     test('Is overlaping with', () {
-      final isOverlaping = forecast.isOverlappingWith(
-        DateTime(2023, 5, 14, 15, 30),
-      );
+      final isOverlaping =
+          forecast.isOverlappingWith(DateTime(2023, 5, 14, 15, 30));
       expect(isOverlaping, true);
     });
 
     test('Is NOT overlaping with', () {
-      final isOverlaping = forecast.isOverlappingWith(
-        DateTime(2023, 5, 14, 17, 30),
-      );
+      final isOverlaping =
+          forecast.isOverlappingWith(DateTime(2023, 5, 14, 17, 30));
       expect(isOverlaping, false);
     });
 
@@ -108,7 +107,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 14, minute: 00),
-        to: TimeOfDay(hour: 15, minute: 30),
+        to: TimeOfDay(
+          hour: 15,
+          minute: 30,
+        ),
       );
 
       const days = [Day.sunday];
@@ -120,7 +122,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 15, minute: 30),
-        to: TimeOfDay(hour: 15, minute: 45),
+        to: TimeOfDay(
+          hour: 15,
+          minute: 45,
+        ),
       );
 
       const days = [Day.monday, Day.sunday];
@@ -132,7 +137,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 12, minute: 30),
-        to: TimeOfDay(hour: 18, minute: 30),
+        to: TimeOfDay(
+          hour: 18,
+          minute: 30,
+        ),
       );
 
       const days = [Day.monday, Day.tuesday, Day.sunday];
@@ -144,7 +152,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 15, minute: 30),
-        to: TimeOfDay(hour: 18, minute: 30),
+        to: TimeOfDay(
+          hour: 18,
+          minute: 30,
+        ),
       );
 
       const days = [Day.sunday];
@@ -156,7 +167,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 15, minute: 30),
-        to: TimeOfDay(hour: 18, minute: 30),
+        to: TimeOfDay(
+          hour: 18,
+          minute: 30,
+        ),
       );
 
       const days = [Day.sunday];
@@ -168,7 +182,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 23, minute: 00),
-        to: TimeOfDay(hour: 23, minute: 30),
+        to: TimeOfDay(
+          hour: 23,
+          minute: 30,
+        ),
       );
 
       const days = [Day.monday, Day.sunday];
@@ -180,7 +197,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 00, minute: 00),
-        to: TimeOfDay(hour: 1, minute: 30),
+        to: TimeOfDay(
+          hour: 1,
+          minute: 30,
+        ),
       );
 
       const days = [Day.monday, Day.sunday];
@@ -192,7 +212,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 19, minute: 00),
-        to: TimeOfDay(hour: 20, minute: 00),
+        to: TimeOfDay(
+          hour: 20,
+          minute: 00,
+        ),
       );
 
       const days = [Day.sunday];
@@ -204,7 +227,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 7, minute: 00),
-        to: TimeOfDay(hour: 8, minute: 30),
+        to: TimeOfDay(
+          hour: 8,
+          minute: 30,
+        ),
       );
 
       const days = [Day.sunday];
@@ -216,7 +242,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 14, minute: 00),
-        to: TimeOfDay(hour: 15, minute: 30),
+        to: TimeOfDay(
+          hour: 15,
+          minute: 30,
+        ),
       );
 
       const days = [Day.thursday];
@@ -228,7 +257,10 @@ void main() {
       const timeSlot1 = TimeSlot(
         name: '',
         from: TimeOfDay(hour: 00, minute: 00),
-        to: TimeOfDay(hour: 1, minute: 30),
+        to: TimeOfDay(
+          hour: 1,
+          minute: 30,
+        ),
       );
 
       const days = [Day.wednesday];

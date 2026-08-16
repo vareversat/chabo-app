@@ -186,9 +186,8 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   }) async {
     try {
       final baseOffset = reset ? 0 : state.offset;
-      final baseForecasts = reset
-          ? const <AbstractForecast>[]
-          : state.forecasts;
+      final baseForecasts =
+          reset ? const <AbstractForecast>[] : state.forecasts;
 
       final result = await _fetchForecasts(baseOffset);
       final currentStatus = _getCurrentStatus(result.forecasts);
@@ -220,11 +219,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
         } else {
           emit(
             state.copyWith(
-              currentForecast:
-                  state.currentForecast ??
+              currentForecast: state.currentForecast ??
                   _getCurrentStatus(nextResult.forecasts),
-              previousForecast:
-                  state.previousForecast ??
+              previousForecast: state.previousForecast ??
                   _getPreviousStatus(
                     nextResult.forecasts,
                     _getCurrentStatus(nextResult.forecasts),
