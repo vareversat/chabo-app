@@ -1,0 +1,34 @@
+name: vibe-format-fix
+
+on:
+  push:
+    branches:
+      - vibe/forecast-http-cache-d2b642
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.6'
+      - run: flutter config --no-analytics
+      - run: dart format lib test --language-version latest
+      - name: Commit formatted output
+        run: |
+          git config user.email "agent@mistral.ai"
+          git config user.name "Vibe Code"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No formatting changes"
+          else
+            git commit -m "chore: apply dart format (auto)"
+            git push
+          fi

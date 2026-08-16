@@ -99,7 +99,7 @@ void main() {
 
         final bloc = _buildBloc(httpClient, cacheService);
 
-        await bloc.add(ForecastFetched());
+        bloc.add(ForecastFetched());
         await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
         await bloc.close();
 
@@ -123,7 +123,7 @@ void main() {
 
         final bloc = _buildBloc(httpClient, cacheService);
 
-        await bloc.add(ForecastFetched());
+        bloc.add(ForecastFetched());
         await _waitFor(
           bloc,
           (s) => s.status == ForecastStatus.success && s.isFromCache,
@@ -145,7 +145,7 @@ void main() {
 
       final bloc = _buildBloc(httpClient, cacheService);
 
-      await bloc.add(ForecastFetched());
+      bloc.add(ForecastFetched());
       await _waitFor(bloc, (s) => s.status == ForecastStatus.failure);
       await bloc.close();
 
@@ -162,10 +162,10 @@ void main() {
 
       final bloc = _buildBloc(httpClient, cacheService);
 
-      await bloc.add(ForecastFetched());
+      bloc.add(ForecastFetched());
       await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
 
-      await bloc.add(ForecastRefresh());
+      bloc.add(ForecastRefresh());
       await _waitFor(bloc, (s) => s.isRefreshing == true);
       await _waitFor(bloc, (s) => s.isRefreshing == false);
       await bloc.close();
