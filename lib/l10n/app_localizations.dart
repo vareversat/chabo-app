@@ -100,12 +100,6 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
-  /// No description provided for @at.
-  ///
-  /// In en, this message translates to:
-  /// **'at'**
-  String get at;
-
   /// No description provided for @and.
   ///
   /// In en, this message translates to:
@@ -208,24 +202,6 @@ abstract class AppLocalizations {
   /// **'close soon'**
   String get willSoonClose;
 
-  /// No description provided for @settingsClose.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get settingsClose;
-
-  /// No description provided for @notificationsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notificationsTitle;
-
-  /// No description provided for @information.
-  ///
-  /// In en, this message translates to:
-  /// **'Information'**
-  String get information;
-
   /// No description provided for @dialogInformationContentThe.
   ///
   /// In en, this message translates to:
@@ -274,12 +250,6 @@ abstract class AppLocalizations {
   /// **'the arrival of {count, plural, =1 {the} other {the}}'**
   String dialogInformationContentBridgeArrival(num count);
 
-  /// No description provided for @dialogInformationContentTime_of_crossing.
-  ///
-  /// In en, this message translates to:
-  /// **'estimated time of crossing'**
-  String get dialogInformationContentTime_of_crossing;
-
   /// No description provided for @duration.
   ///
   /// In en, this message translates to:
@@ -315,18 +285,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Mobile app to get the closing and opening schedules of the Chaban Delmas bridge located in Bordeaux, France'**
   String get appDescription;
-
-  /// No description provided for @informationAboutTheApp.
-  ///
-  /// In en, this message translates to:
-  /// **'Information about the app'**
-  String get informationAboutTheApp;
-
-  /// No description provided for @about.
-  ///
-  /// In en, this message translates to:
-  /// **'About'**
-  String get about;
 
   /// No description provided for @disclaimer.
   ///
@@ -381,12 +339,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
-
-  /// No description provided for @notificationsSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage the notifications of the app'**
-  String get notificationsSubtitle;
 
   /// No description provided for @durationNotificationTitle.
   ///
@@ -599,23 +551,11 @@ abstract class AppLocalizations {
   /// **'Next day closings'**
   String get notificationTimeChannelName;
 
-  /// No description provided for @passedClosure.
-  ///
-  /// In en, this message translates to:
-  /// **'Past closure'**
-  String get passedClosure;
-
   /// No description provided for @selectAboutDialog.
   ///
   /// In en, this message translates to:
   /// **'{choice, select, source_code {Source code} privacy_policy {Privacy policy} yuhliet_instagram {Yuhliet\'s Instagram} city_of_bordeaux {City of Bordeaux} bordeaux_open_data {Bordeaux Open Data} licenses {Licenses} changelog {Changelog} other {Undefined}}'**
   String selectAboutDialog(String choice);
-
-  /// No description provided for @day.
-  ///
-  /// In en, this message translates to:
-  /// **'Day'**
-  String get day;
 
   /// No description provided for @notificationDayTitle.
   ///
@@ -635,29 +575,11 @@ abstract class AppLocalizations {
   /// **'Planned closures'**
   String get notificationDayChannelName;
 
-  /// No description provided for @leftHanded.
-  ///
-  /// In en, this message translates to:
-  /// **'Left handed'**
-  String get leftHanded;
-
-  /// No description provided for @rightHanded.
-  ///
-  /// In en, this message translates to:
-  /// **'Right handed'**
-  String get rightHanded;
-
   /// No description provided for @status.
   ///
   /// In en, this message translates to:
   /// **'Status'**
   String get status;
-
-  /// No description provided for @statusLoadMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading of the bridge\'s current status'**
-  String get statusLoadMessage;
 
   /// No description provided for @loading.
   ///
