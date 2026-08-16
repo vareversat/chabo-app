@@ -18,11 +18,22 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   final SentryHttpClient httpClient;
   final ForecastCacheService cacheService;
 
+  late final Timer _currentStatusTimer;
+
   ForecastBloc({required this.httpClient, required this.cacheService})
     : super(const ForecastState()) {
-    Timer.periodic(const Duration(seconds: 1), _onRefreshCurrentStatus);
+    _currentStatusTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      _onRefreshCurrentStatus,
+    );
     on<ForecastFetched>(_onForecastFetched);
     on<ForecastRefresh>(_onForecastRefresh);
+  }
+
+  @override
+  Future<void> close() {
+    _currentStatusTimer.cancel();
+    return super.close();
   }
 
   void _onRefreshCurrentStatus(Timer timer) {
