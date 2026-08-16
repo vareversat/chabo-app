@@ -95,7 +95,13 @@ Future<void> _waitFor(
   final deadline = DateTime.now().add(timeout);
   while (!test(bloc.state)) {
     if (DateTime.now().isAfter(deadline)) {
-      throw TimeoutException('Timed out waiting for the expected state');
+      // ignore: avoid_print
+      print('TIMEOUT: status=${bloc.state.status} '
+          'isFromCache=${bloc.state.isFromCache} '
+          'isRefreshing=${bloc.state.isRefreshing} '
+          'forecasts=${bloc.state.forecasts.length} '
+          'message=${bloc.state.message}');
+            throw TimeoutException('Timed out waiting for the expected state');
     }
     await Future<void>.delayed(const Duration(milliseconds: 10));
   }
