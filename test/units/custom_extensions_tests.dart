@@ -56,10 +56,7 @@ void main() {
     test('applied', () {
       final dateTime = DateTime(2023, 5, 11, 15, 0);
       final timeOfDayApplied = dateTime.applied(
-        const TimeOfDay(
-          hour: 2,
-          minute: 0,
-        ),
+        const TimeOfDay(hour: 2, minute: 0),
       );
       expect(timeOfDayApplied, DateTime(2023, 5, 11, 2, 0));
     });
@@ -77,13 +74,13 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
-                  text: dateTime.toLocalizedTextSpan(
-                      context, TextStyle(color: Colors.black)));
-
-              expect(
-                richText.text.toPlainText(),
-                '3:00 PM',
+                text: dateTime.toLocalizedTextSpan(
+                  context,
+                  TextStyle(color: Colors.black),
+                ),
               );
+
+              expect(richText.text.toPlainText(), '3:00 PM');
 
               return const Placeholder();
             },
@@ -99,12 +96,13 @@ void main() {
           child: Builder(
             builder: (BuildContext context) {
               var richText = RichText(
-                  text: dateTime.toLocalizedTextSpan(context, TextStyle(color: Colors.black)));
-
-              expect(
-                richText.text.toPlainText(),
-                '15:00',
+                text: dateTime.toLocalizedTextSpan(
+                  context,
+                  TextStyle(color: Colors.black),
+                ),
               );
+
+              expect(richText.text.toPlainText(), '15:00');
 
               return const Placeholder();
             },
@@ -115,17 +113,11 @@ void main() {
 
     group('time_of_date', () {
       test('toFormattedString - 12h', () {
-        const tod = TimeOfDay(
-          hour: 15,
-          minute: 0,
-        );
+        const tod = TimeOfDay(hour: 15, minute: 0);
         expect(tod.toFormattedString(TimeFormat.twelveHours), '3:00 PM');
       });
       test('toFormattedString - 24h', () {
-        const tod = TimeOfDay(
-          hour: 15,
-          minute: 0,
-        );
+        const tod = TimeOfDay(hour: 15, minute: 0);
         expect(tod.toFormattedString(TimeFormat.twentyFourHours), '15:00');
       });
     });
