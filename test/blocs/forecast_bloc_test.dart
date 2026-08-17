@@ -190,45 +190,42 @@ void main() {
       expect(bloc.state.currentForecast, isNull);
     });
 
-    test(
-      'ForecastRefresh toggles isRefreshing and reloads from network',
-      () async {
-        final body = _forecastsJson();
-        final cache = _FakeForecastCacheService();
-        final httpClient = _FakeSentryHttpClient(responseBody: body);
+    test('ForecastRefresh toggles isRefreshing and reloads from network',
+        () async {
+      final body = _forecastsJson();
+      final cache = _FakeForecastCacheService();
+      final httpClient = _FakeSentryHttpClient(responseBody: body);
 
-        final bloc = _buildBloc(httpClient, cache);
+      final bloc = _buildBloc(httpClient, cache);
 
-        bloc.add(ForecastFetched());
-        await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
+      bloc.add(ForecastFetched());
+      await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
 
-        // Collect the states emitted during the refresh to assert the
-        // isRefreshing transition without racing against the (very fast) async
-        // handlers.
-        final refreshStates = <ForecastState>[];
-        final subscription = bloc.stream.listen(refreshStates.add);
+      // Collect the states emitted during the refresh to assert the
+      // isRefreshing transition without racing against the (very fast) async
+      // handlers.
+      final refreshStates = <ForecastState>[];
+      final subscription = bloc.stream.listen(refreshStates.add);
 
-        bloc.add(ForecastRefresh());
-        // Wait until the refresh has started (isRefreshing emitted) and then
-        // settled back to a non-refreshing success state.
-        await _waitFor(bloc, (s) => refreshStates.any((r) => r.isRefreshing));
-        await _waitFor(
-          bloc,
-          (s) => !s.isRefreshing && s.status == ForecastStatus.success,
-        );
-        await subscription.cancel();
-        await bloc.close();
+      bloc.add(ForecastRefresh());
+      // Wait until the refresh has started (isRefreshing emitted) and then
+      // settled back to a non-refreshing success state.
+      await _waitFor(bloc, (s) => refreshStates.any((r) => r.isRefreshing));
+      await _waitFor(
+        bloc,
+        (s) => !s.isRefreshing && s.status == ForecastStatus.success,
+      );
+      await subscription.cancel();
+      await bloc.close();
 
-        expect(bloc.state.status, ForecastStatus.success);
-        expect(bloc.state.isFromCache, false);
-        expect(bloc.state.isRefreshing, false);
-        expect(
-          refreshStates.any((s) => s.isRefreshing),
-          isTrue,
-          reason:
-              'A ForecastRefresh should emit isRefreshing=true at least once',
-        );
-      },
-    );
+      expect(bloc.state.status, ForecastStatus.success);
+      expect(bloc.state.isFromCache, false);
+      expect(bloc.state.isRefreshing, false);
+      expect(
+        refreshStates.any((s) => s.isRefreshing),
+        isTrue,
+        reason: 'A ForecastRefresh should emit isRefreshing=true at least once',
+      );
+    });
   });
 }
