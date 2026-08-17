@@ -260,5 +260,7 @@
   "refreshingData": "Actualisation...",
   "@refreshingData": {},
   "cachedDataTooltip": "Hors connexion ou API indisponible : affichage des données en cache",
-  "@cachedDataTooltip": {}
+  "@cachedDataTooltip": {},
+  "lastRefreshLabel": "Dernière actualisation",
+  "@lastRefreshLabel": {}
 }

@@ -391,6 +391,8 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get cachedDataTooltip =>
       'Hors connexion ou API indisponible : affichage des données en cache';
+  @override
+  String get lastRefreshLabel => 'Dernière actualisation';
 
   @override
   String get dayNotificationAt => 'à';

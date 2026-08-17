@@ -683,6 +683,12 @@ abstract class AppLocalizations {
   /// **'Offline or API unavailable: showing cached data'**
   String get cachedDataTooltip;
 
+  /// No description provided for @lastRefreshLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last refresh'**
+  String get lastRefreshLabel;
+
   /// No description provided for @dayNotificationAt.
   ///
   /// In en, this message translates to:

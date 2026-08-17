@@ -131,6 +131,9 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   }
 
   AbstractForecast? _getCurrentStatus(List<AbstractForecast> forecast) {
+    if (forecast.isEmpty) {
+      return null;
+    }
     int middle = forecast.length ~/ 2;
     if ((forecast[middle].circulationClosingDate.isBefore(DateTime.now()) &&
         forecast[middle].circulationReOpeningDate.isAfter(DateTime.now()))) {
@@ -216,6 +219,7 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
           offset: baseOffset + Const.forecastLimit,
           isFromCache: result.fromCache,
           message: 'OK',
+          lastRefresh: DateTime.now(),
         ),
       );
 

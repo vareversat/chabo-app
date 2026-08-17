@@ -260,5 +260,7 @@
   "refreshingData": "Refreshing...",
   "@refreshingData": {},
   "cachedDataTooltip": "Offline or API unavailable: showing cached data",
-  "@cachedDataTooltip": {}
+  "@cachedDataTooltip": {},
+  "lastRefreshLabel": "Last refresh",
+  "@lastRefreshLabel": {}
 }

@@ -19,6 +19,10 @@ class ForecastState extends Equatable {
   /// display a loading indicator on the refresh button.
   final bool isRefreshing;
 
+  /// The time at which the displayed data was last successfully fetched
+  /// (from the network or the cache). `null` until the first successful load.
+  final DateTime? lastRefresh;
+
   const ForecastState({
     this.status = ForecastStatus.initial,
     this.forecasts = const <AbstractForecast>[],
@@ -30,6 +34,7 @@ class ForecastState extends Equatable {
     this.noMoreForecasts = false,
     this.isFromCache = false,
     this.isRefreshing = false,
+    this.lastRefresh,
   });
 
   ForecastState copyWith({
@@ -43,6 +48,7 @@ class ForecastState extends Equatable {
     String? message,
     bool? isFromCache,
     bool? isRefreshing,
+    DateTime? lastRefresh,
   }) {
     return ForecastState(
       status: status ?? this.status,
@@ -55,6 +61,7 @@ class ForecastState extends Equatable {
       message: message ?? this.message,
       isFromCache: isFromCache ?? this.isFromCache,
       isRefreshing: isRefreshing ?? this.isRefreshing,
+      lastRefresh: lastRefresh ?? this.lastRefresh,
     );
   }
 
@@ -69,6 +76,7 @@ class ForecastState extends Equatable {
     previousForecast,
     isFromCache,
     isRefreshing,
+    lastRefresh,
   ];
 }
 

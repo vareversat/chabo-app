@@ -85,6 +85,10 @@ String _forecastsJson() {
   return jsonEncode(json);
 }
 
+String _emptyForecastsJson() {
+  return jsonEncode({'records': <Map<String, dynamic>>[]});
+}
+
 ForecastBloc _buildBloc(
   SentryHttpClient httpClient,
   ForecastCacheService cache,
@@ -126,6 +130,7 @@ void main() {
         expect(bloc.state.status, ForecastStatus.success);
         expect(bloc.state.isFromCache, false);
         expect(bloc.state.forecasts, isNotEmpty);
+        expect(bloc.state.lastRefresh, isNotNull);
         expect(cache.getBody(), completion(isNotNull));
       },
     );
@@ -166,6 +171,23 @@ void main() {
 
       expect(bloc.state.status, ForecastStatus.failure);
       expect(bloc.state.forecasts, isEmpty);
+    });
+
+    test('empty response does not throw a RangeError', () async {
+      final cache = _FakeForecastCacheService();
+      final httpClient = _FakeSentryHttpClient(
+        responseBody: _emptyForecastsJson(),
+      );
+
+      final bloc = _buildBloc(httpClient, cache);
+
+      bloc.add(ForecastFetched());
+      await _waitFor(bloc, (s) => s.status == ForecastStatus.success);
+      await bloc.close();
+
+      expect(bloc.state.status, ForecastStatus.success);
+      expect(bloc.state.forecasts, isEmpty);
+      expect(bloc.state.currentForecast, isNull);
     });
 
     test('ForecastRefresh toggles isRefreshing and reloads from network',
