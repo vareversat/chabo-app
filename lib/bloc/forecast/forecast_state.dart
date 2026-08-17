@@ -10,6 +10,19 @@ class ForecastState extends Equatable {
   final int offset;
   final String message;
 
+  /// `true` when the currently displayed data comes from the local cache
+  /// (e.g. the device is offline or the opendata API is down). `false` when
+  /// the data was freshly fetched from the network.
+  final bool isFromCache;
+
+  /// `true` while a manual [ForecastRefresh] is in progress, so the UI can
+  /// display a loading indicator on the refresh button.
+  final bool isRefreshing;
+
+  /// The time at which the displayed data was last successfully fetched
+  /// (from the network or the cache). `null` until the first successful load.
+  final DateTime? lastRefresh;
+
   const ForecastState({
     this.status = ForecastStatus.initial,
     this.forecasts = const <AbstractForecast>[],
@@ -19,6 +32,9 @@ class ForecastState extends Equatable {
     this.offset = 0,
     this.message = 'OK',
     this.noMoreForecasts = false,
+    this.isFromCache = false,
+    this.isRefreshing = false,
+    this.lastRefresh,
   });
 
   ForecastState copyWith({
@@ -30,6 +46,9 @@ class ForecastState extends Equatable {
     bool? hasReachedMax,
     int? offset,
     String? message,
+    bool? isFromCache,
+    bool? isRefreshing,
+    DateTime? lastRefresh,
   }) {
     return ForecastState(
       status: status ?? this.status,
@@ -40,6 +59,9 @@ class ForecastState extends Equatable {
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       offset: offset ?? this.offset,
       message: message ?? this.message,
+      isFromCache: isFromCache ?? this.isFromCache,
+      isRefreshing: isRefreshing ?? this.isRefreshing,
+      lastRefresh: lastRefresh ?? this.lastRefresh,
     );
   }
 
@@ -52,6 +74,9 @@ class ForecastState extends Equatable {
     message,
     currentForecast,
     previousForecast,
+    isFromCache,
+    isRefreshing,
+    lastRefresh,
   ];
 }
 

@@ -241,5 +241,13 @@
   "bottomSheetAdditionalInfo_boatLeaving": "leaving",
   "bottomSheetAdditionalInfo_boatArriving": "arriving",
   "bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer": "Arrival and departure times are for information purposes only and are not guaranteed.",
-  "bottomSheetAdditionalInfo_shareMessage": "Hi, I'm going to be late, the Chaban Bridge is closed until"
+  "bottomSheetAdditionalInfo_shareMessage": "Hi, I'm going to be late, the Chaban Bridge is closed until",
+  "refreshData": "Refresh",
+  "@refreshData": {},
+  "refreshingData": "Refreshing...",
+  "@refreshingData": {},
+  "cachedDataTooltip": "Offline or API unavailable: showing cached data",
+  "@cachedDataTooltip": {},
+  "lastRefreshLabel": "Last refresh",
+  "@lastRefreshLabel": {}
 }
