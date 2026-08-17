@@ -174,8 +174,9 @@ class SettingScreen extends StatelessWidget {
                       if (lastRefresh == null) {
                         return const SizedBox.shrink();
                       }
-                      final languageCode =
-                          Localizations.localeOf(context).languageCode;
+                      final languageCode = Localizations.localeOf(
+                        context,
+                      ).languageCode;
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,

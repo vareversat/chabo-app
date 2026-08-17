@@ -20,15 +20,12 @@ Future<Widget> localizedTestableWidgetEN({required Widget child}) async {
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ],
-    supportedLocales: const [
-      Locale('en', ''),
-    ],
+    supportedLocales: const [Locale('en', '')],
     home: BlocProvider(
       create: (BuildContext context) => TimeFormatCubit(
-          storageService,
-          const TimeFormatState(
-            timeFormat: TimeFormat.twelveHours,
-          )),
+        storageService,
+        const TimeFormatState(timeFormat: TimeFormat.twelveHours),
+      ),
       child: child,
     ),
   );
@@ -47,16 +44,13 @@ Future<Widget> localizedTestableWidgetFR({required Widget child}) async {
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ],
-    supportedLocales: const [
-      Locale('fr', ''),
-    ],
+    supportedLocales: const [Locale('fr', '')],
     locale: const Locale('fr', ''),
     home: BlocProvider(
       create: (BuildContext context) => TimeFormatCubit(
-          storageService,
-          const TimeFormatState(
-            timeFormat: TimeFormat.twentyFourHours,
-          )),
+        storageService,
+        const TimeFormatState(timeFormat: TimeFormat.twentyFourHours),
+      ),
       child: child,
     ),
   );

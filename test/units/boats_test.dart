@@ -9,14 +9,8 @@ import '../localized_testable_widget.dart';
 void main() {
   final boats1 = [Boat(name: 'TEST_BOAT', isLeaving: false)];
   final boats2 = [...boats1, Boat(name: 'TEST_BOAT_2', isLeaving: true)];
-  final boats3 = [
-    ...boats2,
-    Boat(name: 'TEST_BOAT_3', isLeaving: false),
-  ];
-  final boats4 = [
-    ...boats3,
-    Boat(name: 'TEST_BOAT_4', isLeaving: false),
-  ];
+  final boats3 = [...boats2, Boat(name: 'TEST_BOAT_3', isLeaving: false)];
+  final boats4 = [...boats3, Boat(name: 'TEST_BOAT_4', isLeaving: false)];
   final boats5 = [
     Boat(name: Const.specialWineFestivalBoatsEvent, isLeaving: false),
   ];
@@ -129,9 +123,7 @@ void main() {
             builder: (BuildContext context) {
               final RichText richText = RichText(
                 text: TextSpan(
-                  children: boats1.toLocalizedMoonHarborStatus(
-                    context,
-                  ),
+                  children: boats1.toLocalizedMoonHarborStatus(context),
                 ),
               );
               expect(
@@ -153,9 +145,7 @@ void main() {
             builder: (BuildContext context) {
               final RichText richText = RichText(
                 text: TextSpan(
-                  children: boats2.toLocalizedMoonHarborStatus(
-                    context,
-                  ),
+                  children: boats2.toLocalizedMoonHarborStatus(context),
                 ),
               );
               expect(
@@ -177,9 +167,7 @@ void main() {
             builder: (BuildContext context) {
               final RichText richText = RichText(
                 text: TextSpan(
-                  children: boats3.toLocalizedMoonHarborStatus(
-                    context,
-                  ),
+                  children: boats3.toLocalizedMoonHarborStatus(context),
                 ),
               );
               expect(
@@ -201,9 +189,7 @@ void main() {
             builder: (BuildContext context) {
               final RichText richText = RichText(
                 text: TextSpan(
-                  children: boats4.toLocalizedMoonHarborStatus(
-                    context,
-                  ),
+                  children: boats4.toLocalizedMoonHarborStatus(context),
                 ),
               );
               expect(
@@ -221,26 +207,17 @@ void main() {
 
   group('getArrivingCount', () {
     test('2 Boats - 1 arriving', () {
-      expect(
-        boats2.getArrivingCount(),
-        1,
-      );
+      expect(boats2.getArrivingCount(), 1);
     });
   });
 
   group('isWineFestival', () {
     test('2 Boats', () {
-      expect(
-        boats2.isWineFestival(),
-        false,
-      );
+      expect(boats2.isWineFestival(), false);
     });
 
     test('1 Boat', () {
-      expect(
-        boats5.isWineFestival(),
-        true,
-      );
+      expect(boats5.isWineFestival(), true);
     });
   });
 }

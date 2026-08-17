@@ -33,9 +33,7 @@ void main() {
   test('Save & Read Duration', () async {
     final saveResult = await storageService.saveDuration(
       'KEY_DURATION',
-      const Duration(
-        hours: 1,
-      ),
+      const Duration(hours: 1),
     );
     final readResult = storageService.readDuration('KEY_DURATION');
     expect(saveResult, true);
@@ -45,10 +43,7 @@ void main() {
   test('Save & Read TimeOfDay', () async {
     final saveResult = await storageService.saveTimeOfDay(
       'KEY_TIMEOFDAY',
-      const TimeOfDay(
-        hour: 13,
-        minute: 20,
-      ),
+      const TimeOfDay(hour: 13, minute: 20),
     );
     final readResult = storageService.readTimeOfDay('KEY_TIMEOFDAY');
     expect(saveResult, true);
@@ -56,10 +51,7 @@ void main() {
   });
 
   test('Save & Read Day', () async {
-    final saveResult = await storageService.saveDay(
-      'KEY_DAY',
-      Day.monday,
-    );
+    final saveResult = await storageService.saveDay('KEY_DAY', Day.monday);
     final readResult = storageService.readDay('KEY_DAY');
     expect(saveResult, true);
     expect(readResult, Day.monday);
@@ -98,14 +90,8 @@ void main() {
   });
 
   test('Save & Read Days', () async {
-    final days = [
-      Day.monday,
-      Day.tuesday,
-    ];
-    final saveResult = await storageService.saveDays(
-      'KEY_DAYS',
-      days,
-    );
+    final days = [Day.monday, Day.tuesday];
+    final saveResult = await storageService.saveDays('KEY_DAYS', days);
     final readResult = storageService.readDays('KEY_DAYS');
     expect(saveResult, true);
     expect(readResult, days);
