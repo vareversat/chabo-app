@@ -168,29 +168,30 @@ class SettingScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  BlocBuilder<ForecastBloc, ForecastState>(
-                    builder: (context, state) {
-                      final lastRefresh = state.lastRefresh;
-                      if (lastRefresh == null) {
-                        return const SizedBox.shrink();
-                      }
-                      final languageCode =
-                          Localizations.localeOf(context).languageCode;
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          '${AppLocalizations.of(context)!.lastRefreshLabel}: '
-                          '${DateFormat.yMd(languageCode).add_Hm().format(lastRefresh)}',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      );
-                    },
-                  ),
                 ],
               ),
+            ),
+            BlocBuilder<ForecastBloc, ForecastState>(
+              builder: (context, state) {
+                final lastRefresh = state.lastRefresh;
+                if (lastRefresh == null) {
+                  return const SizedBox.shrink();
+                }
+                final languageCode = Localizations.localeOf(
+                  context,
+                ).languageCode;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    '${AppLocalizations.of(context)!.lastRefreshLabel}: '
+                    '${DateFormat.yMd(languageCode).add_Hm().format(lastRefresh)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                );
+              },
             ),
           ],
         ),
