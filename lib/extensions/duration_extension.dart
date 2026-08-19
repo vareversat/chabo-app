@@ -1,5 +1,5 @@
 import 'package:chabo_app/l10n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 extension DurationExtension on Duration {
   String durationToString(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:chabo_app/const.dart';
 import 'package:chabo_app/models/enums/theme_state_status.dart';
 import 'package:chabo_app/service/storage_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,9 +89,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           themeData: _getCorrectThemeForSystem(),
           imagePath: _getCorrectImageData(ThemeStateStatus.system).path,
           imageCredits: _getCorrectImageData(ThemeStateStatus.system).credits,
-          imageCreditsLink: _getCorrectImageData(
-            ThemeStateStatus.system,
-          ).creditsLink,
+          imageCreditsLink: _getCorrectImageData(ThemeStateStatus.system)
+              .creditsLink,
         ),
       );
     } else {
@@ -102,9 +101,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
             themeData: theme.light(),
             imagePath: _getCorrectImageData(ThemeStateStatus.light).path,
             imageCredits: _getCorrectImageData(ThemeStateStatus.light).credits,
-            imageCreditsLink: _getCorrectImageData(
-              ThemeStateStatus.light,
-            ).creditsLink,
+            imageCreditsLink: _getCorrectImageData(ThemeStateStatus.light)
+                .creditsLink,
           ),
         );
       } else if (savedStatus == ThemeStateStatus.dark) {
@@ -114,9 +112,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
             themeData: theme.dark(),
             imagePath: _getCorrectImageData(ThemeStateStatus.dark).path,
             imageCredits: _getCorrectImageData(ThemeStateStatus.dark).credits,
-            imageCreditsLink: _getCorrectImageData(
-              ThemeStateStatus.dark,
-            ).creditsLink,
+            imageCreditsLink: _getCorrectImageData(ThemeStateStatus.dark)
+                .creditsLink,
           ),
         );
       } else if (savedStatus == ThemeStateStatus.system) {
@@ -126,9 +123,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
             themeData: _getCorrectThemeForSystem(),
             imagePath: _getCorrectImageData(ThemeStateStatus.system).path,
             imageCredits: _getCorrectImageData(ThemeStateStatus.system).credits,
-            imageCreditsLink: _getCorrectImageData(
-              ThemeStateStatus.system,
-            ).creditsLink,
+            imageCreditsLink: _getCorrectImageData(ThemeStateStatus.system)
+                .creditsLink,
           ),
         );
       }
@@ -147,9 +143,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           themeData: theme.light(),
           imagePath: _getCorrectImageData(ThemeStateStatus.light).path,
           imageCredits: _getCorrectImageData(ThemeStateStatus.light).credits,
-          imageCreditsLink: _getCorrectImageData(
-            ThemeStateStatus.light,
-          ).creditsLink,
+          imageCreditsLink: _getCorrectImageData(ThemeStateStatus.light)
+              .creditsLink,
         ),
       );
     } else if (event.status == ThemeStateStatus.dark) {
@@ -159,9 +154,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           themeData: theme.dark(),
           imagePath: _getCorrectImageData(ThemeStateStatus.dark).path,
           imageCredits: _getCorrectImageData(ThemeStateStatus.dark).credits,
-          imageCreditsLink: _getCorrectImageData(
-            ThemeStateStatus.dark,
-          ).creditsLink,
+          imageCreditsLink: _getCorrectImageData(ThemeStateStatus.dark)
+              .creditsLink,
         ),
       );
     } else if (event.status == ThemeStateStatus.system) {
@@ -171,9 +165,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           themeData: _getCorrectThemeForSystem(),
           imagePath: _getCorrectImageData(ThemeStateStatus.system).path,
           imageCredits: _getCorrectImageData(ThemeStateStatus.system).credits,
-          imageCreditsLink: _getCorrectImageData(
-            ThemeStateStatus.system,
-          ).creditsLink,
+          imageCreditsLink: _getCorrectImageData(ThemeStateStatus.system)
+              .creditsLink,
         ),
       );
     }
