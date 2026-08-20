@@ -25,3 +25,5 @@ bug:
   - head-branch: [ 'fix' ]
 chore:
   - head-branch: [ 'chore' ]
+ai:
+  - head-branch: [ 'vibe' ]
