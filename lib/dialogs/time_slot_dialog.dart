@@ -5,7 +5,7 @@ import 'package:chabo_app/extensions/time_of_day_extension.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/models/time_slot.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimeSlotDialog extends StatelessWidget {

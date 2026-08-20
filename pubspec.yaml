@@ -7,12 +7,11 @@ version: 0.0.0+dev
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '3.44.6'
+  flutter: '3.47.0'
 
 dependencies:
   animated_toggle_switch: ^0.8.0
   bloc_concurrency: ^0.3.0
-  cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   enum_to_string: ^2.0.1
   flutter:
@@ -38,7 +37,7 @@ dependencies:
   build_runner: ^2.15.0
   intl_utils: ^2.8.14
   add_2_calendar: ^3.1.1
-
+  material_ui: ^1.0.0
 
 dev_dependencies:
   flutter_test:
