@@ -109,7 +109,9 @@ class Const {
   static const String notificationFavoriteSlotsValueKey =
       'NOTIFICATION_FAVORITE_SLOTS_SETTINGS_VALUE';
   static const String notificationFavoriteSlotsDaysValueKey =
-      'NOTIFICATION_FAVORITE_SLOTS_DAYS_SETTINGS_VALUE';
+      'NO********ION_FAVORITE_SLOTS_DAYS_SETTINGS_VALUE';
+  static const String notificationPermissionShownKey =
+      'NOTIFICATION_PERMISSION_SHOWN';
   static const String timeFormatKey = 'TIME_FORMAT';
 
   /// Notifications

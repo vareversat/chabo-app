@@ -82,9 +82,9 @@ class SettingScreen extends StatelessWidget {
                                     : colorScheme.onSurface,
                               );
                             },
-                            onChanged: (value) => BlocProvider.of<ThemeBloc>(
-                              context,
-                            ).add(ThemeChanged(status: value)),
+                            onChanged: (value) =>
+                                BlocProvider.of<ThemeBloc>(context)
+                                    .add(ThemeChanged(status: value)),
                           ),
                           AnimatedSwitcher(
                             duration: const Duration(
