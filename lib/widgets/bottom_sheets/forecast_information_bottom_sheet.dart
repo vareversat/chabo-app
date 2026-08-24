@@ -6,7 +6,7 @@ import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
 import 'package:chabo_app/service/event_share_service.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -95,9 +95,8 @@ class _ForecastInformationBottomSheetState
                 date: widget.forecast.circulationClosingDate
                     .toLocalizedTextSpan(
                       context,
-                      Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: colorScheme.error,
-                      ),
+                      Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: colorScheme.error),
                     ),
                 text: appLocalization!.circulationClosing.toUpperCase(),
               ),
@@ -107,9 +106,8 @@ class _ForecastInformationBottomSheetState
                 date: widget.forecast.circulationReOpeningDate
                     .toLocalizedTextSpan(
                       context,
-                      Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: colorScheme.primary,
-                      ),
+                      Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: colorScheme.primary),
                     ),
                 text: appLocalization.circulationReOpening.toUpperCase(),
               ),

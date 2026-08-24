@@ -3,7 +3,7 @@ import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';

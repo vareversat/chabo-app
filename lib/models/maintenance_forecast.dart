@@ -6,7 +6,7 @@ import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
 import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 

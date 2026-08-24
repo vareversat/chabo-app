@@ -2,7 +2,7 @@ import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/service/storage_service.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,12 +14,7 @@ Future<Widget> localizedTestableWidgetEN({required Widget child}) async {
   );
 
   return MaterialApp(
-    localizationsDelegates: const [
-      AppLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: const [
       Locale('en', ''),
     ],
@@ -41,12 +36,7 @@ Future<Widget> localizedTestableWidgetFR({required Widget child}) async {
   );
 
   return MaterialApp(
-    localizationsDelegates: const [
-      AppLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: const [
       Locale('fr', ''),
     ],

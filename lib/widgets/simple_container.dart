@@ -1,5 +1,5 @@
 import 'package:chabo_app/custom_properties.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class SimpleContainer extends StatelessWidget {
   final Widget child;

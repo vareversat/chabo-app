@@ -1,7 +1,7 @@
 import 'package:chabo_app/const.dart';
 import 'package:chabo_app/extensions/boats_extension.dart';
 import 'package:chabo_app/models/boat.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../localized_testable_widget.dart';

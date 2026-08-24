@@ -45,9 +45,8 @@ class _WebLinksWidget extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           child: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.selectAboutDialog(link.translationKey),
+                            AppLocalizations.of(context)!
+                                .selectAboutDialog(link.translationKey),
                           ),
                         ),
                         const Icon(Icons.outbond, size: 17),

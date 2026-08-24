@@ -2,7 +2,7 @@ import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/maintenance_forecast.dart';
 import 'package:chabo_app/models/time_slot.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 

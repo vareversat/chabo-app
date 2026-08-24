@@ -3,7 +3,7 @@ import 'package:chabo_app/extensions/color_scheme_extension.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Boat extends Equatable {

@@ -8,7 +8,7 @@ import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/service/notification_service.dart';
 import 'package:chabo_app/service/storage_service.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -11,7 +11,7 @@ import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/models/time_slot.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -69,9 +69,9 @@ abstract class AbstractForecast extends Equatable {
     final colorScheme = Theme.of(context).colorScheme;
     final timeFormat = context.read<TimeFormatCubit>().state.timeFormat;
 
-    var infoFromString = AppLocalizations.of(
-      context,
-    )!.dialogInformationContentThe.capitalize();
+    var infoFromString = AppLocalizations.of(context)!
+        .dialogInformationContentThe
+        .capitalize();
     var infoToString =
         ' ${AppLocalizations.of(context)!.dialogInformationContentFromStart} ';
     var infoToString2 =
@@ -81,9 +81,9 @@ abstract class AbstractForecast extends Equatable {
       Localizations.localeOf(context).languageCode,
     ).format(circulationReOpeningDate);
     if (isDuringTwoDays) {
-      infoFromString = AppLocalizations.of(
-        context,
-      )!.dialogInformationContentThe2.capitalize();
+      infoFromString = AppLocalizations.of(context)!
+          .dialogInformationContentThe2
+          .capitalize();
       infoToString = ' ';
       infoToString2 =
           ', ${AppLocalizations.of(context)!.dialogInformationContentFromEnd2} ${MaterialLocalizations.of(context).formatFullDate(circulationReOpeningDate)} ';
@@ -92,9 +92,8 @@ abstract class AbstractForecast extends Equatable {
     return [
       TextSpan(text: infoFromString),
       TextSpan(
-        text: MaterialLocalizations.of(
-          context,
-        ).formatFullDate(circulationClosingDate),
+        text: MaterialLocalizations.of(context)
+            .formatFullDate(circulationClosingDate),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       TextSpan(text: infoToString),

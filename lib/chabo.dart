@@ -11,10 +11,9 @@ import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/service/notification_service.dart';
 import 'package:chabo_app/service/storage_service.dart';
 import 'package:chabo_app/widgets/nav_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'screens/main_screen.dart';
@@ -106,12 +105,7 @@ class Chabo extends StatelessWidget {
               SentryNavigatorObserver(setRouteNameAsTransaction: true),
             ],
             home: const MainScreen(),
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: const [
               Locale('en', ''),
               Locale('fr', ''),

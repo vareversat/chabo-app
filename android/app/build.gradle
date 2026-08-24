@@ -30,8 +30,8 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "fr.vareversat.chabo"
 
-    ndkVersion = "28.2.13676358"
-    compileSdkVersion 36
+    ndkVersion = flutter.ndkVersion
+    compileSdkVersion flutter.compileSdkVersion
 
     lintOptions {
         disable 'InvalidPackage'
@@ -48,7 +48,7 @@ android {
         multiDexEnabled true // https://pub.dev/packages/flutter_local_notifications/
         applicationId "fr.vareversat.chabo"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 36
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

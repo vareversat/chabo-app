@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -327,8 +328,7 @@ class AppLocalizationsFr extends AppLocalizations {
       locale: localeName,
       other:
           'La semaine prochaine, le pont Chaban-Delmas se fermera $count fois',
-      one:
-          'La semaine prochaine, le pont Chaban-Delmas ne se fermera qu\'une seule fois',
+      one: 'La semaine prochaine, le pont Chaban-Delmas ne se fermera qu\'une seule fois',
       zero: 'Aucune fermeture prévue pour la semaine prochaine',
     );
     return '$_temp0';
