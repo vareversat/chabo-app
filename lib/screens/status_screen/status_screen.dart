@@ -40,9 +40,8 @@ class StatusScreenState extends CustomWidgetState<StatusScreen> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Timer.periodic(const Duration(seconds: 1), (Timer t) {
         if (mounted) {
-          BlocProvider.of<StatusBloc>(
-            context,
-          ).add(StatusRefresh(context: context));
+          BlocProvider.of<StatusBloc>(context)
+              .add(StatusRefresh(context: context));
         } else {
           t.cancel();
         }

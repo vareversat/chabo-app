@@ -198,6 +198,8 @@
   "favoriteSlotsInterferenceWarning": "Este horario interfiere con uno o màs intervalos de tiempo",
   "favoriteTimeSlotEnabledWarning": "Atención, al activar este paràmetro solo recibiràs notificaciones cuando ocurra un evento durante una de tus franjas horarias",
   "favoriteSlotsChooseDay": "Elegir los dìas de la semana",
+  "notificationsDisabledMessage": "Las notificaciones están desactivadas. Por favor, actívelas para recibir alertas sobre los cierres del puente.",
+  "enableNotificationsButton": "Activar notificaciones",
   "moonHarborStatus": "{count, plural, =1 {está actualmente amarrado} other {estàn actualmente amarrados}} en el 'Puerto de la Luna'",
   "@moonHarborStatus": {
     "placeholders": {

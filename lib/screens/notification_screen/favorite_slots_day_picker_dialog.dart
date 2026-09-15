@@ -29,9 +29,9 @@ class FavoriteSlotsDayPickerDialog extends StatelessWidget {
                 ),
                 selected: state.days.contains(day),
                 shape: const StadiumBorder(side: BorderSide()),
-                onSelected: (bool selected) => BlocProvider.of<TimeSlotsBloc>(
-                  context,
-                ).add(DaysChanged(day: day, isSelected: selected)),
+                onSelected: (bool selected) =>
+                    BlocProvider.of<TimeSlotsBloc>(context)
+                        .add(DaysChanged(day: day, isSelected: selected)),
               );
             }).toList(),
           );

@@ -48,9 +48,8 @@ class ChaboAppBarState extends State<ChaboAppBar> {
         children: [
           Text(
             Const.appName,
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           widget.displayStatus
               ? Padding(

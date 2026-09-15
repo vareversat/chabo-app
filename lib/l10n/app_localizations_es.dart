@@ -16,10 +16,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String the(String startWithVowel) {
-    String _temp0 = intl.Intl.selectLogic(startWithVowel, {
-      'true': 'el ',
-      'other': 'el ',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      startWithVowel,
+      {
+        'true': 'el ',
+        'other': 'el ',
+      },
+    );
     return '$_temp0';
   }
 
@@ -254,18 +257,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String notificationDurationBoatMessage(
-    Object boat,
-    Object timeLeft,
-    Object duration,
-  ) {
+      Object boat, Object timeLeft, Object duration) {
     return 'El puente Chaban se cerrarà en $timeLeft para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
   }
 
   @override
   String notificationDurationMaintenanceMessage(
-    Object timeLeft,
-    Object duration,
-  ) {
+      Object timeLeft, Object duration) {
     return 'El puente Chaban se cerrarà en $timeLeft para mantenimiento 🛠. Permanecerà cerrado durante $duration 🌉';
   }
 
@@ -277,10 +275,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String notificationTimeBoatMessage(
-    Object boat,
-    Object time,
-    Object duration,
-  ) {
+      Object boat, Object time, Object duration) {
     return 'El puente Chaban se cerrarà mañana a las $time para $boat 🚢. Permanecerà cerrado durante $duration 🌉';
   }
 
@@ -304,16 +299,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String selectAboutDialog(String choice) {
-    String _temp0 = intl.Intl.selectLogic(choice, {
-      'source_code': 'Código fuente',
-      'privacy_policy': 'Polìtica de privacidad',
-      'yuhliet_instagram': 'Instagram de Yuhliet',
-      'city_of_bordeaux': 'Ciudad de Burdeos',
-      'bordeaux_open_data': 'Bordeaux Open Data',
-      'licenses': 'Licencias',
-      'changelog': 'Registro de cambios',
-      'other': 'Indefinido',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      choice,
+      {
+        'source_code': 'Código fuente',
+        'privacy_policy': 'Polìtica de privacidad',
+        'yuhliet_instagram': 'Instagram de Yuhliet',
+        'city_of_bordeaux': 'Ciudad de Burdeos',
+        'bordeaux_open_data': 'Bordeaux Open Data',
+        'licenses': 'Licencias',
+        'changelog': 'Registro de cambios',
+        'other': 'Indefinido',
+      },
+    );
     return '$_temp0';
   }
 
@@ -373,6 +371,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get favoriteSlotsChooseDay => 'Elegir los dìas de la semana';
+
+  @override
+  String get notificationsDisabledMessage =>
+      'Las notificaciones están desactivadas. Por favor, actívelas para recibir alertas sobre los cierres del puente.';
+
+  @override
+  String get enableNotificationsButton => 'Activar notificaciones';
 
   @override
   String moonHarborStatus(num count) {
