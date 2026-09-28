@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class CustomCircularProgressIndicator extends StatelessWidget {
   final String message;
@@ -21,9 +21,8 @@ class CustomCircularProgressIndicator extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               message,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ],

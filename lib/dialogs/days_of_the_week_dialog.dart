@@ -4,7 +4,7 @@ import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/extensions/time_of_day_extension.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/enums/day.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DaysOfTheWeekDialog extends StatelessWidget {
@@ -34,9 +34,8 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.0),
                         onChanged: (Day? value) {
                           if (value != null) {
-                            BlocProvider.of<NotificationBloc>(
-                              context,
-                            ).add(DayNotificationValueEvent(day: value));
+                            BlocProvider.of<NotificationBloc>(context)
+                                .add(DayNotificationValueEvent(day: value));
                           }
                         },
                         value: state.dayNotificationValue,

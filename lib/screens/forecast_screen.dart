@@ -10,7 +10,7 @@ import 'package:chabo_app/screens/error_screen.dart';
 import 'package:chabo_app/widgets/chabo_app_bar/chabo_app_bar.dart';
 import 'package:chabo_app/widgets/forecast/forecast_list_widget.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForecastScreen extends StatefulWidget {
@@ -68,9 +68,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                       /// And compute all notifications
                       BlocProvider.of<NotificationBloc>(context).add(
                         ComputeNotificationEvent(
-                          forecasts: BlocProvider.of<ForecastBloc>(
-                            context,
-                          ).state.forecasts,
+                          forecasts: BlocProvider.of<ForecastBloc>(context)
+                              .state
+                              .forecasts,
                           context: context,
                           timeSlotsState: BlocProvider.of<TimeSlotsBloc>(
                             context,
@@ -83,14 +83,14 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                     listener: (context, state) {
                       /// If the TimeSlotsState changes and the timeSlotsEnabledForNotifications is enabled,
                       /// re-compute all notifications
-                      if (BlocProvider.of<NotificationBloc>(
-                        context,
-                      ).state.timeSlotsEnabledForNotifications) {
+                      if (BlocProvider.of<NotificationBloc>(context)
+                          .state
+                          .timeSlotsEnabledForNotifications) {
                         BlocProvider.of<NotificationBloc>(context).add(
                           ComputeNotificationEvent(
-                            forecasts: BlocProvider.of<ForecastBloc>(
-                              context,
-                            ).state.forecasts,
+                            forecasts: BlocProvider.of<ForecastBloc>(context)
+                                .state
+                                .forecasts,
                             context: context,
                             timeSlotsState: BlocProvider.of<TimeSlotsBloc>(
                               context,
@@ -105,9 +105,9 @@ class _ForecastScreenState extends CustomWidgetState<ForecastScreen> {
                       /// If the TimeFormatState changes, re compute all notifications
                       BlocProvider.of<NotificationBloc>(context).add(
                         ComputeNotificationEvent(
-                          forecasts: BlocProvider.of<ForecastBloc>(
-                            context,
-                          ).state.forecasts,
+                          forecasts: BlocProvider.of<ForecastBloc>(context)
+                              .state
+                              .forecasts,
                           context: context,
                           timeSlotsState: BlocProvider.of<TimeSlotsBloc>(
                             context,

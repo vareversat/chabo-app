@@ -12,7 +12,7 @@ import 'package:chabo_app/widgets/current_docked_boat_button.dart';
 import 'package:chabo_app/widgets/forecast/forecast_widget.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_circular_progress_indicator.dart';
 import 'package:chabo_app/widgets/wave_divider.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,9 +40,8 @@ class StatusScreenState extends CustomWidgetState<StatusScreen> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Timer.periodic(const Duration(seconds: 1), (Timer t) {
         if (mounted) {
-          BlocProvider.of<StatusBloc>(
-            context,
-          ).add(StatusRefresh(context: context));
+          BlocProvider.of<StatusBloc>(context)
+              .add(StatusRefresh(context: context));
         } else {
           t.cancel();
         }

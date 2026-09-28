@@ -1,6 +1,6 @@
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CreditsDialog extends StatelessWidget {

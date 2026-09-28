@@ -3,7 +3,7 @@ import 'package:chabo_app/extensions/string_extension.dart';
 import 'package:chabo_app/extensions/time_of_day_extension.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../localized_testable_widget.dart';

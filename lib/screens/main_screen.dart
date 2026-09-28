@@ -3,7 +3,7 @@ import 'package:chabo_app/screens/notification_screen/notification_screen.dart';
 import 'package:chabo_app/screens/setting_screen.dart';
 import 'package:chabo_app/screens/status_screen/status_screen.dart';
 import 'package:chabo_app/widgets/nav_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatelessWidget {
