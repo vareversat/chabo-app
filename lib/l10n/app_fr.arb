@@ -241,5 +241,13 @@
   "bottomSheetAdditionalInfo_boatLeaving": "arrivée",
   "bottomSheetAdditionalInfo_boatArriving": "départ",
   "bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer": "Les heures d'arrivées et de départs sont purement à des fins indicatives et ne sont pas garanties.",
-  "bottomSheetAdditionalInfo_shareMessage": "Salut, je vais avoir du retard, le Pont Chaban est fermé jusqu'à"
+  "bottomSheetAdditionalInfo_shareMessage": "Salut, je vais avoir du retard, le Pont Chaban est fermé jusqu'à",
+  "refreshData": "Actualiser",
+  "@refreshData": {},
+  "refreshingData": "Actualisation...",
+  "@refreshingData": {},
+  "cachedDataTooltip": "Hors connexion ou API indisponible : affichage des données en cache",
+  "@cachedDataTooltip": {},
+  "lastRefreshLabel": "Dernière actualisation",
+  "@lastRefreshLabel": {}
 }

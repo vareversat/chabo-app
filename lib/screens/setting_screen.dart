@@ -1,4 +1,5 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:chabo_app/bloc/forecast/forecast_bloc.dart';
 import 'package:chabo_app/bloc/theme/theme_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
 import 'package:chabo_app/custom_properties.dart';
@@ -12,6 +13,7 @@ import 'package:chabo_app/widgets/simple_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class SettingScreen extends StatelessWidget {
   static const routeName = '/setting-screen';
@@ -97,20 +99,20 @@ class SettingScreen extends StatelessWidget {
                             ),
                             transitionBuilder:
                                 (Widget child, Animation<double> animation) {
-                                  return SlideTransition(
-                                    position: Tween(
-                                      begin: const Offset(0.0, 1.0),
-                                      end: const Offset(0.0, 0.0),
-                                    ).animate(animation),
-                                    child: FadeTransition(
-                                      opacity: CurvedAnimation(
-                                        parent: animation,
-                                        curve: Curves.easeIn,
-                                      ),
-                                      child: child,
-                                    ),
-                                  );
-                                },
+                              return SlideTransition(
+                                position: Tween(
+                                  begin: const Offset(0.0, 1.0),
+                                  end: const Offset(0.0, 0.0),
+                                ).animate(animation),
+                                child: FadeTransition(
+                                  opacity: CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.easeIn,
+                                  ),
+                                  child: child,
+                                ),
+                              );
+                            },
                             child: Text(
                               key: ValueKey<String>(state.status.text(context)),
                               state.status.text(context),
@@ -168,6 +170,28 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            BlocBuilder<ForecastBloc, ForecastState>(
+              builder: (context, state) {
+                final lastRefresh = state.lastRefresh;
+                if (lastRefresh == null) {
+                  return const SizedBox.shrink();
+                }
+                final languageCode = Localizations.localeOf(
+                  context,
+                ).languageCode;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    '${AppLocalizations.of(context)!.lastRefreshLabel}: '
+                    '${DateFormat.yMd(languageCode).add_Hm().format(lastRefresh)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                );
+              },
             ),
           ],
         ),

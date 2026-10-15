@@ -241,5 +241,13 @@
   "bottomSheetAdditionalInfo_boatLeaving": "llegada",
   "bottomSheetAdditionalInfo_boatArriving": "partida",
   "bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer": "Los horarios de llegada y salida son únicamente a título informativo y no están garantizados.",
-  "bottomSheetAdditionalInfo_shareMessage": "Hola, voy a llegar tarde; el puente Chaban está cerrado hasta"
+  "bottomSheetAdditionalInfo_shareMessage": "Hola, voy a llegar tarde; el puente Chaban está cerrado hasta",
+  "refreshData": "Actualizar",
+  "@refreshData": {},
+  "refreshingData": "Actualizando...",
+  "@refreshingData": {},
+  "cachedDataTooltip": "Sin conexión o API no disponible: mostrando datos en caché",
+  "@cachedDataTooltip": {},
+  "lastRefreshLabel": "Última actualización",
+  "@lastRefreshLabel": {}
 }
