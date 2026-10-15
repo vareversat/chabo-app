@@ -1,7 +1,7 @@
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/boat_forecast.dart';
 import 'package:chabo_app/models/maintenance_forecast.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class NoMoreForecastsWidget extends StatelessWidget {
   const NoMoreForecastsWidget({super.key});
@@ -17,9 +17,8 @@ class NoMoreForecastsWidget extends StatelessWidget {
           Center(
             child: Text(
               AppLocalizations.of(context)!.noMoreForecastsTitle,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           Padding(

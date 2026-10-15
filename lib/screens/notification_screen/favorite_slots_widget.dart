@@ -59,26 +59,24 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
             children: [
               _CustomListTileWidget(
                 onChanged: (bool value) => {
-                  BlocProvider.of<NotificationBloc>(
-                    context,
-                  ).add(EnabledTimeSlotEvent(enabled: value)),
+                  BlocProvider.of<NotificationBloc>(context)
+                      .add(EnabledTimeSlotEvent(enabled: value)),
                   if (value)
                     {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           duration: const Duration(seconds: 7),
                           showCloseIcon: true,
-                          backgroundColor: Theme.of(
-                            context,
-                          ).colorScheme.warningColor,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .warningColor,
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Flexible(
                                 child: Text(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.favoriteTimeSlotEnabledWarning,
+                                  AppLocalizations.of(context)!
+                                      .favoriteTimeSlotEnabledWarning,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -98,9 +96,8 @@ class _FavoriteSlotsWidgetState extends State<_FavoriteSlotsWidget>
                 },
                 enabled: widget.timeSlotsEnabledForNotifications,
                 title: AppLocalizations.of(context)!.favoriteSlots,
-                subtitle: AppLocalizations.of(
-                  context,
-                )!.favoriteSlotsDescription,
+                subtitle: AppLocalizations.of(context)!
+                    .favoriteSlotsDescription,
                 leadingIcon: Icons.warning_rounded,
                 iconColor: Theme.of(context).colorScheme.warningColor,
                 constrainedBySlots: false,

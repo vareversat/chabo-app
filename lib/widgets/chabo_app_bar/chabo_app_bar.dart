@@ -2,7 +2,7 @@ import 'package:chabo_app/bloc/status/status_bloc.dart';
 import 'package:chabo_app/const.dart';
 import 'package:chabo_app/custom_properties.dart';
 import 'package:chabo_app/widgets/progress_indicator/custom_progress_bar_indicator.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'small_status_widget.dart';
@@ -48,9 +48,8 @@ class ChaboAppBarState extends State<ChaboAppBar> {
         children: [
           Text(
             Const.appName,
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           widget.displayStatus
               ? Padding(

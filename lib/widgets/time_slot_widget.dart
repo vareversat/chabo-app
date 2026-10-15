@@ -7,7 +7,7 @@ import 'package:chabo_app/dialogs/time_slot_dialog.dart';
 import 'package:chabo_app/extensions/time_of_day_extension.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/time_slot.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimeSlotWidget extends StatelessWidget {
@@ -40,9 +40,8 @@ class TimeSlotWidget extends StatelessWidget {
             if (value != null)
               {
                 if (context.mounted)
-                  BlocProvider.of<NotificationBloc>(
-                    context,
-                  ).add(DayNotificationValueEvent(day: value)),
+                  BlocProvider.of<NotificationBloc>(context)
+                      .add(DayNotificationValueEvent(day: value)),
               },
           },
         );
@@ -56,9 +55,8 @@ class TimeSlotWidget extends StatelessWidget {
                 Text(
                   timeSlot.name != ''
                       ? timeSlot.name
-                      : AppLocalizations.of(
-                          context,
-                        )!.favoriteTimeSlotDefaultName(index + 1),
+                      : AppLocalizations.of(context)!
+                            .favoriteTimeSlotDefaultName(index + 1),
                 ),
                 Text(
                   '${timeSlot.from.toFormattedString(timeFormatState.timeFormat)} - ${timeSlot.to.toFormattedString(timeFormatState.timeFormat)}',

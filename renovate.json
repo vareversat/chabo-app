@@ -50,9 +50,11 @@
         "/(^|/)action\\.ya?ml$/"
       ],
       "matchStrings": [
-        "(?<depName>.*)_version:\\s*['\"]?(?<currentValue>[\\w.\\-]*)['\"]?"
+        "flutter_version:\\s*['\"]?(?<currentValue>[\\w.\\-]*)['\"]?"
       ],
-      "datasourceTemplate": "github-actions"
+      "depNameTemplate": "flutter",
+      "packageNameTemplate": "flutter/flutter",
+      "datasourceTemplate": "flutter-version"
     }
   ]
 }

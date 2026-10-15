@@ -6,7 +6,7 @@ import 'package:chabo_app/models/enums/theme_state_status.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/models/time_slot.dart';
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

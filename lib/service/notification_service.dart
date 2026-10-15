@@ -13,7 +13,7 @@ import 'package:chabo_app/models/abstract_forecast.dart';
 import 'package:chabo_app/models/enums/day.dart';
 import 'package:chabo_app/service/storage_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;

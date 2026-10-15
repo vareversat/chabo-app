@@ -5,7 +5,7 @@ import 'package:chabo_app/helpers/device_helper.dart';
 import 'package:chabo_app/l10n/app_localizations.dart';
 import 'package:chabo_app/models/boat_forecast.dart';
 import 'package:chabo_app/widgets/bottom_sheets/current_docked_boat_bottom_sheet.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class CurrentDockedBoatButton extends StatelessWidget {
   final StatusState statusState;

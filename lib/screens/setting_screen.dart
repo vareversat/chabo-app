@@ -9,7 +9,7 @@ import 'package:chabo_app/models/enums/time_format.dart';
 import 'package:chabo_app/screens/about_screen/about_screen.dart';
 import 'package:chabo_app/widgets/chabo_app_bar/chabo_app_bar.dart';
 import 'package:chabo_app/widgets/simple_container.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -82,9 +82,9 @@ class SettingScreen extends StatelessWidget {
                                     : colorScheme.onSurface,
                               );
                             },
-                            onChanged: (value) => BlocProvider.of<ThemeBloc>(
-                              context,
-                            ).add(ThemeChanged(status: value)),
+                            onChanged: (value) =>
+                                BlocProvider.of<ThemeBloc>(context)
+                                    .add(ThemeChanged(status: value)),
                           ),
                           AnimatedSwitcher(
                             duration: const Duration(

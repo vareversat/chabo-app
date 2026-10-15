@@ -9,7 +9,7 @@ import 'package:chabo_app/models/boat.dart';
 import 'package:chabo_app/models/enums/forecast_closing_reason.dart';
 import 'package:chabo_app/models/enums/forecast_closing_type.dart';
 import 'package:chabo_app/models/enums/time_format.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -181,12 +181,10 @@ class BoatForecast extends AbstractForecast {
                   children: [
                     Text(
                       boat.isLeaving
-                          ? AppLocalizations.of(
-                              context,
-                            )!.bottomSheetAdditionalInfo_boatArriving
-                          : AppLocalizations.of(
-                              context,
-                            )!.bottomSheetAdditionalInfo_boatLeaving,
+                          ? AppLocalizations.of(context)!
+                                .bottomSheetAdditionalInfo_boatArriving
+                          : AppLocalizations.of(context)!
+                                .bottomSheetAdditionalInfo_boatLeaving,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold,
@@ -200,15 +198,13 @@ class BoatForecast extends AbstractForecast {
           }).toList(),
         ),
         Text(
-          AppLocalizations.of(
-            context,
-          )!.bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer,
+          AppLocalizations.of(context)!
+              .bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             fontStyle: FontStyle.italic,
-            color: Theme.of(
-              context,
-            ).colorScheme.inverseSurface.withValues(alpha: .4),
+            color: Theme.of(context).colorScheme.inverseSurface
+                .withValues(alpha: .4),
           ),
         ),
       ],
