@@ -31,9 +31,8 @@ class _ErrorScreenState extends CustomWidgetState<ErrorScreen> {
                   Text(
                     AppLocalizations.of(context)!.errorScreenContentError,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge
+                        ?.copyWith(color: Theme.of(context).colorScheme.error),
                   ),
                   const SizedBox(height: 15),
                   Text(

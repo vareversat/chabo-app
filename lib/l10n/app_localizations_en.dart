@@ -16,10 +16,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String the(String startWithVowel) {
-    String _temp0 = intl.Intl.selectLogic(startWithVowel, {
-      'true': 'the ',
-      'other': 'the ',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      startWithVowel,
+      {
+        'true': 'the ',
+        'other': 'the ',
+      },
+    );
     return '$_temp0';
   }
 
@@ -252,18 +255,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String notificationDurationBoatMessage(
-    Object boat,
-    Object timeLeft,
-    Object duration,
-  ) {
+      Object boat, Object timeLeft, Object duration) {
     return 'The Chaban bridge will close in $timeLeft for $boat 🚢. It will remains closed for $duration 🌉';
   }
 
   @override
   String notificationDurationMaintenanceMessage(
-    Object timeLeft,
-    Object duration,
-  ) {
+      Object timeLeft, Object duration) {
     return 'The Chaban Bridge will close in $timeLeft for maintenance 🛠. It will remains closed for $duration 🌉';
   }
 
@@ -275,10 +273,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String notificationTimeBoatMessage(
-    Object boat,
-    Object time,
-    Object duration,
-  ) {
+      Object boat, Object time, Object duration) {
     return 'The Chaban bridge will close tomorrow at $time for $boat 🚢. It will remains closed for $duration 🌉';
   }
 
@@ -302,16 +297,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String selectAboutDialog(String choice) {
-    String _temp0 = intl.Intl.selectLogic(choice, {
-      'source_code': 'Source code',
-      'privacy_policy': 'Privacy policy',
-      'yuhliet_instagram': 'Yuhliet\'s Instagram',
-      'city_of_bordeaux': 'City of Bordeaux',
-      'bordeaux_open_data': 'Bordeaux Open Data',
-      'licenses': 'Licenses',
-      'changelog': 'Changelog',
-      'other': 'Undefined',
-    });
+    String _temp0 = intl.Intl.selectLogic(
+      choice,
+      {
+        'source_code': 'Source code',
+        'privacy_policy': 'Privacy policy',
+        'yuhliet_instagram': 'Yuhliet\'s Instagram',
+        'city_of_bordeaux': 'City of Bordeaux',
+        'bordeaux_open_data': 'Bordeaux Open Data',
+        'licenses': 'Licenses',
+        'changelog': 'Changelog',
+        'other': 'Undefined',
+      },
+    );
     return '$_temp0';
   }
 
@@ -370,6 +368,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get favoriteSlotsChooseDay => 'Choose the days of the week';
+
+  @override
+  String get notificationsDisabledMessage =>
+      'Notifications are disabled. Please enable them to receive alerts about bridge closures.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
 
   @override
   String moonHarborStatus(num count) {

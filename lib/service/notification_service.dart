@@ -104,6 +104,10 @@ class NotificationService {
     return false;
   }
 
+  Future<bool> requestPermissions() async {
+    return await _requestPermissions();
+  }
+
   Future<bool> areNotificationsEnabled() async {
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
@@ -129,8 +133,9 @@ class NotificationService {
     await localNotifications.cancelAll();
     List<DateTime> weekSeparatedForecast = [];
 
-    /// Make sure that the user enable the notification
-    if (await _requestPermissions()) {
+    /// Check if notifications are enabled before proceeding
+    final areEnabled = await areNotificationsEnabled();
+    if (areEnabled) {
       for (final forecast in forecasts) {
         /// Compute the slot time linked to a forecast before starting the notification computation
         forecast.computeSlotInterference(timeSlotsState);

@@ -34,9 +34,8 @@ class DaysOfTheWeekDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.0),
                         onChanged: (Day? value) {
                           if (value != null) {
-                            BlocProvider.of<NotificationBloc>(
-                              context,
-                            ).add(DayNotificationValueEvent(day: value));
+                            BlocProvider.of<NotificationBloc>(context)
+                                .add(DayNotificationValueEvent(day: value));
                           }
                         },
                         value: state.dayNotificationValue,

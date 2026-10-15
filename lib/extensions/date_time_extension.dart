@@ -54,9 +54,8 @@ extension DateTimeExtension on DateTime {
         TextSpan(text: stringDate),
         TextSpan(
           text: timeMarker,
-          style: Theme.of(
-            context,
-          ).textTheme.labelSmall?.copyWith(color: textStyle?.color),
+          style: Theme.of(context).textTheme.labelSmall
+              ?.copyWith(color: textStyle?.color),
         ),
       ],
       style: textStyle,

@@ -198,6 +198,8 @@
   "favoriteSlotsInterferenceWarning": "Cette prévision interfère avec un ou plusieurs créneaux",
   "favoriteTimeSlotEnabledWarning": "Attention, en activant ce paramètres vous allez uniquement recevoir les notifications lorsqu'un évèmenent se produit durant l'un de vos créneaux",
   "favoriteSlotsChooseDay": "Choisir les jours de la semaine",
+  "notificationsDisabledMessage": "Les notifications sont désactivées. Veuillez les activer pour recevoir des alertes concernant les fermetures du pont.",
+  "enableNotificationsButton": "Activer les notifications",
   "moonHarborStatus": "{count, plural, =1 {est actuellement amarré} other {sont actuellement amarrés}} au 'Port de la Lune'",
   "@moonHarborStatus": {
     "placeholders": {

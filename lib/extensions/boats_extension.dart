@@ -22,12 +22,10 @@ extension BoatsExtension on List<Boat> {
     var finalString = '';
     for (var index = 0; index < length; index++) {
       finalString += this[index].isLeaving
-          ? AppLocalizations.of(
-              context,
-            )!.notificationTimeBoatDeparture(this[index].name)
-          : AppLocalizations.of(
-              context,
-            )!.notificationTimeBoatArrival(this[index].name);
+          ? AppLocalizations.of(context)!
+                .notificationTimeBoatDeparture(this[index].name)
+          : AppLocalizations.of(context)!
+                .notificationTimeBoatArrival(this[index].name);
       if (length - index > 2) {
         finalString += ', ';
       } else if (index + 1 != length) {
@@ -51,9 +49,9 @@ extension BoatsExtension on List<Boat> {
         boatCount += 1;
         finalTextSpan.add(
           TextSpan(
-            text: AppLocalizations.of(
-              context,
-            )!.the(this[index].name.startsWithVowel().toString()).capitalize(),
+            text: AppLocalizations.of(context)!
+                .the(this[index].name.startsWithVowel().toString())
+                .capitalize(),
           ),
         );
         finalTextSpan.add(this[index].toLocalizedTextSpan(context, true));

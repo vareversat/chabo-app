@@ -21,9 +21,8 @@ class CustomCircularProgressIndicator extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               message,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ],

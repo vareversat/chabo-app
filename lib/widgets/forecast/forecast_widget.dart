@@ -56,9 +56,9 @@ class ForecastWidget extends StatelessWidget {
                     )
                   : BorderSide(
                       width: 2,
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.surfaceContainerHighest,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .surfaceContainerHighest,
                     ),
             ),
           ),
@@ -96,9 +96,8 @@ class ForecastWidget extends StatelessWidget {
                   Text(
                     forecast.circulationClosingDate.day ==
                             forecast.circulationReOpeningDate.day
-                        ? DateFormat.MMMMEEEEd(
-                            local,
-                          ).format(forecast.circulationClosingDate)
+                        ? DateFormat.MMMMEEEEd(local)
+                              .format(forecast.circulationClosingDate)
                         : '${DateFormat.MMMEd(local).format(forecast.circulationClosingDate)} / '
                               '${DateFormat.MMMEd(local).format(forecast.circulationReOpeningDate)}',
                     style: Theme.of(context).textTheme.headlineSmall,
@@ -113,12 +112,13 @@ class ForecastWidget extends StatelessWidget {
                             text: forecast.circulationClosingDate
                                 .toLocalizedTextSpan(
                                   context,
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.headlineSmall?.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  Theme.of(context).textTheme.headlineSmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                           ),
                           SizedBox(width: 10),
@@ -126,13 +126,12 @@ class ForecastWidget extends StatelessWidget {
                             text: forecast.circulationReOpeningDate
                                 .toLocalizedTextSpan(
                                   context,
-                                  Theme.of(
-                                    context,
-                                  ).textTheme.bodyLarge?.copyWith(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
+                                  Theme.of(context).textTheme.bodyLarge
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                      ),
                                 ),
                           ),
                         ],
