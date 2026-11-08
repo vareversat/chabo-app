@@ -95,9 +95,8 @@ class _ForecastInformationBottomSheetState
                 date: widget.forecast.circulationClosingDate
                     .toLocalizedTextSpan(
                       context,
-                      Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: colorScheme.error,
-                      ),
+                      Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: colorScheme.error),
                     ),
                 text: appLocalization!.circulationClosing.toUpperCase(),
               ),
@@ -107,9 +106,8 @@ class _ForecastInformationBottomSheetState
                 date: widget.forecast.circulationReOpeningDate
                     .toLocalizedTextSpan(
                       context,
-                      Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: colorScheme.primary,
-                      ),
+                      Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(color: colorScheme.primary),
                     ),
                 text: appLocalization.circulationReOpening.toUpperCase(),
               ),

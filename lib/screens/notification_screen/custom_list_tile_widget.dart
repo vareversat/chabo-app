@@ -44,9 +44,8 @@ class _CustomListTileWidget extends StatelessWidget {
                 flex: 10,
                 child: Text(
                   title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge?.copyWith(fontSize: 19),
+                  style: Theme.of(context).textTheme.titleLarge
+                      ?.copyWith(fontSize: 19),
                   overflow: TextOverflow.fade,
                 ),
               ),
@@ -75,9 +74,9 @@ class _CustomListTileWidget extends StatelessWidget {
                   child: constrainedBySlots && enabled
                       ? CircleAvatar(
                           radius: 5,
-                          backgroundColor: Theme.of(
-                            context,
-                          ).colorScheme.warningColor,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .warningColor,
                           child: Container(),
                         )
                       : const SizedBox(),

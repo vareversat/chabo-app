@@ -25,18 +25,15 @@ class ProgressIndicatorWidget extends StatelessWidget {
           },
           child: Text(
             statusState.timeMessagePrefix,
-            style: Theme.of(
-              context,
-            ).textTheme.labelLarge!.copyWith(fontSize: 18),
+            style: Theme.of(context).textTheme.labelLarge!
+                .copyWith(fontSize: 18),
           ),
         ),
         !statusState.durationUntilNextEvent.isNegative
             ? Text(
                 statusState.durationUntilNextEvent.durationToString(context),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.titleMedium!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
               )
             : const SizedBox.shrink(),
         statusState.completionPercentage != -1

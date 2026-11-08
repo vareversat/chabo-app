@@ -28,4 +28,10 @@ extension ColorSchemeExtension on ColorScheme {
         ? const Color.fromRGBO(123, 31, 48, 1)
         : const Color.fromRGBO(167, 106, 117, 1);
   }
+
+  Color get errorColor {
+    return brightness == Brightness.light
+        ? const Color(0xFFB00020)
+        : const Color(0xFFCF6679);
+  }
 }

@@ -32,9 +32,8 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
             return ListView.separated(
               scrollCacheExtent: ScrollCacheExtent.pixels(5000),
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 5,
-              ).copyWith(bottom: 150),
+              padding: const EdgeInsets.symmetric(horizontal: 5)
+                  .copyWith(bottom: 150),
               itemBuilder: (BuildContext context, int index) {
                 final AbstractForecast forecast =
                     forecastState.forecasts[index];
@@ -93,9 +92,8 @@ class _MonthWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0),
           child: Text(
-            DateFormat.yMMMM(
-              Localizations.localeOf(context).languageCode,
-            ).format(forecast.circulationClosingDate),
+            DateFormat.yMMMM(Localizations.localeOf(context).languageCode)
+                .format(forecast.circulationClosingDate),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

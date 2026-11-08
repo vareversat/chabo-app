@@ -40,9 +40,8 @@ class TimeSlotWidget extends StatelessWidget {
             if (value != null)
               {
                 if (context.mounted)
-                  BlocProvider.of<NotificationBloc>(
-                    context,
-                  ).add(DayNotificationValueEvent(day: value)),
+                  BlocProvider.of<NotificationBloc>(context)
+                      .add(DayNotificationValueEvent(day: value)),
               },
           },
         );
@@ -56,9 +55,8 @@ class TimeSlotWidget extends StatelessWidget {
                 Text(
                   timeSlot.name != ''
                       ? timeSlot.name
-                      : AppLocalizations.of(
-                          context,
-                        )!.favoriteTimeSlotDefaultName(index + 1),
+                      : AppLocalizations.of(context)!
+                            .favoriteTimeSlotDefaultName(index + 1),
                 ),
                 Text(
                   '${timeSlot.from.toFormattedString(timeFormatState.timeFormat)} - ${timeSlot.to.toFormattedString(timeFormatState.timeFormat)}',

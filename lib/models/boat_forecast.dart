@@ -181,12 +181,10 @@ class BoatForecast extends AbstractForecast {
                   children: [
                     Text(
                       boat.isLeaving
-                          ? AppLocalizations.of(
-                              context,
-                            )!.bottomSheetAdditionalInfo_boatArriving
-                          : AppLocalizations.of(
-                              context,
-                            )!.bottomSheetAdditionalInfo_boatLeaving,
+                          ? AppLocalizations.of(context)!
+                                .bottomSheetAdditionalInfo_boatArriving
+                          : AppLocalizations.of(context)!
+                                .bottomSheetAdditionalInfo_boatLeaving,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold,
@@ -200,15 +198,13 @@ class BoatForecast extends AbstractForecast {
           }).toList(),
         ),
         Text(
-          AppLocalizations.of(
-            context,
-          )!.bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer,
+          AppLocalizations.of(context)!
+              .bottomSheetAdditionalInfo_boatCrossingTimeDisclaimer,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelSmall?.copyWith(
             fontStyle: FontStyle.italic,
-            color: Theme.of(
-              context,
-            ).colorScheme.inverseSurface.withValues(alpha: .4),
+            color: Theme.of(context).colorScheme.inverseSurface
+                .withValues(alpha: .4),
           ),
         ),
       ],

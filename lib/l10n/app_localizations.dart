@@ -64,7 +64,7 @@ import 'app_localizations_fr.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -87,17 +87,17 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('es'),
-    Locale('fr'),
+    Locale('fr')
   ];
 
   /// No description provided for @and.
@@ -495,19 +495,14 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Chaban bridge will close in {timeLeft} for {boat} 🚢. It will remains closed for {duration} 🌉'**
   String notificationDurationBoatMessage(
-    Object boat,
-    Object timeLeft,
-    Object duration,
-  );
+      Object boat, Object timeLeft, Object duration);
 
   /// No description provided for @notificationDurationMaintenanceMessage.
   ///
   /// In en, this message translates to:
   /// **'The Chaban Bridge will close in {timeLeft} for maintenance 🛠. It will remains closed for {duration} 🌉'**
   String notificationDurationMaintenanceMessage(
-    Object timeLeft,
-    Object duration,
-  );
+      Object timeLeft, Object duration);
 
   /// No description provided for @notificationDurationChannelName.
   ///
@@ -640,6 +635,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose the days of the week'**
   String get favoriteSlotsChooseDay;
+
+  /// No description provided for @notificationsDisabledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are disabled. Please enable them to receive alerts about bridge closures.'**
+  String get notificationsDisabledMessage;
+
+  /// No description provided for @enableNotificationsButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications'**
+  String get enableNotificationsButton;
 
   /// No description provided for @moonHarborStatus.
   ///
@@ -809,9 +816,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

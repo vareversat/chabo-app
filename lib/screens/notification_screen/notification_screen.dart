@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/scheduler.dart';
+
 import 'package:chabo_app/bloc/notification/notification_bloc.dart';
 import 'package:chabo_app/bloc/time_slots/time_slots_bloc.dart';
 import 'package:chabo_app/cubits/time_format_cubit.dart';
@@ -37,6 +39,53 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
   _NotificationScreenState() : super(screenName: 'notification-screen');
 
   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _checkNotificationsEnabled();
+    });
+  }
+
+  Future<void> _checkNotificationsEnabled() async {
+    if (!mounted) return;
+    final storageService = BlocProvider.of<NotificationBloc>(context).storageService;
+    final hasShown = storageService.sharedPreferences.getBool(Const.notificationPermissionShownKey) ?? false;
+    if (hasShown) return;
+    
+    final notificationService = BlocProvider.of<NotificationBloc>(context)
+        .notificationService;
+    final areEnabled = await notificationService.areNotificationsEnabled();
+    if (!areEnabled && mounted) {
+      await storageService.saveBool(Const.notificationPermissionShownKey, true);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: const Duration(seconds: 10),
+          showCloseIcon: true,
+          backgroundColor: Theme.of(context).colorScheme.errorColor,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  AppLocalizations.of(context)!.notificationsDisabledMessage,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          action: SnackBarAction(
+            label: AppLocalizations.of(context)!.enableNotificationsButton,
+            textColor: Colors.white,
+            onPressed: (() async {
+              await notificationService.requestPermissions();
+            }),
+          ),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChaboAppBar(),
@@ -66,12 +115,10 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             context,
                           ).add(OpeningNotificationStateEvent(enabled: value)),
                       enabled: notificationState.openingNotificationEnabled,
-                      title: AppLocalizations.of(
-                        context,
-                      )!.openingNotificationTitle,
-                      subtitle: AppLocalizations.of(
-                        context,
-                      )!.openingNotificationExplanation,
+                      title: AppLocalizations.of(context)!
+                          .openingNotificationTitle,
+                      subtitle: AppLocalizations.of(context)!
+                          .openingNotificationExplanation,
                       leadingIcon: Icons.check_circle,
                       iconColor: Colors.green,
                       constrainedBySlots:
@@ -83,12 +130,10 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             context,
                           ).add(ClosingNotificationStateEvent(enabled: value)),
                       enabled: notificationState.closingNotificationEnabled,
-                      title: AppLocalizations.of(
-                        context,
-                      )!.closingNotificationTitle,
-                      subtitle: AppLocalizations.of(
-                        context,
-                      )!.closingNotificationExplanation,
+                      title: AppLocalizations.of(context)!
+                          .closingNotificationTitle,
+                      subtitle: AppLocalizations.of(context)!
+                          .closingNotificationExplanation,
                       leadingIcon: Icons.block_rounded,
                       iconColor: Colors.red,
                       constrainedBySlots:
@@ -104,9 +149,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                               .durationToTimeOfDay(),
                           builder: (BuildContext context, Widget? child) {
                             return MediaQuery(
-                              data: MediaQuery.of(
-                                context,
-                              ).copyWith(alwaysUse24HourFormat: true),
+                              data: MediaQuery.of(context)
+                                  .copyWith(alwaysUse24HourFormat: true),
                               child: child!,
                             );
                           },
@@ -115,16 +159,15 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             if (value != null)
                               {
                                 if (context.mounted)
-                                  BlocProvider.of<NotificationBloc>(
-                                    context,
-                                  ).add(
-                                    DurationNotificationValueEvent(
-                                      duration: Duration(
-                                        hours: value.hour,
-                                        minutes: value.minute,
+                                  BlocProvider.of<NotificationBloc>(context)
+                                      .add(
+                                        DurationNotificationValueEvent(
+                                          duration: Duration(
+                                            hours: value.hour,
+                                            minutes: value.minute,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
                               },
                           },
                         );
@@ -169,24 +212,22 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                             if (value != null)
                               {
                                 if (context.mounted)
-                                  BlocProvider.of<NotificationBloc>(
-                                    context,
-                                  ).add(
-                                    TimeNotificationValueEvent(
-                                      time: TimeOfDay(
-                                        hour: value.hour,
-                                        minute: value.minute,
+                                  BlocProvider.of<NotificationBloc>(context)
+                                      .add(
+                                        TimeNotificationValueEvent(
+                                          time: TimeOfDay(
+                                            hour: value.hour,
+                                            minute: value.minute,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
                               },
                           },
                         );
                       },
                       onChanged: (bool value) =>
-                          BlocProvider.of<NotificationBloc>(
-                            context,
-                          ).add(TimeNotificationStateEvent(enabled: value)),
+                          BlocProvider.of<NotificationBloc>(context)
+                              .add(TimeNotificationStateEvent(enabled: value)),
                       enabled: notificationState.timeNotificationEnabled,
                       title: AppLocalizations.of(context)!
                           .timeNotificationTitle(
@@ -242,9 +283,8 @@ class _NotificationScreenState extends CustomWidgetState<NotificationScreen> {
                           ),
                       leadingIcon: Icons.calendar_month_outlined,
                       onChanged: (bool value) =>
-                          BlocProvider.of<NotificationBloc>(
-                            context,
-                          ).add(DayNotificationStateEvent(enabled: value)),
+                          BlocProvider.of<NotificationBloc>(context)
+                              .add(DayNotificationStateEvent(enabled: value)),
                       constrainedBySlots:
                           notificationState.timeSlotsEnabledForNotifications,
                     ),

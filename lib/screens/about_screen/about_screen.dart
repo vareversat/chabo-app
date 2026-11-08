@@ -96,9 +96,9 @@ class AboutScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.surfaceContainer,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceContainer,
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(
                                         CustomProperties.borderRadius,
