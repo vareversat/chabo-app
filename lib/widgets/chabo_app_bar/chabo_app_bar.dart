@@ -54,8 +54,10 @@ class ChaboAppBarState extends State<ChaboAppBar> {
           ),
           widget.displayStatus
               ? Padding(
-                  padding: const EdgeInsets.only(
-                    right: CustomProperties.padding,
+                  padding: EdgeInsets.only(
+                    right: widget.actions != null && widget.actions!.isNotEmpty
+                        ? 4
+                        : CustomProperties.padding,
                   ),
                   child: SmallStatusWidget(),
                 )
